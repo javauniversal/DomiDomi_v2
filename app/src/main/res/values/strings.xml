@@ -1,0 +1,86 @@
+<resources>
+    <string name="app_name">Domi Domi</string>
+
+    <string name="hello_world">Domi Domi</string>
+
+    <string name="url_base">http://192.168.1.51/dashboardd/services/</string>
+
+    <string name="senales">*</string>
+    <string name="email">E-mail</string>
+    <string name="celular">Celular</string>
+    <string name="direccion">Direccion</string>
+    <string name="apellidos_nombres">Nombres y Apellidos</string>
+    <!-- Fin  -->
+
+    <string-array name="tabs">
+        <item>Menu</item>
+        <item>Información</item>
+        <item>Comentario</item>
+    </string-array>
+
+    <string name="title_activity_act_product_add">Agregar Producto</string>
+    <string name="Descripcion">Descripcion</string>
+    <string name="ingredientes">Ingredientes</string>
+    <string name="agregar">Agregar</string>
+    <string name="cantidad">Cantidad</string>
+    <string name="numero">1</string>
+    <string name="title_activity_act_car">Carrito de compras</string>
+    <string name="title_activity_maps">Mapas Restaurante</string>
+    <string name="title_activity_act_finalizar_pedido">Finalizar Pedido</string>
+
+    <string name="action_settings">Salir</string>
+    <string name="action_registrar">Registrarse</string>
+    <string name="title_activity_act_tutorial">Domicilios YA</string>
+    <string name="skip">SKIP</string>
+    <string name="select_images">Seleccione una imagen</string>
+    <string name="welcom_head_01">Spreadsheets on the go</string>
+    <string name="welcom_content_01">Get stuff done with or without an internet connection.</string>
+    <string name="welcom_head_02">Share and edit together</string>
+    <string name="welcom_content_02">Write on your own or invite more people to contribute.</string>
+    <string name="welcom_head_03">Automatically save to the web</string>
+    <string name="welcom_content_03">Never lose your progress, so you can keep working from any computer or device.</string>
+    <string name="welcom_head_04">Edit Excel spreadsheets</string>
+    <string name="welcom_content_04">Open, edit, and save Excel files - all within Sheets.</string>
+    <string name="title_activity_act_principal">Domicilios YA</string>
+    <string name="title">Cerrar la aplicación</string>
+    <string name="content">¿Esta seguro que desea cerrar la aplicación?</string>
+    <string name="agree">Aceptar</string>
+    <string name="disagree">Cancelar</string>
+    <string name="more_info">More Info</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_act_register">Registrar</string>
+    <string name="title_header">Restaurantes para pedir YA</string>
+    <string name="title_footer">Domicilios YA</string>
+    <string name="nombre_empresa">Nombre de la empresa</string>
+    <string name="nit">Nit</string>
+    <string name="informacion">Información</string>
+    <string name="sede_sucursales">Sedes o sucursales</string>
+
+    <string name="titulo_confirmacion_pedido">Atención!</string>
+    <string name="contenido_confirmacion_pedido">Desea seguir agregando más productos o quiere realizar el pedido.</string>
+    <string name="add_producto">Agregar</string>
+    <string name="realizar_pedido">Pedido</string>
+    <!-- Fin Texto comunes -->
+
+    <!-- Menu -->
+    <string name="menu_lista">Lista de restaurante</string>
+    <string name="menu_perfiles">Perfil</string>
+    <string name="menu_ubicacion">Mi ubicacion</string>
+    <string name="menu_carrito">Carro</string>
+    <string name="menu_categoria">Categoria</string>
+    <string name="menu_salir">Salir</string>
+    <string name="drawer_open">Menu Opened</string>
+    <string name="drawer_close">Menu Closed</string>
+    <string name="menu_search">Search</string>
+    <string name="lsta_pedido">Estado de los pedidos</string>
+    <!-- Fin Menu -->
+
+    <!-- Texto de validaciones -->
+    <string name="nombre_requerido">El Nombre es un campo requerido</string>
+    <string name="nombre_apellido">El Apellido es un campo requerido</string>
+    <string name="celular_requerido">El Celular es un campo requerido</string>
+    <string name="direccion_requerida">La Dirección es un campo requerido</string>
+    <string name="email_requerida">La Dirección Email es un campo requerido</string>
+    <string name="dato_true">Su registro fue exitoso.</string>
+    <string name="dato_false">No se pudo guardar su registro.</string>
+</resources>
