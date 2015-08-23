@@ -19,7 +19,7 @@
             android:layout_height="220dp"
             android:id="@+id/displayImagen"
             android:layout_marginTop="25dp"
-            android:src="@drawable/domidimi"
+            android:src="@drawable/proofofdelivery"
             android:contentDescription="@string/informacion"
             android:layout_gravity="center_horizontal" />
 

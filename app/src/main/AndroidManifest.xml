@@ -31,12 +31,18 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".dark.Accounts"></activity>
-        <activity android:name=".mockedActivity.Settings"></activity>
-        <activity android:name=".Activities.ActMenu"></activity>
-        <activity android:name=".Activities.ActProductAdd"></activity>
-        <activity android:name=".Activities.ActCar"></activity>
-        <activity android:name=".Activities.ActFinalizarPedido"></activity>
+        <activity android:name=".dark.Accounts"/>
+
+        <activity android:name=".mockedActivity.Settings"/>
+
+        <activity android:name=".Activities.ActMenu"/>
+
+        <activity android:name=".Activities.ActProductAdd"/>
+
+        <activity android:name=".Activities.ActCar"/>
+
+        <activity android:name=".Activities.ActFinalizarPedido"/>
+
     </application>
 
 </manifest>
