@@ -179,12 +179,12 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
                 break;
 
             case R.id.btnAdd:
-
                 new MaterialDialog.Builder(this)
                         .title(R.string.titulo_confirmacion_pedido)
                         .content(R.string.contenido_confirmacion_pedido)
                         .positiveText(R.string.realizar_pedido)
                         .negativeText(R.string.add_producto)
+                        .backgroundColor(getResources().getColor(R.color.color_gris))
                         .positiveColor(getResources().getColor(R.color.color_negro))
                         .negativeColor(getResources().getColor(R.color.color_negro))
                         .callback(new MaterialDialog.ButtonCallback() {

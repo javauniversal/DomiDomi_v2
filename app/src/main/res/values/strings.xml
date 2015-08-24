@@ -58,8 +58,8 @@
 
     <string name="titulo_confirmacion_pedido">Atención!</string>
     <string name="contenido_confirmacion_pedido">Desea seguir agregando más productos o quiere realizar el pedido.</string>
-    <string name="add_producto">Agregar</string>
-    <string name="realizar_pedido">Pedido</string>
+    <string name="add_producto">Seguir Agregando</string>
+    <string name="realizar_pedido">Realizar Pedido</string>
     <!-- Fin Texto comunes -->
 
     <!-- Menu -->

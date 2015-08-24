@@ -70,7 +70,16 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
     }
+
     /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

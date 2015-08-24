@@ -27,6 +27,8 @@ public class Accounts extends MaterialNavigationDrawer  {
         //this.addSection(newSection("Perfil", new FragmentIndex()));
         this.addSection(newSection("Mi ubicación", new Intent(this, ActMaps.class)));
         this.addSection(newSection("Estado de los pedidos", new FragmentIndex()));
+        this.addSection(newSection("Historial de pedidos", new FragmentIndex()));
+        this.addSection(newSection("Favoritos", new FragmentIndex()));
 
         //this.addSection(newSection("Section 3",R.drawable.ic_mic_white_24dp,new FragmentButton()).setSectionColor(Color.parseColor("#9c27b0")));
         //this.addSection(newSection("Section",R.drawable.ic_hotel_grey600_24dp,new FragmentButton()).setSectionColor(Color.parseColor("#03a9f4")));

@@ -183,6 +183,9 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
                 .content("Esta seguro de eliminar del carrito")
                 .positiveText("Aceptar")
                 .negativeText("Cancelar")
+                .backgroundColor(getResources().getColor(R.color.color_gris))
+                .positiveColor(getResources().getColor(R.color.color_negro))
+                .negativeColor(getResources().getColor(R.color.color_negro))
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
@@ -195,6 +198,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
                             sumarValoresFinales(mAppListPublico);
                         }
                     }
+
                     @Override
                     public void onNegative(MaterialDialog dialog) {
                         //Cancelar
