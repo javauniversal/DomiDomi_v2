@@ -1,15 +1,16 @@
 package com.appgestor.domidomi.mockedFragments;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -22,6 +23,7 @@ import com.appgestor.domidomi.Adapters.ExpandableListDataPump;
 import com.appgestor.domidomi.Entities.CompaniaList;
 import com.appgestor.domidomi.Entities.Companias;
 import com.appgestor.domidomi.Entities.InformacioCompania;
+import com.appgestor.domidomi.Entities.MasterItem2;
 import com.appgestor.domidomi.Entities.MenuList;
 import com.appgestor.domidomi.R;
 import com.google.gson.Gson;
@@ -46,7 +48,7 @@ public class FragMenu extends BaseVolleyFragment {
     private TextView direccion;
     private TextView telefono;
     private TextView celular;
-    private ListView sedes;
+    private TableLayout tabla;
     private InformacioCompania infor;
     private AdapterSedes adapterSedes;
 
@@ -75,9 +77,16 @@ public class FragMenu extends BaseVolleyFragment {
         switch (operador) {
             case 0:
                 rootView = inflater.inflate(R.layout.fragment_menu, container, false);
+                expandableListView = (ExpandableListView) rootView.findViewById(R.id.expandableListView);
                 break;
             case 1:
                 rootView = inflater.inflate(R.layout.fragment_informacion, container, false);
+                nombreEmpresa = (TextView) rootView.findViewById(R.id.txtNombreEmpresa);
+                nit = (TextView) rootView.findViewById(R.id.txtNit);
+                direccion = (TextView) rootView.findViewById(R.id.textDireccion);
+                telefono = (TextView) rootView.findViewById(R.id.txtTelefono);
+                celular = (TextView) rootView.findViewById(R.id.txtCelulat);
+                tabla = (TableLayout) rootView.findViewById(R.id.myTable);
                 break;
             case 2:
                 rootView = inflater.inflate(R.layout.fragment_comentarios, container, false);
@@ -89,17 +98,13 @@ public class FragMenu extends BaseVolleyFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         switch (operador) {
             case 0:
-                expandableListView = (ExpandableListView) getView().findViewById(R.id.expandableListView);
+
                 break;
             case 1:
-                nombreEmpresa = (TextView) getView().findViewById(R.id.txtNombreEmpresa);
-                nit = (TextView) getView().findViewById(R.id.txtNit);
-                direccion = (TextView) getView().findViewById(R.id.textDireccion);
-                telefono = (TextView) getView().findViewById(R.id.txtTelefono);
-                celular = (TextView) getView().findViewById(R.id.txtCelulat);
-                sedes = (ListView) getView().findViewById(R.id.listSede);
+
                 break;
             case 2:
                 break;
@@ -151,8 +156,11 @@ public class FragMenu extends BaseVolleyFragment {
                                 celular.setText(String.format("Cel: %1$s", infor.getCelular()));
 
                                 if(infor.getHijos() != null){
-                                    adapterSedes = new AdapterSedes(getActivity(), infor.getHijos());
-                                    sedes.setAdapter(adapterSedes);
+
+                                    setAdapterSedes(infor.getHijos());
+
+                                    //adapterSedes = new AdapterSedes(getActivity(), infor.getHijos());
+                                    //sedes.setAdapter(adapterSedes);
                                 }
                             }
                         }.execute();
@@ -174,6 +182,25 @@ public class FragMenu extends BaseVolleyFragment {
             }
         };
         addToQueue(jsonRequest);
+    }
+
+    public void setAdapterSedes(ArrayList<MasterItem2> hijos){
+
+        for (int i = 0; i < hijos.size(); i++){
+            TableRow currentRow = new TableRow(getContext());
+            TableLayout.LayoutParams params = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
+
+            TextView currentText = new TextView(getContext());
+            currentText.setText(hijos.get(i).getDescripcion());
+            currentText.setTextSize(11);
+            currentText.setTextColor(Color.BLACK);
+
+            currentRow.setLayoutParams(params);
+            currentRow.addView(currentText);
+
+            tabla.addView(currentRow);
+        }
+
     }
 
     private void setExpandableListView() {
@@ -256,7 +283,6 @@ public class FragMenu extends BaseVolleyFragment {
         };
         addToQueue(jsonRequest);
     }
-
 
     private void parseJSON(String json) {
         if (json != null && json.length() > 0) {

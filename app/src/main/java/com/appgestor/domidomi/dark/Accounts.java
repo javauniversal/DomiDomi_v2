@@ -3,11 +3,12 @@ package com.appgestor.domidomi.dark;
 import android.content.Intent;
 import android.os.Bundle;
 
-
+import com.appgestor.domidomi.ActMaps;
 import com.appgestor.domidomi.R;
 import com.appgestor.domidomi.mockedActivity.Settings;
 import com.appgestor.domidomi.mockedFragments.FragListCompania;
 import com.appgestor.domidomi.mockedFragments.FragmentIndex;
+
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
 
 
@@ -23,8 +24,8 @@ public class Accounts extends MaterialNavigationDrawer  {
 
         // create sections
         this.addSection(newSection("Lista de restaurante", new FragListCompania()));
-        this.addSection(newSection("Perfil", new FragmentIndex()));
-        this.addSection(newSection("Mi ubicación", new FragmentIndex()));
+        //this.addSection(newSection("Perfil", new FragmentIndex()));
+        this.addSection(newSection("Mi ubicación", new Intent(this, ActMaps.class)));
         this.addSection(newSection("Estado de los pedidos", new FragmentIndex()));
 
         //this.addSection(newSection("Section 3",R.drawable.ic_mic_white_24dp,new FragmentButton()).setSectionColor(Color.parseColor("#9c27b0")));
@@ -32,6 +33,7 @@ public class Accounts extends MaterialNavigationDrawer  {
 
         // create bottom section
         this.addBottomSection(newSection("Botón Salir",R.mipmap.ic_settings_black_24dp,new Intent(this,Settings.class)));
+
     }
 
 

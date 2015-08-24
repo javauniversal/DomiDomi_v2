@@ -24,4 +24,5 @@
 
     <dimen name="margin_informacioin">10dp</dimen>
     <dimen name="margen_izquierdo">12dp</dimen>
+    <dimen name="radio">9dp</dimen>
 </resources>

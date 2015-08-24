@@ -63,6 +63,10 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
         editdirreferen = (EditText)findViewById(R.id.editdirreferen);
         textLongitud = (EditText)findViewById(R.id.textLongitud);
         textLatitud = (EditText)findViewById(R.id.textLatitud);
+        textLongitud.setHintTextColor(getResources().getColor(R.color.color_negro));
+        textLongitud.setTextColor(getResources().getColor(R.color.color_negro));
+        textLatitud.setHintTextColor(getResources().getColor(R.color.color_negro));
+        textLatitud.setTextColor(getResources().getColor(R.color.color_negro));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
