@@ -36,6 +36,17 @@ public class PedidoWebCabeza {
     @SerializedName("productos")
     private List<AddProductCar> producto;
 
+    @SerializedName("imeiPhone")
+    private String imeiPhone;
+
+    public String getImeiPhone() {
+        return imeiPhone;
+    }
+
+    public void setImeiPhone(String imeiPhone) {
+        this.imeiPhone = imeiPhone;
+    }
+
     public int getIdCompany() { return idCompany; }
 
     public void setIdCompany(int idCompany) { this.idCompany = idCompany; }
