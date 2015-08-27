@@ -7,10 +7,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -51,6 +54,8 @@ public class FragMenu extends BaseVolleyFragment {
     private TableLayout tabla;
     private InformacioCompania infor;
     private AdapterSedes adapterSedes;
+    private Button enviarComentario;
+    private EditText mensaje;
 
     public static FragMenu newInstance(Bundle param1) {
         FragMenu fragment = new FragMenu();
@@ -90,6 +95,8 @@ public class FragMenu extends BaseVolleyFragment {
                 break;
             case 2:
                 rootView = inflater.inflate(R.layout.fragment_comentarios, container, false);
+                enviarComentario = (Button) rootView.findViewById(R.id.enviarComentario);
+                mensaje = (EditText) rootView.findViewById(R.id.editMensaje);
                 break;
         }
         return rootView;
@@ -123,8 +130,43 @@ public class FragMenu extends BaseVolleyFragment {
                 cargaInformacionE();
                 break;
             case 2:
+                enviarComentario.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        enviarMensaje();
+                    }
+                });
                 break;
         }
+    }
+
+    private void enviarMensaje() {
+        String url = String.format("%1$s%2$s", getString(R.string.url_base),"comentario");
+        StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>(){
+                    @Override
+                    public void onResponse(final String response) {
+                        Toast.makeText(getActivity(), response, Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        onConnectionFailed(error.toString());
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams(){
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("comentario", mensaje.getText().toString());
+                params.put("compania", String.valueOf(Companias.getCodigoS()));
+
+                return params;
+            }
+        };
+        addToQueue(jsonRequest);
     }
 
     private void cargaInformacionE(){

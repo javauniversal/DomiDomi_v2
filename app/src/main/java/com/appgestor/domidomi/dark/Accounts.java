@@ -7,6 +7,7 @@ import com.appgestor.domidomi.ActMaps;
 import com.appgestor.domidomi.R;
 import com.appgestor.domidomi.mockedActivity.Settings;
 import com.appgestor.domidomi.mockedFragments.FragListCompania;
+import com.appgestor.domidomi.mockedFragments.FragmentEstadoPedido;
 import com.appgestor.domidomi.mockedFragments.FragmentIndex;
 
 import it.neokree.materialnavigationdrawer.MaterialNavigationDrawer;
@@ -26,7 +27,7 @@ public class Accounts extends MaterialNavigationDrawer  {
         this.addSection(newSection("Lista de restaurante", new FragListCompania()));
         //this.addSection(newSection("Perfil", new FragmentIndex()));
         this.addSection(newSection("Mi ubicación", new Intent(this, ActMaps.class)));
-        this.addSection(newSection("Estado de los pedidos", new FragmentIndex()));
+        this.addSection(newSection("Estado de los pedidos", new FragmentEstadoPedido()));
         this.addSection(newSection("Historial de pedidos", new FragmentIndex()));
         this.addSection(newSection("Favoritos", new FragmentIndex()));
 

@@ -1,8 +1,10 @@
 package com.appgestor.domidomi.Activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -80,23 +82,6 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
 
     }
 
-    /*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_finalizar_pedido, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -155,6 +140,9 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
             protected Map<String, String> getParams() throws AuthFailureError{
                 Map<String, String> params = new HashMap<>();
 
+                TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+
+
                 objeto.setNombreUsuairo(nombre.getText().toString());
                 objeto.setIdCompany(Companias.getCodigoS());
                 objeto.setDireccionp(editdir.getText().toString());
@@ -162,8 +150,10 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                 objeto.setDireccionReferen(editdirreferen.getText().toString());
                 objeto.setLatitud(Double.valueOf(textLatitud.getText().toString()));
                 objeto.setLongitud(Double.valueOf(textLongitud.getText().toString()));
+                objeto.setImeiPhone(telephonyManager.getDeviceId());
 
                 List<AddProductCar> mAppList = mydb.getProductCar(Companias.getCodigoS());
+
                 objeto.setProducto(mAppList);
                 params.put("pedido", new Gson().toJson(objeto, PedidoWebCabeza.class));
 
