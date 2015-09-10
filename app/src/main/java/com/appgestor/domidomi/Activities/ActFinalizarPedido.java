@@ -155,6 +155,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                 List<AddProductCar> mAppList = mydb.getProductCar(Companias.getCodigoS());
 
                 objeto.setProducto(mAppList);
+
                 params.put("pedido", new Gson().toJson(objeto, PedidoWebCabeza.class));
 
                 //Implementacion de guardar en la base de datos local.
