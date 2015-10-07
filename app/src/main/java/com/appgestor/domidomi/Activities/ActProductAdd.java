@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,18 +29,21 @@ import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 
 import java.text.DecimalFormat;
 
+import me.himanshusoni.quantityview.QuantityView;
+
 public class ActProductAdd extends AppCompatActivity implements View.OnClickListener{
 
     private ImageLoader imageLoader1;
     private DisplayImageOptions options1;
     private ImageView displayImagen;
     private Bundle bundle;
-    private TextView cantidad;
+    private QuantityView cantidad;
     private TextView preciodec;
     private TextView totalFinal;
     private DecimalFormat format;
     private DBHelper mydb;
     private EditText myComment;
+    private ProgressBar progressBar2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,15 +64,14 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
         TextView descripcion = (TextView) findViewById(R.id.descripcion);
         TextView ingredientes = (TextView) findViewById(R.id.ingredientes);
         TextView precio = (TextView) findViewById(R.id.precio);
-        cantidad = (TextView) findViewById(R.id.cantidad);
+        progressBar2 = (ProgressBar) findViewById(R.id.progressBar2);
+
+        cantidad = (QuantityView) findViewById(R.id.quantityView_default);
+
         preciodec = (TextView) findViewById(R.id.preciodesc);
         totalFinal = (TextView) findViewById(R.id.totalFinal);
         myComment = (EditText) findViewById(R.id.EditComment);
 
-        ImageButton imgBleft = (ImageButton)findViewById(R.id.imgBleft);
-        imgBleft.setOnClickListener(this);
-        ImageButton imgBright = (ImageButton)findViewById(R.id.imgBright);
-        imgBright.setOnClickListener(this);
         Button btnAdd = (Button) findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(this);
 
@@ -79,6 +82,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
             ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
             imageLoader1 = ImageLoader.getInstance();
             imageLoader1.init(config);
+
             //Setup options for ImageLoader so it will handle caching for us.
             options1 = new DisplayImageOptions.Builder().cacheInMemory().cacheOnDisc().build();
 
@@ -103,24 +107,26 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
             @Override
             public void onLoadingStarted(String arg0, View arg1) {
                 // TODO Auto-generated method stub
+                progressBar2.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onLoadingCancelled(String arg0, View arg1) {
                 // TODO Auto-generated method stub
+                progressBar2.setVisibility(View.GONE);
             }
 
             @Override
             public void onLoadingComplete(String arg0, View arg1, Bitmap arg2) {
-                //holder.image.setVisibility(View.VISIBLE);
+                progressBar2.setVisibility(View.GONE);
             }
             @Override
             public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
-                // TODO Auto-generated method stub
+                progressBar2.setVisibility(View.GONE);
             }
         };
 
-        imageLoader1.displayImage(bundle.getString("foto"), displayImagen, options1 , listener);
+        imageLoader1.displayImage(bundle.getString("foto"), displayImagen, options1, listener);
     }
 
     @Override
@@ -133,7 +139,6 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
@@ -152,62 +157,40 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.imgBleft:
-
-                if(Integer.parseInt(cantidad.getText().toString()) <= 1)
-                    cantidad.setText("30");
-                else {
-                    cantidad.setText(String.valueOf(Integer.parseInt(cantidad.getText().toString()) - 1));
-                    preciodec.setText(String.format("Precio: %s", String.valueOf(bundle.getDouble("precio") * Integer.parseInt(cantidad.getText().toString()))));
-
-                    double subValor = (bundle.getDouble("precio") * Integer.parseInt(cantidad.getText().toString())); // + 2500;
-                    totalFinal.setText(subValor+"");
-                }
-                break;
-
-            case R.id.imgBright:
-
-                if(Integer.parseInt(cantidad.getText().toString()) >= 30)
-                    cantidad.setText("1");
-                else {
-                    cantidad.setText(String.valueOf(Integer.parseInt(cantidad.getText().toString()) + 1));
-                    preciodec.setText(String.format("Precio: %s", format.format(bundle.getDouble("precio") * Integer.parseInt(cantidad.getText().toString()))));
-
-                    double subValor = (bundle.getDouble("precio") * Integer.parseInt(cantidad.getText().toString())); // + 2500;
-                    totalFinal.setText(subValor+"");
-                }
-                break;
-
             case R.id.btnAdd:
-                new MaterialDialog.Builder(this)
-                        .title(R.string.titulo_confirmacion_pedido)
-                        .content(R.string.contenido_confirmacion_pedido)
-                        .positiveText(R.string.realizar_pedido)
-                        .negativeText(R.string.add_producto)
-                        .backgroundColor(getResources().getColor(R.color.color_gris))
-                        .positiveColor(getResources().getColor(R.color.color_negro))
-                        .negativeColor(getResources().getColor(R.color.color_negro))
-                        .callback(new MaterialDialog.ButtonCallback() {
-                            @Override
-                            public void onPositive(MaterialDialog dialog) {
-                                //Realizar pedido
-                                if (GuardarPedido()) {
-                                    Bundle bundle = new Bundle();
-                                    bundle.putInt("compania", Companias.getCodigoS());
-                                    startActivity(new Intent(ActProductAdd.this, ActCar.class).putExtras(bundle));
-                                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                                    finish();
-                                }
-                            }
 
-                            @Override
-                            public void onNegative(MaterialDialog dialog) {
-                                //Agregar mas productos
-                                if (GuardarPedido()) {
-                                    finish();
+                if(cantidad.getQuantity() < 1){
+                    Toast.makeText(this, "La cantidad debe ser mayor a 0", Toast.LENGTH_LONG).show();
+                }else {
+                    new MaterialDialog.Builder(this)
+                            .title(R.string.titulo_confirmacion_pedido)
+                            .content(R.string.contenido_confirmacion_pedido)
+                            .positiveText(R.string.realizar_pedido)
+                            .negativeText(R.string.add_producto)
+                            .backgroundColor(getResources().getColor(R.color.color_gris))
+                            .positiveColor(getResources().getColor(R.color.color_negro))
+                            .negativeColor(getResources().getColor(R.color.color_negro))
+                            .callback(new MaterialDialog.ButtonCallback() {
+                                @Override
+                                public void onPositive(MaterialDialog dialog) {
+                                    //Realizar pedido
+                                    if (GuardarPedido()) {
+                                        Bundle bundle = new Bundle();
+                                        bundle.putInt("compania", Companias.getCodigoS());
+                                        startActivity(new Intent(ActProductAdd.this, ActCar.class).putExtras(bundle));
+                                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                                        finish();
+                                    }
                                 }
-                            }
-                        }).show();
+                                @Override
+                                public void onNegative(MaterialDialog dialog) {
+                                    //Agregar mas productos
+                                    if (GuardarPedido()) {
+                                        finish();
+                                    }
+                                }
+                            }).show();
+                }
 
                 break;
         }
@@ -217,9 +200,8 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
         AddProductCar car = new AddProductCar();
         car.setCodeProcut(bundle.getInt("codeproduct"));
         car.setNameProduct(bundle.getString("descripcion"));
-        car.setQuantity(Integer.parseInt(cantidad.getText().toString()));
+        car.setQuantity(cantidad.getQuantity());
         car.setValueunitary(bundle.getDouble("precio"));
-
         Double temp = Double.valueOf(totalFinal.getText().toString());
 
         car.setValueoverall(temp);

@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/listView2"
             android:layout_gravity="center_horizontal|top" />
+
     </FrameLayout>
 
     <LinearLayout

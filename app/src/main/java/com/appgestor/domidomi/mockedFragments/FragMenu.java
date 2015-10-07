@@ -146,7 +146,8 @@ public class FragMenu extends BaseVolleyFragment {
                 new Response.Listener<String>(){
                     @Override
                     public void onResponse(final String response) {
-                        Toast.makeText(getActivity(), response, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity(), response, Toast.LENGTH_LONG).show();
+
                     }
                 },
                 new Response.ErrorListener(){

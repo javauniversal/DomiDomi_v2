@@ -15,7 +15,6 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:id="@+id/listicon"
-            android:src="@mipmap/ic_launcher"
             android:layout_gravity="right"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
@@ -56,6 +55,19 @@
                 android:rating="3" />
 
         </LinearLayout>
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:visibility="gone"
+            android:layout_marginLeft="21dp"
+            android:layout_marginStart="21dp" />
+
 
     </RelativeLayout>
 

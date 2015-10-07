@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.appgestor.domidomi.Entities.Companias;
@@ -64,26 +65,33 @@ public class AdapterCompania extends BaseAdapter {
             convertView = View.inflate(actx, R.layout.list_giditem_compania, null);
             new ViewHolder(convertView);
         }
-        ViewHolder holder = (ViewHolder) convertView.getTag();
+        final ViewHolder holder = (ViewHolder) convertView.getTag();
 
         ImageLoadingListener listener = new ImageLoadingListener(){
             @Override
             public void onLoadingStarted(String arg0, View arg1) {
                 // TODO Auto-generated method stub
+                //Inicia metodo
+                holder.progressBar.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onLoadingCancelled(String arg0, View arg1) {
                 // TODO Auto-generated method stub
+                //Cancelar
+                holder.progressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void onLoadingComplete(String arg0, View arg1, Bitmap arg2) {
-
+                //Completado
+                holder.progressBar.setVisibility(View.GONE);
             }
             @Override
             public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
                 // TODO Auto-generated method stub
+                //Error al cargar la imagen.
+                holder.progressBar.setVisibility(View.GONE);
             }
         };
 
@@ -99,11 +107,13 @@ public class AdapterCompania extends BaseAdapter {
         public TextView name = null;
         public TextView categoria = null;
         public ImageView image = null;
+        public ProgressBar progressBar;
 
         public ViewHolder(View view) {
             name = (TextView) view.findViewById(R.id.txtNombreCompania);
             categoria = (TextView) view.findViewById(R.id.txtCategoria);
             image = (ImageView) view.findViewById(R.id.listicon);
+            progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
             view.setTag(this);
         }
     }

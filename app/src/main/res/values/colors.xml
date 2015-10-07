@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="color_1">#3e699c</color>
+    <color name="color_1">#FF5722</color>
     <color name="color_2">#E57373</color>
     <color name="transparent_holo_light_blue">#4433b5e5</color>
     <color name="actionBarColor">#3e699c</color>
