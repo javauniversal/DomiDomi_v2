@@ -9,6 +9,13 @@
         <item name="android:divider">@android:color/transparent</item>
     </style>
 
+    <style name="Custom" parent="android:Theme.DeviceDefault.Dialog">
+        <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
+        <item name="DialogTitleText">Cargando...</item>
+        <item name="DialogSpotColor">@android:color/holo_orange_dark</item>
+        <item name="DialogSpotCount">4</item>
+    </style>
+
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/color_1</item>
         <item name="colorPrimaryDark">@color/color_1</item>
@@ -151,86 +158,13 @@
         <item name="rippleBackport">true</item>
     </style>
 
-    <!-- Multipane Support for tablets -->
-    <style name="MultiPane" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar" >
-        <item name="colorPrimary">#8bc34a</item>
-        <item name="colorPrimaryDark">#558b2f</item>
-        <item name="colorAccent">#FFFFFF</item>
-        <item name="multipaneSupport">true</item>
-    </style>
 
-    <!-- custom section under account list -->
-    <style name="CustomAccountSection" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar">
-        <item name="colorPrimary">#8bc34a</item>
-        <item name="colorPrimaryDark">#558b2f</item>
-        <item name="colorAccent">#FFFFFF</item>
-    </style>
 
-    <!-- Kitkat Traslucent Status bar -->
-    <style name="KitkatStatusBar" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar.TranslucentKitKatStatusBar">
-        <item name="colorPrimary">#8bc34a</item>
-        <item name="colorPrimaryDark">#558b2f</item>
-        <item name="colorAccent">#FFFFFF</item>
-    </style>
 
-    <!-- Master / Child Example -->
-    <style name="MasterChild" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar">
-        <item name="colorPrimary">#8bc34a</item>
-        <item name="colorPrimaryDark">#558b2f</item>
-        <item name="colorAccent">#FFFFFF</item>
-        <item name="drawerType">@integer/DRAWERTYPE_IMAGE</item>
-    </style>
 
-    <!-- Real Color Sections -->
-    <style name="RealColorSections" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar" >
-        <item name="colorPrimary">#8bc34a</item>
-        <item name="colorPrimaryDark">#558b2f</item>
-        <item name="colorAccent">#FFFFFF</item>
-        <item name="drawerType">@integer/DRAWERTYPE_NO_HEADER</item>
-    </style>
 
-    <!-- Default Section Loaded -->
-    <style name="DefaultSectionLoaded" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar" >
-        <item name="colorPrimary">#8bc34a</item>
-        <item name="colorPrimaryDark">#558b2f</item>
-        <item name="colorAccent">#FFFFFF</item>
-        <item name="drawerType">@integer/DRAWERTYPE_NO_HEADER</item>
-        <item name="defaultSectionLoaded">3</item>
-    </style>
 
-    <!-- Default Section Loaded -->
-    <style name="ActionBarShadow" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar" >
-        <item name="colorPrimary">#8bc34a</item>
-        <item name="colorPrimaryDark">#558b2f</item>
-        <item name="colorAccent">#FFFFFF</item>
-        <item name="drawerType">@integer/DRAWERTYPE_NO_HEADER</item>
-        <item name="toolbarElevation">true</item>
-    </style>
 
-    <!-- Learning Pattern Disabled -->
-    <style name="LearningPatternDisabled" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar" >
-        <item name="colorPrimary">#8bc34a</item>
-        <item name="colorPrimaryDark">#558b2f</item>
-        <item name="colorAccent">#FFFFFF</item>
-        <item name="drawerType">@integer/DRAWERTYPE_NO_HEADER</item>
-        <item name="learningPattern">false</item>
-    </style>
-
-    <!-- Back Pattern -->
-    <style name="BackPattern" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar" >
-        <item name="colorPrimary">#8bc34a</item>
-        <item name="colorPrimaryDark">#558b2f</item>
-        <item name="colorAccent">#FFFFFF</item>
-        <item name="drawerType">@integer/DRAWERTYPE_NO_HEADER</item>
-    </style>
-
-    <!-- Test Theme -->
-    <style name="TestTheme" parent="MaterialNavigationDrawerTheme.Light">
-        <item name="colorPrimary">#8bc34a</item>
-        <item name="colorPrimaryDark">#558b2f</item>
-        <item name="colorAccent">#FFFFFF</item>
-        <item name="multipaneSupport">true</item>
-    </style>
 
 
 </resources>

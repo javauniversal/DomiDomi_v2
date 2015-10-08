@@ -5,69 +5,89 @@
     android:padding="9dp"
     android:layout_height="match_parent">
 
-
-    <LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_height="wrap_content">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Large Text"
-            android:textStyle="bold"
-            android:textColor="@color/color_negro"
-            android:id="@+id/txtEmpresa" />
+            android:orientation="vertical"
+            android:padding="9dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Large Text"
-            android:textStyle="bold"
-            android:textColor="@color/color_negro"
-            android:id="@+id/txtDireccion" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Large Text"
-            android:textStyle="bold"
-            android:textColor="@color/color_negro"
-            android:id="@+id/txtFecha" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Large Text"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_negro"
+                    android:id="@+id/txtEmpresa" />
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Large Text"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_negro"
+                    android:id="@+id/txtDireccion" />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Large Text"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_negro"
+                    android:id="@+id/txtFecha" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Large Text"
-            android:textStyle="bold"
-            android:textColor="@color/color_negro"
-            android:id="@+id/txtCantidad" />
+            </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Large Text"
-            android:textStyle="bold"
-            android:textColor="@color/color_negro"
-            android:id="@+id/txtValor" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Large Text"
-            android:textStyle="bold"
-            android:textColor="@color/color_negro"
-            android:id="@+id/txtEstado" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Large Text"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_negro"
+                    android:id="@+id/txtCantidad" />
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Large Text"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_negro"
+                    android:id="@+id/txtValor" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Large Text"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_negro"
+                    android:id="@+id/txtEstado" />
+
+            </LinearLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancelar Pedido"
+                android:id="@+id/button"
+                android:layout_gravity="right" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </LinearLayout>

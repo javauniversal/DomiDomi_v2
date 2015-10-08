@@ -13,22 +13,24 @@ import android.widget.ExpandableListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.appgestor.domidomi.Activities.ActProductAdd;
+import com.appgestor.domidomi.Adapters.AdapterComentario;
 import com.appgestor.domidomi.Adapters.AdapterSedes;
 import com.appgestor.domidomi.Adapters.ExpandableListAdapter;
 import com.appgestor.domidomi.Adapters.ExpandableListDataPump;
 import com.appgestor.domidomi.Entities.CompaniaList;
 import com.appgestor.domidomi.Entities.Companias;
 import com.appgestor.domidomi.Entities.InformacioCompania;
+import com.appgestor.domidomi.Entities.ListComentarios;
 import com.appgestor.domidomi.Entities.MasterItem2;
 import com.appgestor.domidomi.Entities.MenuList;
 import com.appgestor.domidomi.R;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -56,6 +58,7 @@ public class FragMenu extends BaseVolleyFragment {
     private AdapterSedes adapterSedes;
     private Button enviarComentario;
     private EditText mensaje;
+    private SwipeMenuListView listView;
 
     public static FragMenu newInstance(Bundle param1) {
         FragMenu fragment = new FragMenu();
@@ -97,6 +100,7 @@ public class FragMenu extends BaseVolleyFragment {
                 rootView = inflater.inflate(R.layout.fragment_comentarios, container, false);
                 enviarComentario = (Button) rootView.findViewById(R.id.enviarComentario);
                 mensaje = (EditText) rootView.findViewById(R.id.editMensaje);
+                listView = (SwipeMenuListView) rootView.findViewById(R.id.listView);
                 break;
         }
         return rootView;
@@ -130,6 +134,7 @@ public class FragMenu extends BaseVolleyFragment {
                 cargaInformacionE();
                 break;
             case 2:
+                recuperarMensaje();
                 enviarComentario.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -145,9 +150,8 @@ public class FragMenu extends BaseVolleyFragment {
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>(){
                     @Override
-                    public void onResponse(final String response) {
-                        //Toast.makeText(getActivity(), response, Toast.LENGTH_LONG).show();
-
+                    public void onResponse(String response) {
+                        parseJSONComent(response);
                     }
                 },
                 new Response.ErrorListener(){
@@ -169,6 +173,37 @@ public class FragMenu extends BaseVolleyFragment {
         };
         addToQueue(jsonRequest);
     }
+
+
+    private void recuperarMensaje() {
+        String url = String.format("%1$s%2$s", getString(R.string.url_base),"getComentarios");
+        StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>(){
+                    @Override
+                    public void onResponse(String response) {
+                        parseJSONComent(response);
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        onConnectionFailed(error.toString());
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams(){
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("compania", String.valueOf(Companias.getCodigoS()));
+
+                return params;
+            }
+        };
+        addToQueue(jsonRequest);
+    }
+
+
 
     private void cargaInformacionE(){
         String url = String.format("%1$s%2$s", getString(R.string.url_base),"getInformation");
@@ -358,6 +393,23 @@ public class FragMenu extends BaseVolleyFragment {
                 ex.printStackTrace();
             }
         }
+
+    }
+
+    private boolean parseJSONComent(String json) {
+
+        try {
+            Gson gson = new Gson();
+            ListComentarios comentarios = gson.fromJson(json, ListComentarios.class);
+            AdapterComentario adapter = new AdapterComentario(getActivity(), comentarios);
+            listView.setAdapter(adapter);
+            mensaje.setText("");
+            return true;
+        }catch (IllegalStateException ex) {
+            ex.printStackTrace();
+        }
+
+        return false;
 
     }
 

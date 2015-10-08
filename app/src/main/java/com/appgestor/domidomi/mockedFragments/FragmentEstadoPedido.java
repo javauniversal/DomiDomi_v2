@@ -1,6 +1,7 @@
 package com.appgestor.domidomi.mockedFragments;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
@@ -21,11 +22,15 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.Map;
 
+import dmax.dialog.SpotsDialog;
+
 
 public class FragmentEstadoPedido extends BaseVolleyFragment {
 
     private SwipeMenuListView listView;
     private ListPedidoEstado pedidos;
+
+
 
     public FragmentEstadoPedido() { }
 
@@ -51,6 +56,10 @@ public class FragmentEstadoPedido extends BaseVolleyFragment {
     }
 
     public void getEstadoPedido(){
+
+        final AlertDialog alertDialog = new SpotsDialog(getActivity(), R.style.Custom);
+        alertDialog.show();
+
         String url = String.format("%1$s%2$s", getString(R.string.url_base),"estadoPedido");
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>(){
@@ -60,7 +69,7 @@ public class FragmentEstadoPedido extends BaseVolleyFragment {
 
                         AdapterEstadoPedido adapter = new AdapterEstadoPedido(getActivity(), pedidos);
                         listView.setAdapter(adapter);
-
+                        alertDialog.dismiss();
                     }
                 },
                 new Response.ErrorListener(){
@@ -68,6 +77,7 @@ public class FragmentEstadoPedido extends BaseVolleyFragment {
                     public void onErrorResponse(VolleyError error) {
                         // error
                         onConnectionFailed(error.toString());
+                        alertDialog.dismiss();
                     }
                 }
         ) {

@@ -1,6 +1,7 @@
 package com.appgestor.domidomi.Activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -24,6 +25,7 @@ import com.appgestor.domidomi.Entities.Companias;
 import com.appgestor.domidomi.Entities.PedidoWebCabeza;
 import com.appgestor.domidomi.R;
 import com.appgestor.domidomi.Services.MyService;
+import com.appgestor.domidomi.dark.Accounts;
 import com.google.gson.Gson;
 
 import java.util.HashMap;
@@ -124,7 +126,18 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                     @Override
                     public void onResponse(String response) {
                         // response
-                        Toast.makeText(ActFinalizarPedido.this, response, Toast.LENGTH_LONG).show();
+
+                        if(mydb.DeleteProductAll(Companias.getCodigoS())){
+
+                            Toast.makeText(ActFinalizarPedido.this, response, Toast.LENGTH_LONG).show();
+
+                            startActivity(new Intent(ActFinalizarPedido.this, Accounts.class));
+                            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                            finish();
+
+                        }else{
+                            Toast.makeText(ActFinalizarPedido.this, "Problemas con el pedido.", Toast.LENGTH_LONG).show();
+                        }
                     }
                 },
                 new Response.ErrorListener(){
@@ -141,7 +154,6 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                 Map<String, String> params = new HashMap<>();
 
                 TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-
 
                 objeto.setNombreUsuairo(nombre.getText().toString());
                 objeto.setIdCompany(Companias.getCodigoS());

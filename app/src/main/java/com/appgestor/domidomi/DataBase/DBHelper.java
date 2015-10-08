@@ -230,144 +230,18 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public boolean DeleteProduct(int id, int idCompany){
         SQLiteDatabase db = this.getWritableDatabase();
-        int p = db.delete("carrito", "id = ? AND idcompany = ? ", new String[] {String.valueOf(id), String.valueOf(idCompany)});
+        int p = db.delete("carrito", "id = ? AND idcompany = ? ", new String[]{String.valueOf(id), String.valueOf(idCompany)});
         db.close();
         return p > 0;
     }
 
-    /*
-    public Cursor getEstudiantesSp() {
+    public boolean DeleteProductAll(int idCompany){
         SQLiteDatabase db = this.getWritableDatabase();
-        String sql = "SELECT id AS _id, nombre FROM estudiantes";
-        Cursor cursor = db.rawQuery(sql, null);
-
-        return cursor;
-    }
-
-    public Cursor getMateriasSp(int id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String sql = "SELECT materias.id AS _id, materias.nombre AS nombre FROM materias WHERE materias.id NOT IN (SELECT idMateria FROM movimiento WHERE idEstuden = "+id+" )";
-        Cursor cursor = db.rawQuery(sql, null);
-        return cursor;
-    }
-
-    public boolean insetMovimiento(EntityMovimiento data){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put("idEstuden", data.getIdEstudiante());
-        values.put("jornada", data.getJornada());
-        values.put("facultad", data.getFacultad());
-        values.put("semestre", data.getSemestre());
-        values.put("idMateria", data.getIdMateria());
-
-        db.insert("movimiento", null, values);
-        Log.d("Movimiento", data.toString());
+        int p = db.delete("carrito", "idcompany = ? ", new String[] {String.valueOf(idCompany)});
         db.close();
-        return true;
+        return p > 0;
     }
 
-    public void insertMaterias(EntityMateria data){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put("id", data.getIdMateria());
-        values.put("nombre", data.getDescripcion());
-        values.put("estado", data.getEstado());
-
-        db.insert("materias", null, values);
-        Log.d("materias", data.toString());
-        db.close();
-    }
-
-    public ArrayList<EntityMateria> getMaterias() {
-        ArrayList<EntityMateria> materias = new ArrayList<EntityMateria>();
-
-        String sql = "SELECT * FROM materias";
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(sql, null);
-        EntityMateria materia = null;
-        if (cursor.moveToFirst()) {
-            do {
-                materia = new EntityMateria();
-                materia.setIdMateria(Integer.parseInt(cursor.getString(0)));
-                materia.setDescripcion(cursor.getString(1));
-                materia.setEstado(Integer.parseInt(cursor.getString(2)));
-                materias.add(materia);
-            } while(cursor.moveToNext());
-        }
-        return materias;
-    }
-
-    public boolean validarExistencia(int id, String tabla){
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor;
-        boolean indicador = false;
-        if(tabla == "estudiante"){
-            String columns[] = {"id", "cedula", "nombre", "apellido", "correo", "telefono", "edad", "estado", "sexo"};
-            cursor = db.query("estudiantes", columns, "id = ?", new String[] {String.valueOf(id)}, null, null, null, null);
-            if (cursor.getCount() <= 0){
-                indicador = true;
-            }
-        }else if(tabla == "materias"){
-
-            String columns[] = {"id", "nombre", "estado"};
-            cursor = db.query("materias", columns, "id = ?", new String[] {String.valueOf(id)}, null, null, null, null);
-            if (cursor.getCount() <= 0){
-                indicador = true;
-            }
-        }
-        return indicador;
-    }
-
-    public boolean eliminarMateria(int id){
-        SQLiteDatabase db = this.getWritableDatabase();
-        int p = db.delete("materias", "id = ?", new String[] {String.valueOf(id)});
-        db.close();
-        if(p <= 0){
-            return false;
-        }
-        return true;
-    }
-
-    public boolean updateEstudiante(EntityEstudiante data){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put("nombre", data.getNombre());
-        values.put("apellido", data.getApellido());
-        values.put("correo", data.getCorreo());
-        values.put("telefono", data.getTelefono());
-        values.put("edad", data.getEdad());
-
-        try {
-            db.update("estudiantes", values, "id = ?", new String[] {String.valueOf(data.getCodigo())});
-            db.close();
-        }catch (SQLiteConstraintException e){
-            Log.d("data", "failure to update word,", e);
-            return false;
-        }
-
-        return true;
-    }
-
-    public boolean updateMateria(EntityMateria data){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put("nombre", data.getDescripcion());
-
-        try {
-            db.update("materias", values, "id = ?", new String[] {String.valueOf(data.getIdMateria())});
-            db.close();
-        }catch (SQLiteConstraintException e){
-            Log.d("data", "failure to update word,", e);
-            return false;
-        }
-
-        return true;
-    }
-    */
 
 }
 
