@@ -115,8 +115,6 @@ public class AdapterEstadoPedido extends BaseAdapter {
 
     }
 
-
-
     class ViewHolder {
         TextView txtEmpresa;
         TextView txtDireccion;
