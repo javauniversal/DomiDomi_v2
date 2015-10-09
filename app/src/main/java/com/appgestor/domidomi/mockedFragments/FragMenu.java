@@ -109,10 +109,8 @@ public class FragMenu extends BaseVolleyFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         switch (operador) {
             case 0:
-
                 break;
             case 1:
 
@@ -138,7 +136,9 @@ public class FragMenu extends BaseVolleyFragment {
                 enviarComentario.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        enviarMensaje();
+                        if (mensaje.getText().toString().length() > 0) {
+                            enviarMensaje();
+                        }
                     }
                 });
                 break;

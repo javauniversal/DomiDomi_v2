@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class EstadoPedido {
 
+    @SerializedName("idUnicop")
+    private int idUnicop;
+
     @SerializedName("empresa")
     private String empresa;
 
@@ -69,5 +72,13 @@ public class EstadoPedido {
 
     public void setEstado(int estado) {
         this.estado = estado;
+    }
+
+    public int getIdUnicop() {
+        return idUnicop;
+    }
+
+    public void setIdUnicop(int idUnicop) {
+        this.idUnicop = idUnicop;
     }
 }
