@@ -30,8 +30,6 @@ public class FragmentEstadoPedido extends BaseVolleyFragment {
     private SwipeMenuListView listView;
     private ListPedidoEstado pedidos;
 
-
-
     public FragmentEstadoPedido() { }
 
     @Override
@@ -39,7 +37,6 @@ public class FragmentEstadoPedido extends BaseVolleyFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) { }
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

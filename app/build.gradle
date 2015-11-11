@@ -20,13 +20,15 @@ android {
 }
 repositories {
     jcenter()
+    maven {
+        url "https://jitpack.io"
+    }
     mavenCentral()
 }
 
 dependencies {
     provided fileTree(dir: 'libs', include: ['*.jar'])
     compile files('libs/androidannotations-api-2.7.1.jar')
-    compile files('libs/nineoldandroids-2.4.0.jar')
     compile files('libs/universal-image-loader-1.8.2.jar')
     compile 'it.neokree:MaterialNavigationDrawer:1.3.3'
     compile 'com.mcxiaoke.volley:library:1.0.7'
@@ -34,7 +36,20 @@ dependencies {
     compile 'com.github.d-max:spots-dialog:0.3@aar'
     compile 'com.afollestad:material-dialogs:0.7.6.0'
     compile 'com.baoyz.swipemenulistview:library:1.2.1'
-    compile 'com.android.support:appcompat-v7:23.0.0'
-    compile 'com.google.android.gms:play-services:7.8.0'
+    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.google.android.gms:play-services:8.1.0'
     compile 'me.himanshusoni.quantityview:quantity-view:1.0.0'
+    compile 'com.google.android.gms:play-services-ads:8.1.0'
+    compile 'com.google.android.gms:play-services-identity:8.1.0'
+    compile 'com.google.android.gms:play-services-gcm:8.1.0'
+
+    /* Fillable Loaders */
+    compile 'com.github.jorgecastilloprz:fillableloaders:1.02@aar'
+
+    /* Animations */
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.daimajia.easing:library:1.0.1@aar'
+    compile 'com.daimajia.androidanimations:library:1.1.3@aar'
+
+    compile 'com.github.ozodrukh:CircularReveal:1.1.1@aar'
 }
