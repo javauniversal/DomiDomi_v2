@@ -14,6 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.appgestor.domidomi.Activities.ActMenu;
+import com.appgestor.domidomi.Activities.DetailsActivity;
 import com.appgestor.domidomi.Adapters.AdapterCompania;
 import com.appgestor.domidomi.Entities.Companias;
 import com.appgestor.domidomi.Entities.ListCompanias;
@@ -77,7 +78,9 @@ public class FragListCompania extends BaseVolleyFragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
-                        onConnectionFailed(error.toString());
+                        //onConnectionFailed(error.toString());
+                        startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "ERROR"));
+                        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     }
                 }
         ) {
@@ -85,7 +88,6 @@ public class FragListCompania extends BaseVolleyFragment {
             protected Map<String, String> getParams(){
                 Map<String, String>  params = new HashMap<String, String>();
                     //params.put("operador", "listCompania");
-
                 return params;
             }
         };
@@ -93,14 +95,20 @@ public class FragListCompania extends BaseVolleyFragment {
     }
 
     private boolean parseJSON(String json) {
+        if (!json.equals("[]")){
 
-        try {
-            Gson gson = new Gson();
-            companias = gson.fromJson(json, ListCompanias.class);
-            Companias.setCompaniasS(companias);
-            return true;
-        }catch (IllegalStateException ex) {
-            ex.printStackTrace();
+            try {
+                Gson gson = new Gson();
+                companias = gson.fromJson(json, ListCompanias.class);
+                Companias.setCompaniasS(companias);
+                return true;
+            }catch (IllegalStateException ex) {
+                ex.printStackTrace();
+            }
+
+        }else {
+            startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "EMPTY"));
+            getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
 
         return false;

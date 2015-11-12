@@ -4,6 +4,12 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="Toolbar" parent="Theme.AppCompat">
+        <item name="android:textColorPrimary">#FFF</item>
+        <item name="android:textColorSecondary">#FFF</item>
+        <item name="actionMenuTextColor">#FFF</item>
+    </style>
+
     <style name="WeListView" parent="@android:style/Widget.ListView">
         <item name="android:listSelector">@drawable/button_transparent</item>
         <item name="android:divider">@android:color/transparent</item>

@@ -19,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.appgestor.domidomi.Activities.ActProductAdd;
+import com.appgestor.domidomi.Activities.DetailsActivity;
 import com.appgestor.domidomi.Adapters.AdapterComentario;
 import com.appgestor.domidomi.Adapters.AdapterSedes;
 import com.appgestor.domidomi.Adapters.ExpandableListAdapter;
@@ -158,7 +159,9 @@ public class FragMenu extends BaseVolleyFragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
-                        onConnectionFailed(error.toString());
+                        //onConnectionFailed(error.toString());
+                        startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "ERROR"));
+                        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     }
                 }
         ) {
@@ -188,7 +191,9 @@ public class FragMenu extends BaseVolleyFragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
-                        onConnectionFailed(error.toString());
+                        //onConnectionFailed(error.toString());
+                        startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "ERROR"));
+                        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     }
                 }
         ) {
@@ -248,7 +253,9 @@ public class FragMenu extends BaseVolleyFragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
-                        onConnectionFailed(error.toString());
+                        //onConnectionFailed(error.toString());
+                        startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "ERROR"));
+                        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     }
                 }
         ) {
@@ -348,7 +355,9 @@ public class FragMenu extends BaseVolleyFragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
-                        onConnectionFailed(error.toString());
+                        //onConnectionFailed(error.toString());
+                        startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "ERROR"));
+                        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     }
                 }
         ) {
@@ -373,6 +382,9 @@ public class FragMenu extends BaseVolleyFragment {
             }catch (IllegalStateException ex) {
                 ex.printStackTrace();
             }
+        }else{
+            startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "EMPTY"));
+            getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
 
     }
@@ -392,26 +404,31 @@ public class FragMenu extends BaseVolleyFragment {
             }catch (IllegalStateException ex) {
                 ex.printStackTrace();
             }
+        }else{
+            startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "EMPTY"));
+            getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
 
     }
 
     private boolean parseJSONComent(String json) {
-
-        try {
-            Gson gson = new Gson();
-            ListComentarios comentarios = gson.fromJson(json, ListComentarios.class);
-            AdapterComentario adapter = new AdapterComentario(getActivity(), comentarios);
-            listView.setAdapter(adapter);
-            mensaje.setText("");
-            return true;
-        }catch (IllegalStateException ex) {
-            ex.printStackTrace();
+        if (json != null && json.length() > 0) {
+            try {
+                Gson gson = new Gson();
+                ListComentarios comentarios = gson.fromJson(json, ListComentarios.class);
+                AdapterComentario adapter = new AdapterComentario(getActivity(), comentarios);
+                listView.setAdapter(adapter);
+                mensaje.setText("");
+                return true;
+            }catch (IllegalStateException ex) {
+                ex.printStackTrace();
+            }
+        }else{
+            startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "EMPTY"));
+            getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
-
         return false;
 
     }
-
 
 }

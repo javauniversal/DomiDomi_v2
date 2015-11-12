@@ -3,6 +3,7 @@ package com.appgestor.domidomi.mockedFragments;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.appgestor.domidomi.Activities.DetailsActivity;
 import com.appgestor.domidomi.Adapters.AdapterEstadoPedido;
 import com.appgestor.domidomi.Entities.ListPedidoEstado;
 import com.appgestor.domidomi.R;
@@ -56,7 +58,6 @@ public class FragmentEstadoPedido extends BaseVolleyFragment {
 
         final AlertDialog alertDialog = new SpotsDialog(getActivity(), R.style.Custom);
         alertDialog.show();
-
         String url = String.format("%1$s%2$s", getString(R.string.url_base),"estadoPedido");
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>(){
@@ -73,7 +74,9 @@ public class FragmentEstadoPedido extends BaseVolleyFragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
-                        onConnectionFailed(error.toString());
+                        //onConnectionFailed(error.toString());
+                        startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "ERROR"));
+                        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         alertDialog.dismiss();
                     }
                 }
@@ -92,14 +95,18 @@ public class FragmentEstadoPedido extends BaseVolleyFragment {
     }
 
     private boolean parseJSON(String json) {
+        if (!json.equals("[]")){
+            try {
+                Gson gson = new Gson();
+                pedidos = gson.fromJson(json, ListPedidoEstado.class);
 
-        try {
-            Gson gson = new Gson();
-            pedidos = gson.fromJson(json, ListPedidoEstado.class);
-
-            return true;
-        }catch (IllegalStateException ex) {
-            ex.printStackTrace();
+                return true;
+            }catch (IllegalStateException ex) {
+                ex.printStackTrace();
+            }
+        }else {
+            startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "EMPTY"));
+            getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
 
         return false;

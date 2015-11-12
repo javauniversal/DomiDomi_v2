@@ -145,7 +145,9 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                     public void onErrorResponse(VolleyError error) {
                         // error
                         //onConnectionFailed(error.toString());
-                        Toast.makeText(ActFinalizarPedido.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(ActFinalizarPedido.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(ActFinalizarPedido.this, DetailsActivity.class).putExtra("STATE", "ERROR"));
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     }
                 }
         ) {
