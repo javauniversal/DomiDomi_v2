@@ -21,13 +21,15 @@ import com.appgestor.domidomi.Entities.ListCompanias;
 import com.appgestor.domidomi.R;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class FragListCompania extends BaseVolleyFragment {
 
     private SwipeMenuListView multiColumnList = null;
-    private Activity activity;
     private ListCompanias companias;
     private Companias companiass;
 
@@ -61,15 +63,19 @@ public class FragListCompania extends BaseVolleyFragment {
                     @Override
                     public void onResponse(final String response) {
                         parseJSON(response);
-                        AdapterCompania adapter = new AdapterCompania(getActivity(), companias);
+                        final AdapterCompania adapter = new AdapterCompania(getActivity(), companias);
                         multiColumnList.setAdapter(adapter);
                         multiColumnList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                                //Toast.makeText(getActivity(), "Ya tiene una Ruta en Ejecución", Toast.LENGTH_LONG).show();
-                                companiass.setCodigoS(companias.get(position).getCodigo());
-                                startActivity(new Intent(getActivity(), ActMenu.class));
-                                getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+                                if(!adapter.beween(companias.get(position).getFechainicial(), companias.get(position).getFechafinal())){
+                                    Toast.makeText(getActivity(), "El horario de atención no está disponible para esta hora.", Toast.LENGTH_LONG).show();
+                                }else {
+                                    companiass.setCodigoS(companias.get(position));
+                                    startActivity(new Intent(getActivity(), ActMenu.class));
+                                    getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                                }
                             }
                         });
                     }
@@ -98,7 +104,7 @@ public class FragListCompania extends BaseVolleyFragment {
         if (!json.equals("[]")){
 
             try {
-                Gson gson = new Gson();
+                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();
                 companias = gson.fromJson(json, ListCompanias.class);
                 Companias.setCompaniasS(companias);
                 return true;

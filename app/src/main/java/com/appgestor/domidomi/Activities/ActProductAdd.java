@@ -51,14 +51,6 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.layout_product_add);
         mydb = new DBHelper(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-        setSupportActionBar(toolbar);
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
 
         displayImagen = (ImageView) findViewById(R.id.displayImagen);
         TextView descripcion = (TextView) findViewById(R.id.descripcion);
@@ -95,6 +87,15 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
             preciodec.setText(String.format("Precio: %s", format.format(bundle.getDouble("precio"))));
 
             totalFinal.setText(bundle.getDouble("precio")+"");
+
+            toolbar.setTitle(bundle.getString("descripcion"));
+            setSupportActionBar(toolbar);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onBackPressed();
+                }
+            });
         }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -144,7 +145,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
             return true;
         }else if(id == R.id.action_cart){
             Bundle bundle = new Bundle();
-            bundle.putInt("compania", Companias.getCodigoS());
+            bundle.putInt("compania", Companias.getCodigoS().getCodigo());
             startActivity(new Intent(ActProductAdd.this, ActCar.class).putExtras(bundle));
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             return true;
@@ -176,7 +177,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
                                     //Realizar pedido
                                     if (GuardarPedido()) {
                                         Bundle bundle = new Bundle();
-                                        bundle.putInt("compania", Companias.getCodigoS());
+                                        bundle.putInt("compania", Companias.getCodigoS().getCodigo());
                                         startActivity(new Intent(ActProductAdd.this, ActCar.class).putExtras(bundle));
                                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                                         finish();
@@ -205,7 +206,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
         Double temp = Double.valueOf(totalFinal.getText().toString());
 
         car.setValueoverall(temp);
-        car.setIdcompany(Companias.getCodigoS());
+        car.setIdcompany(Companias.getCodigoS().getCodigo());
         car.setComment(myComment.getText().toString());
         car.setUrlimagen(bundle.getString("foto"));
         if (mydb.insertProduct(car)){

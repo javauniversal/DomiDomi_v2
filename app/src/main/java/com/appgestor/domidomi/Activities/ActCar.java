@@ -20,6 +20,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.appgestor.domidomi.Adapters.AppAdapter;
 import com.appgestor.domidomi.DataBase.DBHelper;
 import com.appgestor.domidomi.Entities.AddProductCar;
+import com.appgestor.domidomi.Entities.Companias;
 import com.appgestor.domidomi.R;
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
@@ -47,6 +48,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.layout_car);
         mydb = new DBHelper(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+        toolbar.setTitle(Companias.getCodigoS().getDescripcion());
         toolbar.setNavigationIcon(R.mipmap.ic_action_cartw);
         setSupportActionBar(toolbar);
 
@@ -161,9 +163,12 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
 
         if(data.size() > 0){
             double dValor = 0;
+
             for (int i = 0; i < data.size(); i++) {
                 dValor = dValor + data.get(i).getValueoverall();
+                dValor = dValor * data.get(i).getQuantity();
             }
+
             dValor = dValor + 2500;
             if (dValor > 20000) {
                 pedirService.setVisibility(View.VISIBLE);

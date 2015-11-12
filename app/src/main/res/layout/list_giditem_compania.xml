@@ -1,6 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:padding="3dp"
     android:layout_height="match_parent">
 
     <RelativeLayout
@@ -9,16 +8,19 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="7dp">
 
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="80dp"
+            android:layout_height="70dp"
             android:id="@+id/listicon"
             android:layout_gravity="right"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentTop="false"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentStart="false"
+            android:scaleType="fitXY"
+            android:contentDescription="@string/app_name"
+            android:layout_centerVertical="true" />
 
         <LinearLayout
             android:orientation="vertical"
@@ -33,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:text="Nombre Compañia"
+                android:text="@string/compania"
                 android:textColor="#000"
                 android:id="@+id/txtNombreCompania"/>
 
@@ -44,6 +46,22 @@
                 android:textStyle="bold"
                 android:textColor="#000"
                 android:id="@+id/txtCategoria"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Horario 08:00 am a 03:00 pm"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:id="@+id/txtHorario"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Abierto"
+                android:textStyle="bold"
+                android:textColor="#000"
+                android:id="@+id/txtEstado"/>
 
             <RatingBar
                 android:layout_width="wrap_content"

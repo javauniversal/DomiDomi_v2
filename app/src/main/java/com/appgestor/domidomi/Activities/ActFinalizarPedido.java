@@ -127,7 +127,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                     public void onResponse(String response) {
                         // response
 
-                        if(mydb.DeleteProductAll(Companias.getCodigoS())){
+                        if(mydb.DeleteProductAll(Companias.getCodigoS().getCodigo())){
 
                             Toast.makeText(ActFinalizarPedido.this, response, Toast.LENGTH_LONG).show();
 
@@ -158,7 +158,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                 TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
 
                 objeto.setNombreUsuairo(nombre.getText().toString());
-                objeto.setIdCompany(Companias.getCodigoS());
+                objeto.setIdCompany(Companias.getCodigoS().getCodigo());
                 objeto.setDireccionp(editdir.getText().toString());
                 objeto.setCelularp(edtCelular.getText().toString());
                 objeto.setDireccionReferen(editdirreferen.getText().toString());
@@ -166,7 +166,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                 objeto.setLongitud(Double.valueOf(textLongitud.getText().toString()));
                 objeto.setImeiPhone(telephonyManager.getDeviceId());
 
-                List<AddProductCar> mAppList = mydb.getProductCar(Companias.getCodigoS());
+                List<AddProductCar> mAppList = mydb.getProductCar(Companias.getCodigoS().getCodigo());
 
                 objeto.setProducto(mAppList);
 

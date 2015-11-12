@@ -28,6 +28,7 @@ public class ActMenu extends AppCompatActivity {
         setContentView(R.layout.layout_menu);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+        toolbar.setTitle(Companias.getCodigoS().getDescripcion());
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -67,7 +68,7 @@ public class ActMenu extends AppCompatActivity {
                 return true;
             case R.id.action_cart:
                 Bundle bundle = new Bundle();
-                bundle.putInt("compania", Companias.getCodigoS());
+                bundle.putInt("compania", Companias.getCodigoS().getCodigo());
                 startActivity(new Intent(ActMenu.this, ActCar.class).putExtras(bundle));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 //finish();

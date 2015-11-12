@@ -1,7 +1,10 @@
 package com.appgestor.domidomi.Entities;
 
 import com.google.gson.annotations.SerializedName;
+
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Companias {
 
@@ -35,7 +38,13 @@ public class Companias {
     @SerializedName("categoria")
     private String categoria;
 
-    private static int codigoS;
+    @SerializedName("fechainicial")
+    private String fechainicial;
+
+    @SerializedName("fechafinal")
+    private String fechafinal;
+
+    private static Companias codigoS;
 
     static ArrayList<Companias> companiaS;
 
@@ -81,12 +90,28 @@ public class Companias {
         return companiaS;
     }
 
-    public static int getCodigoS(){
+    public static Companias getCodigoS(){
         return codigoS;
     }
 
-    public static void setCodigoS(int codigoS){
+    public static void setCodigoS(Companias codigoS){
         Companias.codigoS = codigoS;
+    }
+
+    public String getFechainicial() {
+        return fechainicial;
+    }
+
+    public void setFechainicial(String fechainicial) {
+        this.fechainicial = fechainicial;
+    }
+
+    public String getFechafinal() {
+        return fechafinal;
+    }
+
+    public void setFechafinal(String fechafinal) {
+        this.fechafinal = fechafinal;
     }
 
 }

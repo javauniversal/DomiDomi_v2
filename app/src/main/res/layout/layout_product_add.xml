@@ -16,13 +16,15 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
 
             <ImageView
-                android:layout_width="220dp"
-                android:layout_height="220dp"
-                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
                 android:id="@+id/displayImagen"
+                android:elevation="15dp"
+                android:scaleType="fitXY"
                 android:contentDescription="@string/informacion"
                 android:layout_gravity="center_horizontal"
                 android:layout_alignParentBottom="true"

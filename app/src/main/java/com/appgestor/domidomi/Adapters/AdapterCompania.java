@@ -18,6 +18,12 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class AdapterCompania extends BaseAdapter {
@@ -99,19 +105,63 @@ public class AdapterCompania extends BaseAdapter {
 
         holder.name.setText(elements.get(position).getDescripcion());
         holder.categoria.setText(elements.get(position).getCategoria());
+        holder.horario.setText(String.format("Horario: %1$s a %2$s", elements.get(position).getFechainicial(), elements.get(position).getFechafinal()));
+
+        if(beween(elements.get(position).getFechainicial(), elements.get(position).getFechafinal())){
+            holder.estadoRes.setText("Abierto");
+            holder.estadoRes.setTextColor(actx.getResources().getColor(R.color.colorErrorConexion));
+        }else {
+            holder.estadoRes.setText("Cerrado");
+            holder.estadoRes.setTextColor(actx.getResources().getColor(R.color.bckg));
+        }
 
         return convertView;
+    }
+
+    public boolean beween(String hora1, String hora2) {
+        boolean indicBool = false;
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("hh:mm");
+            Calendar calendario = Calendar.getInstance();
+
+            int hora, minutos, segundos;
+
+            hora = calendario.get(Calendar.HOUR_OF_DAY);
+            minutos = calendario.get(Calendar.MINUTE);
+            segundos = calendario.get(Calendar.SECOND);
+
+            String horaNueva = hora + ":" + minutos + ":" + segundos;
+
+            Date date1, date2, dateNueva;
+            date1 = dateFormat.parse(hora1);
+            date2 = dateFormat.parse(hora2);
+            dateNueva = dateFormat.parse(horaNueva);
+
+            if ((date1.compareTo(dateNueva) <= 0) && (date2.compareTo(dateNueva) >= 0)){
+                indicBool = true;
+            } else {
+                indicBool = false;
+            }
+        } catch (ParseException parseException){
+            parseException.printStackTrace();
+        }
+
+        return indicBool;
     }
 
     class ViewHolder {
         public TextView name = null;
         public TextView categoria = null;
+        public TextView estadoRes = null;
+        public TextView horario = null;
         public ImageView image = null;
         public ProgressBar progressBar;
 
         public ViewHolder(View view) {
             name = (TextView) view.findViewById(R.id.txtNombreCompania);
             categoria = (TextView) view.findViewById(R.id.txtCategoria);
+            estadoRes = (TextView) view.findViewById(R.id.txtEstado);
+            horario = (TextView) view.findViewById(R.id.txtHorario);
             image = (ImageView) view.findViewById(R.id.listicon);
             progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
             view.setTag(this);

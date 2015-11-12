@@ -169,7 +169,7 @@ public class FragMenu extends BaseVolleyFragment {
             protected Map<String, String> getParams(){
                 Map<String, String>  params = new HashMap<String, String>();
                 params.put("comentario", mensaje.getText().toString());
-                params.put("compania", String.valueOf(Companias.getCodigoS()));
+                params.put("compania", String.valueOf(Companias.getCodigoS().getCodigo()));
 
                 return params;
             }
@@ -200,7 +200,7 @@ public class FragMenu extends BaseVolleyFragment {
             @Override
             protected Map<String, String> getParams(){
                 Map<String, String>  params = new HashMap<String, String>();
-                params.put("compania", String.valueOf(Companias.getCodigoS()));
+                params.put("compania", String.valueOf(Companias.getCodigoS().getCodigo()));
 
                 return params;
             }
@@ -262,7 +262,7 @@ public class FragMenu extends BaseVolleyFragment {
             @Override
             protected Map<String, String> getParams(){
                 Map<String, String>  params = new HashMap<>();
-                params.put("codigo", String.valueOf(Companias.getCodigoS()));
+                params.put("codigo", String.valueOf(Companias.getCodigoS().getCodigo()));
                 return params;
             }
         };
@@ -364,7 +364,7 @@ public class FragMenu extends BaseVolleyFragment {
             @Override
             protected Map<String, String> getParams(){
                 Map<String, String>  params = new HashMap<>();
-                params.put("codigo", String.valueOf(Companias.getCodigoS()));
+                params.put("codigo", String.valueOf(Companias.getCodigoS().getCodigo()));
                 return params;
             }
         };
@@ -391,7 +391,7 @@ public class FragMenu extends BaseVolleyFragment {
 
     private void parseJSON2(String json) {
 
-        if (json != null && json.length() > 0) {
+        if (json != null || json.length() > 0 && !json.equals("[null]")) {
             try {
                 Gson gson = new Gson();
                 CompaniaList comData = gson.fromJson(json, CompaniaList.class);
