@@ -166,7 +166,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
 
             for (int i = 0; i < data.size(); i++) {
                 dValor = dValor + data.get(i).getValueoverall();
-                dValor = dValor * data.get(i).getQuantity();
+                //dValor = dValor * data.get(i).getQuantity();
             }
 
             dValor = dValor + 2500;

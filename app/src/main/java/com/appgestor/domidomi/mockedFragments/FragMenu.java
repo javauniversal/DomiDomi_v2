@@ -39,6 +39,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.appgestor.domidomi.Entities.MasterItem.setProductDescripStatic;
+
 
 public class FragMenu extends BaseVolleyFragment {
 
@@ -114,7 +116,6 @@ public class FragMenu extends BaseVolleyFragment {
             case 0:
                 break;
             case 1:
-
                 break;
             case 2:
                 break;
@@ -331,9 +332,9 @@ public class FragMenu extends BaseVolleyFragment {
                                     @Override
                                     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
-                                        //Toast.makeText(getActivity(), menu.get(groupPosition).getHijos().get(childPosition).getCodigo()+"", Toast.LENGTH_SHORT).show();
+                                        setProductDescripStatic(menu.get(groupPosition).getHijos().get(childPosition));
+
                                         Bundle bundle = new Bundle();
-                                        //setProductDescripStatic(menu.get(groupPosition).getHijos().get(childPosition));
                                         bundle.putInt("codeproduct", menu.get(groupPosition).getHijos().get(childPosition).getCodigo());
                                         bundle.putString("descripcion", menu.get(groupPosition).getHijos().get(childPosition).getDescripcion());
                                         bundle.putString("ingredientes", menu.get(groupPosition).getHijos().get(childPosition).getIngredientes());

@@ -19,6 +19,17 @@ public class MasterItem {
     @SerializedName("foto")
     private String foto;
 
+    @SerializedName("cantidad")
+    private int existencia;
+
+    public static MasterItem getMasterItemStatic() {
+        return masterItemStatic;
+    }
+
+    public static void setMasterItemStatic(MasterItem masterItemStatic) {
+        MasterItem.masterItemStatic = masterItemStatic;
+    }
+
     private static MasterItem masterItemStatic;
 
     public int getCodigo() { return codigo; }
@@ -64,6 +75,14 @@ public class MasterItem {
 
     public static void setProductDescripStatic(MasterItem masterItemStatic){
         MasterItem.masterItemStatic = masterItemStatic;
+    }
+
+    public int getExistencia() {
+        return existencia;
+    }
+
+    public void setExistencia(int existencia) {
+        this.existencia = existencia;
     }
 
 }

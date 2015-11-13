@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Companias {
 
@@ -43,6 +44,9 @@ public class Companias {
 
     @SerializedName("fechafinal")
     private String fechafinal;
+
+    @SerializedName("tarjetas")
+    private List<MasterItem> tarjetas;
 
     private static Companias codigoS;
 
@@ -112,6 +116,14 @@ public class Companias {
 
     public void setFechafinal(String fechafinal) {
         this.fechafinal = fechafinal;
+    }
+
+    public List<MasterItem> getTarjetas() {
+        return tarjetas;
+    }
+
+    public void setTarjetas(List<MasterItem> tarjetas) {
+        this.tarjetas = tarjetas;
     }
 
 }

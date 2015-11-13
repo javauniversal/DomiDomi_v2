@@ -28,16 +28,14 @@ import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 
 import java.text.DecimalFormat;
 
+import static com.appgestor.domidomi.Entities.MasterItem.getProductDescripStatic;
+
 public class ActProductAdd extends AppCompatActivity implements View.OnClickListener{
 
-    private ImageLoader imageLoader1;
-    private DisplayImageOptions options1;
     private ImageView displayImagen;
     private Bundle bundle;
     private QuantityView cantidad;
-    private TextView preciodec;
     private TextView totalFinal;
-    private DecimalFormat format;
     private DBHelper mydb;
     private EditText myComment;
     private ProgressBar progressBar2;
@@ -50,14 +48,17 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
 
         displayImagen = (ImageView) findViewById(R.id.displayImagen);
+        ImageView imagenAgotado = (ImageView) findViewById(R.id.inside_imageview);
+
         TextView descripcion = (TextView) findViewById(R.id.descripcion);
         TextView ingredientes = (TextView) findViewById(R.id.ingredientes);
         TextView precio = (TextView) findViewById(R.id.precio);
+
         progressBar2 = (ProgressBar) findViewById(R.id.progressBar2);
 
         cantidad = (QuantityView) findViewById(R.id.quantityView_default);
 
-        preciodec = (TextView) findViewById(R.id.preciodesc);
+        TextView preciodec = (TextView) findViewById(R.id.preciodesc);
         totalFinal = (TextView) findViewById(R.id.totalFinal);
         myComment = (EditText) findViewById(R.id.EditComment);
 
@@ -67,25 +68,23 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
         Intent intent = getIntent();
         bundle = intent.getExtras();
         if(bundle != null){
-            //Setup the ImageLoader, we'll use this to display our images
-            ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
-            imageLoader1 = ImageLoader.getInstance();
-            imageLoader1.init(config);
-
-            //Setup options for ImageLoader so it will handle caching for us.
-            options1 = new DisplayImageOptions.Builder().cacheInMemory().cacheOnDisc().build();
 
             CargarImagen();
 
             descripcion.setText(bundle.getString("descripcion"));
             ingredientes.setText(bundle.getString("ingredientes"));
-            format = new DecimalFormat("#,###.##");
+            DecimalFormat format = new DecimalFormat("#,###.##");
             precio.setText(String.format("Precio: %s", format.format(bundle.getDouble("precio"))));
             preciodec.setText(String.format("Precio: %s", format.format(bundle.getDouble("precio"))));
 
             totalFinal.setText(bundle.getDouble("precio")+"");
 
             cantidad.setValorTotal(bundle.getDouble("precio"),totalFinal);
+
+            int existencia = getProductDescripStatic().getExistencia();
+            if( existencia == 0){
+                imagenAgotado.setImageResource(R.drawable.agotado);
+            }
 
             toolbar.setTitle(bundle.getString("descripcion"));
             setSupportActionBar(toolbar);
@@ -95,38 +94,12 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
                     onBackPressed();
                 }
             });
+
         }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-    }
-
-    private void CargarImagen() {
-        ImageLoadingListener listener = new ImageLoadingListener(){
-            @Override
-            public void onLoadingStarted(String arg0, View arg1) {
-                // TODO Auto-generated method stub
-                progressBar2.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onLoadingCancelled(String arg0, View arg1) {
-                // TODO Auto-generated method stub
-                progressBar2.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onLoadingComplete(String arg0, View arg1, Bitmap arg2) {
-                progressBar2.setVisibility(View.GONE);
-            }
-            @Override
-            public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
-                progressBar2.setVisibility(View.GONE);
-            }
-        };
-
-        imageLoader1.displayImage(bundle.getString("foto"), displayImagen, options1, listener);
     }
 
     @Override
@@ -161,7 +134,11 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
 
                 if(cantidad.getQuantity() < 1){
                     Toast.makeText(this, "La cantidad debe ser mayor a 0", Toast.LENGTH_LONG).show();
-                }else {
+                }else if(getProductDescripStatic().getExistencia() == 0) {
+                    Toast.makeText(this, "El producto se encuentra agotado", Toast.LENGTH_LONG).show();
+                }else if(cantidad.getQuantity() > getProductDescripStatic().getExistencia()) {
+                    Toast.makeText(this, "La cantida que desea pedir supera la disponible", Toast.LENGTH_LONG).show();
+                }else{
                     new MaterialDialog.Builder(this)
                             .title(R.string.titulo_confirmacion_pedido)
                             .content(R.string.contenido_confirmacion_pedido)
@@ -217,4 +194,39 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
             return false;
         }
     }
+
+    private void CargarImagen() {
+        //Setup the ImageLoader, we'll use this to display our images
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
+        ImageLoader imageLoader1 = ImageLoader.getInstance();
+        imageLoader1.init(config);
+        //Setup options for ImageLoader so it will handle caching for us.
+        DisplayImageOptions options1 = new DisplayImageOptions.Builder().cacheInMemory().cacheOnDisc().build();
+
+        ImageLoadingListener listener = new ImageLoadingListener(){
+            @Override
+            public void onLoadingStarted(String arg0, View arg1) {
+                // TODO Auto-generated method stub
+                progressBar2.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onLoadingCancelled(String arg0, View arg1) {
+                // TODO Auto-generated method stub
+                progressBar2.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onLoadingComplete(String arg0, View arg1, Bitmap arg2) {
+                progressBar2.setVisibility(View.GONE);
+            }
+            @Override
+            public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
+                progressBar2.setVisibility(View.GONE);
+            }
+        };
+
+        imageLoader1.displayImage(bundle.getString("foto"), displayImagen, options1, listener);
+    }
+
 }

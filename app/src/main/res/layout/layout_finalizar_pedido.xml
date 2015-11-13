@@ -83,6 +83,40 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Medio de pago"
+            android:textStyle="bold"
+            android:paddingTop="8dp"
+            android:paddingLeft="8dp"
+            android:textColor="@color/color_negro"/>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerTarjetas" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Escriba la cantidad"
+            android:textStyle="bold"
+            android:paddingTop="8dp"
+            android:paddingLeft="8dp"
+            android:textColor="@color/color_negro"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPostalAddress"
+            android:ems="10"
+            android:textColor="#000"
+            android:background="@drawable/rounded_corner"
+            android:id="@+id/editEfectivo"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="Dirección/Lugar de referencia"
             android:textStyle="bold"
             android:paddingTop="8dp"
