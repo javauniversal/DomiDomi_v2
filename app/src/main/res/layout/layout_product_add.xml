@@ -156,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal|fill_vertical">
 
-                <me.himanshusoni.quantityview.QuantityView
+                <com.appgestor.domidomi.Activities.QuantityView
                     xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/quantityView_default"
                     android:layout_width="wrap_content"

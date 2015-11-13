@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -28,8 +27,6 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 
 import java.text.DecimalFormat;
-
-import me.himanshusoni.quantityview.QuantityView;
 
 public class ActProductAdd extends AppCompatActivity implements View.OnClickListener{
 
@@ -87,6 +84,8 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
             preciodec.setText(String.format("Precio: %s", format.format(bundle.getDouble("precio"))));
 
             totalFinal.setText(bundle.getDouble("precio")+"");
+
+            cantidad.setValorTotal(bundle.getDouble("precio"),totalFinal);
 
             toolbar.setTitle(bundle.getString("descripcion"));
             setSupportActionBar(toolbar);
