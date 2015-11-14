@@ -76,6 +76,14 @@ public class DetailsActivity extends AppCompatActivity {
                 setTitle("Error");
                 activityToolbar.setBackgroundColor(getResources().getColor(R.color.colorSinDatos));
                 break;
+            case "EMPTYP":
+                progressActivity.showEmpty(errorDrawable,
+                        "Sin Datos",
+                        "No tiene pedidos en la aplicación", skipIds);
+                //"Inténtalo de nuevo", errorClickListener, skipIds);
+                setTitle("Sin datos");
+                activityToolbar.setBackgroundColor(getResources().getColor(R.color.colorSinDatos));
+                break;
         }
     }
 

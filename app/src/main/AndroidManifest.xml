@@ -36,7 +36,7 @@
         <activity android:name=".Activities.ActMenu" />
         <activity android:name=".Activities.ActProductAdd" />
         <activity android:name=".Activities.ActCar" />
-        <activity android:name=".Activities.ActFinalizarPedido" />
+        <activity android:name=".Activities.ActFinalizarPedido" android:theme="@style/AppTheme" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

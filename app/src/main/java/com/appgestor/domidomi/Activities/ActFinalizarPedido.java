@@ -7,9 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -22,6 +27,7 @@ import com.android.volley.toolbox.Volley;
 import com.appgestor.domidomi.DataBase.DBHelper;
 import com.appgestor.domidomi.Entities.AddProductCar;
 import com.appgestor.domidomi.Entities.Companias;
+import com.appgestor.domidomi.Entities.MasterItem;
 import com.appgestor.domidomi.Entities.PedidoWebCabeza;
 import com.appgestor.domidomi.R;
 import com.appgestor.domidomi.Services.MyService;
@@ -32,6 +38,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static android.R.layout.simple_spinner_item;
+import static com.appgestor.domidomi.Entities.Companias.*;
+
 
 public class ActFinalizarPedido extends AppCompatActivity implements View.OnClickListener {
 
@@ -39,10 +48,15 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
     private EditText edtCelular;
     private EditText editdir;
     private EditText editdirreferen;
+    private EditText txtLatitud;
+    private EditText txtLongitud;
+    private EditText EditEfectivo;
+    private TextView txtEfectivo;
     private PedidoWebCabeza objeto = new PedidoWebCabeza();
-    private EditText textLongitud;
-    private EditText textLatitud;
     private DBHelper mydb;
+    private Spinner spTarjetas;
+    private ImageView imageView4;
+    private MasterItem masterItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,19 +72,25 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
 
         Button myAceptar = (Button)findViewById(R.id.button_accept);
         myAceptar.setOnClickListener(this);
+
         Button myCancelar = (Button) findViewById(R.id.button_cancel);
         myCancelar.setOnClickListener(this);
+
+        spTarjetas = (Spinner) findViewById(R.id.spinnerTarjetas);
+        loaandSpinner(spTarjetas);
+
+        txtLatitud = (EditText) findViewById(R.id.txtLatitud);
+        txtLongitud = (EditText) findViewById(R.id.txtLongitud);
+
+        EditEfectivo = (EditText) findViewById(R.id.editEfectivo);
+        txtEfectivo = (TextView) findViewById(R.id.txtEfectivo);
+
+        imageView4 = (ImageView) findViewById(R.id.imageView4);
 
         nombre = (EditText)findViewById(R.id.edtNombre);
         edtCelular = (EditText)findViewById(R.id.edtCelular);
         editdir = (EditText)findViewById(R.id.editdir);
         editdirreferen = (EditText)findViewById(R.id.editdirreferen);
-        textLongitud = (EditText)findViewById(R.id.textLongitud);
-        textLatitud = (EditText)findViewById(R.id.textLatitud);
-        textLongitud.setHintTextColor(getResources().getColor(R.color.color_negro));
-        textLongitud.setTextColor(getResources().getColor(R.color.color_negro));
-        textLatitud.setHintTextColor(getResources().getColor(R.color.color_negro));
-        textLatitud.setTextColor(getResources().getColor(R.color.color_negro));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -89,7 +109,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
         switch (v.getId()) {
             case R.id.imgButtonLocation:
                 MyService services = new MyService(this);
-                services.setView(findViewById(R.id.textLongitud), findViewById(R.id.textLatitud));
+                services.setView(findViewById(R.id.txtLatitud), findViewById(R.id.txtLongitud));
                 break;
 
             case R.id.button_accept:
@@ -100,7 +120,11 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                     edtCelular.setError("El telefono es un campo requerido");
                 } else if (isValidNumber(editdir.getText().toString())){
                     editdir.setError("la direccion es un campo requerido");
+                }else if(EditEfectivo.getVisibility() == View.VISIBLE && isValidNumber(EditEfectivo.getText().toString())) {
+                    EditEfectivo.setError("Por favor digite la cantidad con la con la que va apagar");
                 }else{
+                    if(isValidNumber(txtLatitud.getText().toString())){ txtLatitud.setText("0"); }
+                    if(isValidNumber(txtLongitud.getText().toString())) { txtLongitud.setText("0"); }
                     enviarPedido();
                 }
                 break;
@@ -127,7 +151,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                     public void onResponse(String response) {
                         // response
 
-                        if(mydb.DeleteProductAll(Companias.getCodigoS().getCodigo())){
+                        if(mydb.DeleteProductAll(getCodigoS().getCodigo())){
 
                             Toast.makeText(ActFinalizarPedido.this, response, Toast.LENGTH_LONG).show();
 
@@ -158,15 +182,19 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                 TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
 
                 objeto.setNombreUsuairo(nombre.getText().toString());
-                objeto.setIdCompany(Companias.getCodigoS().getCodigo());
+                objeto.setIdCompany(getCodigoS().getCodigo());
                 objeto.setDireccionp(editdir.getText().toString());
                 objeto.setCelularp(edtCelular.getText().toString());
                 objeto.setDireccionReferen(editdirreferen.getText().toString());
-                objeto.setLatitud(Double.valueOf(textLatitud.getText().toString()));
-                objeto.setLongitud(Double.valueOf(textLongitud.getText().toString()));
+                objeto.setLatitud(Double.valueOf(txtLatitud.getText().toString()));
+                objeto.setLongitud(Double.valueOf(txtLongitud.getText().toString()));
                 objeto.setImeiPhone(telephonyManager.getDeviceId());
 
-                List<AddProductCar> mAppList = mydb.getProductCar(Companias.getCodigoS().getCodigo());
+                objeto.setMedioPago(masterItem.getCodigo());
+                if (txtEfectivo.getVisibility() == View.GONE){ EditEfectivo.setText("0"); }
+                objeto.setValorPago(Double.valueOf(EditEfectivo.getText().toString()));
+
+                List<AddProductCar> mAppList = mydb.getProductCar(getCodigoS().getCodigo());
 
                 objeto.setProducto(mAppList);
 
@@ -184,6 +212,37 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
             }
         };
         rq.add(jsonRequest);
+    }
+
+    public void loaandSpinner(Spinner spinner){
+
+        String[] dataTarjetas = new String[getCodigoS().getTarjetas().size()];
+        for (int i = 0; i < getCodigoS().getTarjetas().size(); i++) {
+            dataTarjetas[i] = getCodigoS().getTarjetas().get(i).getDescripcion();
+        }
+        ArrayAdapter<String> spTarjetas = new ArrayAdapter<String>(this, R.layout.textview_spinner, dataTarjetas);
+        spinner.setAdapter(spTarjetas);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, final int pos, long id) {
+
+                masterItem = getCodigoS().getTarjetas().get(pos);
+                if(masterItem.getDescripcion().equals("Efectivo")){
+                    EditEfectivo.setVisibility(View.VISIBLE);
+                    txtEfectivo.setVisibility(View.VISIBLE);
+                    imageView4.setImageResource(R.drawable.ic_local_atm_black_24dp);
+                }else{
+                    EditEfectivo.setVisibility(View.GONE);
+                    txtEfectivo.setVisibility(View.GONE);
+                    EditEfectivo.setText("");
+                    imageView4.setImageResource(R.drawable.ic_credit_card_black_24dp);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+
+        });// Fin del evento del spin
     }
 
 }

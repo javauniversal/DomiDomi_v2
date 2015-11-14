@@ -39,6 +39,28 @@ public class PedidoWebCabeza {
     @SerializedName("imeiPhone")
     private String imeiPhone;
 
+    @SerializedName("medioPago")
+    private int medioPago;
+
+    @SerializedName("valorPago")
+    private double valorPago;
+
+    public int getMedioPago() {
+        return medioPago;
+    }
+
+    public void setMedioPago(int medioPago) {
+        this.medioPago = medioPago;
+    }
+
+    public double getValorPago() {
+        return valorPago;
+    }
+
+    public void setValorPago(double valorPago) {
+        this.valorPago = valorPago;
+    }
+
     public String getImeiPhone() {
         return imeiPhone;
     }

@@ -31,6 +31,7 @@ public class FragmentEstadoPedido extends BaseVolleyFragment {
 
     private SwipeMenuListView listView;
     private ListPedidoEstado pedidos;
+    private AlertDialog alertDialog;
 
     public FragmentEstadoPedido() { }
 
@@ -45,6 +46,7 @@ public class FragmentEstadoPedido extends BaseVolleyFragment {
 
         View view = inflater.inflate(R.layout.fragment_estado_pedido_ver, container, false);
         listView = (SwipeMenuListView) view.findViewById(R.id.listView);
+        alertDialog = new SpotsDialog(getActivity(), R.style.Custom);
         return  view;
     }
 
@@ -56,7 +58,6 @@ public class FragmentEstadoPedido extends BaseVolleyFragment {
 
     public void getEstadoPedido(){
 
-        final AlertDialog alertDialog = new SpotsDialog(getActivity(), R.style.Custom);
         alertDialog.show();
         String url = String.format("%1$s%2$s", getString(R.string.url_base),"estadoPedido");
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
@@ -64,10 +65,6 @@ public class FragmentEstadoPedido extends BaseVolleyFragment {
                     @Override
                     public void onResponse(final String response) {
                         parseJSON(response);
-
-                        AdapterEstadoPedido adapter = new AdapterEstadoPedido(getActivity(), pedidos);
-                        listView.setAdapter(adapter);
-                        alertDialog.dismiss();
                     }
                 },
                 new Response.ErrorListener(){
@@ -99,14 +96,18 @@ public class FragmentEstadoPedido extends BaseVolleyFragment {
             try {
                 Gson gson = new Gson();
                 pedidos = gson.fromJson(json, ListPedidoEstado.class);
-
+                AdapterEstadoPedido adapter = new AdapterEstadoPedido(getActivity(), pedidos);
+                listView.setAdapter(adapter);
+                alertDialog.dismiss();
                 return true;
             }catch (IllegalStateException ex) {
                 ex.printStackTrace();
             }
         }else {
-            startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "EMPTY"));
+            alertDialog.dismiss();
+            startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "EMPTYP"));
             getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
         }
 
         return false;
