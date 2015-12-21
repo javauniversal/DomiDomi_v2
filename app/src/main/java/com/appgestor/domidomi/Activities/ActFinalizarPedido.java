@@ -7,15 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -25,21 +22,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.appgestor.domidomi.DataBase.DBHelper;
-import com.appgestor.domidomi.Entities.AddProductCar;
-import com.appgestor.domidomi.Entities.Companias;
 import com.appgestor.domidomi.Entities.MasterItem;
 import com.appgestor.domidomi.Entities.PedidoWebCabeza;
 import com.appgestor.domidomi.R;
 import com.appgestor.domidomi.Services.MyService;
-import com.appgestor.domidomi.dark.Accounts;
-import com.google.gson.Gson;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import static android.R.layout.simple_spinner_item;
-import static com.appgestor.domidomi.Entities.Companias.*;
 
 
 public class ActFinalizarPedido extends AppCompatActivity implements View.OnClickListener {
@@ -151,7 +140,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                     public void onResponse(String response) {
                         // response
 
-                        if(mydb.DeleteProductAll(getCodigoS().getCodigo())){
+                        /*if(mydb.DeleteProductAll(getCodigoS().getCodigo())){
 
                             Toast.makeText(ActFinalizarPedido.this, response, Toast.LENGTH_LONG).show();
 
@@ -161,7 +150,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
 
                         }else{
                             Toast.makeText(ActFinalizarPedido.this, "Problemas con el pedido.", Toast.LENGTH_LONG).show();
-                        }
+                        }*/
                     }
                 },
                 new Response.ErrorListener(){
@@ -182,7 +171,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                 TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
 
                 objeto.setNombreUsuairo(nombre.getText().toString());
-                objeto.setIdCompany(getCodigoS().getCodigo());
+                //objeto.setIdCompany(getCodigoS().getCodigo());
                 objeto.setDireccionp(editdir.getText().toString());
                 objeto.setCelularp(edtCelular.getText().toString());
                 objeto.setDireccionReferen(editdirreferen.getText().toString());
@@ -194,9 +183,9 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                 if (txtEfectivo.getVisibility() == View.GONE){ EditEfectivo.setText("0"); }
                 objeto.setValorPago(Double.valueOf(EditEfectivo.getText().toString()));
 
-                List<AddProductCar> mAppList = mydb.getProductCar(getCodigoS().getCodigo());
+                //List<AddProductCar> mAppList = mydb.getProductCar(getCodigoS().getCodigo());
 
-                objeto.setProducto(mAppList);
+                /*objeto.setProducto(mAppList);
 
                 params.put("pedido", new Gson().toJson(objeto, PedidoWebCabeza.class));
 
@@ -206,7 +195,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                 for (int i = 0; i < mAppList.size(); i++) {
                     mAppList.get(i).setIdAutoIncrement(id_auto_detalle);
                     mydb.insertHistorydetail(mAppList.get(i));
-                }
+                }*/
 
                 return params;
             }
@@ -216,7 +205,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
 
     public void loaandSpinner(Spinner spinner){
 
-        String[] dataTarjetas = new String[getCodigoS().getTarjetas().size()];
+        /*String[] dataTarjetas = new String[getCodigoS().getTarjetas().size()];
         for (int i = 0; i < getCodigoS().getTarjetas().size(); i++) {
             dataTarjetas[i] = getCodigoS().getTarjetas().get(i).getDescripcion();
         }
@@ -243,6 +232,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
             public void onNothingSelected(AdapterView<?> parent) {}
 
         });// Fin del evento del spin
+    */
     }
 
 }

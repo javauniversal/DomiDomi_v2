@@ -147,7 +147,7 @@
     <!-- I used DRAWERTYPE_NO_HEADER only for get a simple tutorial, you can use any type of drawer obviously -->
 
     <!-- Unique Toolbar Color -->
-    <style name="UniqueToolbarColor" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar" >
+    <style name="UniqueToolbarColor" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar">
         <item name="colorPrimary">#8bc34a</item>
         <item name="colorPrimaryDark">#558b2f</item>
         <item name="colorAccent">#FFFFFF</item>
@@ -156,7 +156,7 @@
     </style>
 
     <!-- Ripple Backport support -->
-    <style name="RippleBackport" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar" >
+    <style name="RippleBackport" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar">
         <item name="colorPrimary">#8bc34a</item>
         <item name="colorPrimaryDark">#558b2f</item>
         <item name="colorAccent">#FFFFFF</item>
@@ -164,13 +164,9 @@
         <item name="rippleBackport">true</item>
     </style>
 
+    <style name="NoHeaderLight.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-
-
-
-
-
-
+    <style name="NoHeaderLight.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 </resources>

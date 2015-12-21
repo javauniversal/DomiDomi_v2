@@ -9,14 +9,14 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import com.appgestor.domidomi.Entities.Companias;
+import com.appgestor.domidomi.Entities.Empresas;
 import com.appgestor.domidomi.R;
 
 import java.util.List;
 
 public abstract class BucketListAdapterCompania<T> extends BaseAdapter {
 
-    protected List<Companias> elements;
+    protected List<Empresas> elements;
     protected Activity ctx;
     protected Integer bucketSize;
 
@@ -27,11 +27,11 @@ public abstract class BucketListAdapterCompania<T> extends BaseAdapter {
      *            The Activity context.
      * @param elements
      */
-    public BucketListAdapterCompania(Activity ctx, List<Companias> elements) {
+    public BucketListAdapterCompania(Activity ctx, List<Empresas> elements) {
         this(ctx, elements, 1);
     }
 
-    public BucketListAdapterCompania(Activity ctx, List<Companias> elements, Integer bucketSize) {
+    public BucketListAdapterCompania(Activity ctx, List<Empresas> elements, Integer bucketSize) {
         this.elements = elements;
         this.ctx = ctx;
         this.bucketSize = bucketSize;
@@ -102,7 +102,7 @@ public abstract class BucketListAdapterCompania<T> extends BaseAdapter {
      *            The current element for which the View should be constructed
      * @return The View that should be presented in the corresponding bucket.
      */
-    protected abstract View getBucketElement(final int position, Companias currentElement);
+    protected abstract View getBucketElement(final int position, Empresas currentElement);
 
     protected float getScreenWidthInDip() {
         WindowManager wm = ctx.getWindowManager();

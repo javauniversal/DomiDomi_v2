@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.appgestor.domidomi.Entities.Companias;
 import com.appgestor.domidomi.R;
 import com.appgestor.domidomi.ViewPager.SlidingTabLayout;
 import com.appgestor.domidomi.mockedFragments.FragMenu;
@@ -28,7 +27,7 @@ public class ActMenu extends AppCompatActivity {
         setContentView(R.layout.layout_menu);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-        toolbar.setTitle(Companias.getCodigoS().getDescripcion());
+        //toolbar.setTitle(Empresas.getCodigoS().getDescripcion());
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -38,11 +37,14 @@ public class ActMenu extends AppCompatActivity {
             }
         });
         ViewPager mPager = (ViewPager) findViewById(R.id.pager);
+
         mPager.setAdapter(new MyClasPagerAdapter(getSupportFragmentManager()));
+
         SlidingTabLayout mTabs = (SlidingTabLayout) findViewById(R.id.tabs);
         mTabs.setBackgroundColor(getResources().getColor(R.color.color_1));
         mTabs.setSelectedIndicatorColors(getResources().getColor(R.color.color_negro));
         mTabs.setDistributeEvenly(true);
+
         mTabs.setViewPager(mPager);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -68,7 +70,7 @@ public class ActMenu extends AppCompatActivity {
                 return true;
             case R.id.action_cart:
                 Bundle bundle = new Bundle();
-                bundle.putInt("compania", Companias.getCodigoS().getCodigo());
+                //bundle.putInt("compania", Empresas.getCodigoS().getCodigo());
                 startActivity(new Intent(ActMenu.this, ActCar.class).putExtras(bundle));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 //finish();

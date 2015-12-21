@@ -6,7 +6,7 @@ import android.os.Bundle;
 import com.appgestor.domidomi.ActMaps;
 import com.appgestor.domidomi.R;
 import com.appgestor.domidomi.mockedActivity.Settings;
-import com.appgestor.domidomi.mockedFragments.FragListCompania;
+import com.appgestor.domidomi.mockedFragments.FragListEmpresas;
 import com.appgestor.domidomi.mockedFragments.FragmentEstadoPedido;
 import com.appgestor.domidomi.mockedFragments.FragmentIndex;
 
@@ -21,13 +21,12 @@ public class Accounts extends MaterialNavigationDrawer  {
         setDrawerHeaderImage(R.drawable.side_nav_bar);
         setUsername("Domi Domi");
         setUserEmail("La manera mas facíl de pedir un domicilio");
-        setFirstAccountPhoto(getResources().getDrawable(R.drawable.logo_movil_zonaapp));
-
+        setFirstAccountPhoto(getResources().getDrawable(R.drawable.logo_transparente));
         // create sections
-        this.addSection(newSection("Rrestaurante", R.drawable.ic_restaurant_menu_black_24dp, new FragListCompania()));
-        this.addSection(newSection("Estado del pedido", R.drawable.ic_view_compact_black_48dp, new FragmentEstadoPedido()));
+        this.addSection(newSection("Rrestaurantes", R.drawable.ic_restaurant_menu_black_24dp, new FragListEmpresas()));
+        this.addSection(newSection("Mis Pedidos", R.drawable.ic_view_compact_black_48dp, new FragmentEstadoPedido()));
         this.addSection(newSection("Favoritos", R.drawable.ic_favorite_black_24dp, new FragmentIndex()));
-        this.addSection(newSection("Mi ubicación", R.drawable.ic_pin_drop_black_48dp, new Intent(this, ActMaps.class)));
+        this.addSection(newSection("Mi Ubicación", R.drawable.ic_pin_drop_black_48dp, new Intent(this, ActMaps.class)));
 
         //this.addSection(newSection("Section 3",R.drawable.ic_mic_white_24dp,new FragmentButton()).setSectionColor(Color.parseColor("#9c27b0")));
         //this.addSection(newSection("Section",R.drawable.ic_hotel_grey600_24dp,new FragmentButton()).setSectionColor(Color.parseColor("#03a9f4")));

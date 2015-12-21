@@ -9,8 +9,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.appgestor.domidomi.Entities.Companias;
-import com.appgestor.domidomi.Entities.ListCompanias;
+import com.appgestor.domidomi.Entities.ListEmpresas;
 import com.appgestor.domidomi.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -18,22 +17,20 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 public class AdapterCompania extends BaseAdapter {
 
     private Activity actx;
-    private ListCompanias elements;
+    private ListEmpresas elements;
     private ImageLoader imageLoader1;
     private DisplayImageOptions options1;
 
-    public AdapterCompania(Activity actx, ListCompanias elements){
+    public AdapterCompania(Activity actx, ListEmpresas elements){
         this.actx = actx;
         this.elements = elements;
 
@@ -104,16 +101,16 @@ public class AdapterCompania extends BaseAdapter {
         imageLoader1.displayImage(elements.get(position).getFoto(),holder.image,options1, listener);
 
         holder.name.setText(elements.get(position).getDescripcion());
-        holder.categoria.setText(elements.get(position).getCategoria());
-        holder.horario.setText(String.format("Horario: %1$s a %2$s", elements.get(position).getFechainicial(), elements.get(position).getFechafinal()));
+        //holder.categoria.setText(elements.get(position).getCategoria());
+        //holder.horario.setText(String.format("Horario: %1$s a %2$s", elements.get(position).getFechainicial(), elements.get(position).getFechafinal()));
 
-        if(beween(elements.get(position).getFechainicial(), elements.get(position).getFechafinal())){
+        /*if(beween(elements.get(position).getFechainicial(), elements.get(position).getFechafinal())){
             holder.estadoRes.setText("Abierto");
             holder.estadoRes.setTextColor(actx.getResources().getColor(R.color.colorErrorConexion));
         }else {
             holder.estadoRes.setText("Cerrado");
             holder.estadoRes.setTextColor(actx.getResources().getColor(R.color.bckg));
-        }
+        }*/
 
         return convertView;
     }

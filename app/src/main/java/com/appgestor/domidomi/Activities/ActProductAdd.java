@@ -18,7 +18,6 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.appgestor.domidomi.DataBase.DBHelper;
 import com.appgestor.domidomi.Entities.AddProductCar;
-import com.appgestor.domidomi.Entities.Companias;
 import com.appgestor.domidomi.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -117,7 +116,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
             return true;
         }else if(id == R.id.action_cart){
             Bundle bundle = new Bundle();
-            bundle.putInt("compania", Companias.getCodigoS().getCodigo());
+            //bundle.putInt("compania", Empresas.getCodigoS().getCodigo());
             startActivity(new Intent(ActProductAdd.this, ActCar.class).putExtras(bundle));
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             return true;
@@ -153,7 +152,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
                                     //Realizar pedido
                                     if (GuardarPedido()) {
                                         Bundle bundle = new Bundle();
-                                        bundle.putInt("compania", Companias.getCodigoS().getCodigo());
+                                        //bundle.putInt("compania", Empresas.getCodigoS().getCodigo());
                                         startActivity(new Intent(ActProductAdd.this, ActCar.class).putExtras(bundle));
                                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                                         finish();
@@ -182,7 +181,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
         Double temp = Double.valueOf(totalFinal.getText().toString());
 
         car.setValueoverall(temp);
-        car.setIdcompany(Companias.getCodigoS().getCodigo());
+        //car.setIdcompany(Empresas.getCodigoS().getCodigo());
         car.setComment(myComment.getText().toString());
         car.setUrlimagen(bundle.getString("foto"));
         if (mydb.insertProduct(car)){

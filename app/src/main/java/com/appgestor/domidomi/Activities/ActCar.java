@@ -20,7 +20,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.appgestor.domidomi.Adapters.AppAdapter;
 import com.appgestor.domidomi.DataBase.DBHelper;
 import com.appgestor.domidomi.Entities.AddProductCar;
-import com.appgestor.domidomi.Entities.Companias;
 import com.appgestor.domidomi.R;
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
@@ -48,7 +47,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.layout_car);
         mydb = new DBHelper(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-        toolbar.setTitle(Companias.getCodigoS().getDescripcion());
+        //toolbar.setTitle(Empresas.getCodigoS().getDescripcion());
         toolbar.setNavigationIcon(R.mipmap.ic_action_cartw);
         setSupportActionBar(toolbar);
 

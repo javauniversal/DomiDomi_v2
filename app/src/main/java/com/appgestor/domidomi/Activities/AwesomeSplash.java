@@ -38,7 +38,6 @@ abstract public class AwesomeSplash extends AppCompatActivity {
     private FillableLoader mPathLogo;
     private FrameLayout mFl;
 
-
     private ConfigSplash mConfigSplash;
     private boolean hasAnimationStarted = false;
     private int pathOrLogo = 0;

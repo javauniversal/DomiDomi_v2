@@ -31,27 +31,18 @@ public class YourActivity extends AwesomeSplash {
         //Choose LOGO OR PATH; if you don't provide String value for path it's logo by default
 
         //Customize Logo
-        configSplash.setLogoSplash(R.drawable.logo_movil_zonaapp); //or any other drawable
+        configSplash.setLogoSplash(R.drawable.logo_transparente); //or any other drawable
         configSplash.setAnimLogoSplashDuration(2000); //int ms
-        configSplash.setAnimLogoSplashTechnique(Techniques.RollIn); //choose one form Techniques (ref: https://github.com/daimajia/AndroidViewAnimations)
+        configSplash.setAnimLogoSplashTechnique(Techniques.RubberBand); //choose one form Techniques (ref: https://github.com/daimajia/AndroidViewAnimations)
 
-        //Customize Path
-        /*configSplash.setPathSplash(Constants.DROID_LOGO); //set path String
-        configSplash.setOriginalHeight(400); //in relation to your svg (path) resource
-        configSplash.setOriginalWidth(400); //in relation to your svg (path) resource
-        configSplash.setAnimPathStrokeDrawingDuration(3000);
-        configSplash.setPathSplashStrokeSize(3); //I advise value be <5
-        configSplash.setPathSplashStrokeColor(R.color.accent); //any color you want form colors.xml
-        configSplash.setAnimPathFillingDuration(3000);
-        configSplash.setPathSplashFillColor(R.color.Wheat); //path object filling color*/
 
         //Customize Title
         configSplash.setTitleSplash("Domi Domi");
         configSplash.setTitleTextColor(R.color.actionBarColorText);
-        configSplash.setTitleTextSize(30f); //float value
+        configSplash.setTitleTextSize(19f); //float value
         configSplash.setAnimTitleDuration(3000);
         configSplash.setAnimTitleTechnique(Techniques.FlipInX);
-        configSplash.setTitleFont("fonts/zona.ttf"); //provide string to your font located in assets/fonts/
+        configSplash.setTitleFont("fonts/speed.ttf"); //provide string to your font located in assets/fonts/
     }
 
     @Override

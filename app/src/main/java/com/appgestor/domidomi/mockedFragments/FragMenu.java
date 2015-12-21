@@ -25,7 +25,6 @@ import com.appgestor.domidomi.Adapters.AdapterSedes;
 import com.appgestor.domidomi.Adapters.ExpandableListAdapter;
 import com.appgestor.domidomi.Adapters.ExpandableListDataPump;
 import com.appgestor.domidomi.Entities.CompaniaList;
-import com.appgestor.domidomi.Entities.Companias;
 import com.appgestor.domidomi.Entities.InformacioCompania;
 import com.appgestor.domidomi.Entities.ListComentarios;
 import com.appgestor.domidomi.Entities.MasterItem2;
@@ -170,7 +169,7 @@ public class FragMenu extends BaseVolleyFragment {
             protected Map<String, String> getParams(){
                 Map<String, String>  params = new HashMap<String, String>();
                 params.put("comentario", mensaje.getText().toString());
-                params.put("compania", String.valueOf(Companias.getCodigoS().getCodigo()));
+                //params.put("compania", String.valueOf(Empresas.getCodigoS().getCodigo()));
 
                 return params;
             }
@@ -201,7 +200,7 @@ public class FragMenu extends BaseVolleyFragment {
             @Override
             protected Map<String, String> getParams(){
                 Map<String, String>  params = new HashMap<String, String>();
-                params.put("compania", String.valueOf(Companias.getCodigoS().getCodigo()));
+                //params.put("compania", String.valueOf(Empresas.getCodigoS().getCodigo()));
 
                 return params;
             }
@@ -263,7 +262,7 @@ public class FragMenu extends BaseVolleyFragment {
             @Override
             protected Map<String, String> getParams(){
                 Map<String, String>  params = new HashMap<>();
-                params.put("codigo", String.valueOf(Companias.getCodigoS().getCodigo()));
+                //params.put("codigo", String.valueOf(Empresas.getCodigoS().getCodigo()));
                 return params;
             }
         };
@@ -365,7 +364,7 @@ public class FragMenu extends BaseVolleyFragment {
             @Override
             protected Map<String, String> getParams(){
                 Map<String, String>  params = new HashMap<>();
-                params.put("codigo", String.valueOf(Companias.getCodigoS().getCodigo()));
+                //params.put("codigo", String.valueOf(Empresas.getCodigoS().getCodigo()));
                 return params;
             }
         };
@@ -383,6 +382,7 @@ public class FragMenu extends BaseVolleyFragment {
             }catch (IllegalStateException ex) {
                 ex.printStackTrace();
             }
+
         }else{
             startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "EMPTY"));
             getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

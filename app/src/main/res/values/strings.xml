@@ -3,7 +3,7 @@
 
     <string name="hello_world">Domi Domi</string>
 
-    <string name="url_base">http://zonaapp.co/dashboardd/services/</string>
+    <string name="url_base">http://zonaapp.co/domidomi/service/</string>
     <!--<string name="url_base">http://172.20.32.75/dashboardd/services/</string>-->
 
     <string name="senales">*</string>
@@ -86,4 +86,5 @@
     <string name="dato_false">No se pudo guardar su registro.</string>
     <string name="title_activity_act_maps">Mapa Tiendas</string>
     <string name="compania">Nombre Compañia</string>
+    <string name="title_activity_activity_sedes">Sedes</string>
 </resources>
