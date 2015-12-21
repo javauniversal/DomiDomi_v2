@@ -7,9 +7,6 @@ import android.widget.TextView;
 
 import com.appgestor.domidomi.cnst.Flags;
 
-/**
- * Created by varsovski on 27-Sep-15.
- */
 public class UIUtil {
 
     public static int getRevealDirection(RelativeLayout rl, int flag){
