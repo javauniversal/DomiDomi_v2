@@ -20,17 +20,13 @@ import com.appgestor.domidomi.Entities.ListPedidoEstado;
 import com.appgestor.domidomi.R;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.google.gson.Gson;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import dmax.dialog.SpotsDialog;
-
 
 public class FragmentEstadoPedido extends BaseVolleyFragment {
 
     private SwipeMenuListView listView;
-    private ListPedidoEstado pedidos;
     private AlertDialog alertDialog;
 
     public FragmentEstadoPedido() { }
@@ -47,7 +43,9 @@ public class FragmentEstadoPedido extends BaseVolleyFragment {
         View view = inflater.inflate(R.layout.fragment_estado_pedido_ver, container, false);
         listView = (SwipeMenuListView) view.findViewById(R.id.listView);
         alertDialog = new SpotsDialog(getActivity(), R.style.Custom);
+
         return  view;
+
     }
 
     @Override
@@ -60,6 +58,7 @@ public class FragmentEstadoPedido extends BaseVolleyFragment {
 
         alertDialog.show();
         String url = String.format("%1$s%2$s", getString(R.string.url_base),"estadoPedido");
+
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>(){
                     @Override
@@ -71,16 +70,16 @@ public class FragmentEstadoPedido extends BaseVolleyFragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
-                        //onConnectionFailed(error.toString());
+                        alertDialog.dismiss();
                         startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "ERROR"));
                         getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                        alertDialog.dismiss();
+
                     }
                 }
         ) {
             @Override
             protected Map<String, String> getParams(){
-                Map<String, String>  params = new HashMap<String, String>();
+                Map<String, String>  params = new HashMap<>();
 
                 TelephonyManager telephonyManager = (TelephonyManager)getActivity().getSystemService(Context.TELEPHONY_SERVICE);
                 params.put("imei", telephonyManager.getDeviceId());
@@ -92,10 +91,11 @@ public class FragmentEstadoPedido extends BaseVolleyFragment {
     }
 
     private boolean parseJSON(String json) {
+
         if (!json.equals("[]")){
             try {
                 Gson gson = new Gson();
-                pedidos = gson.fromJson(json, ListPedidoEstado.class);
+                ListPedidoEstado pedidos = gson.fromJson(json, ListPedidoEstado.class);
                 AdapterEstadoPedido adapter = new AdapterEstadoPedido(getActivity(), pedidos);
                 listView.setAdapter(adapter);
                 alertDialog.dismiss();
@@ -103,11 +103,10 @@ public class FragmentEstadoPedido extends BaseVolleyFragment {
             }catch (IllegalStateException ex) {
                 ex.printStackTrace();
             }
-        }else {
+        } else {
             alertDialog.dismiss();
             startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "EMPTYP"));
             getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-
         }
 
         return false;

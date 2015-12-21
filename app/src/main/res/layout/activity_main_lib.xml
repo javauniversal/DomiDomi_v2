@@ -14,27 +14,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/flCentral"
+            android:visibility="gone"
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:maxLines="1"
-            android:textSize="40sp"
-            android:visibility="gone" />
+            android:textSize="40sp" />
 
         <FrameLayout
             android:id="@+id/flCentral"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="20dp"
             android:layout_centerInParent="true">
 
             <ImageView
                 android:id="@+id/imgLogo"
                 android:visibility="gone"
-                android:scaleType="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp" />
+                android:layout_width="250dp"
+                android:layout_height="260dp" />
 
         </FrameLayout>
+
     </RelativeLayout>
 
 </io.codetail.widget.RevealFrameLayout>

@@ -1,5 +1,6 @@
 package com.appgestor.domidomi.mockedFragments;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -26,6 +27,8 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutD
 import java.util.HashMap;
 import java.util.Map;
 
+import dmax.dialog.SpotsDialog;
+
 import static com.appgestor.domidomi.Entities.Empresas.setEmpresastatic;
 
 public class FragListEmpresas extends BaseVolleyFragment implements SwipyRefreshLayout.OnRefreshListener {
@@ -34,6 +37,7 @@ public class FragListEmpresas extends BaseVolleyFragment implements SwipyRefresh
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.Adapter mAdapter;
     private SwipyRefreshLayout mSwipyRefreshLayout;
+    private AlertDialog alertDialog;
 
     public FragListEmpresas() {}
 
@@ -52,6 +56,8 @@ public class FragListEmpresas extends BaseVolleyFragment implements SwipyRefresh
         mSwipyRefreshLayout = (SwipyRefreshLayout) myView.findViewById(R.id.swipyrefreshlayout);
         mSwipyRefreshLayout.setOnRefreshListener(this);
 
+        alertDialog = new SpotsDialog(getActivity(), R.style.Custom);
+
         return myView;
     }
 
@@ -62,6 +68,7 @@ public class FragListEmpresas extends BaseVolleyFragment implements SwipyRefresh
     }
 
     private void setupGrid() {
+        alertDialog.show();
         String url = String.format("%1$s%2$s", getString(R.string.url_base), "listEmpresas");
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>(){
@@ -78,6 +85,7 @@ public class FragListEmpresas extends BaseVolleyFragment implements SwipyRefresh
                         mSwipyRefreshLayout.setRefreshing(false);
                         startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "ERROR"));
                         getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        alertDialog.dismiss();
                     }
                 }
         ) {
@@ -111,6 +119,9 @@ public class FragListEmpresas extends BaseVolleyFragment implements SwipyRefresh
                         getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     }
                 }));
+
+                alertDialog.dismiss();
+
                 return true;
 
 
@@ -122,6 +133,7 @@ public class FragListEmpresas extends BaseVolleyFragment implements SwipyRefresh
             startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "EMPTY"));
             getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             mSwipyRefreshLayout.setRefreshing(false);
+            alertDialog.dismiss();
         }
 
         mSwipyRefreshLayout.setRefreshing(false);
