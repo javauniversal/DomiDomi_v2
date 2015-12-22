@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.appgestor.domidomi.Entities.Empresas.getEmpresastatic;
+import static com.appgestor.domidomi.Entities.Sede.setSedeStatic;
 
 public class ActivitySedes extends AppCompatActivity implements SwipyRefreshLayout.OnRefreshListener {
 
@@ -105,19 +106,23 @@ public class ActivitySedes extends AppCompatActivity implements SwipyRefreshLayo
         if (!json.equals("[]")){
             try {
 
-                ListSede listSedes = gson.fromJson(json, ListSede.class);
+                final ListSede listSedes = gson.fromJson(json, ListSede.class);
 
                 adapter = new AdapterRecyclerSedesEmpresa(this, listSedes);
                 recycler.setAdapter(adapter);
                 mSwipyRefreshLayout.setRefreshing(false);
+
                 recycler.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
+
+                        setSedeStatic(listSedes.get(position));
 
                         startActivity(new Intent(ActivitySedes.this, ActMenu.class));
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
                     }
+
                 }));
                 indicant = true;
 

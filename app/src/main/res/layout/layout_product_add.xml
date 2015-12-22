@@ -2,8 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_gris"
-    tools:context="com.appgestor.domiciliosya.Adtivities.ActProductAdd">
+    android:background="@color/color_gris">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +20,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dip"
+            android:layout_margin="8dip"
             android:orientation="vertical"
             android:descendantFocusability="blocksDescendants">
 
@@ -39,7 +38,7 @@
                     android:textStyle="bold"
                     android:textColor="@color/color_negro"
                     android:layout_weight="1"
-                    android:layout_margin="5dip"/>
+                    android:layout_margin="4dip"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -70,11 +69,10 @@
 
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dip"
+            android:layout_margin="8dip"
             android:orientation="vertical"
             android:descendantFocusability="blocksDescendants">
 
@@ -86,7 +84,7 @@
                 android:textSize="15sp"
                 android:textColor="@color/color_negro"
                 android:textStyle="bold"
-                android:layout_margin="5dip"/>
+                android:layout_margin="4dip"/>
 
             <View
                 android:layout_width="match_parent"
@@ -98,16 +96,15 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@color/color_negro"
-                android:layout_margin="8dip"
+                android:layout_margin="5dip"
                 android:id="@+id/ingredientes" />
 
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dip"
+            android:layout_margin="8dip"
             android:orientation="vertical"
             android:descendantFocusability="blocksDescendants">
 
@@ -119,11 +116,12 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/color_negro"
-                android:layout_margin="5dip"/>
+                android:layout_margin="4dip"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginBottom="8dp"
                 android:background="@color/color_1" />
 
             <LinearLayout
@@ -145,14 +143,38 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dip"
+            android:orientation="vertical"
+            android:descendantFocusability="blocksDescendants">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Adiciones"
+                android:textSize="15sp"
+                android:textColor="@color/color_negro"
+                android:textStyle="bold"
+                android:layout_margin="4dip"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_1" />
+
+
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dip"
+            android:layout_margin="8dip"
             android:orientation="vertical"
             android:descendantFocusability="blocksDescendants">
-
 
             <TextView
                 android:layout_width="wrap_content"
@@ -161,7 +183,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/color_negro"
-                android:layout_margin="5dip"/>
+                android:layout_margin="4dip"/>
 
             <View
                 android:layout_width="match_parent"
@@ -171,7 +193,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Precio: $12.000"
+                android:text=""
                 android:layout_margin="8dip"
                 android:textColor="@color/color_negro"
                 android:id="@+id/preciodesc" />
@@ -193,7 +215,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="23333"
+                    android:text="0"
                     android:textStyle="bold"
                     android:layout_margin="8dip"
                     android:id="@+id/totalFinal"
@@ -204,11 +226,10 @@
 
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dip"
+            android:layout_margin="8dip"
             android:orientation="vertical">
 
 
@@ -219,7 +240,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/color_negro"
-                android:layout_margin="5dip"/>
+                android:layout_margin="4dip"/>
 
             <LinearLayout
                 android:orientation="horizontal"

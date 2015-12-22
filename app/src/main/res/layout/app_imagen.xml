@@ -3,11 +3,11 @@
     android:background="@color/color_gris"
     android:layout_height="fill_parent">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <com.flaviofaria.kenburnsview.KenBurnsView
+        android:id="@+id/displayImagen"
         android:scaleType="center"
-        android:id="@+id/displayImagen" />
+        android:layout_width="match_parent"
+        android:layout_height="280dp" />
 
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"

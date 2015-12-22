@@ -19,6 +19,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.appgestor.domidomi.DataBase.DBHelper;
 import com.appgestor.domidomi.Entities.AddProductCar;
 import com.appgestor.domidomi.R;
+import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -28,10 +29,11 @@ import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import java.text.DecimalFormat;
 
 import static com.appgestor.domidomi.Entities.MasterItem.getProductDescripStatic;
+import static com.appgestor.domidomi.Entities.Producto.getProductoStatic;
 
 public class ActProductAdd extends AppCompatActivity implements View.OnClickListener{
 
-    private ImageView displayImagen;
+    private KenBurnsView displayImagen;
     private Bundle bundle;
     private QuantityView cantidad;
     private TextView totalFinal;
@@ -43,17 +45,31 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_product_add);
-        mydb = new DBHelper(this);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
 
-        displayImagen = (ImageView) findViewById(R.id.displayImagen);
+        //mydb = new DBHelper(this);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+        toolbar.setTitle(getProductoStatic().getDescripcion());
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        displayImagen = (KenBurnsView) findViewById(R.id.displayImagen);
+        progressBar2 = (ProgressBar) findViewById(R.id.progressBar2);
+
+        CargarImagen();
+
         ImageView imagenAgotado = (ImageView) findViewById(R.id.inside_imageview);
+
+        if(getProductoStatic().getCantidad() == 0)
+            imagenAgotado.setImageResource(R.drawable.agotado);
 
         TextView descripcion = (TextView) findViewById(R.id.descripcion);
         TextView ingredientes = (TextView) findViewById(R.id.ingredientes);
         TextView precio = (TextView) findViewById(R.id.precio);
-
-        progressBar2 = (ProgressBar) findViewById(R.id.progressBar2);
 
         cantidad = (QuantityView) findViewById(R.id.quantityView_default);
 
@@ -64,37 +80,17 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
         Button btnAdd = (Button) findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(this);
 
-        Intent intent = getIntent();
-        bundle = intent.getExtras();
-        if(bundle != null){
+        descripcion.setText(getProductoStatic().getDescripcion());
+        ingredientes.setText(getProductoStatic().getIngredientes());
+        DecimalFormat format = new DecimalFormat("#,###.##");
 
-            CargarImagen();
+        precio.setText(String.format("Precio: %s", format.format(getProductoStatic().getPrecio())));
 
-            descripcion.setText(bundle.getString("descripcion"));
-            ingredientes.setText(bundle.getString("ingredientes"));
-            DecimalFormat format = new DecimalFormat("#,###.##");
-            precio.setText(String.format("Precio: %s", format.format(bundle.getDouble("precio"))));
-            preciodec.setText(String.format("Precio: %s", format.format(bundle.getDouble("precio"))));
+        preciodec.setText(String.format("Precio: %s", format.format(getProductoStatic().getPrecio())));
 
-            totalFinal.setText(bundle.getDouble("precio")+"");
+        totalFinal.setText(getProductoStatic().getPrecio()+"");
 
-            cantidad.setValorTotal(bundle.getDouble("precio"),totalFinal);
-
-            int existencia = getProductDescripStatic().getExistencia();
-            if( existencia == 0){
-                imagenAgotado.setImageResource(R.drawable.agotado);
-            }
-
-            toolbar.setTitle(bundle.getString("descripcion"));
-            setSupportActionBar(toolbar);
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onBackPressed();
-                }
-            });
-
-        }
+        cantidad.setValorTotal(getProductoStatic().getPrecio(), totalFinal);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -115,10 +111,10 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
         if (id == R.id.action_settings) {
             return true;
         }else if(id == R.id.action_cart){
-            Bundle bundle = new Bundle();
+            //Bundle bundle = new Bundle();
             //bundle.putInt("compania", Empresas.getCodigoS().getCodigo());
-            startActivity(new Intent(ActProductAdd.this, ActCar.class).putExtras(bundle));
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            //startActivity(new Intent(ActProductAdd.this, ActCar.class).putExtras(bundle));
+            //overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             return true;
         }
 
@@ -225,7 +221,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
             }
         };
 
-        imageLoader1.displayImage(bundle.getString("foto"), displayImagen, options1, listener);
+        imageLoader1.displayImage(getProductoStatic().getFoto(), displayImagen, options1, listener);
     }
 
 }

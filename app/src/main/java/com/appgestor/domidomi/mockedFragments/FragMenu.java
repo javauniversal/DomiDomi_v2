@@ -38,7 +38,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.appgestor.domidomi.Entities.MasterItem.setProductDescripStatic;
+import static com.appgestor.domidomi.Entities.Producto.setProductoStatic;
+import static com.appgestor.domidomi.Entities.Sede.getSedeStatic;
 
 
 public class FragMenu extends BaseVolleyFragment {
@@ -90,36 +91,22 @@ public class FragMenu extends BaseVolleyFragment {
                 expandableListView = (ExpandableListView) rootView.findViewById(R.id.expandableListView);
                 break;
             case 1:
-                rootView = inflater.inflate(R.layout.fragment_informacion, container, false);
+                /*rootView = inflater.inflate(R.layout.fragment_informacion, container, false);
                 nombreEmpresa = (TextView) rootView.findViewById(R.id.txtNombreEmpresa);
                 nit = (TextView) rootView.findViewById(R.id.txtNit);
                 direccion = (TextView) rootView.findViewById(R.id.textDireccion);
                 telefono = (TextView) rootView.findViewById(R.id.txtTelefono);
                 celular = (TextView) rootView.findViewById(R.id.txtCelulat);
-                tabla = (TableLayout) rootView.findViewById(R.id.myTable);
+                tabla = (TableLayout) rootView.findViewById(R.id.myTable);*/
                 break;
             case 2:
-                rootView = inflater.inflate(R.layout.fragment_comentarios, container, false);
+                /*rootView = inflater.inflate(R.layout.fragment_comentarios, container, false);
                 enviarComentario = (Button) rootView.findViewById(R.id.enviarComentario);
                 mensaje = (EditText) rootView.findViewById(R.id.editMensaje);
-                listView = (SwipeMenuListView) rootView.findViewById(R.id.listView);
+                listView = (SwipeMenuListView) rootView.findViewById(R.id.listView);*/
                 break;
         }
         return rootView;
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        switch (operador) {
-            case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-        }
-
     }
 
     @Override
@@ -130,10 +117,10 @@ public class FragMenu extends BaseVolleyFragment {
                 setExpandableListView();
                 break;
             case 1:
-                cargaInformacionE();
+                //cargaInformacionE();
                 break;
             case 2:
-                recuperarMensaje();
+                /*recuperarMensaje();
                 enviarComentario.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -141,7 +128,7 @@ public class FragMenu extends BaseVolleyFragment {
                             enviarMensaje();
                         }
                     }
-                });
+                });*/
                 break;
         }
     }
@@ -177,7 +164,6 @@ public class FragMenu extends BaseVolleyFragment {
         addToQueue(jsonRequest);
     }
 
-
     private void recuperarMensaje() {
         String url = String.format("%1$s%2$s", getString(R.string.url_base),"getComentarios");
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
@@ -207,8 +193,6 @@ public class FragMenu extends BaseVolleyFragment {
         };
         addToQueue(jsonRequest);
     }
-
-
 
     private void cargaInformacionE(){
         String url = String.format("%1$s%2$s", getString(R.string.url_base),"getInformation");
@@ -289,95 +273,62 @@ public class FragMenu extends BaseVolleyFragment {
     }
 
     private void setExpandableListView() {
-        String url = String.format("%1$s%2$s", getString(R.string.url_base),"listMenuProduc");
-        StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>(){
-                    @Override
-                    public void onResponse(final String response) {
-                        // response
-                        new AsyncTask<String[], Long, Long>(){
-                            @Override
-                            protected Long doInBackground(String[]... params) {
-                                parseJSON(response);
-                                return null;
-                            }
-                            protected void onPreExecute() {
-                                //multiColumnList.setVisibility(View.GONE);
-                            }
-                            @Override
-                            public void onProgressUpdate(Long... value) {
-
-                            }
-                            @Override
-                            protected void onPostExecute(Long result){
-                                //Clic Titulo.
-                                expandableListAdapter = new ExpandableListAdapter(getActivity(), expandableListTitle, expandableListDetail);
-                                expandableListView.setAdapter(expandableListAdapter);
-                                expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-                                    @Override
-                                    public void onGroupExpand(int groupPosition) {
-                                        //Toast.makeText(getActivity(),expandableListTitle.get(groupPosition) + " List Expanded.", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                                //Cerrar lista desplegable.
-                                expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-                                    @Override
-                                    public void onGroupCollapse(int groupPosition) {
-                                        //Toast.makeText(getActivity(), expandableListTitle.get(groupPosition) + " List Collapsed.", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                                //Clic en el elemento hijo.
-                                expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-                                    @Override
-                                    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-
-                                        setProductDescripStatic(menu.get(groupPosition).getHijos().get(childPosition));
-
-                                        Bundle bundle = new Bundle();
-                                        bundle.putInt("codeproduct", menu.get(groupPosition).getHijos().get(childPosition).getCodigo());
-                                        bundle.putString("descripcion", menu.get(groupPosition).getHijos().get(childPosition).getDescripcion());
-                                        bundle.putString("ingredientes", menu.get(groupPosition).getHijos().get(childPosition).getIngredientes());
-                                        bundle.putDouble("precio", menu.get(groupPosition).getHijos().get(childPosition).getPrecio());
-                                        bundle.putString("foto", menu.get(groupPosition).getHijos().get(childPosition).getFoto());
-
-                                        startActivity(new Intent(getActivity(), ActProductAdd.class).putExtras(bundle));
-                                        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-
-                                        return false;
-                                    }
-                                });
-
-                            }
-                        }.execute();
-                    }
-                },
-                new Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // error
-                        //onConnectionFailed(error.toString());
-                        startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "ERROR"));
-                        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    }
-                }
-        ) {
+        // response
+        new AsyncTask<String[], Long, Long>(){
             @Override
-            protected Map<String, String> getParams(){
-                Map<String, String>  params = new HashMap<>();
-                //params.put("codigo", String.valueOf(Empresas.getCodigoS().getCodigo()));
-                return params;
+            protected Long doInBackground(String[]... params) {
+                expandableListDetail = ExpandableListDataPump.getData(getSedeStatic().getMenus());
+                expandableListTitle = new ArrayList<>(expandableListDetail.keySet());
+                return null;
             }
-        };
-        addToQueue(jsonRequest);
+            protected void onPreExecute() {
+                //multiColumnList.setVisibility(View.GONE);
+            }
+            @Override
+            public void onProgressUpdate(Long... value) {
+
+            }
+            @Override
+            protected void onPostExecute(Long result){
+                expandableListAdapter = new ExpandableListAdapter(getActivity(), expandableListTitle, expandableListDetail);
+                expandableListView.setAdapter(expandableListAdapter);
+                expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+                    @Override
+                    public void onGroupExpand(int groupPosition) {
+                        //Toast.makeText(getActivity(),expandableListTitle.get(groupPosition) + " List Expanded.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                //Cerrar lista desplegable.
+                expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+                    @Override
+                    public void onGroupCollapse(int groupPosition) {
+                        //Toast.makeText(getActivity(), expandableListTitle.get(groupPosition) + " List Collapsed.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                //Clic en el elemento hijo.
+                expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                    @Override
+                    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+
+                        setProductoStatic(getSedeStatic().getMenus().get(groupPosition).getProductos().get(childPosition));
+
+                        startActivity(new Intent(getActivity(), ActProductAdd.class));
+                        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+                        return false;
+                    }
+                });
+
+            }
+        }.execute();
     }
+
 
     private void parseJSON(String json) {
         if (json != null && json.length() > 0) {
             try {
                 Gson gson = new Gson();
                 menu = gson.fromJson(json, MenuList.class);
-                expandableListDetail = ExpandableListDataPump.getData(menu);
-                expandableListTitle = new ArrayList<>(expandableListDetail.keySet());
 
             }catch (IllegalStateException ex) {
                 ex.printStackTrace();

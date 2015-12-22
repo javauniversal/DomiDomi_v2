@@ -34,6 +34,16 @@ public class Sede {
     @SerializedName("menu")
     private List<Menu> menus;
 
+    public static Sede sedeStatic;
+
+    public static Sede getSedeStatic() {
+        return sedeStatic;
+    }
+
+    public static void setSedeStatic(Sede sedeStatic) {
+        Sede.sedeStatic = sedeStatic;
+    }
+
     public int getIdsedes() {
         return idsedes;
     }

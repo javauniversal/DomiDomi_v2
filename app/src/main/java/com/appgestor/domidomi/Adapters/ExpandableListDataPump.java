@@ -1,6 +1,6 @@
 package com.appgestor.domidomi.Adapters;
 
-import com.appgestor.domidomi.Entities.MenuList;
+import com.appgestor.domidomi.Entities.Menu;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,25 +11,29 @@ public class ExpandableListDataPump {
 
 
 
-    public static HashMap<String, List<String>> getData(MenuList data) {
+    public static HashMap<String, List<String>> getData(List<Menu> data) {
         int elements = 0;
 
         HashMap<String, List<String>> expandableListDetail = new LinkedHashMap<>();
 
-        for (int i = 0; i < data.size(); i++) {
-            List<String> technology = new ArrayList<>();
-            if(data.get(i).getHijos() != null){
-                elements = data.get(i).getHijos().size();
-            }
+        if(data != null) {
+            for (int i = 0; i < data.size(); i++) {
 
-            for (int a = 0; a < elements; a++){
-                if(data.get(i).getHijos() != null) {
-                    technology.add(a, data.get(i).getHijos().get(a).getDescripcion());
+                List<String> technology = new ArrayList<>();
+                if (data.get(i).getProductos() != null) {
+                    elements = data.get(i).getProductos().size();
                 }
-            }
-            expandableListDetail.put(data.get(i).getDescripcion(), technology);
-        }
 
+                for (int a = 0; a < elements; a++) {
+                    if (data.get(i).getProductos() != null) {
+                        technology.add(a, data.get(i).getProductos().get(a).getDescripcion());
+                    }
+                }
+
+                expandableListDetail.put(data.get(i).getDescipcion(), technology);
+
+            }
+        }
         return expandableListDetail;
     }
 }

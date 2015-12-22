@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:padding="9dp"
     android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:src="@drawable/ic_credit_card_black_24dp"
+        app:civ_border_width="1dp"
+        app:civ_border_color="@color/color_1"/>
+
     <TextView
         android:id="@+id/expandedListItem"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
-        android:paddingTop="10dp"
-        android:text="German"
+        android:text="@string/nombre_del_producto"
         android:textColor="@color/color_negro"
-        android:paddingBottom="10dp" />
-</LinearLayout>
+        android:layout_marginLeft="9dp"
+        android:layout_marginStart="9dp"
+        android:textSize="13sp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/profile_image"
+        android:layout_toEndOf="@+id/profile_image" />
+
+</RelativeLayout>

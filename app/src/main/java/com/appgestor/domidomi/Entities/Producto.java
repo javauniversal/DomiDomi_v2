@@ -28,6 +28,16 @@ public class Producto {
     @SerializedName("idmenumovil")
     private int idmenumovil;
 
+    public static Producto productoStatic;
+
+    public static Producto getProductoStatic() {
+        return productoStatic;
+    }
+
+    public static void setProductoStatic(Producto productoStatic) {
+        Producto.productoStatic = productoStatic;
+    }
+
     public int getIdproductos() {
         return idproductos;
     }
@@ -91,4 +101,5 @@ public class Producto {
     public void setIdmenumovil(int idmenumovil) {
         this.idmenumovil = idmenumovil;
     }
+
 }

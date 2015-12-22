@@ -18,6 +18,8 @@ import com.appgestor.domidomi.R;
 import com.appgestor.domidomi.ViewPager.SlidingTabLayout;
 import com.appgestor.domidomi.mockedFragments.FragMenu;
 
+import static com.appgestor.domidomi.Entities.Sede.getSedeStatic;
+
 
 public class ActMenu extends AppCompatActivity {
 
@@ -25,9 +27,8 @@ public class ActMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_menu);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-        //toolbar.setTitle(Empresas.getCodigoS().getDescripcion());
+        toolbar.setTitle(getSedeStatic().getDescripcion());
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -36,19 +37,18 @@ public class ActMenu extends AppCompatActivity {
                 onBackPressed();
             }
         });
+
         ViewPager mPager = (ViewPager) findViewById(R.id.pager);
 
         mPager.setAdapter(new MyClasPagerAdapter(getSupportFragmentManager()));
-
         SlidingTabLayout mTabs = (SlidingTabLayout) findViewById(R.id.tabs);
         mTabs.setBackgroundColor(getResources().getColor(R.color.color_1));
         mTabs.setSelectedIndicatorColors(getResources().getColor(R.color.color_negro));
         mTabs.setDistributeEvenly(true);
-
         mTabs.setViewPager(mPager);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
     }
 
     @Override
