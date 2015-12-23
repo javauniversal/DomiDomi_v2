@@ -148,13 +148,15 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dip"
             android:orientation="vertical"
+            android:id="@+id/paterAdiciones"
+            android:visibility="gone"
             android:descendantFocusability="blocksDescendants">
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Adiciones"
+                android:text="Adiciones/Extras"
                 android:textSize="15sp"
                 android:textColor="@color/color_negro"
                 android:textStyle="bold"
@@ -165,6 +167,13 @@
                 android:layout_height="1dp"
                 android:background="@color/color_1" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/llAdiciones"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            </LinearLayout>
 
 
         </LinearLayout>

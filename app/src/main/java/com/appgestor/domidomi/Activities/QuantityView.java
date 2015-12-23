@@ -193,7 +193,9 @@ public class QuantityView extends LinearLayout implements View.OnClickListener {
     }
 
     public void algoValor(){
+
         textView.setText(valorPrecio*getQuantity()+"");
+
     }
 
     public void setOnQuantityChangeListener(OnQuantityChangeListener onQuantityChangeListener) {
