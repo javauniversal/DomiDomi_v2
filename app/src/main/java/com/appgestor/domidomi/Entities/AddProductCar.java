@@ -29,6 +29,9 @@ public class AddProductCar {
     @SerializedName("idcompany")
     private int idcompany;
 
+    @SerializedName("idsede")
+    private int idsede;
+
     @SerializedName("urlimagen")
     private String urlimagen;
 
@@ -97,5 +100,13 @@ public class AddProductCar {
     public String getUrlimagen() { return urlimagen; }
 
     public void setUrlimagen(String urlimagen) { this.urlimagen = urlimagen; }
+
+    public int getIdsede() {
+        return idsede;
+    }
+
+    public void setIdsede(int idsede) {
+        this.idsede = idsede;
+    }
 
 }

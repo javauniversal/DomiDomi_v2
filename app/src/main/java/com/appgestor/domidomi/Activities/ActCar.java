@@ -30,6 +30,8 @@ import java.util.List;
 
 import dmax.dialog.SpotsDialog;
 
+import static com.appgestor.domidomi.Entities.Empresas.getEmpresastatic;
+
 public class ActCar extends AppCompatActivity implements View.OnClickListener{
 
     private AppAdapter mAdapter;
@@ -47,7 +49,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.layout_car);
         mydb = new DBHelper(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-        //toolbar.setTitle(Empresas.getCodigoS().getDescripcion());
+        toolbar.setTitle(getEmpresastatic().getDescripcion());
         toolbar.setNavigationIcon(R.mipmap.ic_action_cartw);
         setSupportActionBar(toolbar);
 

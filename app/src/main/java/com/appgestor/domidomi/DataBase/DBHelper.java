@@ -38,7 +38,7 @@ public class DBHelper extends SQLiteOpenHelper {
                                     " email text, celular text, direccion text, estado integer, foto BLOB )";
 
         String sqlPedido = "CREATE TABLE carrito (id integer primary key AUTOINCREMENT, codeproduct int, nameProduct text, " +
-                           "                        quantity int, valueunitary REAL, valueoverall REAL, comment text, idcompany int, urlimagen text)";
+                           "                        quantity int, valueunitary REAL, valueoverall REAL, comment text, idcompany int, idsede int, urlimagen text)";
 
         String sqlHistoryhead = "CREATE TABLE historyhead (id integer primary key AUTOINCREMENT, nombreUsuario text, idCompany int, direccion text, "+
                                         " direccionReferen text, celular text, longitud REAL, latitud REAL)";
@@ -187,6 +187,7 @@ public class DBHelper extends SQLiteOpenHelper {
             values.put("valueoverall", String.valueOf(data.getValueoverall()));
             values.put("comment", data.getComment());
             values.put("idcompany", data.getIdcompany());
+            values.put("idsede", data.getIdsede());
             values.put("urlimagen", data.getUrlimagen());
 
             db.insert("carrito", null, values);

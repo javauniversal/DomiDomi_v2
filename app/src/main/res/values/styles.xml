@@ -4,6 +4,17 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="BrandButtonStyle" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/color_1</item>
+        <item name="android:textColor">@color/actionBarColorText</item>
+    </style>
+
+    <style name="BrandButtonStyle2" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/color_1</item>
+        <item name="android:textColor">@color/color_1</item>
+    </style>
+
+
     <style name="Toolbar" parent="Theme.AppCompat">
         <item name="android:textColorPrimary">#FFF</item>
         <item name="android:textColorSecondary">#FFF</item>
@@ -74,6 +85,7 @@
         <item name="drawerType">@integer/DRAWERTYPE_ACCOUNTS</item>
         <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
         <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
+        <item name="colorButtonNormal">@color/color_1</item>
     </style>
 
     <style name="MaterialNavigationDrawerTheme.Light.DarkActionBar2" parent="Theme.AppCompat.Light.NoActionBar">

@@ -1,5 +1,6 @@
 package com.appgestor.domidomi.Activities;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +27,8 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutD
 import java.util.HashMap;
 import java.util.Map;
 
+import dmax.dialog.SpotsDialog;
+
 import static com.appgestor.domidomi.Entities.Empresas.getEmpresastatic;
 import static com.appgestor.domidomi.Entities.Sede.setSedeStatic;
 
@@ -34,6 +37,7 @@ public class ActivitySedes extends AppCompatActivity implements SwipyRefreshLayo
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
     private SwipyRefreshLayout mSwipyRefreshLayout;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +67,13 @@ public class ActivitySedes extends AppCompatActivity implements SwipyRefreshLayo
         mSwipyRefreshLayout = (SwipyRefreshLayout) findViewById(R.id.swipyrefreshlayout);
         mSwipyRefreshLayout.setOnRefreshListener(this);
 
+        alertDialog = new SpotsDialog(this, R.style.Custom);
+
         cargarSedes();
     }
 
     public void cargarSedes(){
+        alertDialog.show();
         String url = String.format("%1$s%2$s", getString(R.string.url_base),"listSedes");
         RequestQueue rq = Volley.newRequestQueue(this);
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
@@ -81,6 +88,7 @@ public class ActivitySedes extends AppCompatActivity implements SwipyRefreshLayo
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
+                        alertDialog.dismiss();
                         mSwipyRefreshLayout.setRefreshing(false);
                         Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
                         intent.putExtra("STATE", "ERROR");
@@ -117,7 +125,6 @@ public class ActivitySedes extends AppCompatActivity implements SwipyRefreshLayo
                     public void onItemClick(View view, int position) {
 
                         setSedeStatic(listSedes.get(position));
-
                         startActivity(new Intent(ActivitySedes.this, ActMenu.class));
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
@@ -126,11 +133,15 @@ public class ActivitySedes extends AppCompatActivity implements SwipyRefreshLayo
                 }));
                 indicant = true;
 
+                alertDialog.dismiss();
+
             }catch (IllegalStateException ex) {
                 ex.printStackTrace();
+                alertDialog.dismiss();
                 indicant = false;
             }
         }else {
+            alertDialog.dismiss();
             Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
             intent.putExtra("STATE", "EMPTY");
             startActivity(intent);

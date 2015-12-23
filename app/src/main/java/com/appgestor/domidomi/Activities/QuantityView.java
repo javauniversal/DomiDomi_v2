@@ -13,10 +13,14 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import static com.appgestor.domidomi.Entities.Producto.getProductoStatic;
 
 
 public class QuantityView extends LinearLayout implements View.OnClickListener {
@@ -35,6 +39,7 @@ public class QuantityView extends LinearLayout implements View.OnClickListener {
 
     private double valorPrecio = 0;
     private TextView textView;
+    private ViewGroup parentactivity;
 
     public interface OnQuantityChangeListener {
         void onQuantityChanged(int newQuantity, boolean programmatically);
@@ -187,14 +192,38 @@ public class QuantityView extends LinearLayout implements View.OnClickListener {
         return onQuantityChangeListener;
     }
 
-    public void setValorTotal(double presio, TextView textview){
+    public void setValorTotal(double presio, TextView textview, ViewGroup parent){
         valorPrecio = presio;
         textView = textview;
+        parentactivity = parent;
     }
 
     public void algoValor(){
 
-        textView.setText(valorPrecio*getQuantity()+"");
+        Double valorAdicion = 0.0;
+
+        for(int i = 0; i < parentactivity.getChildCount(); i++) {
+            View child = parentactivity.getChildAt(i);
+            if (child instanceof CheckBox){
+                CheckBox cb = (CheckBox)child;
+                int answer = cb.isChecked() ? 1 : 0;
+                if (answer == 1){
+                    for(int f = 0; f < getProductoStatic().getAdicionesList().size(); f++) {
+                        if(cb.getId() == getProductoStatic().getAdicionesList().get(f).getIdadicionales()){
+                            valorAdicion = valorAdicion + getProductoStatic().getAdicionesList().get(f).getValor();
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        Double sumaAdiciones = valorAdicion * getQuantity();
+        Double sumaValorProducto = valorPrecio * getQuantity();
+
+        Double sumaTotal = sumaAdiciones + sumaValorProducto;
+
+        textView.setText(sumaTotal+"");
 
     }
 

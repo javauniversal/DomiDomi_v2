@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.appgestor.domidomi.DataBase.DBHelper;
+import com.appgestor.domidomi.Entities.AddProductCar;
 import com.appgestor.domidomi.R;
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -32,6 +33,7 @@ import java.text.DecimalFormat;
 import static com.appgestor.domidomi.Entities.Empresas.getEmpresastatic;
 import static com.appgestor.domidomi.Entities.MasterItem.getProductDescripStatic;
 import static com.appgestor.domidomi.Entities.Producto.getProductoStatic;
+import static com.appgestor.domidomi.Entities.Sede.getSedeStatic;
 
 public class ActProductAdd extends AppCompatActivity implements View.OnClickListener{
 
@@ -48,7 +50,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_product_add);
 
-        //mydb = new DBHelper(this);
+        mydb = new DBHelper(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         toolbar.setTitle(getProductoStatic().getDescripcion());
         setSupportActionBar(toolbar);
@@ -91,13 +93,13 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
 
         totalFinal.setText(String.format("%s", getProductoStatic().getPrecio()));
 
-        cantidad.setValorTotal(getProductoStatic().getPrecio(), totalFinal);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
         CargarAdiciones();
 
+        LinearLayout root = (LinearLayout) findViewById(R.id.llAdiciones); //or whatever your root control is
+        cantidad.setValorTotal(getProductoStatic().getPrecio(), totalFinal, root);
     }
 
     public void CargarAdiciones(){
@@ -125,29 +127,24 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
                     public void onClick(View v) {
                         Double totaltemporal = Double.valueOf(totalFinal.getText().toString());
                         Double totalfinal = null;
-                        Double valorAdicion = null;
                         if (((CheckBox) v).isChecked()) {
                             for(int f = 0; f < getProductoStatic().getAdicionesList().size(); f++) {
                                 if(v.getId() == getProductoStatic().getAdicionesList().get(f).getIdadicionales()){
-                                    totalfinal = totaltemporal + getProductoStatic().getAdicionesList().get(f).getValor();
-                                    cantidad.setValorTotal(getProductoStatic().getPrecio() + getProductoStatic().getAdicionesList().get(f).getValor(), totalFinal);
+                                    totalfinal = (totaltemporal + (getProductoStatic().getAdicionesList().get(f).getValor()*cantidad.getQuantity()));
                                     break;
+
                                 }
                             }
                         }else{
                             for(int j = 0; j < getProductoStatic().getAdicionesList().size(); j++) {
                                 if(v.getId() == getProductoStatic().getAdicionesList().get(j).getIdadicionales()){
-                                    totalfinal = totaltemporal - getProductoStatic().getAdicionesList().get(j).getValor();
-                                    cantidad.setValorTotal(getProductoStatic().getPrecio() - getProductoStatic().getAdicionesList().get(j).getValor(), totalFinal);
+                                    totalfinal = (totaltemporal - (getProductoStatic().getAdicionesList().get(j).getValor()*cantidad.getQuantity()));
                                     break;
                                 }
                             }
                         }
 
-                        //cantidad.setValorTotal(getProductoStatic().getPrecio(), totalFinal);
-
                         totalFinal.setText(totalfinal+"");
-
                     }
                 });
             }
@@ -155,8 +152,6 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
         }
 
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -190,9 +185,9 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
 
                 if(cantidad.getQuantity() < 1){
                     Toast.makeText(this, "La cantidad debe ser mayor a 0", Toast.LENGTH_LONG).show();
-                }else if(getProductDescripStatic().getExistencia() == 0) {
+                }else if(getProductoStatic().getCantidad() == 0) {
                     Toast.makeText(this, "El producto se encuentra agotado", Toast.LENGTH_LONG).show();
-                }else if(cantidad.getQuantity() > getProductDescripStatic().getExistencia()) {
+                }else if(cantidad.getQuantity() > getProductoStatic().getCantidad()) {
                     Toast.makeText(this, "La cantida que desea pedir supera la disponible", Toast.LENGTH_LONG).show();
                 }else{
                     new MaterialDialog.Builder(this)
@@ -207,13 +202,13 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
                                 @Override
                                 public void onPositive(MaterialDialog dialog) {
                                     //Realizar pedido
-                                    /*if (GuardarPedido()) {
+                                    if (GuardarPedido()) {
                                         Bundle bundle = new Bundle();
-                                        //bundle.putInt("compania", Empresas.getCodigoS().getCodigo());
+                                        bundle.putInt("compania", getEmpresastatic().getIdempresa());
                                         startActivity(new Intent(ActProductAdd.this, ActCar.class).putExtras(bundle));
                                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                                         finish();
-                                    }*/
+                                    }
                                 }
                                 @Override
                                 public void onNegative(MaterialDialog dialog) {
@@ -229,19 +224,21 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    /*private boolean GuardarPedido(){
+    private boolean GuardarPedido(){
 
         AddProductCar car = new AddProductCar();
-        car.setCodeProcut(bundle.getInt("codeproduct"));
-        car.setNameProduct(bundle.getString("descripcion"));
-        car.setQuantity(cantidad.getQuantity());
-        car.setValueunitary(bundle.getDouble("precio"));
-        Double temp = Double.valueOf(totalFinal.getText().toString());
 
+        car.setCodeProcut(getProductoStatic().getIdproductos());
+        car.setNameProduct(getProductoStatic().getDescripcion());
+        car.setQuantity(cantidad.getQuantity());
+        car.setValueunitary(getProductoStatic().getPrecio());
+        Double temp = Double.valueOf(totalFinal.getText().toString());
         car.setValueoverall(temp);
-        //car.setIdcompany(Empresas.getCodigoS().getCodigo());
         car.setComment(myComment.getText().toString());
-        car.setUrlimagen(bundle.getString("foto"));
+        car.setUrlimagen(getProductoStatic().getFoto());
+        car.setIdsede(getSedeStatic().getIdsedes());
+        car.setIdcompany(getEmpresastatic().getIdempresa());
+
         if (mydb.insertProduct(car)){
             //Guardado
             return true;
@@ -250,7 +247,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
             Toast.makeText(ActProductAdd.this, "Problemas al guardar en el carrito.", Toast.LENGTH_SHORT).show();
             return false;
         }
-    }*/
+    }
 
     private void CargarImagen() {
         //Setup the ImageLoader, we'll use this to display our images

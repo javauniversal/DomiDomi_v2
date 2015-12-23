@@ -280,6 +280,7 @@
             android:layout_height="wrap_content"
             android:text="@string/agregar"
             android:id="@+id/btnAdd"
+            style="@style/BrandButtonStyle2"
             android:layout_marginBottom="20dp"
             android:layout_gravity="center_horizontal" />
 
