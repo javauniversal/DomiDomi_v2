@@ -34,8 +34,16 @@ public class Sede {
     @SerializedName("menu")
     private List<Menu> menus;
 
+    @SerializedName("mpm")
+    private List<MedioPago> medioPagoList;
+
     public static Sede sedeStatic;
 
+
+
+
+
+    // MEtodos GET SET
     public static Sede getSedeStatic() {
         return sedeStatic;
     }
@@ -115,4 +123,13 @@ public class Sede {
     public void setMenus(List<Menu> menus) {
         this.menus = menus;
     }
+
+    public List<MedioPago> getMedioPagoList() {
+        return medioPagoList;
+    }
+
+    public void setMedioPagoList(List<MedioPago> medioPagoList) {
+        this.medioPagoList = medioPagoList;
+    }
+
 }

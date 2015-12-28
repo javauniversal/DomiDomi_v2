@@ -7,12 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -22,13 +25,19 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.appgestor.domidomi.DataBase.DBHelper;
-import com.appgestor.domidomi.Entities.MasterItem;
+import com.appgestor.domidomi.Entities.AddProductCar;
+import com.appgestor.domidomi.Entities.MedioPago;
 import com.appgestor.domidomi.Entities.PedidoWebCabeza;
 import com.appgestor.domidomi.R;
 import com.appgestor.domidomi.Services.MyService;
+import com.google.gson.Gson;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import static com.appgestor.domidomi.Entities.Empresas.getEmpresastatic;
+import static com.appgestor.domidomi.Entities.Sede.getSedeStatic;
 
 
 public class ActFinalizarPedido extends AppCompatActivity implements View.OnClickListener {
@@ -43,9 +52,8 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
     private TextView txtEfectivo;
     private PedidoWebCabeza objeto = new PedidoWebCabeza();
     private DBHelper mydb;
-    private Spinner spTarjetas;
     private ImageView imageView4;
-    private MasterItem masterItem;
+    private MedioPago masterItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +73,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
         Button myCancelar = (Button) findViewById(R.id.button_cancel);
         myCancelar.setOnClickListener(this);
 
-        spTarjetas = (Spinner) findViewById(R.id.spinnerTarjetas);
+        Spinner spTarjetas = (Spinner) findViewById(R.id.spinnerTarjetas);
         loaandSpinner(spTarjetas);
 
         txtLatitud = (EditText) findViewById(R.id.txtLatitud);
@@ -96,6 +104,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+
             case R.id.imgButtonLocation:
                 MyService services = new MyService(this);
                 services.setView(findViewById(R.id.txtLatitud), findViewById(R.id.txtLongitud));
@@ -140,6 +149,10 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                     public void onResponse(String response) {
                         // response
 
+
+                        Toast.makeText(ActFinalizarPedido.this, response, Toast.LENGTH_LONG).show();
+
+
                         /*if(mydb.DeleteProductAll(getCodigoS().getCodigo())){
 
                             Toast.makeText(ActFinalizarPedido.this, response, Toast.LENGTH_LONG).show();
@@ -151,6 +164,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                         }else{
                             Toast.makeText(ActFinalizarPedido.this, "Problemas con el pedido.", Toast.LENGTH_LONG).show();
                         }*/
+
                     }
                 },
                 new Response.ErrorListener(){
@@ -170,27 +184,34 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
 
                 TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
 
+                objeto.setImeiPhone(telephonyManager.getDeviceId());
                 objeto.setNombreUsuairo(nombre.getText().toString());
-                //objeto.setIdCompany(getCodigoS().getCodigo());
-                objeto.setDireccionp(editdir.getText().toString());
                 objeto.setCelularp(edtCelular.getText().toString());
+                objeto.setDireccionp(editdir.getText().toString());
                 objeto.setDireccionReferen(editdirreferen.getText().toString());
+                objeto.setMedioPago(masterItem.getIdmediopago());
+                if (txtEfectivo.getVisibility() == View.GONE){ EditEfectivo.setText("0"); }
+                    objeto.setValorPago(Double.valueOf(EditEfectivo.getText().toString()));
+
                 objeto.setLatitud(Double.valueOf(txtLatitud.getText().toString()));
                 objeto.setLongitud(Double.valueOf(txtLongitud.getText().toString()));
-                objeto.setImeiPhone(telephonyManager.getDeviceId());
+                objeto.setIdEmpresaP(getEmpresastatic().getIdempresa());
+                objeto.setIdSedeP(getSedeStatic().getIdempresa());
 
-                objeto.setMedioPago(masterItem.getCodigo());
-                if (txtEfectivo.getVisibility() == View.GONE){ EditEfectivo.setText("0"); }
-                objeto.setValorPago(Double.valueOf(EditEfectivo.getText().toString()));
+                List<AddProductCar> mAppList = mydb.getProductCar(getEmpresastatic().getIdempresa(), getSedeStatic().getIdempresa());
 
-                //List<AddProductCar> mAppList = mydb.getProductCar(getCodigoS().getCodigo());
 
-                /*objeto.setProducto(mAppList);
+                for (int i = 0; i < mAppList.size(); i++) {
+                    mAppList.get(i).setAdicionesList(mydb.getAdiciones(mAppList.get(i).getIdProduct(),mAppList.get(i).getIdcompany(), mAppList.get(i).getIdsede()));
+                }
 
-                params.put("pedido", new Gson().toJson(objeto, PedidoWebCabeza.class));
+                objeto.setProducto(mAppList);
+                String parJSON = new Gson().toJson(objeto, PedidoWebCabeza.class);
+
+                params.put("pedido", parJSON);
 
                 //Implementacion de guardar en la base de datos local.
-                mydb.insertHistoryhead(objeto);
+                /*mydb.insertHistoryhead(objeto);
                 int id_auto_detalle = mydb.ultimoRegistro();
                 for (int i = 0; i < mAppList.size(); i++) {
                     mAppList.get(i).setIdAutoIncrement(id_auto_detalle);
@@ -205,16 +226,19 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
 
     public void loaandSpinner(Spinner spinner){
 
-        /*String[] dataTarjetas = new String[getCodigoS().getTarjetas().size()];
-        for (int i = 0; i < getCodigoS().getTarjetas().size(); i++) {
-            dataTarjetas[i] = getCodigoS().getTarjetas().get(i).getDescripcion();
+        String[] dataTarjetas = new String[getSedeStatic().getMedioPagoList().size()];
+
+        for (int i = 0; i < getSedeStatic().getMedioPagoList().size(); i++) {
+            dataTarjetas[i] = getSedeStatic().getMedioPagoList().get(i).getDescripcion();
         }
+
         ArrayAdapter<String> spTarjetas = new ArrayAdapter<String>(this, R.layout.textview_spinner, dataTarjetas);
         spinner.setAdapter(spTarjetas);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, final int pos, long id) {
 
-                masterItem = getCodigoS().getTarjetas().get(pos);
+                masterItem = getSedeStatic().getMedioPagoList().get(pos);
+
                 if(masterItem.getDescripcion().equals("Efectivo")){
                     EditEfectivo.setVisibility(View.VISIBLE);
                     txtEfectivo.setVisibility(View.VISIBLE);
@@ -232,7 +256,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
             public void onNothingSelected(AdapterView<?> parent) {}
 
         });// Fin del evento del spin
-    */
+
     }
 
 }

@@ -22,6 +22,54 @@ public class Adiciones {
     @SerializedName("idproductos")
     private int idproductos;
 
+    private int idSede;
+
+    private int idEmpresa;
+
+    private int idCarritoCompra;
+
+    private int AutoIncrementAdicion;
+
+    public Adiciones(){}
+
+    public Adiciones(int idadicionales, String descripcion, String tipo, double valor, int estado, int idproductos, int idSede, int idEmpresa) {
+        this.idadicionales = idadicionales;
+        this.descripcion = descripcion;
+        this.tipo = tipo;
+        this.valor = valor;
+        this.estado = estado;
+        this.idproductos = idproductos;
+        this.idSede = idSede;
+        this.idEmpresa = idEmpresa;
+    }
+
+
+
+    //Metodos GET SET
+    public int getIdSede() {
+        return idSede;
+    }
+
+    public void setIdSede(int idSede) {
+        this.idSede = idSede;
+    }
+
+    public int getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public void setIdEmpresa(int idEmpresa) {
+        this.idEmpresa = idEmpresa;
+    }
+
+    public int getIdCarritoCompra() {
+        return idCarritoCompra;
+    }
+
+    public void setIdCarritoCompra(int idCarritoCompra) {
+        this.idCarritoCompra = idCarritoCompra;
+    }
+
     public int getIdadicionales() {
         return idadicionales;
     }
@@ -69,4 +117,13 @@ public class Adiciones {
     public void setIdproductos(int idproductos) {
         this.idproductos = idproductos;
     }
+
+    public int getAutoIncrementAdicion() {
+        return AutoIncrementAdicion;
+    }
+
+    public void setAutoIncrementAdicion(int autoIncrementAdicion) {
+        AutoIncrementAdicion = autoIncrementAdicion;
+    }
+
 }

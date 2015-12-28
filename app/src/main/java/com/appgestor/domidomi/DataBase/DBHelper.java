@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.appgestor.domidomi.Entities.AddProductCar;
+import com.appgestor.domidomi.Entities.Adiciones;
 import com.appgestor.domidomi.Entities.Cliente;
 import com.appgestor.domidomi.Entities.PedidoWebCabeza;
 
@@ -34,6 +35,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         String sqlPerfil = "CREATE TABLE perfil (id integer primary key AUTOINCREMENT, nombre text, apellido text, "+
                                     " email text, celular text, direccion text, estado integer, foto BLOB )";
 
@@ -46,10 +48,18 @@ public class DBHelper extends SQLiteOpenHelper {
         String sqlHistorydetail = "CREATE TABLE historydetailm (id integer primary key AUTOINCREMENT, idEncabezado int, idProduct int, codeProcut int, nameProduct text, "+
                                         " quantity int, valueunitary REAL, valueoverall REAL, comment text, idcompany int)";
 
+        String sqlAdiciones = "CREATE TABLE adiciones (id integer primary key AUTOINCREMENT, idAdicion int, descripcion text, " +
+                                                        " tipo text, valor REAL, estado int, idproductos int, idSede int,  "+
+                                                        " idEmpresa int, idCarrito int) ";
+
+        String sqlIntro = "CREATE TABLE intro (id integer primary key AUTOINCREMENT, idintro text )";
+
         db.execSQL(sqlPerfil);
         db.execSQL(sqlPedido);
         db.execSQL(sqlHistoryhead);
         db.execSQL(sqlHistorydetail);
+        db.execSQL(sqlAdiciones);
+        db.execSQL(sqlIntro);
 
     }
 
@@ -60,8 +70,37 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS carrito");
         db.execSQL("DROP TABLE IF EXISTS historyhead");
         db.execSQL("DROP TABLE IF EXISTS historydetailm");
+        db.execSQL("DROP TABLE IF EXISTS adiciones");
+        db.execSQL("DROP TABLE IF EXISTS intro");
         this.onCreate(db);
 
+    }
+
+    public boolean insertIntro(String data){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        try {
+            values.put("idintro",data);
+            db.insert("intro", null, values);
+        }catch (SQLiteConstraintException e){
+            Log.d("data", "failure to insert word,", e);
+            return false;
+        }
+
+        return true;
+
+    }
+
+    public boolean getIntro(){
+        Cursor cursor;
+        boolean indicador = false;
+        String sql = "SELECT * FROM intro LIMIT 1";
+        SQLiteDatabase db = this.getWritableDatabase();
+        cursor = db.rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            indicador = true;
+        }
+        return indicador;
     }
 
     public boolean getPerfilValida(){
@@ -118,9 +157,9 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public int ultimoRegistro(){
+    public int ultimoRegistro(String table){
         int _id = 0;
-        String sql = "SELECT id FROM historyhead ORDER BY id DESC LIMIT 1";
+        String sql = "SELECT id FROM "+ table +" ORDER BY id DESC LIMIT 1";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor.moveToFirst()) {
@@ -179,7 +218,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+
         try {
+
             values.put("codeproduct", data.getCodeProcut());
             values.put("nameProduct", data.getNameProduct());
             values.put("quantity", data.getQuantity());
@@ -191,8 +232,38 @@ public class DBHelper extends SQLiteOpenHelper {
             values.put("urlimagen", data.getUrlimagen());
 
             db.insert("carrito", null, values);
+
+            if(data.getAdicionesList() != null && data.getAdicionesList().size() > 0){
+
+                int idCarritoCompra = ultimoRegistro("carrito");
+
+                ContentValues valueAdicion = new ContentValues();
+                for(int f = 0; f < data.getAdicionesList().size(); f++) {
+                    try {
+
+                        valueAdicion.put("idAdicion", data.getAdicionesList().get(f).getIdadicionales());
+                        valueAdicion.put("descripcion", data.getAdicionesList().get(f).getDescripcion());
+                        valueAdicion.put("tipo", data.getAdicionesList().get(f).getTipo());
+                        valueAdicion.put("valor", data.getAdicionesList().get(f).getValor());
+                        valueAdicion.put("estado", data.getAdicionesList().get(f).getEstado());
+                        valueAdicion.put("idproductos", data.getAdicionesList().get(f).getIdproductos());
+                        valueAdicion.put("idSede", data.getAdicionesList().get(f).getIdSede());
+                        valueAdicion.put("idEmpresa", data.getAdicionesList().get(f).getIdEmpresa());
+                        valueAdicion.put("idCarrito", idCarritoCompra);
+
+                        db.insert("adiciones", null, valueAdicion);
+
+                    }catch (SQLiteConstraintException e){
+
+                        return false;
+                    }
+                }
+            }
+
             Log.d("carrito", data.toString());
+
             db.close();
+
         }catch (SQLiteConstraintException e){
             Log.d("data", "failure to insert word,", e);
             return false;
@@ -201,18 +272,55 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    public List<Adiciones> getAdiciones(int idcarrito, int idempresa, int idsede){
+        ArrayList<Adiciones> addAdiciones = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
 
-    public List<AddProductCar> getProductCar(int parameter) {
+        String columns[] = {"id","idAdicion","descripcion","tipo","valor","estado","idproductos","idSede", "idEmpresa", "idCarrito"};
+
+        Cursor cursor = db.query("adiciones",columns, "idCarrito = ? AND idEmpresa = ? AND idSede = ?",
+                new String[] {String.valueOf(idcarrito),String.valueOf(idempresa),String.valueOf(idsede)}, null, null, null, null);
+
+        Adiciones adiciones;
+        if (cursor.moveToFirst()) {
+
+            do {
+                adiciones = new Adiciones();
+
+                adiciones.setAutoIncrementAdicion(Integer.parseInt(cursor.getString(0)));
+                adiciones.setIdadicionales(Integer.parseInt(cursor.getString(1)));
+                adiciones.setDescripcion(cursor.getString(2));
+                adiciones.setTipo(cursor.getString(3));
+                adiciones.setValor(Double.parseDouble(cursor.getString(4)));
+                adiciones.setEstado(Integer.parseInt(cursor.getString(5)));
+                adiciones.setIdproductos(Integer.parseInt(cursor.getString(6)));
+                adiciones.setIdSede(Integer.parseInt(cursor.getString(7)));
+                adiciones.setIdEmpresa(Integer.parseInt(cursor.getString(8)));
+                adiciones.setIdCarritoCompra(Integer.parseInt(cursor.getString(9)));
+
+                addAdiciones.add(adiciones);
+
+            } while(cursor.moveToNext());
+
+        }
+        return addAdiciones;
+    }
+
+    public List<AddProductCar> getProductCar(int idEmpresa, int idSede) {
         ArrayList<AddProductCar> addProduct = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String columns[] = {"id","codeproduct","nameProduct","quantity","valueunitary","valueoverall","comment","idcompany","urlimagen"};
-        Cursor cursor = db.query("carrito",columns, "idcompany = ?",new String[] {String.valueOf(parameter)}, null, null, null, null);
+
+        String columns[] = {"id","codeproduct","nameProduct","quantity","valueunitary","valueoverall","comment","idcompany", "idsede", "urlimagen"};
+
+        Cursor cursor = db.query("carrito",columns, "idcompany = ? AND idsede = ? ", new String[] {String.valueOf(idEmpresa), String.valueOf(idSede)}, null, null, null, null);
 
         AddProductCar productCar;
+
         if (cursor.moveToFirst()) {
             do {
                 productCar = new AddProductCar();
+
                 productCar.setIdProduct(Integer.parseInt(cursor.getString(0)));
                 productCar.setCodeProcut(Integer.parseInt(cursor.getString(1)));
                 productCar.setNameProduct(cursor.getString(2));
@@ -221,9 +329,11 @@ public class DBHelper extends SQLiteOpenHelper {
                 productCar.setValueoverall(Double.parseDouble(cursor.getString(5)));
                 productCar.setComment(cursor.getString(6));
                 productCar.setIdcompany(Integer.parseInt(cursor.getString(7)));
-                productCar.setUrlimagen(cursor.getString(8));
+                productCar.setIdsede(Integer.parseInt(cursor.getString(8)));
+                productCar.setUrlimagen(cursor.getString(9));
 
                 addProduct.add(productCar);
+
             } while(cursor.moveToNext());
         }
         return addProduct;
@@ -242,7 +352,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         return p > 0;
     }
-
 
 }
 

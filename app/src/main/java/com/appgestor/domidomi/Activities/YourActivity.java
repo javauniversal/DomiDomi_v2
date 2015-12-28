@@ -3,6 +3,7 @@ package com.appgestor.domidomi.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.appgestor.domidomi.DataBase.DBHelper;
 import com.appgestor.domidomi.Entities.ConfigSplash;
 import com.appgestor.domidomi.R;
 import com.appgestor.domidomi.cnst.Flags;
@@ -47,6 +48,11 @@ public class YourActivity extends AwesomeSplash {
 
     @Override
     public void animationsFinished() {
+
+        DBHelper mydb = new DBHelper(this);
+        mydb.insertIntro("Inicio_sesion");
+
+
         //transit to another activity the activity here
         Bundle bundle = new Bundle();
         startActivity(new Intent(YourActivity.this, Accounts.class).putExtras(bundle));

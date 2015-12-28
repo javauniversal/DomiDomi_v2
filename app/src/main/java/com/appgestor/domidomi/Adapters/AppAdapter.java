@@ -8,7 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.appgestor.domidomi.DataBase.DBHelper;
 import com.appgestor.domidomi.Entities.AddProductCar;
+import com.appgestor.domidomi.Entities.Adiciones;
 import com.appgestor.domidomi.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -16,7 +18,6 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AppAdapter extends BaseAdapter {
@@ -25,6 +26,7 @@ public class AppAdapter extends BaseAdapter {
     List<AddProductCar> data;
     private ImageLoader imageLoader1;
     private DisplayImageOptions options1;
+    private DBHelper mydb;
 
     public AppAdapter(Activity actx, List<AddProductCar> data){
         this.actx = actx;
@@ -34,6 +36,9 @@ public class AppAdapter extends BaseAdapter {
         imageLoader1.init(config);
 
         options1 = new DisplayImageOptions.Builder().cacheInMemory().cacheOnDisc().build();
+
+        mydb = new DBHelper(actx);
+
     }
 
 
@@ -59,15 +64,46 @@ public class AppAdapter extends BaseAdapter {
             convertView = View.inflate(actx, R.layout.item_list_app, null);
             new ViewHolder(convertView);
         }
+
         ViewHolder holder = (ViewHolder) convertView.getTag();
+
         AddProductCar item = getItem(position);
+
+        String adicion = mostrarAdiciones(item.getIdProduct(), item.getIdcompany(), item.getIdsede());
+
         holder.tv_name.setText(item.getNameProduct());
         holder.tv_preci.setText("Precio: $"+item.getValueunitary());
         holder.tv_cantidad.setText("Cantidad: "+item.getQuantity());
 
+        if (adicion != null && adicion != ""){
+            holder.tv_adiciones.setVisibility(View.VISIBLE);
+            holder.tv_adiciones.setText(adicion);
+        }else {
+            holder.tv_adiciones.setVisibility(View.GONE);
+        }
+
         CargarImagen(holder,item);
         return convertView;
     }
+
+    public String mostrarAdiciones(int idcarrito, int idempresa, int idsede){
+
+        List<Adiciones> adicionesList = mydb.getAdiciones(idcarrito,idempresa,idsede);
+
+        String formato = "";
+
+        if(adicionesList.size() > 0){
+            String concatAdiciones = "";
+            for (int i = 0; i < adicionesList.size(); i++) {
+                concatAdiciones = concatAdiciones +" | "+ adicionesList.get(i).getDescripcion();
+            }
+
+            formato = String.format(" %1s %2s", "Adiciones:", concatAdiciones);
+        }
+
+        return formato;
+    }
+
 
     private void CargarImagen(ViewHolder holder,AddProductCar item){
         ImageLoadingListener listener = new ImageLoadingListener(){
@@ -95,16 +131,19 @@ public class AppAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
+
         ImageView iv_icon;
         TextView tv_name;
         TextView tv_preci;
         TextView tv_cantidad;
+        TextView tv_adiciones;
 
         public ViewHolder(View view) {
             iv_icon = (ImageView) view.findViewById(R.id.iv_icon);
             tv_name = (TextView) view.findViewById(R.id.tv_name);
             tv_preci = (TextView) view.findViewById(R.id.tv_preci);
             tv_cantidad = (TextView) view.findViewById(R.id.tv_cantidad);
+            tv_adiciones = (TextView) view.findViewById(R.id.tv_adiciones);
             view.setTag(this);
         }
     }

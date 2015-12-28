@@ -4,9 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-/**
- * Created by servintesas on 25/07/15.
- */
+
 public class PedidoWebCabeza {
 
     @SerializedName("idCompany")
@@ -33,9 +31,6 @@ public class PedidoWebCabeza {
     @SerializedName("estadoPedido")
     private String estadoPedido;
 
-    @SerializedName("productos")
-    private List<AddProductCar> producto;
-
     @SerializedName("imeiPhone")
     private String imeiPhone;
 
@@ -44,6 +39,25 @@ public class PedidoWebCabeza {
 
     @SerializedName("valorPago")
     private double valorPago;
+
+    @SerializedName("idEmpresaP")
+    private int idEmpresaP;
+
+    @SerializedName("idSedeP")
+    private int idSedeP;
+
+    @SerializedName("productos")
+    private List<AddProductCar> producto;
+
+
+
+
+
+
+
+
+
+    //Metodo GET SET
 
     public int getMedioPago() {
         return medioPago;
@@ -134,4 +148,21 @@ public class PedidoWebCabeza {
     public void setProducto(List<AddProductCar> producto) {
         this.producto = producto;
     }
+
+    public int getIdEmpresaP() {
+        return idEmpresaP;
+    }
+
+    public void setIdEmpresaP(int idEmpresaP) {
+        this.idEmpresaP = idEmpresaP;
+    }
+
+    public int getIdSedeP() {
+        return idSedeP;
+    }
+
+    public void setIdSedeP(int idSedeP) {
+        this.idSedeP = idSedeP;
+    }
+
 }

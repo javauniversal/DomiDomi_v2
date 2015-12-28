@@ -1,9 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grid_item_bg_pressed"
-    tools:context="com.appgestor.domiciliosya.Adtivities.ActFinalizarPedido">
+    android:background="@color/grid_item_bg_pressed">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -167,6 +165,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
+                style="@style/BrandButtonStyle2"
                 android:src="@drawable/ic_place_black_24dp"
                 android:id="@+id/imgButtonLocation" />
 
@@ -204,12 +203,14 @@
                 android:id="@+id/button_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/BrandButtonStyle2"
                 android:text="Cancelar" />
 
             <Button
                 android:id="@+id/button_accept"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/BrandButtonStyle2"
                 android:text="Aceptar" />
 
         </LinearLayout>

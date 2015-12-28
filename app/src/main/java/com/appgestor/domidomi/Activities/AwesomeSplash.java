@@ -1,19 +1,24 @@
 package com.appgestor.domidomi.Activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.appgestor.domidomi.DataBase.DBHelper;
 import com.appgestor.domidomi.Entities.ConfigSplash;
 import com.appgestor.domidomi.R;
 import com.appgestor.domidomi.cnst.Flags;
+import com.appgestor.domidomi.dark.Accounts;
 import com.appgestor.domidomi.utils.UIUtil;
 import com.appgestor.domidomi.utils.ValidationUtil;
 import com.daimajia.androidanimations.library.YoYo;
@@ -41,11 +46,23 @@ abstract public class AwesomeSplash extends AppCompatActivity {
     private ConfigSplash mConfigSplash;
     private boolean hasAnimationStarted = false;
     private int pathOrLogo = 0;
-
+    private DBHelper mydb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         super.onCreate(savedInstanceState);
+
+        mydb = new DBHelper(this);
+
+        if (mydb.getIntro()){
+            startActivity(new Intent(AwesomeSplash.this, Accounts.class));
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
+        }
 
         mConfigSplash = new ConfigSplash();
         initSplash(mConfigSplash);

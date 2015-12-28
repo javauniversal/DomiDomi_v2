@@ -31,6 +31,7 @@ import java.util.List;
 import dmax.dialog.SpotsDialog;
 
 import static com.appgestor.domidomi.Entities.Empresas.getEmpresastatic;
+import static com.appgestor.domidomi.Entities.Sede.getSedeStatic;
 
 public class ActCar extends AppCompatActivity implements View.OnClickListener{
 
@@ -63,6 +64,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
 
         dialog = new SpotsDialog(ActCar.this);
         dialog.show();
+
         llenarData();
 
         mListView = (SwipeMenuListView) findViewById(R.id.listView);
@@ -148,7 +150,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
 
     private void llenarData() {
         new Thread(new Runnable() {
-            List<AddProductCar> mAppList = mydb.getProductCar(bundle.getInt("compania"));
+            List<AddProductCar> mAppList = mydb.getProductCar(bundle.getInt("compania"), getSedeStatic().getIdempresa());
             @Override
             public void run() {
                 mAdapter = new AppAdapter(ActCar.this, mAppList);

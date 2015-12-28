@@ -3,6 +3,8 @@ package com.appgestor.domidomi.Entities;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class AddProductCar {
 
     @SerializedName("idProduct")
@@ -36,6 +38,13 @@ public class AddProductCar {
     private String urlimagen;
 
     private int idAutoIncrement;
+
+    private List<Adiciones> adicionesList;
+
+
+
+
+    //Metodos GET SET
 
     public int getIdAutoIncrement() { return idAutoIncrement; }
 
@@ -107,6 +116,14 @@ public class AddProductCar {
 
     public void setIdsede(int idsede) {
         this.idsede = idsede;
+    }
+
+    public List<Adiciones> getAdicionesList() {
+        return adicionesList;
+    }
+
+    public void setAdicionesList(List<Adiciones> adicionesList) {
+        this.adicionesList = adicionesList;
     }
 
 }

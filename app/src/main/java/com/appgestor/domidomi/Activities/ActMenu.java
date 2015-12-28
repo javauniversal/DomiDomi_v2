@@ -18,6 +18,7 @@ import com.appgestor.domidomi.R;
 import com.appgestor.domidomi.ViewPager.SlidingTabLayout;
 import com.appgestor.domidomi.mockedFragments.FragMenu;
 
+import static com.appgestor.domidomi.Entities.Empresas.getEmpresastatic;
 import static com.appgestor.domidomi.Entities.Sede.getSedeStatic;
 
 
@@ -70,10 +71,9 @@ public class ActMenu extends AppCompatActivity {
                 return true;
             case R.id.action_cart:
                 Bundle bundle = new Bundle();
-                //bundle.putInt("compania", Empresas.getCodigoS().getCodigo());
+                bundle.putInt("compania", getEmpresastatic().getIdempresa());
                 startActivity(new Intent(ActMenu.this, ActCar.class).putExtras(bundle));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                //finish();
                 return true;
 
         }

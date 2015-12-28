@@ -125,6 +125,7 @@ public class ActivitySedes extends AppCompatActivity implements SwipyRefreshLayo
                     public void onItemClick(View view, int position) {
 
                         setSedeStatic(listSedes.get(position));
+
                         startActivity(new Intent(ActivitySedes.this, ActMenu.class));
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
