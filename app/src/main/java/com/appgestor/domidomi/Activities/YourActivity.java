@@ -53,6 +53,7 @@ public class YourActivity extends AwesomeSplash {
         mydb.insertIntro("Inicio_sesion");
 
 
+
         //transit to another activity the activity here
         Bundle bundle = new Bundle();
         startActivity(new Intent(YourActivity.this, Accounts.class).putExtras(bundle));

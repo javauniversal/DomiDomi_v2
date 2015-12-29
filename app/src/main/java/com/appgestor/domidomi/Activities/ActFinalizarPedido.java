@@ -153,17 +153,17 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                         Toast.makeText(ActFinalizarPedido.this, response, Toast.LENGTH_LONG).show();
 
 
-                        /*if(mydb.DeleteProductAll(getCodigoS().getCodigo())){
+                        if(mydb.DeleteProductAll(getEmpresastatic().getIdempresa(),getSedeStatic().getIdempresa())){
 
                             Toast.makeText(ActFinalizarPedido.this, response, Toast.LENGTH_LONG).show();
 
-                            startActivity(new Intent(ActFinalizarPedido.this, Accounts.class));
+                            startActivity(new Intent(ActFinalizarPedido.this, ActEstadoPedido.class));
                             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                             finish();
 
                         }else{
                             Toast.makeText(ActFinalizarPedido.this, "Problemas con el pedido.", Toast.LENGTH_LONG).show();
-                        }*/
+                        }
 
                     }
                 },

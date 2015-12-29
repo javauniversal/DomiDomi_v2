@@ -1,6 +1,8 @@
 package com.appgestor.domidomi.Adapters;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -8,10 +10,21 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.appgestor.domidomi.Activities.ActEstadoPedido;
+import com.appgestor.domidomi.Activities.DetailsActivity;
 import com.appgestor.domidomi.Entities.EstadoPedido;
 import com.appgestor.domidomi.R;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class AdapterEstadoPedido extends BaseAdapter {
@@ -58,20 +71,29 @@ public class AdapterEstadoPedido extends BaseAdapter {
         String estado = null;
 
         switch (item.getEstado()){
-            case 1:
-                estado = "Pendiente";
+            case "Iniciado":
+                estado = "Iniciado";
+                holder.txtEstado.setTextColor(Color.parseColor("#088A08"));
                 break;
-            case 2:
+            case "En proceso":
+                estado = "En proceso";
+                holder.cancelPedido.setVisibility(View.GONE);
+                holder.txtEstado.setTextColor(Color.parseColor("#AEB404"));
+                break;
+            case "Alistado":
+                estado = "Alistado";
+                holder.cancelPedido.setVisibility(View.GONE);
+                holder.txtEstado.setTextColor(Color.parseColor("#0000FF"));
+                break;
+            case "Enviado":
                 estado = "Enviado";
                 holder.cancelPedido.setVisibility(View.GONE);
+                holder.txtEstado.setTextColor(Color.parseColor("#FF8000"));
                 break;
-            case 3:
-                estado = "Cancelado";
-                holder.cancelPedido.setVisibility(View.GONE);
-                break;
-            case 4:
+            case "Finalizado":
                 estado = "Finalizado";
                 holder.cancelPedido.setVisibility(View.GONE);
+                holder.txtEstado.setTextColor(Color.parseColor("#F20505"));
                 break;
 
         }
@@ -81,14 +103,14 @@ public class AdapterEstadoPedido extends BaseAdapter {
         holder.cancelPedido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cancelPedido(data.get(position).getIdUnicop());
+                cancelPedido(data.get(position).getEmeicel(), data.get(position).getIdordencompra(),data.get(position).getIdsede());
             }
         });
 
         return convertView;
     }
 
-    public void cancelPedido(final int pedido){
+    public void cancelPedido(final String pedido, final int idcompra, final int idSede){
         new MaterialDialog.Builder(actx)
                 .title("Alerta!")
                 .content("Quiere cancelar el pedido?")
@@ -101,7 +123,7 @@ public class AdapterEstadoPedido extends BaseAdapter {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
                         //Acción de cancelado del pedido.
-                        enviarCancelar(pedido);
+                        enviarCancelar(pedido, idcompra, idSede);
                     }
 
                     @Override
@@ -111,7 +133,43 @@ public class AdapterEstadoPedido extends BaseAdapter {
                 }).show();
     }
 
-    public void enviarCancelar(int pedido){
+    public void enviarCancelar(final String idpedidocel, final int idcompra, final int idSede){
+
+        String url = String.format("%1$s%2$s", actx.getString(R.string.url_base), "CancelarPedido");
+        RequestQueue rq = Volley.newRequestQueue(actx);
+
+        StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>(){
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        actx.startActivity(new Intent(actx, ActEstadoPedido.class));
+                        actx.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        actx.finish();
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        actx.startActivity(new Intent(actx, DetailsActivity.class).putExtra("STATE", "ERROR"));
+                        actx.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("idTelefono", idpedidocel);
+                params.put("idcompra", String.valueOf(idcompra));
+                params.put("idSede", String.valueOf(idSede));
+
+                return params;
+            }
+        };
+
+        rq.add(jsonRequest);
 
     }
 

@@ -1,11 +1,13 @@
 package com.appgestor.domidomi.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -27,6 +29,7 @@ import com.github.jorgecastillo.FillableLoaderBuilder;
 import com.github.jorgecastillo.State;
 import com.github.jorgecastillo.clippingtransforms.PlainClippingTransform;
 import com.github.jorgecastillo.listener.OnStateChangeListener;
+import com.google.android.gcm.GCMRegistrar;
 import com.nineoldandroids.animation.Animator;
 
 import io.codetail.animation.SupportAnimator;
@@ -56,6 +59,8 @@ abstract public class AwesomeSplash extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
+        registerUser(this);
+
         mydb = new DBHelper(this);
 
         if (mydb.getIntro()){
@@ -70,6 +75,19 @@ abstract public class AwesomeSplash extends AppCompatActivity {
         pathOrLogo = ValidationUtil.hasPath(mConfigSplash);
         initUI(pathOrLogo);
 
+    }
+
+    private void registerUser(Context context){
+        GCMRegistrar.checkDevice(this);
+        GCMRegistrar.checkManifest(this);
+        final String regId = GCMRegistrar.getRegistrationId(context);
+        if (regId.equals("")) {
+            GCMRegistrar.register(context, "918001884534");
+            GCMRegistrar.setRegisteredOnServer(this, true);
+            Log.v("GCM", "Registrado");
+        } else {
+            Log.v("GCM", "Ya registrado");
+        }
     }
 
 

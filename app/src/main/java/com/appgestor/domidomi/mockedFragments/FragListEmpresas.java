@@ -65,6 +65,7 @@ public class FragListEmpresas extends BaseVolleyFragment implements SwipyRefresh
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setupGrid();
+
     }
 
     private void setupGrid() {

@@ -84,6 +84,7 @@
                 android:layout_height="wrap_content"
                 android:text="Cancelar Pedido"
                 android:id="@+id/btnCancel"
+                style="@style/BrandButtonStyle2"
                 android:layout_gravity="right" />
 
         </LinearLayout>

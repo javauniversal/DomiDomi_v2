@@ -8,6 +8,16 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
+    <permission
+        android:name="com.appgestor.domidomi.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.appgestor.domidomi.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <!--
      The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but are recommended.
@@ -38,6 +48,7 @@
         <activity
             android:name=".Activities.ActFinalizarPedido"
             android:theme="@style/AppTheme" />
+        <activity android:name=".Activities.DetailsActivity" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -47,22 +58,46 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/. 
         -->
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
         <activity
             android:name=".ActMaps"
-            android:label="@string/title_activity_act_maps"></activity>
+            android:label="@string/title_activity_act_maps" />
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".Activities.DetailsActivity" />
         <activity
             android:name=".Activities.ActivitySedes"
             android:label="@string/title_activity_activity_sedes"
+            android:parentActivityName=".dark.Accounts"
+            android:theme="@style/NoHeaderLight">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.appgestor.domidomi.dark.Accounts" />
+        </activity>
+
+        <receiver
+            android:name="com.google.android.gcm.GCMBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+
+                <category android:name="com.appgestor.domidomi" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".GCMIntentService" />
+
+        <activity
+            android:name=".Activities.ActEstadoPedido"
+            android:label="@string/title_activity_act_estado_pedido"
             android:parentActivityName=".dark.Accounts"
             android:theme="@style/NoHeaderLight">
             <meta-data

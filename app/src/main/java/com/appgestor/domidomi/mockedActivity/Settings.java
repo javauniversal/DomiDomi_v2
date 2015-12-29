@@ -1,12 +1,14 @@
 package com.appgestor.domidomi.mockedActivity;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.appgestor.domidomi.R;
+import com.appgestor.domidomi.dark.Accounts;
 
 
 public class Settings extends AppCompatActivity {
@@ -39,6 +41,8 @@ public class Settings extends AppCompatActivity {
                     @Override
                     public void onNegative(MaterialDialog dialog) {
                         dialog.dismiss();
+                        startActivity(new Intent(Settings.this, Accounts.class));
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         finish();
                     }
                 }).show();

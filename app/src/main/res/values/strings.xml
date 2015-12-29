@@ -88,4 +88,5 @@
     <string name="compania">Nombre Compañia</string>
     <string name="title_activity_activity_sedes">Sedes</string>
     <string name="nombre_del_producto">Nombre del producto</string>
+    <string name="title_activity_act_estado_pedido">Estado de los pedidos</string>
 </resources>

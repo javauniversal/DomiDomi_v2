@@ -346,9 +346,9 @@ public class DBHelper extends SQLiteOpenHelper {
         return p > 0;
     }
 
-    public boolean DeleteProductAll(int idCompany){
+    public boolean DeleteProductAll(int idCompany, int idsede){
         SQLiteDatabase db = this.getWritableDatabase();
-        int p = db.delete("carrito", "idcompany = ? ", new String[] {String.valueOf(idCompany)});
+        int p = db.delete("carrito", "idcompany = ? AND idsede = ? ", new String[] {String.valueOf(idCompany),String.valueOf(idsede)});
         db.close();
         return p > 0;
     }
