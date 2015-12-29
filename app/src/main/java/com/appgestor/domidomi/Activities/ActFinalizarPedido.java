@@ -36,7 +36,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.appgestor.domidomi.Entities.Empresas.getEmpresastatic;
 import static com.appgestor.domidomi.Entities.Sede.getSedeStatic;
 
 
@@ -48,7 +47,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
     private EditText editdirreferen;
     private EditText txtLatitud;
     private EditText txtLongitud;
-    private EditText EditEfectivo;
+    private EditText editEfectivo;
     private TextView txtEfectivo;
     private PedidoWebCabeza objeto = new PedidoWebCabeza();
     private DBHelper mydb;
@@ -79,8 +78,9 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
         txtLatitud = (EditText) findViewById(R.id.txtLatitud);
         txtLongitud = (EditText) findViewById(R.id.txtLongitud);
 
-        EditEfectivo = (EditText) findViewById(R.id.editEfectivo);
         txtEfectivo = (TextView) findViewById(R.id.txtEfectivo);
+        editEfectivo = (EditText) findViewById(R.id.editEfectivo);
+
 
         imageView4 = (ImageView) findViewById(R.id.imageView4);
 
@@ -118,8 +118,8 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                     edtCelular.setError("El telefono es un campo requerido");
                 } else if (isValidNumber(editdir.getText().toString())){
                     editdir.setError("la direccion es un campo requerido");
-                }else if(EditEfectivo.getVisibility() == View.VISIBLE && isValidNumber(EditEfectivo.getText().toString())) {
-                    EditEfectivo.setError("Por favor digite la cantidad con la con la que va apagar");
+                }else if(editEfectivo.getVisibility() == View.VISIBLE && isValidNumber(editEfectivo.getText().toString())) {
+                    editEfectivo.setError("Por favor digite la cantidad con la con la que va apagar");
                 }else{
                     if(isValidNumber(txtLatitud.getText().toString())){ txtLatitud.setText("0"); }
                     if(isValidNumber(txtLongitud.getText().toString())) { txtLongitud.setText("0"); }
@@ -153,7 +153,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                         Toast.makeText(ActFinalizarPedido.this, response, Toast.LENGTH_LONG).show();
 
 
-                        if(mydb.DeleteProductAll(getEmpresastatic().getIdempresa(),getSedeStatic().getIdempresa())){
+                        if(mydb.DeleteProductAll(getSedeStatic().getIdempresa(), getSedeStatic().getIdsedes())){
 
                             Toast.makeText(ActFinalizarPedido.this, response, Toast.LENGTH_LONG).show();
 
@@ -190,15 +190,15 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                 objeto.setDireccionp(editdir.getText().toString());
                 objeto.setDireccionReferen(editdirreferen.getText().toString());
                 objeto.setMedioPago(masterItem.getIdmediopago());
-                if (txtEfectivo.getVisibility() == View.GONE){ EditEfectivo.setText("0"); }
-                    objeto.setValorPago(Double.valueOf(EditEfectivo.getText().toString()));
 
+
+                objeto.setValorPago(Double.valueOf(editEfectivo.getText().toString()));
                 objeto.setLatitud(Double.valueOf(txtLatitud.getText().toString()));
                 objeto.setLongitud(Double.valueOf(txtLongitud.getText().toString()));
-                objeto.setIdEmpresaP(getEmpresastatic().getIdempresa());
-                objeto.setIdSedeP(getSedeStatic().getIdempresa());
+                objeto.setIdEmpresaP(getSedeStatic().getIdempresa());
+                objeto.setIdSedeP(getSedeStatic().getIdsedes());
 
-                List<AddProductCar> mAppList = mydb.getProductCar(getEmpresastatic().getIdempresa(), getSedeStatic().getIdempresa());
+                List<AddProductCar> mAppList = mydb.getProductCar(getSedeStatic().getIdempresa(), getSedeStatic().getIdsedes());
 
 
                 for (int i = 0; i < mAppList.size(); i++) {
@@ -209,14 +209,6 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                 String parJSON = new Gson().toJson(objeto, PedidoWebCabeza.class);
 
                 params.put("pedido", parJSON);
-
-                //Implementacion de guardar en la base de datos local.
-                /*mydb.insertHistoryhead(objeto);
-                int id_auto_detalle = mydb.ultimoRegistro();
-                for (int i = 0; i < mAppList.size(); i++) {
-                    mAppList.get(i).setIdAutoIncrement(id_auto_detalle);
-                    mydb.insertHistorydetail(mAppList.get(i));
-                }*/
 
                 return params;
             }
@@ -240,13 +232,13 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                 masterItem = getSedeStatic().getMedioPagoList().get(pos);
 
                 if(masterItem.getDescripcion().equals("Efectivo")){
-                    EditEfectivo.setVisibility(View.VISIBLE);
+                    editEfectivo.setVisibility(View.VISIBLE);
                     txtEfectivo.setVisibility(View.VISIBLE);
                     imageView4.setImageResource(R.drawable.ic_local_atm_black_24dp);
                 }else{
-                    EditEfectivo.setVisibility(View.GONE);
+                    editEfectivo.setVisibility(View.GONE);
                     txtEfectivo.setVisibility(View.GONE);
-                    EditEfectivo.setText("");
+                    editEfectivo.setText("0");
                     imageView4.setImageResource(R.drawable.ic_credit_card_black_24dp);
                 }
 

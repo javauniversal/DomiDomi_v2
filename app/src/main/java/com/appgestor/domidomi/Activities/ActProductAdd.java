@@ -211,7 +211,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
                                     //Realizar pedido
                                     if (GuardarPedido()) {
                                         Bundle bundle = new Bundle();
-                                        bundle.putInt("compania", getEmpresastatic().getIdempresa());
+                                        bundle.putInt("compania", getSedeStatic().getIdsedes());
                                         startActivity(new Intent(ActProductAdd.this, ActCar.class).putExtras(bundle));
                                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                                         finish();
@@ -239,12 +239,14 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
         car.setNameProduct(getProductoStatic().getDescripcion());
         car.setQuantity(cantidad.getQuantity());
         car.setValueunitary(getProductoStatic().getPrecio());
+
         Double temp = Double.valueOf(totalFinal.getText().toString());
         car.setValueoverall(temp);
+
         car.setComment(myComment.getText().toString());
         car.setUrlimagen(getProductoStatic().getFoto());
         car.setIdsede(getSedeStatic().getIdsedes());
-        car.setIdcompany(getEmpresastatic().getIdempresa());
+        car.setIdcompany(getSedeStatic().getIdempresa());
 
         if(getProductoStatic().getAdicionesList() != null && getProductoStatic().getAdicionesList().size() > 0){
             List<Adiciones> adicionesList = new ArrayList<>();

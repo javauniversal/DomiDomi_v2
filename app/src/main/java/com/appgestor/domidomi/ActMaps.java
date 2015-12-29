@@ -1,5 +1,6 @@
 package com.appgestor.domidomi;
 
+import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
 import android.os.Bundle;
@@ -8,6 +9,15 @@ import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.appgestor.domidomi.Activities.DetailsActivity;
+import com.appgestor.domidomi.Entities.ListCoordenadas;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -20,6 +30,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ActMaps extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
@@ -55,6 +69,38 @@ public class ActMaps extends FragmentActivity implements OnMapReadyCallback, Goo
 
     }
 
+    public void getCoordenadas(){
+
+        String url = String.format("%1$s%2$s", getString(R.string.url_base), "getCoordenadasSedes");
+        RequestQueue rq = Volley.newRequestQueue(this);
+
+        StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>(){
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        parseJSON(response);
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        startActivity(new Intent(ActMaps.this, DetailsActivity.class).putExtra("STATE", "ERROR"));
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                return params;
+            }
+        };
+
+        rq.add(jsonRequest);
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -62,9 +108,37 @@ public class ActMaps extends FragmentActivity implements OnMapReadyCallback, Goo
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap.setMyLocationEnabled(true);
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+
+        getCoordenadas();
+
+        //LatLng sydney = new LatLng(-34, 151);
+        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+    }
+
+    private boolean parseJSON(String json) {
+
+        if (!json.equals("[]")){
+            try {
+                Gson gson = new Gson();
+                ListCoordenadas coordenadases = gson.fromJson(json, ListCoordenadas.class);
+
+                for (int i = 0; i < coordenadases.size(); i++) {
+                    LatLng coor = new LatLng(coordenadases.get(i).getLatitud(), coordenadases.get(i).getLongitud());
+                    mMap.addMarker(new MarkerOptions().position(coor).title(coordenadases.get(i).getDescripcion()));
+                }
+
+                return true;
+            }catch (IllegalStateException ex) {
+                ex.printStackTrace();
+            }
+        } else {
+            startActivity(new Intent(this, DetailsActivity.class).putExtra("STATE", "EMPTYP"));
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }
+
+        return false;
 
     }
 

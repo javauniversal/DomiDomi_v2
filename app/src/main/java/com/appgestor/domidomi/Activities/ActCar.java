@@ -65,9 +65,11 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
         dialog = new SpotsDialog(ActCar.this);
         dialog.show();
 
+        mListView = (SwipeMenuListView) findViewById(R.id.listView);
+
         llenarData();
 
-        mListView = (SwipeMenuListView) findViewById(R.id.listView);
+
 
         // step 1. create a MenuCreator
         SwipeMenuCreator creator = new SwipeMenuCreator() {
@@ -149,17 +151,12 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
     }
 
     private void llenarData() {
-        new Thread(new Runnable() {
-            List<AddProductCar> mAppList = mydb.getProductCar(bundle.getInt("compania"), getSedeStatic().getIdempresa());
-            @Override
-            public void run() {
-                mAdapter = new AppAdapter(ActCar.this, mAppList);
-                mListView.setAdapter(mAdapter);
-                sumarValoresFinales(mAppList);
-                mAppListPublico = mAppList;
-                dialog.dismiss();
-            }
-        }).start();
+        List<AddProductCar> mAppList = mydb.getProductCar(getSedeStatic().getIdempresa(), getSedeStatic().getIdsedes());
+        mAdapter = new AppAdapter(ActCar.this, mAppList);
+        mListView.setAdapter(mAdapter);
+        sumarValoresFinales(mAppList);
+        mAppListPublico = mAppList;
+        dialog.dismiss();
     }
 
     private void sumarValoresFinales(List<AddProductCar> data){
@@ -247,23 +244,6 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
             case R.id.pedirServices:
                 startActivity(new Intent(ActCar.this, ActFinalizarPedido.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                /*
-                if(mydb.getPerfilValida()){
-                    //Registrado
-
-                }else {
-                    //No registrado
-                    new MaterialDialog.Builder(ActCar.this)
-                            .title("No esta Registrado!")
-                            .content("Se tiene que registrar en la aplicación para poder realizar el pedido.")
-                            .positiveText("Aceptar")
-                            .callback(new MaterialDialog.ButtonCallback() {
-                                @Override
-                                public void onPositive(MaterialDialog dialog) {
-                                    //Aceptar
-                                }
-                            }).show();
-                }*/
                 break;
         }
     }
