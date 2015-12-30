@@ -1,6 +1,7 @@
 package com.appgestor.domidomi.Activities;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,13 +11,25 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.appgestor.domidomi.R;
 import com.appgestor.domidomi.ViewPager.SlidingTabLayout;
 import com.appgestor.domidomi.mockedFragments.FragMenu;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.appgestor.domidomi.Entities.Empresas.getEmpresastatic;
 import static com.appgestor.domidomi.Entities.Sede.getSedeStatic;
@@ -75,10 +88,55 @@ public class ActMenu extends AppCompatActivity {
                 startActivity(new Intent(ActMenu.this, ActCar.class).putExtras(bundle));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 return true;
+            case R.id.action_favorito:
+
+                setFavorito();
+
+                return true;
 
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setFavorito(){
+
+        String url = String.format("%1$s%2$s", getString(R.string.url_base), "setFavoritos");
+        RequestQueue rq = Volley.newRequestQueue(this);
+
+        StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>(){
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Toast.makeText(ActMenu.this, response, Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        startActivity(new Intent(ActMenu.this, DetailsActivity.class).putExtra("STATE", "ERROR"));
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+
+                params.put("descripcion", getEmpresastatic().getDescripcion());
+                params.put("idTelefono", telephonyManager.getDeviceId());
+                params.put("idEmpresa", String.valueOf(getSedeStatic().getIdempresa()));
+
+                return params;
+
+            }
+
+        };
+        rq.add(jsonRequest);
     }
 
     public class MyClasPagerAdapter extends FragmentPagerAdapter {
