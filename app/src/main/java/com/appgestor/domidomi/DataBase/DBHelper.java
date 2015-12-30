@@ -40,7 +40,7 @@ public class DBHelper extends SQLiteOpenHelper {
                                     " email text, celular text, direccion text, estado integer, foto BLOB )";
 
         String sqlPedido = "CREATE TABLE carrito (id integer primary key AUTOINCREMENT, codeproduct int, nameProduct text, " +
-                           "                        quantity int, valueunitary REAL, valueoverall REAL, comment text, idcompany int, idsede int, urlimagen text)";
+                           "                        quantity int, valueunitary REAL, valueoverall REAL, comment text, idcompany int, idsede int, urlimagen text, nombresede text)";
 
         String sqlHistoryhead = "CREATE TABLE historyhead (id integer primary key AUTOINCREMENT, nombreUsuario text, idCompany int, direccion text, "+
                                         " direccionReferen text, celular text, longitud REAL, latitud REAL)";
@@ -230,6 +230,7 @@ public class DBHelper extends SQLiteOpenHelper {
             values.put("idcompany", data.getIdcompany());
             values.put("idsede", data.getIdsede());
             values.put("urlimagen", data.getUrlimagen());
+            values.put("nombresede", data.getNameSede());
 
             db.insert("carrito", null, values);
 
@@ -304,6 +305,39 @@ public class DBHelper extends SQLiteOpenHelper {
 
         }
         return addAdiciones;
+    }
+
+    public List<AddProductCar> getProductCarAll(){
+
+        ArrayList<AddProductCar> addProduct = new ArrayList<>();
+        String sql = "SELECT * FROM carrito GROUP BY idsede";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+        AddProductCar productCar;
+
+        if (cursor.moveToFirst()) {
+            do {
+                productCar = new AddProductCar();
+
+                productCar.setIdProduct(Integer.parseInt(cursor.getString(0)));
+                productCar.setCodeProcut(Integer.parseInt(cursor.getString(1)));
+                productCar.setNameProduct(cursor.getString(2));
+                productCar.setQuantity(Integer.parseInt(cursor.getString(3)));
+                productCar.setValueunitary(Double.parseDouble(cursor.getString(4)));
+                productCar.setValueoverall(Double.parseDouble(cursor.getString(5)));
+                productCar.setComment(cursor.getString(6));
+                productCar.setIdcompany(Integer.parseInt(cursor.getString(7)));
+                productCar.setIdsede(Integer.parseInt(cursor.getString(8)));
+                productCar.setUrlimagen(cursor.getString(9));
+                productCar.setNameSede(cursor.getString(10));
+
+                addProduct.add(productCar);
+
+            } while(cursor.moveToNext());
+        }
+
+        return addProduct;
+
     }
 
     public List<AddProductCar> getProductCar(int idEmpresa, int idSede) {

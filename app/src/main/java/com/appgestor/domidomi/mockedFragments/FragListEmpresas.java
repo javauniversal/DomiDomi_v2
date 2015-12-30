@@ -106,6 +106,8 @@ public class FragListEmpresas extends BaseVolleyFragment implements SwipyRefresh
                 Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();
                 final ListEmpresas listEmpresas = gson.fromJson(json, ListEmpresas.class);
 
+                //setEmpresasListStatic(listEmpresas);
+
                 mLayoutManager = new GridLayoutManager(getActivity(), 1);
                 mRecyclerView.setLayoutManager(mLayoutManager);
 

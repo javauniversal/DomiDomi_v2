@@ -247,6 +247,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
         car.setUrlimagen(getProductoStatic().getFoto());
         car.setIdsede(getSedeStatic().getIdsedes());
         car.setIdcompany(getSedeStatic().getIdempresa());
+        car.setNameSede(getSedeStatic().getDescripcion());
 
         if(getProductoStatic().getAdicionesList() != null && getProductoStatic().getAdicionesList().size() > 0){
             List<Adiciones> adicionesList = new ArrayList<>();

@@ -26,7 +26,6 @@ import com.appgestor.domidomi.Adapters.ExpandableListDataPump;
 import com.appgestor.domidomi.Entities.Comentario;
 import com.appgestor.domidomi.Entities.InformacioCompania;
 import com.appgestor.domidomi.Entities.ListComentarios;
-import com.appgestor.domidomi.Entities.MenuList;
 import com.appgestor.domidomi.Entities.Sede;
 import com.appgestor.domidomi.R;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
@@ -49,7 +48,6 @@ public class FragMenu extends BaseVolleyFragment {
     private HashMap<String, List<String>> expandableListDetail;
     protected View rootView;
     private int operador;
-    private MenuList menu = null;
     private TextView nombreEmpresa;
     private TextView nit;
     private TextView direccion;

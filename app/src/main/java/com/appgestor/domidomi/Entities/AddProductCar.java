@@ -37,6 +37,9 @@ public class AddProductCar {
     @SerializedName("urlimagen")
     private String urlimagen;
 
+    @SerializedName("nameSede")
+    private String nameSede;
+
     private int idAutoIncrement;
 
     private List<Adiciones> adicionesList;
@@ -124,6 +127,14 @@ public class AddProductCar {
 
     public void setAdicionesList(List<Adiciones> adicionesList) {
         this.adicionesList = adicionesList;
+    }
+
+    public String getNameSede() {
+        return nameSede;
+    }
+
+    public void setNameSede(String nameSede) {
+        this.nameSede = nameSede;
     }
 
 }

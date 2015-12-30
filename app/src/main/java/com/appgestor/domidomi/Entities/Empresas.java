@@ -2,6 +2,8 @@ package com.appgestor.domidomi.Entities;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Empresas {
 
     @SerializedName("idempresa")
@@ -41,6 +43,16 @@ public class Empresas {
     private int estado;
 
     private static Empresas empresastatic;
+
+    private static List<Empresas> empresasListStatic;
+
+    public static List<Empresas> getEmpresasListStatic() {
+        return empresasListStatic;
+    }
+
+    public static void setEmpresasListStatic(List<Empresas> empresasListStatic) {
+        Empresas.empresasListStatic = empresasListStatic;
+    }
 
     public static Empresas getEmpresastatic() {
         return empresastatic;
