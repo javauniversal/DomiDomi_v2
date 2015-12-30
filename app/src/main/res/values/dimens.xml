@@ -22,8 +22,9 @@
     <dimen name="grid_item_background_shadow_height">2dp</dimen>
     <dimen name="grid_item_background_corner_radius">2dp</dimen>
 
-    <dimen name="margin_informacioin">10dp</dimen>
+    <dimen name="margin_informacioin">12dp</dimen>
     <dimen name="margen_izquierdo">12dp</dimen>
     <dimen name="radio">9dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="margininformacio">10dp</dimen>
 </resources>

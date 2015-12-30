@@ -4,13 +4,13 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-/**
- * Created by Poo_Code on 23/06/2015.
- */
 public class InformacioCompania {
 
+    @SerializedName("idempresa")
+    private int idempresa;
+
     @SerializedName("descripcion")
-    private String nombre;
+    private String descripcion;
 
     @SerializedName("nit")
     private String nit;
@@ -24,44 +24,132 @@ public class InformacioCompania {
     @SerializedName("celular")
     private String celular;
 
-    @SerializedName("children")
-    private ArrayList<MasterItem2> hijos;
+    @SerializedName("correo")
+    private String correo;
 
-    public InformacioCompania(String nombre, String nit, String direccion, String telefono, String celular, ArrayList<MasterItem2> hijos) {
-        this.nombre = nombre;
-        this.nit = nit;
-        this.direccion = direccion;
-        this.telefono = telefono;
-        this.celular = celular;
-        this.hijos = hijos;
+    @SerializedName("encargado")
+    private String encargado;
+
+    @SerializedName("foto")
+    private String foto;
+
+    @SerializedName("horainicio")
+    private String horainicio;
+
+    @SerializedName("horafinal")
+    private String horafinal;
+
+    @SerializedName("estado")
+    private int estado;
+
+    @SerializedName("sedes")
+    private ArrayList<Sede> sedes;
+
+
+
+
+
+    public int getIdempresa() {
+        return idempresa;
     }
 
-    public String getNombre() { return nombre; }
+    public void setIdempresa(int idempresa) {
+        this.idempresa = idempresa;
+    }
 
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-    public String getNit() { return nit; }
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
-    public void setNit(String nit) { this.nit = nit; }
+    public String getNit() {
+        return nit;
+    }
 
-    public String getDireccion() { return direccion; }
+    public void setNit(String nit) {
+        this.nit = nit;
+    }
 
-    public void setDireccion(String direccion) { this.direccion = direccion; }
+    public String getDireccion() {
+        return direccion;
+    }
 
-    public String getTelefono() { return telefono; }
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
 
-    public void setTelefono(String telefono) { this.telefono = telefono; }
+    public String getTelefono() {
+        return telefono;
+    }
 
-    public String getCelular() { return celular; }
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
 
-    public void setCelular(String celular) { this.celular = celular; }
+    public String getCelular() {
+        return celular;
+    }
 
-    public ArrayList<MasterItem2> getHijos() { return hijos; }
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
 
-    public void setHijos(ArrayList<MasterItem2> hijos) { this.hijos = hijos; }
+    public String getCorreo() {
+        return correo;
+    }
 
-    @Override
-    public String  toString(){
-        return getNombre();
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getEncargado() {
+        return encargado;
+    }
+
+    public void setEncargado(String encargado) {
+        this.encargado = encargado;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
+    public String getHorainicio() {
+        return horainicio;
+    }
+
+    public void setHorainicio(String horainicio) {
+        this.horainicio = horainicio;
+    }
+
+    public String getHorafinal() {
+        return horafinal;
+    }
+
+    public void setHorafinal(String horafinal) {
+        this.horafinal = horafinal;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public ArrayList<Sede> getSedes() {
+        return sedes;
+    }
+
+    public void setSedes(ArrayList<Sede> sedes) {
+        this.sedes = sedes;
     }
 }

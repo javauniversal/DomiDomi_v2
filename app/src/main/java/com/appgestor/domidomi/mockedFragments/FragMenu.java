@@ -21,14 +21,13 @@ import com.android.volley.toolbox.StringRequest;
 import com.appgestor.domidomi.Activities.ActProductAdd;
 import com.appgestor.domidomi.Activities.DetailsActivity;
 import com.appgestor.domidomi.Adapters.AdapterComentario;
-import com.appgestor.domidomi.Adapters.AdapterSedes;
 import com.appgestor.domidomi.Adapters.ExpandableListAdapter;
 import com.appgestor.domidomi.Adapters.ExpandableListDataPump;
-import com.appgestor.domidomi.Entities.CompaniaList;
+import com.appgestor.domidomi.Entities.Comentario;
 import com.appgestor.domidomi.Entities.InformacioCompania;
 import com.appgestor.domidomi.Entities.ListComentarios;
-import com.appgestor.domidomi.Entities.MasterItem2;
 import com.appgestor.domidomi.Entities.MenuList;
+import com.appgestor.domidomi.Entities.Sede;
 import com.appgestor.domidomi.R;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.google.gson.Gson;
@@ -57,11 +56,12 @@ public class FragMenu extends BaseVolleyFragment {
     private TextView telefono;
     private TextView celular;
     private TableLayout tabla;
-    private InformacioCompania infor;
-    private AdapterSedes adapterSedes;
     private Button enviarComentario;
     private EditText mensaje;
     private SwipeMenuListView listView;
+    private InformacioCompania comData;
+    private ListComentarios comentarios;
+    private AdapterComentario adapter;
 
     public static FragMenu newInstance(Bundle param1) {
         FragMenu fragment = new FragMenu();
@@ -91,19 +91,21 @@ public class FragMenu extends BaseVolleyFragment {
                 expandableListView = (ExpandableListView) rootView.findViewById(R.id.expandableListView);
                 break;
             case 1:
-                /*rootView = inflater.inflate(R.layout.fragment_informacion, container, false);
+                rootView = inflater.inflate(R.layout.fragment_informacion, container, false);
+
                 nombreEmpresa = (TextView) rootView.findViewById(R.id.txtNombreEmpresa);
                 nit = (TextView) rootView.findViewById(R.id.txtNit);
                 direccion = (TextView) rootView.findViewById(R.id.textDireccion);
                 telefono = (TextView) rootView.findViewById(R.id.txtTelefono);
                 celular = (TextView) rootView.findViewById(R.id.txtCelulat);
-                tabla = (TableLayout) rootView.findViewById(R.id.myTable);*/
+                tabla = (TableLayout) rootView.findViewById(R.id.myTable);
+
                 break;
             case 2:
-                /*rootView = inflater.inflate(R.layout.fragment_comentarios, container, false);
+                rootView = inflater.inflate(R.layout.fragment_comentarios, container, false);
                 enviarComentario = (Button) rootView.findViewById(R.id.enviarComentario);
                 mensaje = (EditText) rootView.findViewById(R.id.editMensaje);
-                listView = (SwipeMenuListView) rootView.findViewById(R.id.listView);*/
+                listView = (SwipeMenuListView) rootView.findViewById(R.id.listView);
                 break;
         }
         return rootView;
@@ -117,29 +119,29 @@ public class FragMenu extends BaseVolleyFragment {
                 setExpandableListView();
                 break;
             case 1:
-                //cargaInformacionE();
+                cargaInformacionE();
                 break;
             case 2:
-                /*recuperarMensaje();
+                getComentarios();
                 enviarComentario.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (mensaje.getText().toString().length() > 0) {
-                            enviarMensaje();
+                            setComentarios();
                         }
                     }
-                });*/
+                });
                 break;
         }
     }
 
-    private void enviarMensaje() {
-        String url = String.format("%1$s%2$s", getString(R.string.url_base),"comentario");
+    private void setComentarios() {
+        String url = String.format("%1$s%2$s", getString(R.string.url_base),"setComentarios");
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>(){
                     @Override
                     public void onResponse(String response) {
-                        parseJSONComent(response);
+                        parseJSONSet(response);
                     }
                 },
                 new Response.ErrorListener(){
@@ -155,8 +157,9 @@ public class FragMenu extends BaseVolleyFragment {
             @Override
             protected Map<String, String> getParams(){
                 Map<String, String>  params = new HashMap<String, String>();
+
                 params.put("comentario", mensaje.getText().toString());
-                //params.put("compania", String.valueOf(Empresas.getCodigoS().getCodigo()));
+                params.put("sede", String.valueOf(getSedeStatic().getIdsedes()));
 
                 return params;
             }
@@ -164,20 +167,19 @@ public class FragMenu extends BaseVolleyFragment {
         addToQueue(jsonRequest);
     }
 
-    private void recuperarMensaje() {
-        String url = String.format("%1$s%2$s", getString(R.string.url_base),"getComentarios");
+    private void getComentarios() {
+        String url = String.format("%1$s%2$s", getString(R.string.url_base), "getComentarios");
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>(){
                     @Override
                     public void onResponse(String response) {
-                        parseJSONComent(response);
+                        parseJSONGet(response);
                     }
                 },
                 new Response.ErrorListener(){
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
-                        //onConnectionFailed(error.toString());
                         startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "ERROR"));
                         getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     }
@@ -186,7 +188,7 @@ public class FragMenu extends BaseVolleyFragment {
             @Override
             protected Map<String, String> getParams(){
                 Map<String, String>  params = new HashMap<String, String>();
-                //params.put("compania", String.valueOf(Empresas.getCodigoS().getCodigo()));
+                params.put("sede", String.valueOf(getSedeStatic().getIdsedes()));
 
                 return params;
             }
@@ -216,16 +218,15 @@ public class FragMenu extends BaseVolleyFragment {
                             }
                             @Override
                             protected void onPostExecute(Long result){
-                                nombreEmpresa.setText(infor.getNombre());
-                                nit.setText(infor.getNit());
-                                direccion.setText(String.format("Dir: %1$s", infor.getDireccion()));
-                                telefono.setText(String.format("Tel: %1$s", infor.getTelefono()));
-                                celular.setText(String.format("Cel: %1$s", infor.getCelular()));
 
-                                if(infor.getHijos() != null){
+                                nombreEmpresa.setText(comData.getDescripcion());
+                                nit.setText(comData.getNit());
+                                direccion.setText(String.format("Dir: %1$s", comData.getDireccion()));
+                                telefono.setText(String.format("Tel: %1$s", comData.getTelefono()));
+                                celular.setText(String.format("Cel: %1$s", comData.getCelular()));
 
-                                    setAdapterSedes(infor.getHijos());
-
+                                if(comData.getSedes() != null || comData.getSedes().size() > 1){
+                                    setAdapterSedes(comData.getSedes());
                                     //adapterSedes = new AdapterSedes(getActivity(), infor.getHijos());
                                     //sedes.setAdapter(adapterSedes);
                                 }
@@ -246,14 +247,14 @@ public class FragMenu extends BaseVolleyFragment {
             @Override
             protected Map<String, String> getParams(){
                 Map<String, String>  params = new HashMap<>();
-                //params.put("codigo", String.valueOf(Empresas.getCodigoS().getCodigo()));
+                params.put("codigo", String.valueOf(getSedeStatic().getIdempresa()));
                 return params;
             }
         };
         addToQueue(jsonRequest);
     }
 
-    public void setAdapterSedes(ArrayList<MasterItem2> hijos){
+    public void setAdapterSedes(ArrayList<Sede> hijos){
 
         for (int i = 0; i < hijos.size(); i++){
             TableRow currentRow = new TableRow(getContext());
@@ -261,7 +262,7 @@ public class FragMenu extends BaseVolleyFragment {
 
             TextView currentText = new TextView(getContext());
             currentText.setText(hijos.get(i).getDescripcion());
-            currentText.setTextSize(11);
+            currentText.setTextSize(12);
             currentText.setTextColor(Color.BLACK);
 
             currentRow.setLayoutParams(params);
@@ -323,13 +324,15 @@ public class FragMenu extends BaseVolleyFragment {
         }.execute();
     }
 
+    private void parseJSONSet(String json) {
 
-    private void parseJSON(String json) {
         if (json != null && json.length() > 0) {
             try {
                 Gson gson = new Gson();
-                menu = gson.fromJson(json, MenuList.class);
-
+                Comentario comentario = gson.fromJson(json, Comentario.class);
+                comentarios.add(comentario);
+                adapter.notifyDataSetChanged();
+                mensaje.setText("");
             }catch (IllegalStateException ex) {
                 ex.printStackTrace();
             }
@@ -346,12 +349,7 @@ public class FragMenu extends BaseVolleyFragment {
         if (json != null || json.length() > 0 && !json.equals("[null]")) {
             try {
                 Gson gson = new Gson();
-                CompaniaList comData = gson.fromJson(json, CompaniaList.class);
-                for (int i = 0; i < comData.size(); i++) {
-                    infor = new InformacioCompania(comData.get(i).getNombre(), comData.get(i).getNit(),
-                            comData.get(i).getDireccion(), comData.get(i).getTelefono(), comData.get(i).getCelular(),
-                            comData.get(i).getHijos());
-                }
+                comData = gson.fromJson(json, InformacioCompania.class);
 
             }catch (IllegalStateException ex) {
                 ex.printStackTrace();
@@ -363,13 +361,16 @@ public class FragMenu extends BaseVolleyFragment {
 
     }
 
-    private boolean parseJSONComent(String json) {
+    private boolean parseJSONGet(String json) {
+
         if (json != null && json.length() > 0) {
             try {
                 Gson gson = new Gson();
-                ListComentarios comentarios = gson.fromJson(json, ListComentarios.class);
-                AdapterComentario adapter = new AdapterComentario(getActivity(), comentarios);
+                comentarios = gson.fromJson(json, ListComentarios.class);
+
+                adapter = new AdapterComentario(getActivity(), comentarios);
                 listView.setAdapter(adapter);
+
                 mensaje.setText("");
                 return true;
             }catch (IllegalStateException ex) {

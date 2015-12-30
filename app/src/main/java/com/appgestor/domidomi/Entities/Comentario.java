@@ -5,14 +5,25 @@ import com.google.gson.annotations.SerializedName;
 
 public class Comentario {
 
-    @SerializedName("comentarios")
+    @SerializedName("idcomentarios")
+    private int idcomentarios;
+
+    @SerializedName("comentario")
     private String comentario;
 
     @SerializedName("estado")
     private int estado;
 
-    @SerializedName("idcompania")
-    private int idCompania;
+    @SerializedName("idsedes")
+    private int idsedes;
+
+    public int getIdcomentarios() {
+        return idcomentarios;
+    }
+
+    public void setIdcomentarios(int idcomentarios) {
+        this.idcomentarios = idcomentarios;
+    }
 
     public String getComentario() {
         return comentario;
@@ -30,11 +41,11 @@ public class Comentario {
         this.estado = estado;
     }
 
-    public int getIdCompania() {
-        return idCompania;
+    public int getIdsedes() {
+        return idsedes;
     }
 
-    public void setIdCompania(int idCompania) {
-        this.idCompania = idCompania;
+    public void setIdsedes(int idsedes) {
+        this.idsedes = idsedes;
     }
 }

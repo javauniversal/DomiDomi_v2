@@ -67,7 +67,7 @@
             android:layout_marginBottom="14dip"
             android:padding="@dimen/margin_informacioin"
             android:orientation="vertical"
-            android:elevation="20dp"
+            android:elevation="10dp"
             android:descendantFocusability="blocksDescendants">
 
             <RelativeLayout
@@ -115,8 +115,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dip"
             android:padding="@dimen/margin_informacioin"
-            android:elevation="10dp"
             android:orientation="vertical"
+            android:elevation="@dimen/margininformacio"
             android:descendantFocusability="blocksDescendants">
 
             <RelativeLayout
@@ -187,8 +187,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/margin_informacioin"
-            android:elevation="10dp"
             android:orientation="vertical"
+            android:elevation="10dp"
             android:descendantFocusability="blocksDescendants">
 
             <RelativeLayout
@@ -212,7 +212,6 @@
                     android:layout_below="@+id/textView423" >
 
                 </TableLayout>
-
 
 
             </RelativeLayout>
