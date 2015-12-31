@@ -45,6 +45,10 @@
         <activity android:name=".Activities.ActMenu" />
         <activity android:name=".Activities.ActProductAdd" />
         <activity android:name=".Activities.ActCar" />
+        <activity android:name=".Activities.ActCarritoMenu" />
+        <activity
+            android:name=".Activities.ActFinalizarPedidoMenu"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Activities.ActFinalizarPedido"
             android:theme="@style/AppTheme" />
@@ -104,6 +108,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.appgestor.domidomi.dark.Accounts" />
         </activity>
+
     </application>
 
 </manifest>

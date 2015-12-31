@@ -38,7 +38,6 @@ public class AdapterComentario extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-
         if (convertView == null) {
             convertView = View.inflate(actx, R.layout.item_comentario, null);
             new ViewHolder(convertView);

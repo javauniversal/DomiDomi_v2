@@ -2,6 +2,8 @@ package com.appgestor.domidomi.Entities;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class MedioPago {
 
     @SerializedName("idmediopago")
@@ -16,8 +18,7 @@ public class MedioPago {
     @SerializedName("idsedes")
     private int idsedes;
 
-
-
+    public static List<MedioPago> medioPagoListstatic;
 
 
     //Metodo GET SET
@@ -51,6 +52,14 @@ public class MedioPago {
 
     public void setIdsedes(int idsedes) {
         this.idsedes = idsedes;
+    }
+
+    public static List<MedioPago> getMedioPagoListstatic() {
+        return medioPagoListstatic;
+    }
+
+    public static void setMedioPagoListstatic(List<MedioPago> medioPagoListstatic) {
+        MedioPago.medioPagoListstatic = medioPagoListstatic;
     }
 
 }

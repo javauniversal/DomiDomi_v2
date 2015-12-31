@@ -1,11 +1,14 @@
 package com.appgestor.domidomi.Adapters;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.appgestor.domidomi.Activities.ActCarritoMenu;
 import com.appgestor.domidomi.Entities.AddProductCar;
 import com.appgestor.domidomi.R;
 
@@ -41,7 +44,7 @@ public class AdapterSedesDialog extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
 
         if (convertView == null) {
@@ -52,9 +55,24 @@ public class AdapterSedesDialog extends BaseAdapter {
 
         holder.txtSedeDialog.setText(elements.get(position).getNameSede());
 
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("empresa", elements.get(position).getIdcompany());
+                bundle.putInt("sede", elements.get(position).getIdsede());
+                bundle.putString("sedeNomebre", elements.get(position).getNameSede());
+                actx.startActivity(new Intent(actx, ActCarritoMenu.class).putExtras(bundle));
+                actx.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+            }
+        });
+
         return convertView;
 
     }
+
+
 
     class ViewHolder {
         public TextView txtSedeDialog = null;

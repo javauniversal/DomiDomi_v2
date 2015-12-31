@@ -17,23 +17,33 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.appgestor.domidomi.Adapters.AppAdapter;
 import com.appgestor.domidomi.DataBase.DBHelper;
 import com.appgestor.domidomi.Entities.AddProductCar;
+import com.appgestor.domidomi.Entities.ListMedioPago;
 import com.appgestor.domidomi.R;
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
+import com.google.gson.Gson;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dmax.dialog.SpotsDialog;
 
-import static com.appgestor.domidomi.Entities.Empresas.getEmpresastatic;
-import static com.appgestor.domidomi.Entities.Sede.getSedeStatic;
+import static com.appgestor.domidomi.Entities.MedioPago.setMedioPagoListstatic;
 
-public class ActCar extends AppCompatActivity implements View.OnClickListener{
+public class ActCarritoMenu extends AppCompatActivity implements View.OnClickListener{
 
     private AppAdapter mAdapter;
     private DBHelper mydb;
@@ -41,15 +51,18 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
     private Button pedirService;
     private SwipeMenuListView mListView;
     private List<AddProductCar> mAppListPublico;
-    AlertDialog dialog;
+    private AlertDialog dialog;
+    private Bundle bundleset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_car);
+        Intent intent = getIntent();
+        bundleset = intent.getExtras();
         mydb = new DBHelper(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-        toolbar.setTitle(getEmpresastatic().getDescripcion());
+        toolbar.setTitle(bundleset.getString("sedeNomebre"));
         toolbar.setNavigationIcon(R.mipmap.ic_action_cartw);
         setSupportActionBar(toolbar);
 
@@ -57,7 +70,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
         pedirService = (Button) findViewById(R.id.pedirServices);
         pedirService.setOnClickListener(this);
 
-        dialog = new SpotsDialog(ActCar.this);
+        dialog = new SpotsDialog(ActCarritoMenu.this);
         dialog.show();
 
         mListView = (SwipeMenuListView) findViewById(R.id.listView);
@@ -144,8 +157,8 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
     }
 
     private void llenarData() {
-        List<AddProductCar> mAppList = mydb.getProductCar(getSedeStatic().getIdempresa(), getSedeStatic().getIdsedes());
-        mAdapter = new AppAdapter(ActCar.this, mAppList);
+        List<AddProductCar> mAppList = mydb.getProductCar(bundleset.getInt("empresa"), bundleset.getInt("sede"));
+        mAdapter = new AppAdapter(ActCarritoMenu.this, mAppList);
         mListView.setAdapter(mAdapter);
         sumarValoresFinales(mAppList);
         mAppListPublico = mAppList;
@@ -176,7 +189,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
     }
 
     private void createDialog(final int position){
-        new MaterialDialog.Builder(ActCar.this)
+        new MaterialDialog.Builder(ActCarritoMenu.this)
                 .title("Eliminar producto")
                 .content("Esta seguro de eliminar del carrito")
                 .positiveText("Aceptar")
@@ -235,9 +248,74 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.pedirServices:
-                startActivity(new Intent(ActCar.this, ActFinalizarPedido.class));
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+                cargarMedioPago();
+
                 break;
         }
+    }
+
+
+    public void cargarMedioPago(){
+        String url = String.format("%1$s%2$s", getString(R.string.url_base),"getMedioPago");
+        RequestQueue rq = Volley.newRequestQueue(this);
+        StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>(){
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        parseJSON(response);
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
+                        intent.putExtra("STATE", "ERROR");
+                        startActivity(intent);
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("idsedes", String.valueOf(bundleset.getInt("sede")));
+
+                return params;
+            }
+        };
+        rq.add(jsonRequest);
+    }
+
+    private boolean parseJSON(String json) {
+        boolean indicant = false;
+        Gson gson = new Gson();
+        if (!json.equals("[]")){
+            try {
+
+                final ListMedioPago listMedioPago = gson.fromJson(json, ListMedioPago.class);
+
+                setMedioPagoListstatic(listMedioPago);
+
+                Bundle bundle = new Bundle();
+                bundle.putInt("empresa", bundleset.getInt("empresa"));
+                bundle.putInt("sede", bundleset.getInt("sede"));
+                startActivity(new Intent(ActCarritoMenu.this, ActFinalizarPedidoMenu.class).putExtras(bundle));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+            }catch (IllegalStateException ex) {
+                ex.printStackTrace();
+                indicant = false;
+            }
+        }else {
+            Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
+            intent.putExtra("STATE", "EMPTY");
+            startActivity(intent);
+        }
+
+        return indicant;
+
     }
 }
