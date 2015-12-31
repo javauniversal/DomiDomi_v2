@@ -67,14 +67,6 @@
                     android:text="Large Text"
                     android:textStyle="bold"
                     android:textColor="@color/color_negro"
-                    android:id="@+id/txtValor" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Large Text"
-                    android:textStyle="bold"
-                    android:textColor="@color/color_negro"
                     android:id="@+id/txtEstado" />
 
             </LinearLayout>

@@ -3,6 +3,8 @@ package com.appgestor.domidomi.Entities;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class EstadoPedido {
 
     @SerializedName("idordencompra")
@@ -49,6 +51,17 @@ public class EstadoPedido {
 
     @SerializedName("valor")
     private double valor;
+
+    @SerializedName("detalle")
+    private List<DetallePedido> detallePedidoList;
+
+    public List<DetallePedido> getDetallePedidoList() {
+        return detallePedidoList;
+    }
+
+    public void setDetallePedidoList(List<DetallePedido> detallePedidoList) {
+        this.detallePedidoList = detallePedidoList;
+    }
 
     public int getIdordencompra() {
         return idordencompra;

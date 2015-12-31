@@ -1,12 +1,18 @@
 package com.appgestor.domidomi.Adapters;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.text.Html;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -22,6 +28,7 @@ import com.appgestor.domidomi.Activities.DetailsActivity;
 import com.appgestor.domidomi.Entities.EstadoPedido;
 import com.appgestor.domidomi.R;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,10 +38,12 @@ public class AdapterEstadoPedido extends BaseAdapter {
 
     private Activity actx;
     private List<EstadoPedido> data;
+    private DecimalFormat format;
 
     public AdapterEstadoPedido(Activity actx, List<EstadoPedido> data){
         this.actx = actx;
         this.data = data;
+        format = new DecimalFormat("#,###.##");
     }
 
     @Override
@@ -72,7 +81,6 @@ public class AdapterEstadoPedido extends BaseAdapter {
         holder.txtDireccion.setText(String.format("Dirección: %s", item.getDireccion()));
         holder.txtFecha.setText(String.format("Fecha predido: %s", item.getFecha()));
         holder.txtCantidad.setText(String.format("Cantidad: %s", item.getCantidad()));
-        holder.txtValor.setText(String.format("Valor total: %s", item.getValor()));
 
         String estado = null;
 
@@ -113,8 +121,159 @@ public class AdapterEstadoPedido extends BaseAdapter {
             }
         });
 
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final Dialog dialog = new Dialog(actx);
+                dialog.setContentView(R.layout.my_layout_carrito_dialog);
+
+                dialog.setTitle(Html.fromHtml("<font color='#000'>Detalle del Pedido</font>"));
+
+                TableLayout tabla = (TableLayout) dialog.findViewById(R.id.tabla);
+
+                TableLayout cabecera = (TableLayout) dialog.findViewById(R.id.cabecera);
+
+                TableRow.LayoutParams layoutFila = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT);
+
+                TableRow.LayoutParams layoutProducto = new TableRow.LayoutParams(390,TableRow.LayoutParams.MATCH_PARENT);
+                TableRow.LayoutParams layoutCantidad = new TableRow.LayoutParams(150,TableRow.LayoutParams.MATCH_PARENT);
+                TableRow.LayoutParams layoutPrecio = new TableRow.LayoutParams(390,TableRow.LayoutParams.MATCH_PARENT);
+
+                TableRow filaCa;
+                TextView txtProductoCa;
+                TextView txtCantidadCa;
+                TextView txtPrecioCa;
+
+                filaCa = new TableRow(actx);
+                filaCa.setLayoutParams(layoutFila);
+
+                txtProductoCa = new TextView(actx);
+                txtCantidadCa = new TextView(actx);
+                txtPrecioCa = new TextView(actx);
+
+
+                txtProductoCa.setText("PRODUCTO");
+                txtProductoCa.setGravity(Gravity.CENTER_HORIZONTAL);
+                txtProductoCa.setBackgroundResource(R.drawable.tabla_celda_cabecera);
+                txtProductoCa.setTypeface(null, Typeface.BOLD);
+                txtProductoCa.setTextSize(12);
+                txtProductoCa.setTextColor(Color.parseColor("#FFFFFF"));
+                txtProductoCa.setLayoutParams(layoutProducto);
+
+                txtCantidadCa.setText("CANT");
+                txtCantidadCa.setGravity(Gravity.CENTER_HORIZONTAL);
+                txtCantidadCa.setBackgroundResource(R.drawable.tabla_celda_cabecera);
+                txtCantidadCa.setTypeface(null, Typeface.BOLD);
+                txtCantidadCa.setTextSize(12);
+                txtCantidadCa.setTextColor(Color.parseColor("#FFFFFF"));
+                txtCantidadCa.setLayoutParams(layoutCantidad);
+
+                txtPrecioCa.setText("PRECIO");
+                txtPrecioCa.setGravity(Gravity.CENTER_HORIZONTAL);
+                txtPrecioCa.setTypeface(null, Typeface.BOLD);
+                txtPrecioCa.setTextSize(12);
+                txtPrecioCa.setTextColor(Color.parseColor("#FFFFFF"));
+                txtPrecioCa.setBackgroundResource(R.drawable.tabla_celda_cabecera);
+                txtPrecioCa.setLayoutParams(layoutPrecio);
+
+
+                filaCa.addView(txtProductoCa);
+                filaCa.addView(txtCantidadCa);
+                filaCa.addView(txtPrecioCa);
+
+                cabecera.addView(filaCa);
+
+                //Cargar Las Filas...
+                TableRow row;
+                TextView txtProductoFil;
+                TextView txtCantidadFil;
+                TextView txtPrecioFil;
+                TextView txtTotal;
+
+                double valorTotal = 0;
+
+                for (int i = 0; i < data.get(position).getDetallePedidoList().size(); i++) {
+
+                    double valorCantida = 0;
+
+                    row = new TableRow(actx);
+                    row.setLayoutParams(layoutFila);
+
+                    txtProductoFil = new TextView(actx);
+                    txtCantidadFil = new TextView(actx);
+                    txtPrecioFil = new TextView(actx);
+
+                    txtProductoFil.setText(data.get(position).getDetallePedidoList().get(i).getNombreproducto());
+                    txtProductoFil.setGravity(Gravity.CENTER_HORIZONTAL);
+                    txtProductoFil.setBackgroundResource(R.drawable.tabla_celda);
+                    txtProductoFil.setTextSize(10);
+                    txtProductoFil.setLayoutParams(layoutProducto);
+
+                    txtCantidadFil.setText(data.get(position).getDetallePedidoList().get(i).getCantidad()+"");
+                    txtCantidadFil.setGravity(Gravity.CENTER_HORIZONTAL);
+                    txtCantidadFil.setTextSize(10);
+                    txtCantidadFil.setBackgroundResource(R.drawable.tabla_celda);
+                    txtCantidadFil.setLayoutParams(layoutCantidad);
+
+                    valorCantida = data.get(position).getDetallePedidoList().get(i).getValor() * data.get(position).getDetallePedidoList().get(i).getCantidad();
+
+                    txtPrecioFil.setText(String.format("$ %s",format.format(valorCantida)));
+                    txtPrecioFil.setGravity(Gravity.CENTER_HORIZONTAL);
+                    txtPrecioFil.setTextSize(10);
+                    txtPrecioFil.setBackgroundResource(R.drawable.tabla_celda);
+                    txtPrecioFil.setLayoutParams(layoutPrecio);
+
+                    row.addView(txtProductoFil);
+                    row.addView(txtCantidadFil);
+                    row.addView(txtPrecioFil);
+
+                    tabla.addView(row);
+
+                    valorTotal = valorTotal + valorCantida;
+
+
+                }
+
+                TableRow.LayoutParams params = new TableRow.LayoutParams();
+                params.span = 2;
+
+                row = new TableRow(actx);
+                row.setLayoutParams(layoutFila);
+
+                txtTotal = new TextView(actx);
+                txtPrecioFil = new TextView(actx);
+
+                txtTotal.setText("TOTAL:");
+                txtTotal.setGravity(Gravity.RIGHT);
+                txtTotal.setTextSize(12);
+                txtTotal.setTypeface(null, Typeface.BOLD);
+                txtTotal.setPadding(8,8,8,8);
+                txtTotal.setLayoutParams(params);
+
+
+                txtPrecioFil.setText(String.format("$ %s",format.format(valorTotal)));
+                txtPrecioFil.setGravity(Gravity.CENTER_HORIZONTAL);
+                txtTotal.setTextSize(11);
+                txtTotal.setTypeface(null, Typeface.BOLD);
+                txtTotal.setPadding(8,9,8,8);
+                txtPrecioFil.setLayoutParams(layoutPrecio);
+
+
+                row.addView(txtTotal);
+                row.addView(txtPrecioFil);
+
+
+                tabla.addView(row);
+
+                dialog.show();
+
+            }
+        });
+
         return convertView;
     }
+
 
     public void cancelPedido(final String pedido, final int idcompra, final int idSede){
         new MaterialDialog.Builder(actx)
@@ -184,7 +343,6 @@ public class AdapterEstadoPedido extends BaseAdapter {
         TextView txtDireccion;
         TextView txtFecha;
         TextView txtCantidad;
-        TextView txtValor;
         TextView txtEstado;
         Button cancelPedido;
 
@@ -193,7 +351,6 @@ public class AdapterEstadoPedido extends BaseAdapter {
             txtDireccion = (TextView) view.findViewById(R.id.txtDireccion);
             txtFecha = (TextView) view.findViewById(R.id.txtFecha);
             txtCantidad = (TextView) view.findViewById(R.id.txtCantidad);
-            txtValor = (TextView) view.findViewById(R.id.txtValor);
             txtEstado = (TextView) view.findViewById(R.id.txtEstado);
             cancelPedido = (Button) view.findViewById(R.id.btnCancel);
             view.setTag(this);
