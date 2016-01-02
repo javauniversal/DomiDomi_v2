@@ -79,7 +79,7 @@ public class AdapterEstadoPedido extends BaseAdapter {
 
         holder.txtEmpresa.setText(String.format("Empresa: %s",item.getEmpresa()));
         holder.txtDireccion.setText(String.format("Dirección: %s", item.getDireccion()));
-        holder.txtFecha.setText(String.format("Fecha predido: %s", item.getFecha()));
+        holder.txtFecha.setText(String.format("Fecha del Pedido: %s", item.getFecha()));
         holder.txtCantidad.setText(String.format("Cantidad: %s", item.getCantidad()));
 
         String estado = null;
@@ -136,9 +136,13 @@ public class AdapterEstadoPedido extends BaseAdapter {
 
                 TableRow.LayoutParams layoutFila = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT);
 
-                TableRow.LayoutParams layoutProducto = new TableRow.LayoutParams(390,TableRow.LayoutParams.MATCH_PARENT);
-                TableRow.LayoutParams layoutCantidad = new TableRow.LayoutParams(150,TableRow.LayoutParams.MATCH_PARENT);
-                TableRow.LayoutParams layoutPrecio = new TableRow.LayoutParams(390,TableRow.LayoutParams.MATCH_PARENT);
+                int anchoTable = (int) actx.getResources().getDimension(R.dimen.ancho_tabla);
+
+                int anchoTablePrecio = (int) actx.getResources().getDimension(R.dimen.ancho_table_precio);
+
+                TableRow.LayoutParams layoutProducto = new TableRow.LayoutParams(anchoTable,TableRow.LayoutParams.MATCH_PARENT);
+                TableRow.LayoutParams layoutCantidad = new TableRow.LayoutParams(anchoTablePrecio,TableRow.LayoutParams.MATCH_PARENT);
+                TableRow.LayoutParams layoutPrecio = new TableRow.LayoutParams(anchoTable,TableRow.LayoutParams.MATCH_PARENT);
 
                 TableRow filaCa;
                 TextView txtProductoCa;

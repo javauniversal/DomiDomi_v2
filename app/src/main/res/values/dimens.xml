@@ -27,4 +27,8 @@
     <dimen name="radio">9dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="margininformacio">10dp</dimen>
+
+    <dimen name="ancho_tabla">100dp</dimen>
+    <dimen name="ancho_table_precio">10dp</dimen>
+
 </resources>

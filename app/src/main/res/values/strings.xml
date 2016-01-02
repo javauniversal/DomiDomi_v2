@@ -9,7 +9,7 @@
     <string name="senales">*</string>
     <string name="email">E-mail</string>
     <string name="celular">Celular</string>
-    <string name="direccion">Direccion</string>
+    <string name="direccion">Dirección</string>
     <string name="apellidos_nombres">Nombres y Apellidos</string>
     <!-- Fin  -->
 
@@ -20,7 +20,7 @@
     </string-array>
 
     <string name="title_activity_act_product_add">Agregar Producto</string>
-    <string name="Descripcion">Descripcion</string>
+    <string name="Descripcion">Descripción</string>
     <string name="ingredientes">Ingredientes</string>
     <string name="agregar">Agregar</string>
     <string name="cantidad">Cantidad</string>
@@ -89,4 +89,15 @@
     <string name="title_activity_activity_sedes">Sedes</string>
     <string name="nombre_del_producto">Nombre del producto</string>
     <string name="title_activity_act_estado_pedido">Estado de los pedidos</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="enviar">Enviar</string>
+    <string name="nombre_apellido_t">Nombre/Apellido</string>
+    <string name="nombre">Nombre</string>
+    <string name="medio_de_pago">Medio de pago</string>
+    <string name="latitud">Latitud</string>
+    <string name="direcci_n_lugar_de_referencia">Dirección/Lugar de referencia</string>
+    <string name="celular_tel_fono">Celular/Teléfono</string>
+    <string name="escriba_la_cantidad">Escriba la cantidad</string>
+    <string name="longitud">Longitud</string>
+    <string name="cancelar">Cancelar</string>
 </resources>

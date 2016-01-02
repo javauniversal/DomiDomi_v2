@@ -36,14 +36,16 @@
             android:id="@+id/editMensaje"
             android:background="@drawable/rounded_corner"
             android:textColor="@color/color_negro"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:inputType="text" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Enviar"
+            android:text="@string/enviar"
             android:id="@+id/enviarComentario"
             android:layout_weight="3.5"
+            style="@style/BrandButtonStyle2"
             android:layout_gravity="bottom" />
 
     </LinearLayout>

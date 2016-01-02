@@ -75,7 +75,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
                 // set item width
                 openItem.setWidth(dp2px(90));
                 // set item title
-                openItem.setTitle("Open");
+                openItem.setTitle("Editar");
                 // set item title fontsize
                 openItem.setTitleSize(18);
                 // set item title font color

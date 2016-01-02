@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
     <include
@@ -20,8 +20,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nombre/Apellido"
-            android:hint="Nombre"
+            android:text="@string/nombre_apellido_t"
+            android:hint="@string/nombre"
             android:textStyle="bold"
             android:paddingTop="8dp"
             android:paddingLeft="8dp"
@@ -41,7 +41,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Celular/Telefono"
+            android:text="@string/celular_tel_fono"
             android:textStyle="bold"
             android:paddingTop="8dp"
             android:paddingLeft="8dp"
@@ -61,7 +61,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Dirección"
+            android:text="@string/direccion"
             android:textStyle="bold"
             android:paddingTop="8dp"
             android:paddingLeft="8dp"
@@ -81,7 +81,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Dirección/Lugar de referencia"
+            android:text="@string/direcci_n_lugar_de_referencia"
             android:textStyle="bold"
             android:paddingTop="8dp"
             android:paddingLeft="8dp"
@@ -101,7 +101,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Medio de pago"
+            android:text="@string/medio_de_pago"
             android:textStyle="bold"
             android:paddingTop="8dp"
             android:paddingLeft="8dp"
@@ -116,7 +116,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="6"
                 android:src="@drawable/ic_credit_card_black_24dp"
-                android:id="@+id/imageView4" />
+                android:id="@+id/imageView4"
+                android:contentDescription="@string/app_name" />
 
             <Spinner
                 android:layout_width="match_parent"
@@ -129,7 +130,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Escriba la cantidad"
+            android:text="@string/escriba_la_cantidad"
             android:textStyle="bold"
             android:paddingTop="8dp"
             android:paddingLeft="8dp"
@@ -166,14 +167,15 @@
                 android:layout_weight="3"
                 style="@style/BrandButtonStyle2"
                 android:src="@drawable/ic_place_black_24dp"
-                android:id="@+id/imgButtonLocation" />
+                android:id="@+id/imgButtonLocation"
+                android:contentDescription="@string/dato_true" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textImeMultiLine"
                 android:layout_weight="2"
-                android:hint="Latitud"
+                android:hint="@string/latitud"
                 android:background="@drawable/rounded_corner"
                 android:id="@+id/txtLatitud"
                 android:layout_margin="7dp"
@@ -184,7 +186,7 @@
                 android:layout_height="match_parent"
                 android:inputType="textImeMultiLine"
                 android:layout_weight="2"
-                android:hint="Longitud"
+                android:hint="@string/longitud"
                 android:background="@drawable/rounded_corner"
                 android:id="@+id/txtLongitud"
                 android:layout_margin="7dp"
@@ -203,14 +205,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/BrandButtonStyle2"
-                android:text="Cancelar" />
+                android:text="@string/cancelar" />
 
             <Button
                 android:id="@+id/button_accept"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/BrandButtonStyle2"
-                android:text="Aceptar" />
+                android:text="@string/aceptar" />
 
         </LinearLayout>
 
