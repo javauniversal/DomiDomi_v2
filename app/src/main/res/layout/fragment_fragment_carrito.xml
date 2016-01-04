@@ -26,6 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listSedesCarrito"
+        android:divider="@color/color_1"
         android:layout_gravity="center_horizontal"
         android:layout_below="@+id/linearLayout4"
         android:layout_alignParentLeft="true"

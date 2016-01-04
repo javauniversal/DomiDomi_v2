@@ -13,18 +13,39 @@
         android:src="@drawable/ic_credit_card_black_24dp"
         app:civ_border_width="1dp"
         app:civ_border_color="@color/color_1"/>
-
-    <TextView
-        android:id="@+id/expandedListItem"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/nombre_del_producto"
-        android:textColor="@color/color_negro"
-        android:layout_marginLeft="9dp"
-        android:layout_marginStart="9dp"
-        android:textSize="13sp"
         android:layout_centerVertical="true"
+        android:orientation="horizontal"
         android:layout_toRightOf="@+id/profile_image"
-        android:layout_toEndOf="@+id/profile_image" />
+        android:layout_toEndOf="@+id/profile_image">
+
+        <TextView
+            android:id="@+id/expandedListItem"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/nombre_del_producto"
+            android:textColor="@color/color_negro"
+            android:layout_marginLeft="9dp"
+            android:layout_marginStart="9dp"
+            android:textSize="13sp"
+            android:gravity="left" />
+
+        <TextView
+            android:id="@+id/texValor"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="$"
+            android:textColor="@color/color_negro"
+            android:layout_marginLeft="9dp"
+            android:layout_marginStart="9dp"
+            android:textSize="13sp"
+            android:gravity="right" />
+
+    </LinearLayout>
+
 
 </RelativeLayout>

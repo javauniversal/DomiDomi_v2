@@ -54,7 +54,7 @@ public class AdapterComentario extends BaseAdapter {
         public TextView message = null;
 
         public ViewHolder(View view) {
-            message = (TextView) view.findViewById(R.id.txtMessage);
+            message = (TextView) view.findViewById(R.id.txtComentario);
             view.setTag(this);
         }
     }

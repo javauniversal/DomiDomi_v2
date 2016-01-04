@@ -1,15 +1,15 @@
 package com.appgestor.domidomi.mockedFragments;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -30,12 +30,19 @@ import com.appgestor.domidomi.Entities.Sede;
 import com.appgestor.domidomi.R;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.google.gson.Gson;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.appgestor.domidomi.Entities.Empresas.getEmpresastatic;
 import static com.appgestor.domidomi.Entities.Producto.setProductoStatic;
 import static com.appgestor.domidomi.Entities.Sede.getSedeStatic;
 
@@ -53,9 +60,16 @@ public class FragMenu extends BaseVolleyFragment {
     private TextView direccion;
     private TextView telefono;
     private TextView celular;
+
+    private TextView txtNombreSede;
+    private TextView txtDireccion;
+    private TextView txtTiempo;
+    private TextView txtCosto;
+    private TextView txtMedioPago;
+    private ImageView imgEmpresa;
+    protected DecimalFormat format;
+
     private TableLayout tabla;
-    private Button enviarComentario;
-    private EditText mensaje;
     private SwipeMenuListView listView;
     private InformacioCompania comData;
     private ListComentarios comentarios;
@@ -86,6 +100,14 @@ public class FragMenu extends BaseVolleyFragment {
         switch (operador) {
             case 0:
                 rootView = inflater.inflate(R.layout.fragment_menu, container, false);
+
+                txtNombreSede = (TextView) rootView.findViewById(R.id.txtNombreSede);
+                txtDireccion = (TextView) rootView.findViewById(R.id.txtDireccion);
+                txtTiempo = (TextView) rootView.findViewById(R.id.txtTiempoespera);
+                txtCosto = (TextView) rootView.findViewById(R.id.txtCosto);
+                txtMedioPago = (TextView) rootView.findViewById(R.id.txtMediosPago);
+                imgEmpresa = (ImageView) rootView.findViewById(R.id.imgEmpresa);
+
                 expandableListView = (ExpandableListView) rootView.findViewById(R.id.expandableListView);
                 break;
             case 1:
@@ -101,8 +123,6 @@ public class FragMenu extends BaseVolleyFragment {
                 break;
             case 2:
                 rootView = inflater.inflate(R.layout.fragment_comentarios, container, false);
-                enviarComentario = (Button) rootView.findViewById(R.id.enviarComentario);
-                mensaje = (EditText) rootView.findViewById(R.id.editMensaje);
                 listView = (SwipeMenuListView) rootView.findViewById(R.id.listView);
                 break;
         }
@@ -114,56 +134,65 @@ public class FragMenu extends BaseVolleyFragment {
         super.onActivityCreated(savedInstanceState);
         switch (operador) {
             case 0:
+
+                format = new DecimalFormat("#,###.##");
+                CargarImagen();
+                txtNombreSede.setText(getSedeStatic().getDescripcion());
+                txtDireccion.setText(getSedeStatic().getDireccion());
+                txtTiempo.setText(String.format("Tiempo de Entregas: %s aprox", getSedeStatic().getTiempoEnvio()));
+                txtCosto.setText(String.format("Costo de Envió: $ %s", format.format(getSedeStatic().getCosenvio())));
+
+                String concatAdiciones = "";
+
+                for(int f = 0; f < getSedeStatic().getMedioPagoList().size(); f++) {
+                    concatAdiciones = concatAdiciones +" | "+ getSedeStatic().getMedioPagoList().get(f).getDescripcion();
+                }
+
+                txtMedioPago.setText(String.format("Medios de Pagos: %s", concatAdiciones));
+
                 setExpandableListView();
+
                 break;
             case 1:
                 cargaInformacionE();
                 break;
             case 2:
                 getComentarios();
-                enviarComentario.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (mensaje.getText().toString().length() > 0) {
-                            setComentarios();
-                        }
-                    }
-                });
+
                 break;
         }
     }
 
-    private void setComentarios() {
-        String url = String.format("%1$s%2$s", getString(R.string.url_base),"setComentarios");
-        StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>(){
-                    @Override
-                    public void onResponse(String response) {
-                        parseJSONSet(response);
-                    }
-                },
-                new Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // error
-                        //onConnectionFailed(error.toString());
-                        startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "ERROR"));
-                        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    }
-                }
-        ) {
+    private void CargarImagen() {
+        //Setup the ImageLoader, we'll use this to display our images
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getActivity()).build();
+        ImageLoader imageLoader1 = ImageLoader.getInstance();
+        imageLoader1.init(config);
+        //Setup options for ImageLoader so it will handle caching for us.
+        DisplayImageOptions options1 = new DisplayImageOptions.Builder().cacheInMemory().cacheOnDisc().build();
+
+        ImageLoadingListener listener = new ImageLoadingListener(){
             @Override
-            protected Map<String, String> getParams(){
-                Map<String, String>  params = new HashMap<String, String>();
+            public void onLoadingStarted(String arg0, View arg1) {
+                // TODO Auto-generated method stub
+            }
 
-                params.put("comentario", mensaje.getText().toString());
-                params.put("sede", String.valueOf(getSedeStatic().getIdsedes()));
+            @Override
+            public void onLoadingCancelled(String arg0, View arg1) {
+                // TODO Auto-generated method stub
+            }
 
-                return params;
+            @Override
+            public void onLoadingComplete(String arg0, View arg1, Bitmap arg2) {
+            }
+            @Override
+            public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
             }
         };
-        addToQueue(jsonRequest);
+
+        imageLoader1.displayImage(getEmpresastatic().getFoto(), imgEmpresa, options1, listener);
     }
+
 
     private void getComentarios() {
         String url = String.format("%1$s%2$s", getString(R.string.url_base), "getComentarios");
@@ -330,7 +359,6 @@ public class FragMenu extends BaseVolleyFragment {
                 Comentario comentario = gson.fromJson(json, Comentario.class);
                 comentarios.add(comentario);
                 adapter.notifyDataSetChanged();
-                mensaje.setText("");
             }catch (IllegalStateException ex) {
                 ex.printStackTrace();
             }
@@ -369,7 +397,6 @@ public class FragMenu extends BaseVolleyFragment {
                 adapter = new AdapterComentario(getActivity(), comentarios);
                 listView.setAdapter(adapter);
 
-                mensaje.setText("");
                 return true;
             }catch (IllegalStateException ex) {
                 ex.printStackTrace();

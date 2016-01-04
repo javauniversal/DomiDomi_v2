@@ -86,6 +86,7 @@ public class AdapterEstadoPedido extends BaseAdapter {
 
         switch (item.getEstado()){
             case "Iniciado":
+                holder.cancelPedido.setVisibility(View.VISIBLE);
                 estado = "Iniciado";
                 holder.txtEstado.setTextColor(Color.parseColor("#088A08"));
                 break;

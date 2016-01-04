@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -24,11 +25,15 @@ import com.google.gson.GsonBuilder;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import dmax.dialog.SpotsDialog;
 
+import static com.appgestor.domidomi.Entities.Empresas.setEmpresasListStatic;
 import static com.appgestor.domidomi.Entities.Empresas.setEmpresastatic;
 
 public class FragListEmpresas extends BaseVolleyFragment implements SwipyRefreshLayout.OnRefreshListener {
@@ -106,7 +111,7 @@ public class FragListEmpresas extends BaseVolleyFragment implements SwipyRefresh
                 Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();
                 final ListEmpresas listEmpresas = gson.fromJson(json, ListEmpresas.class);
 
-                //setEmpresasListStatic(listEmpresas);
+                setEmpresasListStatic(listEmpresas);
 
                 mLayoutManager = new GridLayoutManager(getActivity(), 1);
                 mRecyclerView.setLayoutManager(mLayoutManager);
@@ -117,9 +122,20 @@ public class FragListEmpresas extends BaseVolleyFragment implements SwipyRefresh
                 mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        setEmpresastatic(listEmpresas.get(position));
-                        startActivity(new Intent(getActivity(), ActivitySedes.class));
-                        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+                        Date date = new Date();
+                        DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss");
+
+                        if (isHourInInterval(hourdateFormat.format(date).toString(), listEmpresas.get(position).getHorainicio(), listEmpresas.get(position).getHorafinal())){
+
+                            setEmpresastatic(listEmpresas.get(position));
+                            startActivity(new Intent(getActivity(), ActivitySedes.class));
+                            getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+                        }else{
+                            Toast.makeText(getActivity(), "El establecimiento se encuentra Cerrado", Toast.LENGTH_LONG).show();
+                        }
+
                     }
                 }));
 
@@ -141,6 +157,10 @@ public class FragListEmpresas extends BaseVolleyFragment implements SwipyRefresh
 
         mSwipyRefreshLayout.setRefreshing(false);
         return false;
+    }
+
+    public static boolean isHourInInterval(String target, String start, String end) {
+        return ((target.compareTo(start) >= 0) && (target.compareTo(end) <= 0));
     }
 
     @Override

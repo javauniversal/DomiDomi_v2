@@ -39,6 +39,9 @@ public class Empresas {
     @SerializedName("horafinal")
     private String horafinal;
 
+    @SerializedName("pemin")
+    private double valorMin;
+
     @SerializedName("estado")
     private int estado;
 
@@ -157,4 +160,13 @@ public class Empresas {
     public void setEstado(int estado) {
         this.estado = estado;
     }
+
+    public double getValorMin() {
+        return valorMin;
+    }
+
+    public void setValorMin(double valorMin) {
+        this.valorMin = valorMin;
+    }
+
 }

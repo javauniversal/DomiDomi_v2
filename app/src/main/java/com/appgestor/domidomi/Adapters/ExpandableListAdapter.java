@@ -17,6 +17,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private HashMap<String, List<String>> expandableListDetail;
     private ImageLoader imageLoader1;
     private DisplayImageOptions options1;
-
+    private DecimalFormat format;
 
     public ExpandableListAdapter(Context context, List<String> expandableListTitle, HashMap<String, List<String>> expandableListDetail) {
         this.context = context;
@@ -45,6 +46,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 .cacheInMemory()
                 .cacheOnDisc()
                 .build();
+
+        format = new DecimalFormat("#,###.##");
 
     }
 
@@ -69,9 +72,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         }
 
         TextView expandedListTextView = (TextView) convertView.findViewById(R.id.expandedListItem);
+        TextView txtValor = (TextView) convertView.findViewById(R.id.texValor);
         ImageView imagen = (ImageView) convertView.findViewById(R.id.profile_image);
 
         expandedListTextView.setText(expandedListText);
+        txtValor.setText(String.format("$ %s", format.format(getSedeStatic().getMenus().get(listPosition).getProductos().get(expandedListPosition).getPrecio())));
 
         ImageLoadingListener listener = new ImageLoadingListener(){
             @Override

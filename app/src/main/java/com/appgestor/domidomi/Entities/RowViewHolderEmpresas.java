@@ -14,6 +14,8 @@ public class RowViewHolderEmpresas extends RecyclerView.ViewHolder {
     public ImageView imageView;
     public TextView txtNombreEmpresa;
     public TextView txtDireccion;
+    public TextView txtValormin;
+    public TextView horaAtencion;
     public RatingBar ratingBar;
 
     public RowViewHolderEmpresas(View itemView, Context context) {
@@ -22,6 +24,10 @@ public class RowViewHolderEmpresas extends RecyclerView.ViewHolder {
         this.txtNombreEmpresa = (TextView) itemView.findViewById(R.id.txtNombreEmpresa);
 
         this.txtDireccion = (TextView) itemView.findViewById(R.id.txtDireccion);
+
+        this.txtValormin = (TextView) itemView.findViewById(R.id.txtPedidoMunimo);
+
+        this.horaAtencion = (TextView) itemView.findViewById(R.id.txtAtencion);
 
         this.ratingBar = (RatingBar) itemView.findViewById(R.id.ratingBar);
 

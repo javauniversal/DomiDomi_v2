@@ -3,6 +3,7 @@ package com.appgestor.domidomi.Adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,10 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class AdapterRecyclerEmpresas extends RecyclerView.Adapter<RowViewHolderEmpresas> {
@@ -26,7 +31,7 @@ public class AdapterRecyclerEmpresas extends RecyclerView.Adapter<RowViewHolderE
     private ImageLoader imageLoader1;
     private DisplayImageOptions options1;
     private List<Empresas> empresasList;
-
+    private DecimalFormat format;
 
     public AdapterRecyclerEmpresas(Context context, List<Empresas> empresasList) {
         super();
@@ -42,6 +47,8 @@ public class AdapterRecyclerEmpresas extends RecyclerView.Adapter<RowViewHolderE
                 .cacheInMemory()
                 .cacheOnDisc()
                 .build();
+
+        format = new DecimalFormat("#,###.##");
     }
 
     @Override
@@ -65,8 +72,32 @@ public class AdapterRecyclerEmpresas extends RecyclerView.Adapter<RowViewHolderE
 
         holder.txtNombreEmpresa.setText(items.getDescripcion());
         holder.txtDireccion.setText(items.getDescripcion());
+        holder.txtValormin.setText((String.format("Pedido Mínimo $ %s", format.format(items.getValorMin()))));
+
+        Date date = new Date();
+        DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss");
+
+        int color;
+        String estado;
+
+        if (isHourInInterval(hourdateFormat.format(date).toString(), items.getHorainicio(), items.getHorafinal())){
+            //Abierto
+            estado = "Abierto";
+            color = Color.parseColor("#0000FF");
+        }else{
+            //Cerrado
+            estado = "Cerrado";
+            color = Color.parseColor("#FF0000");
+        }
+
+        holder.horaAtencion.setText(estado);
+        holder.horaAtencion.setTextColor(color);
 
 
+    }
+
+    public static boolean isHourInInterval(String target, String start, String end) {
+        return ((target.compareTo(start) >= 0) && (target.compareTo(end) <= 0));
     }
 
 

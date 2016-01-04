@@ -31,6 +31,12 @@ public class Sede {
     @SerializedName("idempresa")
     private int idempresa;
 
+    @SerializedName("tiempoenv")
+    private String tiempoEnvio;
+
+    @SerializedName("cosenvio")
+    private double cosenvio;
+
     @SerializedName("menu")
     private List<Menu> menus;
 
@@ -39,7 +45,7 @@ public class Sede {
 
     public static Sede sedeStatic;
 
-
+    public static int sedeIdeStatic;
 
 
 
@@ -130,6 +136,30 @@ public class Sede {
 
     public void setMedioPagoList(List<MedioPago> medioPagoList) {
         this.medioPagoList = medioPagoList;
+    }
+
+    public String getTiempoEnvio() {
+        return tiempoEnvio;
+    }
+
+    public void setTiempoEnvio(String tiempoEnvio) {
+        this.tiempoEnvio = tiempoEnvio;
+    }
+
+    public double getCosenvio() {
+        return cosenvio;
+    }
+
+    public void setCosenvio(double cosenvio) {
+        this.cosenvio = cosenvio;
+    }
+
+    public static int getSedeIdeStatic() {
+        return sedeIdeStatic;
+    }
+
+    public static void setSedeIdeStatic(int sedeIdeStatic) {
+        Sede.sedeIdeStatic = sedeIdeStatic;
     }
 
 }

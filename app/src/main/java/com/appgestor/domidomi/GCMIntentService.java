@@ -20,11 +20,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.appgestor.domidomi.Activities.ActComentario;
 import com.appgestor.domidomi.Activities.ActEstadoPedido;
 import com.google.android.gcm.GCMBaseIntentService;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.appgestor.domidomi.Entities.Sede.setSedeIdeStatic;
 
 public class GCMIntentService extends GCMBaseIntentService {
 
@@ -97,6 +100,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 
     private void notificarMensaje(Context context, String msg){
 
+
         long[] vibrate = {100,100,200,300};
         Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -114,14 +118,32 @@ public class GCMIntentService extends GCMBaseIntentService {
                         //.setPriority(Notification.PRIORITY_HIGH)
                         .setTicker("Alerta!");
 
-        Intent notIntent = new Intent(context, ActEstadoPedido.class);
+        boolean indicador = true;
 
-        PendingIntent contIntent = PendingIntent.getActivity(context, 0, notIntent, 0);
+        for (int x=0;x<msg.length();x++){
 
-        mBuilder.setContentIntent(contIntent);
+            if(msg.charAt(x) == '%'){
+
+                String iiii = msg.substring(x+1);
+
+                setSedeIdeStatic(Integer.parseInt(iiii));
+
+                Intent notIntent = new Intent(context, ActComentario.class);
+                PendingIntent contIntent = PendingIntent.getActivity(context, 0, notIntent, 0);
+                mBuilder.setContentIntent(contIntent);
+                indicador = false;
+
+            }
+
+        }
+
+        if (indicador){
+            Intent notIntent = new Intent(context, ActEstadoPedido.class);
+            PendingIntent contIntent = PendingIntent.getActivity(context, 0, notIntent, 0);
+            mBuilder.setContentIntent(contIntent);
+        }
 
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
         mNotificationManager.notify(NOTIF_ALERTA_ID, mBuilder.build());
 
     }

@@ -100,4 +100,6 @@
     <string name="escriba_la_cantidad">Escriba la cantidad</string>
     <string name="longitud">Longitud</string>
     <string name="cancelar">Cancelar</string>
+    <string name="title_activity_act_comentario">Calificación del Servicio</string>
+
 </resources>

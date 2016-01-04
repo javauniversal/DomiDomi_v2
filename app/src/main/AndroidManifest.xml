@@ -108,7 +108,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.appgestor.domidomi.dark.Accounts" />
         </activity>
-
+        <activity
+            android:name=".Activities.ActComentario"
+            android:label="@string/title_activity_act_comentario"
+            android:theme="@style/NoHeaderLight"></activity>
     </application>
 
 </manifest>

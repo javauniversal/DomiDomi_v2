@@ -41,6 +41,8 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
     private Button pedirService;
     private SwipeMenuListView mListView;
     private List<AddProductCar> mAppListPublico;
+    private TextView domicilioAdd;
+
     AlertDialog dialog;
 
     @Override
@@ -54,6 +56,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
         setSupportActionBar(toolbar);
 
         total = (TextView) findViewById(R.id.totaltexto);
+        domicilioAdd = (TextView) findViewById(R.id.domicilioAdd);
         pedirService = (Button) findViewById(R.id.pedirServices);
         pedirService.setOnClickListener(this);
 
@@ -61,6 +64,8 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
         dialog.show();
 
         mListView = (SwipeMenuListView) findViewById(R.id.listView);
+
+        domicilioAdd.setText(String.format("Domicilio: $ %s", getSedeStatic().getCosenvio()));
 
         llenarData();
 
@@ -162,12 +167,14 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
                 //dValor = dValor * data.get(i).getQuantity();
             }
 
-            dValor = dValor + 2500;
-            if (dValor > 20000) {
+            dValor = dValor + getSedeStatic().getCosenvio();
+
+            if (dValor > getEmpresastatic().getValorMin()) {
                 pedirService.setVisibility(View.VISIBLE);
             }else{
                 pedirService.setVisibility(View.GONE);
             }
+
             total.setText( "Total: $"+dValor);
         }else{
             pedirService.setVisibility(View.GONE);
