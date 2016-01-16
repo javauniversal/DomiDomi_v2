@@ -107,7 +107,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
 
             case R.id.imgButtonLocation:
                 MyService services = new MyService(this);
-                services.setView(findViewById(R.id.txtLatitud), findViewById(R.id.txtLongitud));
+                //services.setView(findViewById(R.id.txtLatitud), findViewById(R.id.txtLongitud));
                 break;
 
             case R.id.button_accept:

@@ -112,7 +112,7 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
 
             case R.id.imgButtonLocation:
                 MyService services = new MyService(this);
-                services.setView(findViewById(R.id.txtLatitud), findViewById(R.id.txtLongitud));
+                //services.setView(findViewById(R.id.txtLatitud), findViewById(R.id.txtLongitud));
                 break;
 
             case R.id.button_accept:

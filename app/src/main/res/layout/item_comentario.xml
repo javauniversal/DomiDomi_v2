@@ -45,7 +45,6 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:id="@+id/txtComentario"
-                    android:textColor="@color/color_negro"
                     android:textStyle="italic"
                     android:textSize="11sp"/>
 

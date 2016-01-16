@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import com.appgestor.domidomi.DataBase.DBHelper;
 import com.appgestor.domidomi.Entities.ConfigSplash;
 import com.appgestor.domidomi.R;
+import com.appgestor.domidomi.Services.MyService;
 import com.appgestor.domidomi.cnst.Flags;
 import com.appgestor.domidomi.dark.Accounts;
 import com.appgestor.domidomi.utils.UIUtil;
@@ -35,9 +36,9 @@ import com.nineoldandroids.animation.Animator;
 import io.codetail.animation.SupportAnimator;
 import io.codetail.animation.ViewAnimationUtils;
 
-/**
- * Created by varsovski on 25-Sep-15.
- */
+import static com.appgestor.domidomi.Entities.UbicacionPreferen.setLatitudStatic;
+import static com.appgestor.domidomi.Entities.UbicacionPreferen.setLongitudStatic;
+
 abstract public class AwesomeSplash extends AppCompatActivity {
 
     private RelativeLayout mRlReveal;
@@ -50,6 +51,8 @@ abstract public class AwesomeSplash extends AppCompatActivity {
     private boolean hasAnimationStarted = false;
     private int pathOrLogo = 0;
     private DBHelper mydb;
+    ConnectionDetector cd;
+    Boolean isInternetPresent = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,15 +62,47 @@ abstract public class AwesomeSplash extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
+        cd = new ConnectionDetector(this);
+
         registerUser(this);
 
         mydb = new DBHelper(this);
 
         if (mydb.getIntro()){
-            startActivity(new Intent(AwesomeSplash.this, Accounts.class));
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            finish();
+            isInternetPresent = cd.isConnected();
+
+            if (isInternetPresent) {
+                // Internet Connection is Present
+                // make HTTP requests
+
+                MyService gps = new MyService(this);
+                if(gps.getLatitude() == 0.0){
+
+                    startActivity(new Intent(this, ActUbicacion.class));
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    finish();
+
+                }else {
+
+                    setLatitudStatic(gps.getLatitude());
+                    setLongitudStatic(gps.getLongitude());
+
+                    startActivity(new Intent(this, Accounts.class));
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    finish();
+
+                }
+
+            } else {
+                // Internet connection is not present
+                // Ask user to connect to Internet
+                startActivity(new Intent(this, DetailsActivity.class).putExtra("STATE", "ERROR"));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+            }
         }
+
+
 
         mConfigSplash = new ConfigSplash();
         initSplash(mConfigSplash);

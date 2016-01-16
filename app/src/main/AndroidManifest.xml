@@ -8,6 +8,8 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <permission
         android:name="com.appgestor.domidomi.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
@@ -22,6 +24,7 @@
      The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but are recommended.
     -->
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
@@ -42,17 +45,23 @@
         </activity>
         <activity android:name=".dark.Accounts" />
         <activity android:name=".mockedActivity.Settings" />
-        <activity android:name=".Activities.ActMenu" />
-        <activity android:name=".Activities.ActProductAdd" />
-        <activity android:name=".Activities.ActCar" />
-        <activity android:name=".Activities.ActCarritoMenu" />
+        <activity android:name=".Activities.ActMenu"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Activities.ActProductAdd"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Activities.ActCar"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Activities.ActCarritoMenu"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Activities.ActFinalizarPedidoMenu"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".Activities.ActFinalizarPedido"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Activities.DetailsActivity" />
+
+        <activity android:name=".Activities.DetailsActivity"
+            android:theme="@style/AppTheme" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -79,7 +88,7 @@
             android:name=".Activities.ActivitySedes"
             android:label="@string/title_activity_activity_sedes"
             android:parentActivityName=".dark.Accounts"
-            android:theme="@style/NoHeaderLight">
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.appgestor.domidomi.dark.Accounts" />
@@ -103,15 +112,23 @@
             android:name=".Activities.ActEstadoPedido"
             android:label="@string/title_activity_act_estado_pedido"
             android:parentActivityName=".dark.Accounts"
-            android:theme="@style/NoHeaderLight">
+            android:theme="@style/AppTheme">
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.appgestor.domidomi.dark.Accounts" />
         </activity>
+
         <activity
             android:name=".Activities.ActComentario"
             android:label="@string/title_activity_act_comentario"
-            android:theme="@style/NoHeaderLight"></activity>
+            android:theme="@style/AppTheme"></activity>
+
+        <activity
+            android:name=".Activities.ActUbicacion"
+            android:label="@string/title_activity_act_ubicacion"
+            android:theme="@style/AppTheme"></activity>
+
     </application>
 
 </manifest>

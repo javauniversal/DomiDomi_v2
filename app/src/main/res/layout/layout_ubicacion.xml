@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.appgestor.domidomi.Activities.ActComentario">
+    tools:context="com.appgestor.domidomi.Activities.ActUbicacion">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,7 +21,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_act_comentario" />
-
+    <include layout="@layout/content_act_ubicacion" />
 
 </android.support.design.widget.CoordinatorLayout>

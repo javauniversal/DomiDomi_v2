@@ -1,7 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="AppTheme" parent="AppTheme.Base">
-        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/color_1</item>
+        <item name="colorPrimaryDark">@color/color_1</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorButtonNormal">@color/colorAccent</item>
     </style>
 
     <style name="BrandButtonStyle" parent="Widget.AppCompat.Button.Colored">
@@ -11,7 +14,7 @@
 
     <style name="BrandButtonStyle2" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/color_1</item>
-        <item name="android:textColor">@color/color_1</item>
+        <item name="android:textColor">#fff</item>
     </style>
 
 
@@ -60,23 +63,6 @@
         <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
     </style>
 
-
-    <!-- Mocked Account -->
-    <style name="MockedAccountLight" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar">
-        <item name="colorPrimary">#8bc34a</item>
-        <item name="colorPrimaryDark">#558b2f</item>
-        <item name="colorAccent">#FFFFFF</item>
-        <item name="singleAccount">true</item><!-- Remove the change account button -->
-    </style>
-
-    <!-- Drawer Header Image -->
-    <style name="ImageHeaderLight" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar">
-        <item name="colorPrimary">#8bc34a</item>
-        <item name="colorPrimaryDark">#558b2f</item>
-        <item name="colorAccent">#FFFFFF</item>
-        <item name="drawerType">@integer/DRAWERTYPE_IMAGE</item>
-    </style>
-
     <!-- No Drawer Header -->
     <style name="NoHeaderLight" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar2">
         <item name="colorPrimary">@color/color_1</item>
@@ -107,79 +93,8 @@
         <item name="colorPrimaryDark">@color/color_1</item>
     </style>
 
-    <!-- Custom Drawer Header -->
-    <style name="CustomHeaderLight" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar">
-        <item name="colorPrimary">#8bc34a</item>
-        <item name="colorPrimaryDark">#558b2f</item>
-        <item name="colorAccent">#FFFFFF</item>
-        <item name="drawerType">@integer/DRAWERTYPE_CUSTOM</item>
-    </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <!-- Dark Themes-->
-
-    <!-- Mocked Account -->
-    <style name="MockedAccountDark" parent="MaterialNavigationDrawerTheme">
-        <item name="colorPrimary">#8bc34a</item>
-        <item name="colorPrimaryDark">#558b2f</item>
-        <item name="colorAccent">#FFFFFF</item>
-        <item name="singleAccount">true</item><!-- Remove the change account button -->
-    </style>
-
-    <!-- Accounts -->
-    <style name="AccountsDark" parent="MaterialNavigationDrawerTheme">
-        <item name="colorPrimary">#8bc34a</item>
-        <item name="colorPrimaryDark">#558b2f</item>
-        <item name="colorAccent">#FFFFFF</item>
-    </style>
-
-    <!-- Drawer Header Image -->
-    <style name="ImageHeaderDark" parent="MaterialNavigationDrawerTheme">
-        <item name="colorPrimary">#8bc34a</item>
-        <item name="colorPrimaryDark">#558b2f</item>
-        <item name="colorAccent">#FFFFFF</item>
-        <item name="drawerType">@integer/DRAWERTYPE_IMAGE</item>
-    </style>
-
-    <!-- No Drawer Header -->
-    <style name="NoHeaderDark" parent="MaterialNavigationDrawerTheme">
-        <item name="colorPrimary">#8bc34a</item>
-        <item name="colorPrimaryDark">#558b2f</item>
-        <item name="colorAccent">#FFFFFF</item>
-        <item name="drawerType">@integer/DRAWERTYPE_NO_HEADER</item>
-    </style>
-
-    <!-- Custom Drawer Header -->
-    <style name="CustomHeaderDark" parent="MaterialNavigationDrawerTheme">
-        <item name="colorPrimary">#8bc34a</item>
-        <item name="colorPrimaryDark">#558b2f</item>
-        <item name="colorAccent">#FFFFFF</item>
-        <item name="drawerType">@integer/DRAWERTYPE_CUSTOM</item>
-    </style>
-
-    <!-- Functionality Themes-->
-    <!-- I used DRAWERTYPE_NO_HEADER only for get a simple tutorial, you can use any type of drawer obviously -->
-
-    <!-- Unique Toolbar Color -->
-    <style name="UniqueToolbarColor" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar">
-        <item name="colorPrimary">#8bc34a</item>
-        <item name="colorPrimaryDark">#558b2f</item>
-        <item name="colorAccent">#FFFFFF</item>
-        <item name="drawerType">@integer/DRAWERTYPE_NO_HEADER</item>
-        <item name="uniqueToolbarColor">true</item>
-    </style>
-
-    <!-- Ripple Backport support -->
-    <style name="RippleBackport" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar">
-        <item name="colorPrimary">#8bc34a</item>
-        <item name="colorPrimaryDark">#558b2f</item>
-        <item name="colorAccent">#FFFFFF</item>
-        <item name="drawerType">@integer/DRAWERTYPE_NO_HEADER</item>
-        <item name="rippleBackport">true</item>
-    </style>
-
-    <style name="NoHeaderLight.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="NoHeaderLight.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

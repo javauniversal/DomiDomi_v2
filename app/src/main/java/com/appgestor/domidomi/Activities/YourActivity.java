@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.appgestor.domidomi.DataBase.DBHelper;
 import com.appgestor.domidomi.Entities.ConfigSplash;
 import com.appgestor.domidomi.R;
+import com.appgestor.domidomi.Services.MyService;
 import com.appgestor.domidomi.cnst.Flags;
 import com.appgestor.domidomi.dark.Accounts;
 import com.daimajia.androidanimations.library.Techniques;
@@ -38,7 +39,7 @@ public class YourActivity extends AwesomeSplash {
 
 
         //Customize Title
-        configSplash.setTitleSplash("Domi Domi");
+        configSplash.setTitleSplash("Delivery");
         configSplash.setTitleTextColor(R.color.actionBarColorText);
         configSplash.setTitleTextSize(19f); //float value
         configSplash.setAnimTitleDuration(3000);
@@ -52,12 +53,36 @@ public class YourActivity extends AwesomeSplash {
         DBHelper mydb = new DBHelper(this);
         mydb.insertIntro("Inicio_sesion");
 
+        isInternetPresent = cd.isConnected();
+
+        if (isInternetPresent) {
+            // Internet Connection is Present
+            // make HTTP requests
+
+            MyService gps = new MyService(this);
+
+            if(gps.getLatitude() == 0.0){
+                startActivity(new Intent(this, ActUbicacion.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
+            }else {
+
+                startActivity(new Intent(this, Accounts.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
+
+            }
+
+        } else {
+            // Internet connection is not present
+            // Ask user to connect to Internet
+            startActivity(new Intent(this, DetailsActivity.class).putExtra("STATE", "ERROR"));
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
+
+        }
 
 
-        //transit to another activity the activity here
-        Bundle bundle = new Bundle();
-        startActivity(new Intent(YourActivity.this, Accounts.class).putExtras(bundle));
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-        finish();
+
     }
 }

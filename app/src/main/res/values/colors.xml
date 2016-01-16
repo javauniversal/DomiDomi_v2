@@ -13,4 +13,5 @@
     <color name="filn">#607D8B</color>
     <color name="colorSinDatos">#fbc02d</color>
     <color name="colorErrorConexion">#42a5f5</color>
+    <color name="colorAccent">#2196f3</color>
 </resources>

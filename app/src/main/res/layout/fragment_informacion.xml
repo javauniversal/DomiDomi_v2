@@ -32,7 +32,6 @@
                     android:text="@string/nombre_empresa"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:textColor="@color/color_negro"
                     android:id="@+id/textView3" />
 
                 <TextView
@@ -41,7 +40,6 @@
                     android:paddingLeft="@dimen/margen_izquierdo"
                     android:text=""
                     android:textSize="12sp"
-                    android:textColor="@color/color_negro"
                     android:id="@+id/txtNombreEmpresa"
                     android:layout_below="@+id/textView3"
                     android:layout_alignParentLeft="true"
@@ -81,7 +79,6 @@
                     android:text="@string/nit"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:textColor="@color/color_negro"
                     android:id="@+id/textView4" />
 
                 <ImageView
@@ -103,7 +100,6 @@
                     android:textSize="11sp"
                     android:id="@+id/txtNit"
                     android:layout_below="@+id/textView4"
-                    android:textColor="@color/color_negro"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
 
@@ -130,7 +126,6 @@
                     android:text="@string/informacion"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:textColor="@color/color_negro"
                     android:id="@+id/textView42" />
 
                 <ImageView
@@ -152,7 +147,6 @@
                     android:textSize="12sp"
                     android:id="@+id/textDireccion"
                     android:layout_below="@+id/textView42"
-                    android:textColor="@color/color_negro"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
 
@@ -163,7 +157,6 @@
                     android:paddingLeft="12dp"
                     android:textSize="12sp"
                     android:id="@+id/txtTelefono"
-                    android:textColor="@color/color_negro"
                     android:layout_below="@+id/textDireccion"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
@@ -177,7 +170,6 @@
                     android:id="@+id/txtCelulat"
                     android:layout_below="@+id/txtTelefono"
                     android:layout_alignParentLeft="true"
-                    android:textColor="@color/color_negro"
                     android:layout_alignParentStart="true" />
 
             </RelativeLayout>
@@ -202,7 +194,6 @@
                     android:text="@string/sede_sucursales"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:textColor="@color/color_negro"
                     android:id="@+id/textView423" />
 
                 <TableLayout
