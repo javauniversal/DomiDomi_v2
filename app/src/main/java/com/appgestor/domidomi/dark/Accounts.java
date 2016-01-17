@@ -26,7 +26,7 @@ public class Accounts extends MaterialNavigationDrawer  {
         setFirstAccountPhoto(getResources().getDrawable(R.drawable.logo_transparente));
 
         // create sections
-        this.addSection(newSection("Restaurante", R.drawable.ic_restaurant_menu_black_24dp, new FragListEmpresas()));
+        this.addSection(newSection("Establecimientos", R.drawable.ic_restaurant_menu_black_24dp, new FragListEmpresas()));
         this.addSection(newSection("Mis Pedidos", R.drawable.ic_view_compact_black_48dp,new Intent(this, ActEstadoPedido.class)));
         this.addSection(newSection("Favoritos", R.drawable.ic_favorite_black_24dp, new FragmentFavoritos()));
         this.addSection(newSection("Mi Ubicación", R.drawable.ic_pin_drop_black_48dp, new Intent(this, ActMaps.class)));
