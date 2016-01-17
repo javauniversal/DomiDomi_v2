@@ -132,6 +132,7 @@ public class FragListEmpresas extends BaseVolleyFragment implements SwipyRefresh
                             startActivity(new Intent(getActivity(), ActivitySedes.class));
                             getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
+
                         }else{
                             Toast.makeText(getActivity(), "El establecimiento se encuentra Cerrado", Toast.LENGTH_LONG).show();
                         }

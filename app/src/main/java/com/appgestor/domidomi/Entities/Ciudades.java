@@ -36,4 +36,9 @@ public class Ciudades {
     public void setNombreCiudad(String nombreCiudad) {
         this.nombreCiudad = nombreCiudad;
     }
+
+    @Override
+    public String toString() {
+        return nombreCiudad;
+    }
 }

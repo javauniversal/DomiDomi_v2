@@ -160,9 +160,6 @@ public class MyService extends Service implements LocationListener {
 
                 dialog.cancel();
 
-                Intent intent = new Intent(mContext, ActFinalizarPedido.class);
-                mContext.startActivity(intent);
-
             }
         });
 

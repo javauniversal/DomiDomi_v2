@@ -1,7 +1,6 @@
 package com.appgestor.domidomi.Activities;
 
 import android.content.Intent;
-import android.os.Bundle;
 
 import com.appgestor.domidomi.DataBase.DBHelper;
 import com.appgestor.domidomi.Entities.ConfigSplash;
@@ -10,6 +9,9 @@ import com.appgestor.domidomi.Services.MyService;
 import com.appgestor.domidomi.cnst.Flags;
 import com.appgestor.domidomi.dark.Accounts;
 import com.daimajia.androidanimations.library.Techniques;
+
+import static com.appgestor.domidomi.Entities.UbicacionPreferen.setLatitudStatic;
+import static com.appgestor.domidomi.Entities.UbicacionPreferen.setLongitudStatic;
 
 
 //extends AwesomeSplash!
@@ -66,6 +68,9 @@ public class YourActivity extends AwesomeSplash {
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
             }else {
+
+                setLatitudStatic(gps.getLatitude());
+                setLongitudStatic(gps.getLongitude());
 
                 startActivity(new Intent(this, Accounts.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

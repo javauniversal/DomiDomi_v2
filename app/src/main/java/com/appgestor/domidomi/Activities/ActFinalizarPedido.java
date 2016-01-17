@@ -200,7 +200,6 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
 
                 List<AddProductCar> mAppList = mydb.getProductCar(getSedeStatic().getIdempresa(), getSedeStatic().getIdsedes());
 
-
                 for (int i = 0; i < mAppList.size(); i++) {
                     mAppList.get(i).setAdicionesList(mydb.getAdiciones(mAppList.get(i).getIdProduct(),mAppList.get(i).getIdcompany(), mAppList.get(i).getIdsede()));
                 }

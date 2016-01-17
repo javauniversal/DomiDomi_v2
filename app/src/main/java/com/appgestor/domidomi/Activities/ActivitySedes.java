@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -26,8 +25,6 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutD
 
 import java.util.HashMap;
 import java.util.Map;
-
-import dmax.dialog.SpotsDialog;
 
 import static com.appgestor.domidomi.Entities.Empresas.getEmpresastatic;
 import static com.appgestor.domidomi.Entities.Sede.setSedeStatic;
@@ -56,8 +53,17 @@ public class ActivitySedes extends AppCompatActivity implements SwipyRefreshLayo
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+
+
+
+
+
+
+
+
         // Obtener el Recycler
-        recycler = (RecyclerView) findViewById(R.id.recycler_view);
+        /*recycler = (RecyclerView) findViewById(R.id.recycler_view);
         recycler.setHasFixedSize(true);
 
         // Usar un administrador para LinearLayout
@@ -69,7 +75,9 @@ public class ActivitySedes extends AppCompatActivity implements SwipyRefreshLayo
 
         alertDialog = new SpotsDialog(this, R.style.Custom);
 
-        cargarSedes();
+        cargarSedes();*/
+
+
     }
 
     public void cargarSedes(){
