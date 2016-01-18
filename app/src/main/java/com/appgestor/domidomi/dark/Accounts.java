@@ -21,7 +21,7 @@ public class Accounts extends MaterialNavigationDrawer  {
 
         // create sections
         setDrawerHeaderImage(R.drawable.side_nav_bar);
-        setUsername("Domi Domi");
+        setUsername("Delivery Domicilios");
         setUserEmail("La manera más facíl de pedir un domicilio");
         setFirstAccountPhoto(getResources().getDrawable(R.drawable.logo_transparente));
 
