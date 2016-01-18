@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import com.appgestor.domidomi.Entities.ListComentarios;
 import com.appgestor.domidomi.R;
 
