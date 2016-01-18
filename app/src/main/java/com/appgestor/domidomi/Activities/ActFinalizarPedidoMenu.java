@@ -9,9 +9,7 @@ import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -29,7 +27,6 @@ import com.appgestor.domidomi.Entities.AddProductCar;
 import com.appgestor.domidomi.Entities.MedioPago;
 import com.appgestor.domidomi.Entities.PedidoWebCabeza;
 import com.appgestor.domidomi.R;
-import com.appgestor.domidomi.Services.MyService;
 import com.google.gson.Gson;
 
 import java.util.HashMap;
@@ -68,7 +65,7 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
 
-        ImageButton location = (ImageButton) findViewById(R.id.imgButtonLocation);
+        /*ImageButton location = (ImageButton) findViewById(R.id.imgButtonLocation);
         location.setOnClickListener(this);
 
         Button myAceptar = (Button)findViewById(R.id.button_accept);
@@ -102,7 +99,7 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
             public void onClick(View view) {
                 finish();
             }
-        });
+        });*/
 
     }
 
@@ -110,7 +107,7 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
 
-            case R.id.imgButtonLocation:
+            /*case R.id.imgButtonLocation:
                 MyService services = new MyService(this);
                 //services.setView(findViewById(R.id.txtLatitud), findViewById(R.id.txtLongitud));
                 break;
@@ -133,7 +130,7 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
                 break;
             case R.id.button_cancel:
                 finish();
-                break;
+                break;*/
         }
     }
 

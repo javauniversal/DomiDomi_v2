@@ -8,216 +8,210 @@
         android:layout_height="match_parent"
         android:id="@+id/scrollView">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-    <include
-        android:id="@+id/app_bar"
-        layout="@layout/app_bar"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/nombre_apellido_t"
-            android:hint="@string/nombre"
-            android:textStyle="bold"
-            android:paddingTop="8dp"
-            android:paddingLeft="8dp"
-            android:textColor="@color/color_negro"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textCapSentences"
-            android:background="@drawable/rounded_corner"
-            android:ems="10"
-            android:textColor="#000"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:id="@+id/edtNombre" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/celular_tel_fono"
-            android:textStyle="bold"
-            android:paddingTop="8dp"
-            android:paddingLeft="8dp"
-            android:textColor="@color/color_negro"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:textColor="#000"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:background="@drawable/rounded_corner"
-            android:id="@+id/edtCelular" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/direccion"
-            android:textStyle="bold"
-            android:paddingTop="8dp"
-            android:paddingLeft="8dp"
-            android:textColor="@color/color_negro"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPostalAddress"
-            android:ems="10"
-            android:textColor="#000"
-            android:background="@drawable/rounded_corner"
-            android:id="@+id/editdir"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/direcci_n_lugar_de_referencia"
-            android:textStyle="bold"
-            android:paddingTop="8dp"
-            android:paddingLeft="8dp"
-            android:textColor="@color/color_negro"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPostalAddress"
-            android:ems="10"
-            android:textColor="#000"
-            android:background="@drawable/rounded_corner"
-            android:id="@+id/editdirreferen"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/medio_de_pago"
-            android:textStyle="bold"
-            android:paddingTop="8dp"
-            android:paddingLeft="8dp"
-            android:textColor="@color/color_negro"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="6"
-                android:src="@drawable/ic_credit_card_black_24dp"
-                android:id="@+id/imageView4"
-                android:contentDescription="@string/app_name" />
+            <include
+                android:id="@+id/app_bar"
+                layout="@layout/app_bar"/>
 
-            <Spinner
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:id="@+id/spinnerTarjetas" />
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/escriba_la_cantidad"
-            android:textStyle="bold"
-            android:paddingTop="8dp"
-            android:paddingLeft="8dp"
-            android:id="@+id/txtEfectivo"
-            android:visibility="gone"
-            android:textColor="@color/color_negro"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#000"
-            android:inputType="number"
-            android:visibility="gone"
-            android:background="@drawable/rounded_corner"
-            android:id="@+id/editEfectivo"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp" />
-
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="14dp"
-            android:background="@android:color/black" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                style="@style/BrandButtonStyle2"
-                android:src="@drawable/ic_place_black_24dp"
-                android:id="@+id/imgButtonLocation"
-                android:contentDescription="@string/dato_true" />
+                android:text="@string/nombre_apellido_t"
+                android:textStyle="bold"
+                android:paddingTop="8dp"
+                android:paddingLeft="8dp"/>
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="textImeMultiLine"
-                android:layout_weight="2"
-                android:hint="@string/latitud"
+                android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
                 android:background="@drawable/rounded_corner"
-                android:id="@+id/txtLatitud"
-                android:layout_margin="7dp"
-                android:enabled="false" />
+                android:ems="10"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:id="@+id/editNombreCliente" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/celular_tel_fono"
+                android:textStyle="bold"
+                android:paddingTop="8dp"
+                android:paddingLeft="8dp"/>
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="textImeMultiLine"
-                android:layout_weight="2"
-                android:hint="@string/longitud"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:background="@drawable/rounded_corner"
-                android:id="@+id/txtLongitud"
-                android:layout_margin="7dp"
-                android:enabled="false" />
+                android:id="@+id/editCelularCliente" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/spinner_dir"
+                    android:layout_weight="1" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/txt_dir_1"
+                    android:layout_weight="1.1"
+                    android:gravity="center_vertical|center_horizontal" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="#"
+                    android:layout_weight="1.4"
+                    android:gravity="center_vertical|center_horizontal" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/txt_dir_2"
+                    android:layout_weight="1.1"
+                    android:gravity="center_vertical|center_horizontal" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="-"
+                    android:layout_weight="1.4"
+                    android:gravity="center_vertical|center_horizontal" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/txt_dir_3"
+                    android:layout_weight="1.1"
+                    android:gravity="center_vertical|center_horizontal" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Barrio"
+                android:textStyle="bold"
+                android:paddingTop="8dp"
+                android:paddingLeft="8dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:ems="10"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/rounded_corner"
+                android:id="@+id/editBarrioCliente" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/direcci_n_lugar_de_referencia"
+                android:textStyle="bold"
+                android:paddingTop="8dp"
+                android:paddingLeft="8dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPostalAddress"
+                android:ems="10"
+                android:background="@drawable/rounded_corner"
+                android:id="@+id/editDirReferencia"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/medio_de_pago"
+                android:textStyle="bold"
+                android:paddingTop="8dp"
+                android:paddingLeft="8dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="6"
+                    android:src="@drawable/ic_credit_card_black_24dp"
+                    android:id="@+id/imageView4"
+                    android:contentDescription="@string/app_name" />
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinnerTarjetas" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/escriba_la_cantidad"
+                android:textStyle="bold"
+                android:paddingTop="8dp"
+                android:paddingLeft="8dp"
+                android:id="@+id/txtEfectivo"
+                android:visibility="gone"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:visibility="gone"
+                android:background="@drawable/rounded_corner"
+                android:id="@+id/editEfectivo"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp" />
+
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="9dp"
+                android:gravity="right">
+
+                <Button
+                    android:id="@+id/button_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/BrandButtonStyle2"
+                    android:text="@string/cancelar" />
+
+                <Button
+                    android:id="@+id/button_accept"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/BrandButtonStyle2"
+                    android:text="@string/aceptar" />
+
+            </LinearLayout>
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:orientation="horizontal"
-            android:gravity="right">
-
-            <Button
-                android:id="@+id/button_cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/BrandButtonStyle2"
-                android:text="@string/cancelar" />
-
-            <Button
-                android:id="@+id/button_accept"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/BrandButtonStyle2"
-                android:text="@string/aceptar" />
-
-        </LinearLayout>
-
-
-    </LinearLayout>
 
     </ScrollView>
 
