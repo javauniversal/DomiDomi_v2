@@ -2,8 +2,10 @@ package com.appgestor.domidomi;
 
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Window;
@@ -69,20 +71,20 @@ public class ActMaps extends FragmentActivity implements OnMapReadyCallback, Goo
 
     }
 
-    public void getCoordenadas(){
+    public void getCoordenadas() {
 
         String url = String.format("%1$s%2$s", getString(R.string.url_base), "getCoordenadasSedes");
         RequestQueue rq = Volley.newRequestQueue(this);
 
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>(){
+                new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         // response
                         parseJSON(response);
                     }
                 },
-                new Response.ErrorListener(){
+                new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
@@ -119,7 +121,7 @@ public class ActMaps extends FragmentActivity implements OnMapReadyCallback, Goo
 
     private boolean parseJSON(String json) {
 
-        if (!json.equals("[]")){
+        if (!json.equals("[]")) {
             try {
                 Gson gson = new Gson();
                 ListCoordenadas coordenadases = gson.fromJson(json, ListCoordenadas.class);
@@ -130,7 +132,7 @@ public class ActMaps extends FragmentActivity implements OnMapReadyCallback, Goo
                 }
 
                 return true;
-            }catch (IllegalStateException ex) {
+            } catch (IllegalStateException ex) {
                 ex.printStackTrace();
             }
         } else {
@@ -144,7 +146,7 @@ public class ActMaps extends FragmentActivity implements OnMapReadyCallback, Goo
 
     @Override
     public void onLocationChanged(Location location) {
-        LatLng myCoordinates = new LatLng(location.getLatitude(),location.getLongitude());
+        LatLng myCoordinates = new LatLng(location.getLatitude(), location.getLongitude());
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(myCoordinates)      // Sets the center of the map to LatLng (refer to previous snippet)
                 .zoom(12)                   // Sets the zoom
@@ -188,6 +190,16 @@ public class ActMaps extends FragmentActivity implements OnMapReadyCallback, Goo
 
     @Override
     public void onConnected(Bundle bundle) {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
         if (location == null) {

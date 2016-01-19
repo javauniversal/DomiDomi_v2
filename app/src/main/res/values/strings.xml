@@ -4,7 +4,7 @@
     <string name="hello_world">Delivery Domicilios</string>
 
     <!-- <string name="url_base">http://zonaapp.co/domidomi/service/</string> -->
-    <string name="url_base">http://zonaapp.co/domidomi-master/service/</string>
+    <string name="url_base">http://zonaapp.co/domidomi_master/service/</string>
     <!--<string name="url_base">http://172.20.32.75/dashboardd/services/</string>-->
 
     <string name="title_activity_act_ubicacion">Mi Ubicación</string>

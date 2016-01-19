@@ -101,6 +101,7 @@ public class AdapterCompania extends BaseAdapter {
         imageLoader1.displayImage(elements.get(position).getFoto(),holder.image,options1, listener);
 
         holder.name.setText(elements.get(position).getDescripcion());
+
         //holder.categoria.setText(elements.get(position).getCategoria());
         //holder.horario.setText(String.format("Horario: %1$s a %2$s", elements.get(position).getFechainicial(), elements.get(position).getFechafinal()));
 

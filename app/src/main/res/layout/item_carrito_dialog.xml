@@ -10,6 +10,8 @@
         android:layout_height="wrap_content"
         android:padding="9dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/color_negro"
+        android:textStyle="bold"
         android:text="Large Text"
         android:id="@+id/txtSedeDialog" />
 
