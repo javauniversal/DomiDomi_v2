@@ -57,7 +57,7 @@ public class ActMenu extends AppCompatActivity {
         mPager.setAdapter(new MyClasPagerAdapter(getSupportFragmentManager()));
         SlidingTabLayout mTabs = (SlidingTabLayout) findViewById(R.id.tabs);
         mTabs.setBackgroundColor(getResources().getColor(R.color.color_1));
-        mTabs.setSelectedIndicatorColors(getResources().getColor(R.color.color_negro));
+        mTabs.setSelectedIndicatorColors(getResources().getColor(R.color.colorAccent));
         mTabs.setDistributeEvenly(true);
         mTabs.setViewPager(mPager);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
