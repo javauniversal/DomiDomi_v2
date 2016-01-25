@@ -32,6 +32,7 @@ public class ActEstadoPedido extends AppCompatActivity {
 
     private SwipeMenuListView listView;
     private AlertDialog alertDialog;
+    private RequestQueue rq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +65,7 @@ public class ActEstadoPedido extends AppCompatActivity {
         alertDialog.show();
 
         String url = String.format("%1$s%2$s", getString(R.string.url_base), "estadoPedido");
-        RequestQueue rq = Volley.newRequestQueue(this);
+        rq = Volley.newRequestQueue(this);
 
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>(){
@@ -95,6 +96,20 @@ public class ActEstadoPedido extends AppCompatActivity {
             }
         };
         rq.add(jsonRequest);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (rq != null)
+            rq.cancelAll("");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (rq != null)
+            rq.cancelAll("");
     }
 
     private boolean parseJSON(String json) {

@@ -37,6 +37,9 @@ import static com.appgestor.domidomi.Entities.Sede.getSedeStatic;
 
 public class ActMenu extends AppCompatActivity {
 
+    private RequestQueue rq;
+    public static final String TAG = "MyTag";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,7 +105,7 @@ public class ActMenu extends AppCompatActivity {
     public void setFavorito(){
 
         String url = String.format("%1$s%2$s", getString(R.string.url_base), "setFavoritos");
-        RequestQueue rq = Volley.newRequestQueue(this);
+        rq = Volley.newRequestQueue(this);
 
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>(){
@@ -137,6 +140,20 @@ public class ActMenu extends AppCompatActivity {
 
         };
         rq.add(jsonRequest);
+    }
+
+    @Override
+    protected void onStop () {
+        super.onStop();
+        if (rq != null) {
+            rq.cancelAll(TAG);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        rq.cancelAll(TAG);
+        super.onDestroy();
     }
 
     public class MyClasPagerAdapter extends FragmentPagerAdapter {

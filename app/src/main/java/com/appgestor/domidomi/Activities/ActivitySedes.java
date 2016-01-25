@@ -46,6 +46,8 @@ public class ActivitySedes extends AppCompatActivity implements SwipyRefreshLayo
     private TextView txt_title_radar;
     private RelativeLayout relativeLayout_radar;
     private RelativeLayout relativeLayout_sedes;
+    private RequestQueue rq;
+    public static final String TAG = "MyTag";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +85,7 @@ public class ActivitySedes extends AppCompatActivity implements SwipyRefreshLayo
     public void cargarSedes(){
         //alertDialog.show();
         String url = String.format("%1$s%2$s", getString(R.string.url_base),"listSedes");
-        RequestQueue rq = Volley.newRequestQueue(this);
+        rq = Volley.newRequestQueue(this);
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>(){
                     @Override
@@ -116,6 +118,20 @@ public class ActivitySedes extends AppCompatActivity implements SwipyRefreshLayo
             }
         };
         rq.add(jsonRequest);
+    }
+
+    @Override
+    protected void onStop () {
+        super.onStop();
+        if (rq != null) {
+            rq.cancelAll(TAG);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        rq.cancelAll(TAG);
+        super.onDestroy();
     }
 
     private boolean parseJSON(String json) {

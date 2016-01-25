@@ -44,6 +44,7 @@ import static com.appgestor.domidomi.Entities.Sede.getSedeStatic;
 
 public class ActFinalizarPedido extends AppCompatActivity implements View.OnClickListener {
 
+    public static final String TAG = "MyTag";
     private EditText editNombreCliente;
     private EditText editCelularCliente;
     private Spinner spinner_dir;
@@ -64,6 +65,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
     Geocoder geocoder;
     private Double latitud;
     private Double longitud;
+    private RequestQueue rq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -232,7 +234,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
     public void enviarPedido(){
 
         String url = String.format("%1$s%2$s", getString(R.string.url_base),"pruebaJson");
-        RequestQueue rq = Volley.newRequestQueue(this);
+        rq = Volley.newRequestQueue(this);
 
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>(){
@@ -336,6 +338,20 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
             }
 
         }.execute();
+    }
+
+    @Override
+    protected void onStop () {
+        super.onStop();
+        if (rq != null) {
+            rq.cancelAll(TAG);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        rq.cancelAll(TAG);
+        super.onDestroy();
     }
 
 }

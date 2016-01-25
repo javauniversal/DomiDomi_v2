@@ -29,7 +29,8 @@ public class ActComentario extends AppCompatActivity implements View.OnClickList
     private EditText Comentario;
     private Button enviar;
     private Button cancelar;
-
+    protected RequestQueue rq;
+    public static final String TAG = "MyTag";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class ActComentario extends AppCompatActivity implements View.OnClickList
 
     private void setComentarios() {
         String url = String.format("%1$s%2$s", getString(R.string.url_base),"setComentarios");
-        RequestQueue rq = Volley.newRequestQueue(this);
+        rq = Volley.newRequestQueue(this);
 
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>(){
@@ -87,6 +88,21 @@ public class ActComentario extends AppCompatActivity implements View.OnClickList
         rq.add(jsonRequest);
 
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (rq != null)
+            rq.cancelAll(TAG);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (rq != null)
+            rq.cancelAll(TAG);
+    }
+
 
     private boolean isValidNumber(String number){
 

@@ -53,6 +53,8 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
     private List<AddProductCar> mAppListPublico;
     private AlertDialog dialog;
     private Bundle bundleset;
+    private RequestQueue rq;
+    public static final String TAG = "MyTag";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -287,6 +289,20 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
             }
         };
         rq.add(jsonRequest);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (rq != null)
+            rq.cancelAll(TAG);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (rq != null)
+            rq.cancelAll(TAG);
     }
 
     private boolean parseJSON(String json) {
