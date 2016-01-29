@@ -67,7 +67,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
 
         mListView = (SwipeMenuListView) findViewById(R.id.listView);
 
-        domicilioAdd.setText(String.format("Domicilio: $%s", format.format(getSedeStatic().getCosenvio())));
+        domicilioAdd.setText(String.format("$%s", format.format(getSedeStatic().getCosenvio())));
 
         llenarData();
 
@@ -117,7 +117,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
                         break;
                     case 1:
                         // delete
-                        createDialog(position);
+                        deletePrduct(position);
                         break;
                 }
                 return false;
@@ -141,7 +141,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                createDialog(position);
+                deletePrduct(position);
                 return false;
             }
         });
@@ -219,15 +219,16 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
                 pedirService.setVisibility(View.GONE);
             }
 
-            total.setText(String.format("Total: $%s", format.format(dValor)));
+            total.setText(String.format("$%s", format.format(dValor)));
 
         }else{
             pedirService.setVisibility(View.GONE);
+            total.setText(String.format("$%s", 0));
         }
 
     }
 
-    private void createDialog(final int position){
+    private void deletePrduct(final int position){
         new MaterialDialog.Builder(ActCar.this)
                 .title("Eliminar producto")
                 .content("Esta seguro de eliminar del carrito?")

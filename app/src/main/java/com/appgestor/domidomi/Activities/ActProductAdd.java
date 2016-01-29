@@ -93,9 +93,9 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
         ingredientes.setText(getProductoStatic().getIngredientes());
         format = new DecimalFormat("#,###.##");
 
-        precio.setText(String.format("Precio:$%s", format.format(getProductoStatic().getPrecio())));
+        precio.setText(String.format("Valor Unitario:$%s", format.format(getProductoStatic().getPrecio())));
 
-        preciodec.setText(String.format("Precio:$%s", format.format(getProductoStatic().getPrecio())));
+        preciodec.setText(String.format("Valor Unitario:$%s", format.format(getProductoStatic().getPrecio())));
 
         totalFinal.setText(String.format("%s",format.format(getProductoStatic().getPrecio())));
 
@@ -208,9 +208,6 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
                             .content(R.string.contenido_confirmacion_pedido)
                             .positiveText(R.string.realizar_pedido)
                             .negativeText(R.string.add_producto)
-                            .backgroundColor(getResources().getColor(R.color.color_gris))
-                            .positiveColor(getResources().getColor(R.color.color_negro))
-                            .negativeColor(getResources().getColor(R.color.color_negro))
                             .callback(new MaterialDialog.ButtonCallback() {
                                 @Override
                                 public void onPositive(MaterialDialog dialog) {

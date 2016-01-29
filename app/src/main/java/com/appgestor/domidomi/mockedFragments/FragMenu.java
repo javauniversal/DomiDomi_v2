@@ -109,6 +109,7 @@ public class FragMenu extends BaseVolleyFragment {
                 imgEmpresa = (ImageView) rootView.findViewById(R.id.imgEmpresa);
 
                 expandableListView = (ExpandableListView) rootView.findViewById(R.id.expandableListView);
+
                 break;
             case 1:
                 rootView = inflater.inflate(R.layout.fragment_informacion, container, false);
@@ -324,6 +325,8 @@ public class FragMenu extends BaseVolleyFragment {
             protected void onPostExecute(Long result){
                 expandableListAdapter = new ExpandableListAdapter(getActivity(), expandableListTitle, expandableListDetail);
                 expandableListView.setAdapter(expandableListAdapter);
+                if (expandableListTitle.size() > 0)
+                    expandableListView.expandGroup(0);
                 expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
                     @Override
                     public void onGroupExpand(int groupPosition) {

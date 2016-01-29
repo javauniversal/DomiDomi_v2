@@ -225,7 +225,7 @@ public class QuantityView extends LinearLayout implements View.OnClickListener {
 
         Double sumaTotal = sumaAdiciones + sumaValorProducto;
 
-        textView.setText(String.format("Precio:$%s", format.format(sumaTotal)));
+        textView.setText(String.format("%s", format.format(sumaTotal)));
         textView12.setText(sumaTotal+"");
 
     }

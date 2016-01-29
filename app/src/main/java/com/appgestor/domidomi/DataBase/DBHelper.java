@@ -16,14 +16,6 @@ import com.appgestor.domidomi.Entities.PedidoWebCabeza;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.appgestor.domidomi.Entities.Cliente.setApellidoS;
-import static com.appgestor.domidomi.Entities.Cliente.setCelularS;
-import static com.appgestor.domidomi.Entities.Cliente.setDireccionS;
-import static com.appgestor.domidomi.Entities.Cliente.setEmailS;
-import static com.appgestor.domidomi.Entities.Cliente.setEstadoS;
-import static com.appgestor.domidomi.Entities.Cliente.setImageByteArrayS;
-import static com.appgestor.domidomi.Entities.Cliente.setNombreS;
-
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -36,8 +28,8 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String sqlPerfil = "CREATE TABLE perfil (id integer primary key AUTOINCREMENT, nombre text, apellido text, "+
-                                    " email text, celular text, direccion text, estado integer, foto BLOB )";
+        String sqlPerfil = "CREATE TABLE perfil (id integer primary key AUTOINCREMENT, nombre text, celular text, "+
+                                    " telefono text, calle_carrera text, dir_1 text, dir_2 text, dir_3 text, ciudad text, zona text, incluir int )";
 
         String sqlPedido = "CREATE TABLE carrito (id integer primary key AUTOINCREMENT, codeproduct int, nameProduct text, "+
                            "                        quantity int, valueunitary REAL, valueoverall REAL, comment text, idcompany int, idsede int, urlimagen text, "+
@@ -178,15 +170,17 @@ public class DBHelper extends SQLiteOpenHelper {
 
         try {
             values.put("nombre", data.getNombre());
-            values.put("apellido", data.getApellido());
-            values.put("email", data.getEmail());
             values.put("celular", data.getCelular());
-            values.put("direccion", data.getDireccion());
-            values.put("estado", "Activo");
-            values.put("foto", data.getImageByteArray());
+            values.put("telefono", data.getTelefono());
+            values.put("calle_carrera", data.getCalle_carrera());
+            values.put("dir_1", data.getDir_1());
+            values.put("dir_2", data.getDir_2());
+            values.put("dir_3", data.getDir_3());
+            values.put("ciudad", data.getCiudad());
+            values.put("zona", data.getZona());
+            values.put("incluir", data.getIncluir());
 
             db.insert("perfil", null, values);
-            Log.d("perfil", data.toString());
             db.close();
         }catch (SQLiteConstraintException e){
             Log.d("data", "failure to insert word,", e);
@@ -196,24 +190,41 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public boolean getClienteAll(){
+    public Cliente getUsuarioAll(){
+
+        Cliente cliente = new Cliente();
         String sql = "SELECT * FROM perfil LIMIT 1";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
+
         if (cursor.moveToFirst()) {
             do {
-                setNombreS(cursor.getString(1));
-                setApellidoS(cursor.getString(2));
-                setCelularS(cursor.getString(4));
-                setEmailS(cursor.getString(3));
-                setDireccionS(cursor.getString(5));
-                setEstadoS(cursor.getString(6));
-                setImageByteArrayS(cursor.getBlob(7));
+                cliente.setCodigo(Integer.parseInt(cursor.getString(0)));
+                cliente.setNombre(cursor.getString(1));
+                cliente.setCelular(cursor.getString(2));
+                cliente.setTelefono(cursor.getString(3));
+
+                cliente.setCalle_carrera(cursor.getString(4));
+                cliente.setDir_1(cursor.getString(5));
+                cliente.setDir_2(cursor.getString(6));
+                cliente.setDir_3(cursor.getString(7));
+
+                cliente.setCiudad(cursor.getString(8));
+                cliente.setZona(cursor.getString(9));
+                cliente.setIncluir(Integer.parseInt(cursor.getString(10)));
+
             } while(cursor.moveToNext());
-        }else{
-            return false;
         }
-        return true;
+
+        return cliente;
+
+    }
+
+    public boolean deleteUsuario(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        int p = db.delete("perfil", null, null);
+        db.close();
+        return p > 0;
     }
 
     public boolean insertProduct(AddProductCar data){
@@ -390,7 +401,6 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues valores = new ContentValues();
 
         Double valorAdiciones = 0.0;
-        Double valorTotal = 0.0;
 
         List<Adiciones> adicionesList = getAdiciones(data.getIdProduct(), idCompany, idsede);
 
@@ -400,7 +410,7 @@ public class DBHelper extends SQLiteOpenHelper {
             }
         }
 
-        valorTotal = (valorAdiciones * id) + (data.getValueunitary() * id);
+        Double valorTotal = (valorAdiciones * id) + (data.getValueunitary() * id);
 
         valores.put("quantity", id);
         valores.put("valueoverall", valorTotal);

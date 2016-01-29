@@ -82,7 +82,7 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
         pedirService.setOnClickListener(this);
 
         TextView domicilioAdd = (TextView) findViewById(R.id.domicilioAdd);
-        domicilioAdd.setText(String.format("Domicilio:$%s", format.format(bundleset.getDouble("cosEnvio"))));
+        domicilioAdd.setText(String.format("$%s", format.format(bundleset.getDouble("cosEnvio"))));
         dialog = new SpotsDialog(ActCarritoMenu.this);
         dialog.show();
 
@@ -241,10 +241,11 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
                 pedirService.setVisibility(View.GONE);
             }
 
-            total.setText(String.format("Total:$%s", format.format(dValor)));
+            total.setText(String.format("$%s", format.format(dValor)));
 
         }else{
             pedirService.setVisibility(View.GONE);
+            total.setText(String.format("$%s", 0));
         }
 
     }

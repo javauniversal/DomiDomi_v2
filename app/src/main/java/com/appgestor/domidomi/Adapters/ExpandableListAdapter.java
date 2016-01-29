@@ -110,7 +110,13 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int listPosition) {
-        return this.expandableListDetail.get(this.expandableListTitle.get(listPosition)).size();
+
+        if (this.expandableListDetail.get(this.expandableListTitle.get(listPosition)) == null) {
+            return 0;
+        } else {
+            return this.expandableListDetail.get(this.expandableListTitle.get(listPosition)).size();
+        }
+
     }
 
     @Override
@@ -120,7 +126,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getGroupCount() {
-        return this.expandableListTitle.size();
+
+        if (this.expandableListTitle == null){
+            return 0;
+        } else {
+            return this.expandableListTitle.size();
+        }
     }
 
     @Override
