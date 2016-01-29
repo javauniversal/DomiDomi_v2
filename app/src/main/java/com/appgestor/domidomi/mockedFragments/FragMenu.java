@@ -144,8 +144,12 @@ public class FragMenu extends BaseVolleyFragment {
 
                 String concatAdiciones = "";
 
-                for(int f = 0; f < getSedeStatic().getMedioPagoList().size(); f++) {
-                    concatAdiciones = concatAdiciones +" | "+ getSedeStatic().getMedioPagoList().get(f).getDescripcion();
+                if (getSedeStatic() != null){
+                    if (getSedeStatic().getMedioPagoList() != null){
+                        for(int f = 0; f < getSedeStatic().getMedioPagoList().size(); f++) {
+                            concatAdiciones = concatAdiciones +" | "+ getSedeStatic().getMedioPagoList().get(f).getDescripcion();
+                        }
+                    }
                 }
 
                 txtMedioPago.setText(String.format("Medios de Pagos: %s", concatAdiciones));

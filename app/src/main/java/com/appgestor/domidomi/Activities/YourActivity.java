@@ -37,7 +37,7 @@ public class YourActivity extends AwesomeSplash {
         //Customize Logo
         configSplash.setLogoSplash(R.drawable.logo_transparente); //or any other drawable
         configSplash.setAnimLogoSplashDuration(2000); //int ms
-        configSplash.setAnimLogoSplashTechnique(Techniques.RubberBand); //choose one form Techniques (ref: https://github.com/daimajia/AndroidViewAnimations)
+        configSplash.setAnimLogoSplashTechnique(Techniques.DropOut); //choose one form Techniques (ref: https://github.com/daimajia/AndroidViewAnimations)
 
 
         //Customize Title
@@ -45,7 +45,7 @@ public class YourActivity extends AwesomeSplash {
         configSplash.setTitleTextColor(R.color.actionBarColorText);
         configSplash.setTitleTextSize(19f); //float value
         configSplash.setAnimTitleDuration(3000);
-        configSplash.setAnimTitleTechnique(Techniques.FlipInX);
+        configSplash.setAnimTitleTechnique(Techniques.Tada);
         configSplash.setTitleFont("fonts/speed.ttf"); //provide string to your font located in assets/fonts/
     }
 
@@ -58,16 +58,15 @@ public class YourActivity extends AwesomeSplash {
         isInternetPresent = cd.isConnected();
 
         if (isInternetPresent) {
-            // Internet Connection is Present
-            // make HTTP requests
 
             MyService gps = new MyService(this);
-
             if(gps.getLatitude() == 0.0){
+
                 startActivity(new Intent(this, ActUbicacion.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
-            }else {
+
+            } else {
 
                 setLatitudStatic(gps.getLatitude());
                 setLongitudStatic(gps.getLongitude());
@@ -77,6 +76,7 @@ public class YourActivity extends AwesomeSplash {
                 finish();
 
             }
+
 
         } else {
             // Internet connection is not present

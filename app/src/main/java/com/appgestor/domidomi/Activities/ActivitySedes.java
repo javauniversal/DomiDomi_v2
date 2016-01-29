@@ -6,11 +6,11 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -43,20 +43,19 @@ public class ActivitySedes extends AppCompatActivity implements SwipyRefreshLayo
     //private SwipyRefreshLayout mSwipyRefreshLayout;
     //private AlertDialog alertDialog;
     private RandomTextView randomTextView;
-    private TextView txt_title_radar;
     private RelativeLayout relativeLayout_radar;
     private RelativeLayout relativeLayout_sedes;
     private RequestQueue rq;
     public static final String TAG = "MyTag";
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        txt_title_radar = (TextView) findViewById(R.id.txt_title_radar);
-
+        toolbar = (Toolbar) findViewById(R.id.include);
+        toolbar.setTitle("Buscando Sedes");
+        setSupportActionBar(toolbar);
 
         relativeLayout_radar = (RelativeLayout) findViewById(R.id.relativeLayout_radar);
         relativeLayout_sedes = (RelativeLayout) findViewById(R.id.relativeLayout_sedes);
@@ -130,7 +129,9 @@ public class ActivitySedes extends AppCompatActivity implements SwipyRefreshLayo
 
     @Override
     protected void onDestroy() {
-        rq.cancelAll(TAG);
+        if (rq != null) {
+            rq.cancelAll(TAG);
+        }
         super.onDestroy();
     }
 
@@ -147,7 +148,6 @@ public class ActivitySedes extends AppCompatActivity implements SwipyRefreshLayo
                 }
 
                 randomTextView.show();
-                txt_title_radar.setText("Estos son los establecimientos encontrados");
 
                 new Handler().postDelayed(new Runnable(){
 
@@ -162,7 +162,7 @@ public class ActivitySedes extends AppCompatActivity implements SwipyRefreshLayo
                         recycler.setAdapter(adapter);
 
                         relativeLayout_sedes.setVisibility(View.VISIBLE);
-
+                        toolbar.setTitle("Sedes Encontradas");
                     }
 
                 }, 2 * 1500);

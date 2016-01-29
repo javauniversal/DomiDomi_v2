@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.appgestor.domidomi.ActMaps;
 import com.appgestor.domidomi.Activities.ActEstadoPedido;
+import com.appgestor.domidomi.Activities.ActMyPerfil;
 import com.appgestor.domidomi.R;
 import com.appgestor.domidomi.mockedActivity.Settings;
 import com.appgestor.domidomi.mockedFragments.FragListEmpresas;
@@ -31,6 +32,7 @@ public class Accounts extends MaterialNavigationDrawer  {
         this.addSection(newSection("Favoritos", R.drawable.ic_favorite_black_24dp, new FragmentFavoritos()));
         this.addSection(newSection("Mi Ubicación", R.drawable.ic_pin_drop_black_48dp, new Intent(this, ActMaps.class)));
         this.addSection(newSection("Carrito", R.drawable.ic_local_grocery_store_black_24dp, new FragmentCarrito()));
+        this.addSection(newSection("Perfil", R.drawable.ic_face_black_24dp, new Intent(this, ActMyPerfil.class)));
 
         // create bottom section
         this.addBottomSection(newSection("Salir",R.drawable.ic_exit_to_app_black_24dp,new Intent(this,Settings.class)));

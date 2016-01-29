@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,12 +29,14 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.appgestor.domidomi.DataBase.DBHelper;
 import com.appgestor.domidomi.Entities.AddProductCar;
+import com.appgestor.domidomi.Entities.Ciudades;
 import com.appgestor.domidomi.Entities.MedioPago;
 import com.appgestor.domidomi.Entities.PedidoWebCabeza;
 import com.appgestor.domidomi.R;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -66,6 +69,16 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
     private Double latitud;
     private Double longitud;
     private RequestQueue rq;
+    private List<Ciudades> ciudades;
+    private Spinner dir_3;
+    private Spinner dir_1;
+    private String selecte_ciudad;
+    private LinearLayout zonaLayout;
+    private String[] dir1Zona_parant;
+    private String zona_dir;
+    private Spinner spinner_zona;
+    private String adressString;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +112,12 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
         txtEfectivo = (TextView) findViewById(R.id.txtEfectivo);
         editEfectivo = (EditText) findViewById(R.id.editEfectivo);
 
+        dir_3 = (Spinner) findViewById(R.id.spinner_ciudades);
+
+        zonaLayout = (LinearLayout) findViewById(R.id.zonaLayout);
+
+        spinner_zona = (Spinner) findViewById(R.id.spinner_zona);
+
         loadAdress();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -110,6 +129,87 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                 finish();
             }
         });
+
+        loadCiudades();
+    }
+
+    private void loadCiudades() {
+        new AsyncTask<String[], Long, Long>(){
+            @Override
+            protected Long doInBackground(String[]... params) {
+
+                ciudades = new ArrayList<>();
+                ciudades.add(new Ciudades(1, "Medellin", 1));
+                ciudades.add(new Ciudades(2, "Bogota", 1));
+
+                return null;
+            }
+
+            protected void onPreExecute() {}
+
+            @Override
+            public void onProgressUpdate(Long... value) {}
+
+            @Override
+            protected void onPostExecute(Long result){
+
+                ArrayAdapter<Ciudades> prec3 = new ArrayAdapter<Ciudades>(ActFinalizarPedido.this, android.R.layout.simple_spinner_dropdown_item, ciudades);
+                dir_3.setAdapter(prec3);
+                dir_3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        selecte_ciudad = parent.getItemAtPosition(position).toString();
+
+                        if (selecte_ciudad.equals("Medellin")){
+                            zonaLayout.setVisibility(View.VISIBLE);
+                            loadLlenarZona();
+                        }else {
+                            zonaLayout.setVisibility(View.GONE);
+                        }
+
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+
+                });
+
+            }
+        }.execute();
+    }
+
+    private void loadLlenarZona() {
+
+        new AsyncTask<String[], Long, Long>(){
+            @Override
+            protected Long doInBackground(String[]... params) {
+                dir1Zona_parant = new String[]{"Envigado", "Sabaneta", "Itagui", "La estrella", "Medellin", "Bello"};
+
+                return null;
+            }
+
+            protected void onPreExecute() { }
+
+            @Override
+            public void onProgressUpdate(Long... value) { }
+
+            @Override
+            protected void onPostExecute(Long result){
+                ArrayAdapter<String> prec1 = new ArrayAdapter<String>(ActFinalizarPedido.this, R.layout.textview_spinner, dir1Zona_parant);
+                spinner_zona.setAdapter(prec1);
+                spinner_zona.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        zona_dir = parent.getItemAtPosition(position).toString();
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) { }
+                });
+            }
+
+        }.execute();
 
     }
 
@@ -141,9 +241,16 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                     editEfectivo.setError("Por favor digite la cantidad con la que va apagar");
                     editEfectivo.requestFocus();
                 } else {
-                    if(isValidNumber(editCelularCliente.getText().toString())){ editCelularCliente.setText("0"); }
-                    loadAdressLatLon(Calle_Carrera +" "+ txt_dir_1.getText().toString().trim() +" # "+ txt_dir_2.getText().toString().trim() +" - "+txt_dir_3.getText().toString().trim());
 
+                    if(isValidNumber(editCelularCliente.getText().toString())){ editCelularCliente.setText("0"); }
+
+                    if (zonaLayout.getVisibility() == View.VISIBLE){
+                        adressString = Calle_Carrera +" "+ txt_dir_1.getText().toString().trim() +" # "+ txt_dir_2.getText().toString().trim() +" - "+txt_dir_3.getText().toString().trim() +" "+zona_dir +" "+selecte_ciudad;
+                    } else {
+                        adressString = Calle_Carrera +" "+ txt_dir_1.getText().toString().trim() +" # "+ txt_dir_2.getText().toString().trim() +" - "+txt_dir_3.getText().toString().trim() +" "+selecte_ciudad;
+                    }
+
+                    loadAdressLatLon(adressString);
                 }
 
                 break;
@@ -272,17 +379,16 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
 
                 TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
 
-
                 objeto.setImeiPhone(telephonyManager.getDeviceId());
                 objeto.setNombreUsuairo(editNombreCliente.getText().toString());
                 objeto.setCelularp(editCelularCliente.getText().toString());
-                objeto.setDireccionp(Calle_Carrera +" "+ txt_dir_1.getText().toString().trim() +" # "+ txt_dir_2.getText().toString().trim() +" - "+txt_dir_3.getText().toString().trim());
+                objeto.setDireccionp(adressString);
                 objeto.setDireccionReferen(editDirReferencia.getText().toString());
                 objeto.setMedioPago(masterItem.getIdmediopago());
 
                 objeto.setValorPago(Double.valueOf(editEfectivo.getText().toString()));
-                objeto.setLatitud(Double.valueOf(latitud));
-                objeto.setLongitud(Double.valueOf(longitud));
+                objeto.setLatitud(latitud);
+                objeto.setLongitud(longitud);
                 objeto.setIdEmpresaP(getSedeStatic().getIdempresa());
                 objeto.setIdSedeP(getSedeStatic().getIdsedes());
 
@@ -320,13 +426,10 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                 return null;
             }
 
-            protected void onPreExecute() {
-            }
+            protected void onPreExecute() { }
 
             @Override
-            public void onProgressUpdate(Long... value) {
-
-            }
+            public void onProgressUpdate(Long... value) { }
 
             @Override
             protected void onPostExecute(Long result){
@@ -350,8 +453,10 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
 
     @Override
     protected void onDestroy() {
-        rq.cancelAll(TAG);
         super.onDestroy();
+        if (rq != null) {
+            rq.cancelAll(TAG);
+        }
     }
 
 }

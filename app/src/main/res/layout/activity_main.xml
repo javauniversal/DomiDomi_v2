@@ -3,6 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include layout="@layout/app_bar"
+        android:id="@+id/include" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:visibility="visible"
@@ -11,7 +14,11 @@
 
         <com.appgestor.domidomi.RadarView.RadarScanView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="56dp">
 
         </com.appgestor.domidomi.RadarView.RadarScanView>
 
@@ -23,18 +30,6 @@
 
         </com.appgestor.domidomi.RadarView.RandomTextView>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="11dp"
-            android:text="@string/title_radar_view"
-            android:id="@+id/txt_title_radar"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_horizontal" />
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -44,12 +39,18 @@
         android:visibility="gone"
         android:id="@+id/relativeLayout_sedes"
         android:background="@color/color_gris"
-        tools:showIn="@layout/activity_sedes">
+        tools:showIn="@layout/activity_sedes"
+        android:layout_below="@+id/include"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
 

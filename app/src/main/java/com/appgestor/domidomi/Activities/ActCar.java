@@ -1,6 +1,7 @@
 package com.appgestor.domidomi.Activities;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -8,11 +9,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,14 +27,16 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-
-import dmax.dialog.SpotsDialog;
 
 import static com.appgestor.domidomi.Entities.Empresas.getEmpresastatic;
 import static com.appgestor.domidomi.Entities.Sede.getSedeStatic;
 
-public class ActCar extends AppCompatActivity implements View.OnClickListener{
+public class ActCar extends AppCompatActivity implements View.OnClickListener {
 
     private AppAdapter mAdapter;
     private DBHelper mydb;
@@ -41,9 +44,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
     private Button pedirService;
     private SwipeMenuListView mListView;
     private List<AddProductCar> mAppListPublico;
-    private TextView domicilioAdd;
-
-    AlertDialog dialog;
+    private DecimalFormat format;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,17 +56,16 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
         toolbar.setNavigationIcon(R.mipmap.ic_action_cartw);
         setSupportActionBar(toolbar);
 
+        format = new DecimalFormat("#,###.##");
+
         total = (TextView) findViewById(R.id.totaltexto);
-        domicilioAdd = (TextView) findViewById(R.id.domicilioAdd);
+        TextView domicilioAdd = (TextView) findViewById(R.id.domicilioAdd);
         pedirService = (Button) findViewById(R.id.pedirServices);
         pedirService.setOnClickListener(this);
 
-        dialog = new SpotsDialog(ActCar.this);
-        dialog.show();
-
         mListView = (SwipeMenuListView) findViewById(R.id.listView);
 
-        domicilioAdd.setText(String.format("Domicilio: $ %s", getSedeStatic().getCosenvio()));
+        domicilioAdd.setText(String.format("Domicilio: $%s", format.format(getSedeStatic().getCosenvio())));
 
         llenarData();
 
@@ -110,7 +110,8 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
                 //AddProductCar item = mAppList.get(position);
                 switch (index) {
                     case 0:
-                        // open
+                        // Edit
+                        editarProducto(position);
                         break;
                     case 1:
                         // delete
@@ -134,9 +135,6 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
             }
         });
 
-        // other setting
-        // listView.setCloseInterpolator(new BounceInterpolator());
-
         // test item long click
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -148,13 +146,57 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
 
     }
 
+    private boolean isValidNumber(String number){return number == null || number.length() == 0;}
+
+    private void editarProducto(final int position) {
+        final List<AddProductCar> mAppList = mydb.getProductCar(getSedeStatic().getIdempresa(), getSedeStatic().getIdsedes());
+        //mAppList.get(position)
+
+        LayoutInflater inflater = getLayoutInflater();
+        View dialoglayout = inflater.inflate(R.layout.dialog_edit_produt, null);
+
+        final EditText numberEdit = (EditText) dialoglayout.findViewById(R.id.editTextNumber);
+        numberEdit.setText(String.format("%s", mAppList.get(position).getQuantity()));
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setTitle("Cambiar la Cantidad del Pedido");
+        builder.setView(dialoglayout)
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        //Validaciones...
+                        if (isValidNumber(numberEdit.getText().toString().trim())) {
+                            numberEdit.setError("Campo requerido");
+                            numberEdit.requestFocus();
+                        } else if (numberEdit.getText().toString().trim().equals("0")){
+                            numberEdit.setError("El valor debe ser mayor a 0");
+                            numberEdit.requestFocus();
+                        } else {
+                            if (!mydb.UpdateProduct(Integer.parseInt(numberEdit.getText().toString()), getSedeStatic().getIdempresa(), getSedeStatic().getIdsedes(), mAppList.get(position))){
+                                Toast.makeText(getApplicationContext(), "Problemas al Actualizar el Producto", Toast.LENGTH_SHORT).show();
+                            } else {
+                                llenarData();
+                            }
+                        }
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+
+        builder.show();
+
+    }
+
     private void llenarData() {
         List<AddProductCar> mAppList = mydb.getProductCar(getSedeStatic().getIdempresa(), getSedeStatic().getIdsedes());
         mAdapter = new AppAdapter(ActCar.this, mAppList);
         mListView.setAdapter(mAdapter);
         sumarValoresFinales(mAppList);
         mAppListPublico = mAppList;
-        dialog.dismiss();
     }
 
     private void sumarValoresFinales(List<AddProductCar> data){
@@ -175,7 +217,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
                 pedirService.setVisibility(View.GONE);
             }
 
-            total.setText( "Total: $"+dValor);
+            total.setText(String.format("Total: $%s", format.format(dValor)));
         }else{
             pedirService.setVisibility(View.GONE);
         }
@@ -185,12 +227,9 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
     private void createDialog(final int position){
         new MaterialDialog.Builder(ActCar.this)
                 .title("Eliminar producto")
-                .content("Esta seguro de eliminar del carrito")
+                .content("Esta seguro de eliminar del carrito?")
                 .positiveText("Aceptar")
                 .negativeText("Cancelar")
-                .backgroundColor(getResources().getColor(R.color.color_gris))
-                .positiveColor(getResources().getColor(R.color.color_negro))
-                .negativeColor(getResources().getColor(R.color.color_negro))
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
@@ -217,33 +256,27 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener{
                 getResources().getDisplayMetrics());
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        //int id = item.getItemId();
-        /*
-        if (id == R.id.action_left) {
-            mListView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
-            return true;
-        }
-        if (id == R.id.action_right) {
-            mListView.setSwipeDirection(SwipeMenuListView.DIRECTION_RIGHT);
-            return true;
-        }*/
-        return super.onOptionsItemSelected(item);
+    public static boolean isHourInInterval(String target, String start, String end) {
+        return ((target.compareTo(start) >= 0) && (target.compareTo(end) <= 0));
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.pedirServices:
-                startActivity(new Intent(ActCar.this, ActFinalizarPedido.class));
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                Date date = new Date();
+                DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss");
+
+                if (isHourInInterval(hourdateFormat.format(date).toString(), getEmpresastatic().getHorainicio(), getEmpresastatic().getHorafinal())){
+                    //Abierto
+                    startActivity(new Intent(ActCar.this, ActFinalizarPedido.class));
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+                } else {
+                    //Cerrado
+                    Toast.makeText(getApplicationContext(), "El establecimiento se encuentra Cerrado", Toast.LENGTH_SHORT).show();
+                }
+
                 break;
         }
     }

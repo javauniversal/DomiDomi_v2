@@ -152,8 +152,10 @@ public class ActMenu extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        rq.cancelAll(TAG);
         super.onDestroy();
+        if (rq != null) {
+            rq.cancelAll(TAG);
+        }
     }
 
     public class MyClasPagerAdapter extends FragmentPagerAdapter {

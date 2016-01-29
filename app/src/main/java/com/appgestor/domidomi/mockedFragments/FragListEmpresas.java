@@ -168,4 +168,5 @@ public class FragListEmpresas extends BaseVolleyFragment implements SwipyRefresh
     public void onRefresh(SwipyRefreshLayoutDirection direction) {
         setupGrid();
     }
+
 }

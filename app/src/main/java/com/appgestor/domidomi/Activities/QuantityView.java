@@ -2,23 +2,21 @@ package com.appgestor.domidomi.Activities;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.text.DecimalFormat;
 
 import static com.appgestor.domidomi.Entities.Producto.getProductoStatic;
 
@@ -39,7 +37,9 @@ public class QuantityView extends LinearLayout implements View.OnClickListener {
 
     private double valorPrecio = 0;
     private TextView textView;
+    private TextView textView12;
     private ViewGroup parentactivity;
+    private DecimalFormat format;
 
     public interface OnQuantityChangeListener {
         void onQuantityChanged(int newQuantity, boolean programmatically);
@@ -165,7 +165,7 @@ public class QuantityView extends LinearLayout implements View.OnClickListener {
                     onQuantityChangeListener.onQuantityChanged(quantity, false);
             }
         } else if (v == mTextViewQuantity) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            /*AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle("Change Quantity");
 
             View inflate = LayoutInflater.from(getContext()).inflate(me.himanshusoni.quantityview.R.layout.qv_dialog_changequantity, null, false);
@@ -183,7 +183,7 @@ public class QuantityView extends LinearLayout implements View.OnClickListener {
                     }
                 }
             }).setNegativeButton("Cancel", null);
-            builder.show();
+            builder.show();*/
         }
     }
 
@@ -192,9 +192,11 @@ public class QuantityView extends LinearLayout implements View.OnClickListener {
         return onQuantityChangeListener;
     }
 
-    public void setValorTotal(double presio, TextView textview, ViewGroup parent){
+    public void setValorTotal(double presio, TextView textview, TextView textview2, ViewGroup parent){
         valorPrecio = presio;
         textView = textview;
+        textView12 = textview2;
+        format = new DecimalFormat("#,###.##");
         parentactivity = parent;
     }
 
@@ -223,7 +225,8 @@ public class QuantityView extends LinearLayout implements View.OnClickListener {
 
         Double sumaTotal = sumaAdiciones + sumaValorProducto;
 
-        textView.setText(sumaTotal+"");
+        textView.setText(String.format("Precio:$%s", format.format(sumaTotal)));
+        textView12.setText(sumaTotal+"");
 
     }
 

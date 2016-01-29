@@ -216,7 +216,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total: $"
+                    android:text="Total:$"
                     android:textStyle="bold"
                     android:textColor="@color/color_negro"
                     android:layout_gravity="right" />
@@ -226,8 +226,18 @@
                     android:layout_height="wrap_content"
                     android:text="0"
                     android:textStyle="bold"
-                    android:layout_margin="8dip"
+                    android:layout_margin="2dip"
                     android:id="@+id/totalFinal"
+                    android:textColor="@color/color_negro"
+                    android:layout_gravity="right" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:visibility="gone"
+                    android:layout_margin="8dip"
+                    android:id="@+id/totalFinalOculto"
                     android:textColor="@color/color_negro"
                     android:layout_gravity="right" />
 

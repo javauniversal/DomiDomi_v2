@@ -11,6 +11,7 @@ import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -27,6 +28,9 @@ import com.google.gson.GsonBuilder;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -120,9 +124,18 @@ public class FragmentFavoritos extends BaseVolleyFragment implements SwipyRefres
                 mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        setEmpresastatic(listEmpresas.get(position));
-                        startActivity(new Intent(getActivity(), ActivitySedes.class));
-                        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+                        Date date = new Date();
+                        DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss");
+
+                        if (isHourInInterval(hourdateFormat.format(date).toString(), listEmpresas.get(position).getHorainicio(), listEmpresas.get(position).getHorafinal())) {
+                            setEmpresastatic(listEmpresas.get(position));
+                            startActivity(new Intent(getActivity(), ActivitySedes.class));
+                            getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        } else {
+                            Toast.makeText(getActivity(), "El establecimiento se encuentra Cerrado", Toast.LENGTH_LONG).show();
+                        }
+
                     }
                 }));
 
@@ -144,6 +157,10 @@ public class FragmentFavoritos extends BaseVolleyFragment implements SwipyRefres
 
         mSwipyRefreshLayout.setRefreshing(false);
         return false;
+    }
+
+    public static boolean isHourInInterval(String target, String start, String end) {
+        return ((target.compareTo(start) >= 0) && (target.compareTo(end) <= 0));
     }
 
     @Override

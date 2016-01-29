@@ -72,8 +72,6 @@ abstract public class AwesomeSplash extends AppCompatActivity {
             isInternetPresent = cd.isConnected();
 
             if (isInternetPresent) {
-                // Internet Connection is Present
-                // make HTTP requests
 
                 MyService gps = new MyService(this);
                 if(gps.getLatitude() == 0.0){
@@ -82,7 +80,7 @@ abstract public class AwesomeSplash extends AppCompatActivity {
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     finish();
 
-                }else {
+                } else {
 
                     setLatitudStatic(gps.getLatitude());
                     setLongitudStatic(gps.getLongitude());
@@ -90,12 +88,10 @@ abstract public class AwesomeSplash extends AppCompatActivity {
                     startActivity(new Intent(this, Accounts.class));
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     finish();
-
                 }
 
             } else {
-                // Internet connection is not present
-                // Ask user to connect to Internet
+
                 startActivity(new Intent(this, DetailsActivity.class).putExtra("STATE", "ERROR"));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 

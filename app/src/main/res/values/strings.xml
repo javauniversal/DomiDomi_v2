@@ -18,7 +18,7 @@
     <string-array name="tabs">
         <item>Menú</item>
         <item>Información</item>
-        <item>Comentario</item>
+        <item>Comentarios</item>
     </string-array>
 
     <string name="title_activity_act_product_add">Agregar Producto</string>
@@ -60,7 +60,7 @@
     <string name="sede_sucursales">Sedes o sucursales</string>
 
     <string name="titulo_confirmacion_pedido">Atención!</string>
-    <string name="contenido_confirmacion_pedido">Desea seguir agregando más productos o quiere realizar el pedido.</string>
+    <string name="contenido_confirmacion_pedido">Desea seguir agregando más productos o quiere realizar el pedido?</string>
     <string name="add_producto">Seguir Agregando</string>
     <string name="realizar_pedido">Realizar Pedido</string>
     <!-- Fin Texto comunes -->
@@ -98,11 +98,13 @@
     <string name="medio_de_pago">Medio de pago</string>
     <string name="latitud">Latitud</string>
     <string name="direcci_n_lugar_de_referencia">Dirección/Lugar de referencia</string>
-    <string name="celular_tel_fono">Celular/Teléfono</string>
+    <string name="celular_tel_fono">Celular</string>
     <string name="escriba_la_cantidad">Escriba la cantidad</string>
     <string name="longitud">Longitud</string>
     <string name="cancelar">Cancelar</string>
     <string name="title_activity_act_comentario">Calificación del Servicio</string>
     <string name="title_radar_view">Buscando establecimientos cercanos a tu posición actual</string>
+    <string name="title_activity_act_my_perfil">Perfil</string>
+    <string name="title_activity_act_direccion_escrita">"Direccion "</string>
 
 </resources>

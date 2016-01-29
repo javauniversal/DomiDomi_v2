@@ -18,6 +18,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class AppAdapter extends BaseAdapter {
@@ -27,6 +28,7 @@ public class AppAdapter extends BaseAdapter {
     private ImageLoader imageLoader1;
     private DisplayImageOptions options1;
     private DBHelper mydb;
+    private DecimalFormat format;
 
     public AppAdapter(Activity actx, List<AddProductCar> data){
         this.actx = actx;
@@ -39,13 +41,17 @@ public class AppAdapter extends BaseAdapter {
 
         mydb = new DBHelper(actx);
 
+        format = new DecimalFormat("#,###.##");
+
     }
-
-
 
     @Override
     public int getCount() {
-        return data.size();
+        if (data == null) {
+            return 0;
+        } else {
+            return data.size();
+        }
     }
 
     @Override
@@ -71,9 +77,9 @@ public class AppAdapter extends BaseAdapter {
 
         String adicion = mostrarAdiciones(item.getIdProduct(), item.getIdcompany(), item.getIdsede());
 
-        holder.tv_name.setText(item.getNameProduct());
-        holder.tv_preci.setText("Precio: $"+item.getValueunitary());
-        holder.tv_cantidad.setText("Cantidad: "+item.getQuantity());
+        holder.tv_name.setText(String.format("%1s(x%2s)", item.getNameProduct(),item.getQuantity()));
+        holder.tv_preci.setText(String.format("Precio: $%s", format.format(item.getValueunitary())));
+        holder.tv_cantidad.setText(String.format("Total: $%s", format.format(item.getValueoverall())));
 
         if (adicion != null && adicion != ""){
             holder.tv_adiciones.setVisibility(View.VISIBLE);

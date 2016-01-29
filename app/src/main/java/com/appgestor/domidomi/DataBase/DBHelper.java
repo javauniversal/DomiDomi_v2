@@ -154,6 +154,7 @@ public class DBHelper extends SQLiteOpenHelper {
             Log.d("data", "failure to insert word,", e);
             return false;
         }
+
         return true;
     }
 
@@ -371,6 +372,32 @@ public class DBHelper extends SQLiteOpenHelper {
             } while(cursor.moveToNext());
         }
         return addProduct;
+    }
+
+    public boolean UpdateProduct(int id, int idCompany, int idsede, AddProductCar data){
+
+        ContentValues valores = new ContentValues();
+
+        Double valorAdiciones = 0.0;
+        Double valorTotal = 0.0;
+
+        List<Adiciones> adicionesList = getAdiciones(data.getIdProduct(), idCompany, idsede);
+
+        if(adicionesList != null){
+            for(int i = 0; i < adicionesList.size(); i++) {
+                valorAdiciones = valorAdiciones + adicionesList.get(i).getValor();
+            }
+        }
+
+        valorTotal = (valorAdiciones * id) + (data.getValueunitary() * id);
+
+        valores.put("quantity", id);
+        valores.put("valueoverall", valorTotal);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        int p = db.update("carrito", valores, String.format("idcompany = %1$s AND idsede = %2$s AND id = %3$s", idCompany, idsede, data.getIdProduct()), null);
+        db.close();
+        return p > 0;
     }
 
     public boolean DeleteProduct(int id, int idCompany){

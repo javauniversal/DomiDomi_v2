@@ -43,6 +43,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
     private KenBurnsView displayImagen;
     private QuantityView cantidad;
     private TextView totalFinal;
+    private TextView totalFinalOculto;
     private DBHelper mydb;
     private EditText myComment;
     private ProgressBar progressBar2;
@@ -82,6 +83,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
 
         TextView preciodec = (TextView) findViewById(R.id.preciodesc);
         totalFinal = (TextView) findViewById(R.id.totalFinal);
+        totalFinalOculto = (TextView) findViewById(R.id.totalFinalOculto);
         myComment = (EditText) findViewById(R.id.EditComment);
 
         Button btnAdd = (Button) findViewById(R.id.btnAdd);
@@ -91,11 +93,13 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
         ingredientes.setText(getProductoStatic().getIngredientes());
         format = new DecimalFormat("#,###.##");
 
-        precio.setText(String.format("Precio: %s", format.format(getProductoStatic().getPrecio())));
+        precio.setText(String.format("Precio:$%s", format.format(getProductoStatic().getPrecio())));
 
-        preciodec.setText(String.format("Precio: %s", format.format(getProductoStatic().getPrecio())));
+        preciodec.setText(String.format("Precio:$%s", format.format(getProductoStatic().getPrecio())));
 
-        totalFinal.setText(String.format("%s", getProductoStatic().getPrecio()));
+        totalFinal.setText(String.format("%s",format.format(getProductoStatic().getPrecio())));
+
+        totalFinalOculto.setText(String.format("%s", getProductoStatic().getPrecio()));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -103,7 +107,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
         CargarAdiciones();
 
         root = (LinearLayout) findViewById(R.id.llAdiciones); //or whatever your root control is
-        cantidad.setValorTotal(getProductoStatic().getPrecio(), totalFinal, root);
+        cantidad.setValorTotal(getProductoStatic().getPrecio(), totalFinal, totalFinalOculto,  root);
 
     }
 
@@ -130,7 +134,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
                 cb.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Double totaltemporal = Double.valueOf(totalFinal.getText().toString());
+                        Double totaltemporal = Double.valueOf(totalFinalOculto.getText().toString());
                         Double totalfinal = null;
                         if (((CheckBox) v).isChecked()) {
                             for(int f = 0; f < getProductoStatic().getAdicionesList().size(); f++) {
@@ -149,7 +153,9 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
                             }
                         }
 
-                        totalFinal.setText(totalfinal+"");
+                        totalFinal.setText(String.format("%s", format.format(totalfinal)));
+                        totalFinalOculto.setText(totalfinal+"");
+
                     }
                 });
             }
@@ -240,7 +246,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
         car.setQuantity(cantidad.getQuantity());
         car.setValueunitary(getProductoStatic().getPrecio());
 
-        Double temp = Double.valueOf(totalFinal.getText().toString());
+        Double temp = Double.valueOf(totalFinalOculto.getText().toString());
         car.setValueoverall(temp);
 
         car.setComment(myComment.getText().toString());

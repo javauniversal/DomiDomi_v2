@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.appgestor.domidomi" >
+    package="com.appgestor.domidomi">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -31,11 +31,11 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/NoHeaderLight" >
+        android:theme="@style/NoHeaderLight">
         <activity
             android:name=".Activities.YourActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -91,7 +91,7 @@
             android:name=".Activities.ActivitySedes"
             android:label="@string/title_activity_activity_sedes"
             android:parentActivityName=".dark.Accounts"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.appgestor.domidomi.dark.Accounts" />
@@ -99,7 +99,7 @@
 
         <receiver
             android:name="com.google.android.gcm.GCMBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
@@ -115,7 +115,7 @@
             android:name=".Activities.ActEstadoPedido"
             android:label="@string/title_activity_act_estado_pedido"
             android:parentActivityName=".dark.Accounts"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.appgestor.domidomi.dark.Accounts" />
@@ -128,13 +128,28 @@
             android:name=".Activities.ActUbicacion"
             android:label="@string/title_activity_act_ubicacion"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".RadarView.RefreshProgressActivity"
             android:label="@string/title_activity_act_ubicacion"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Activities.ActMyPerfil"
+            android:label="@string/title_activity_act_my_perfil"
+            android:parentActivityName=".dark.Accounts"
             android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.appgestor.domidomi.dark.Accounts" />
         </activity>
-
+        <activity
+            android:name=".Activities.ActDireccionEscrita"
+            android:label="@string/title_activity_act_direccion_escrita"
+            android:parentActivityName=".Activities.ActUbicacion"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.appgestor.domidomi.Activities.ActUbicacion" />
+        </activity>
     </application>
 
 </manifest>
