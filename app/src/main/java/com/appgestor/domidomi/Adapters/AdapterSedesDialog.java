@@ -58,10 +58,18 @@ public class AdapterSedesDialog extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Bundle bundle = new Bundle();
                 bundle.putInt("empresa", elements.get(position).getIdcompany());
                 bundle.putInt("sede", elements.get(position).getIdsede());
                 bundle.putString("sedeNomebre", elements.get(position).getNameSede());
+
+                bundle.putString("horaInicial", elements.get(position).getHoraInicioEmpresa());
+                bundle.putString("horaFinal", elements.get(position).getHoraFinalEmpresa());
+
+                bundle.putDouble("cosEnvio", elements.get(position).getCostoEnvio());
+                bundle.putDouble("valMinimo", elements.get(position).getValorMinimo());
+
                 actx.startActivity(new Intent(actx, ActCarritoMenu.class).putExtras(bundle));
                 actx.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 

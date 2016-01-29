@@ -1,6 +1,7 @@
 package com.appgestor.domidomi.Activities;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -8,11 +9,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ import com.android.volley.toolbox.Volley;
 import com.appgestor.domidomi.Adapters.AppAdapter;
 import com.appgestor.domidomi.DataBase.DBHelper;
 import com.appgestor.domidomi.Entities.AddProductCar;
+import com.appgestor.domidomi.Entities.HorarioEmpresa;
 import com.appgestor.domidomi.Entities.ListMedioPago;
 import com.appgestor.domidomi.R;
 import com.baoyz.swipemenulistview.SwipeMenu;
@@ -35,6 +37,10 @@ import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.google.gson.Gson;
 
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +61,7 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
     private Bundle bundleset;
     private RequestQueue rq;
     public static final String TAG = "MyTag";
+    private DecimalFormat format;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +75,14 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
         toolbar.setNavigationIcon(R.mipmap.ic_action_cartw);
         setSupportActionBar(toolbar);
 
+        format = new DecimalFormat("#,###.##");
+
         total = (TextView) findViewById(R.id.totaltexto);
         pedirService = (Button) findViewById(R.id.pedirServices);
         pedirService.setOnClickListener(this);
 
+        TextView domicilioAdd = (TextView) findViewById(R.id.domicilioAdd);
+        domicilioAdd.setText(String.format("Domicilio:$%s", format.format(bundleset.getDouble("cosEnvio"))));
         dialog = new SpotsDialog(ActCarritoMenu.this);
         dialog.show();
 
@@ -90,7 +101,7 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
                 // set item width
                 openItem.setWidth(dp2px(90));
                 // set item title
-                openItem.setTitle("Open");
+                openItem.setTitle("Editar");
                 // set item title fontsize
                 openItem.setTitleSize(18);
                 // set item title font color
@@ -120,7 +131,8 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
                 //AddProductCar item = mAppList.get(position);
                 switch (index) {
                     case 0:
-                        // open
+                        // Editar
+                        editarProducto(position);
                         break;
                     case 1:
                         // delete
@@ -158,6 +170,50 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    private void editarProducto(final int position) {
+        final List<AddProductCar> mAppList = mydb.getProductCar(bundleset.getInt("empresa"), bundleset.getInt("sede"));
+        //mAppList.get(position)
+
+        LayoutInflater inflater = getLayoutInflater();
+        View dialoglayout = inflater.inflate(R.layout.dialog_edit_produt, null);
+
+        final EditText numberEdit = (EditText) dialoglayout.findViewById(R.id.editTextNumber);
+        numberEdit.setText(String.format("%s", mAppList.get(position).getQuantity()));
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setTitle("Cambiar la Cantidad del Pedido");
+        builder.setView(dialoglayout)
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        //Validaciones...
+                        if (isValidNumber(numberEdit.getText().toString().trim())) {
+                            numberEdit.setError("Campo requerido");
+                            numberEdit.requestFocus();
+                        } else if (numberEdit.getText().toString().trim().equals("0")){
+                            numberEdit.setError("El valor debe ser mayor a 0");
+                            numberEdit.requestFocus();
+                        } else {
+                            if (!mydb.UpdateProduct(Integer.parseInt(numberEdit.getText().toString()), bundleset.getInt("empresa"), bundleset.getInt("sede"), mAppList.get(position))){
+                                Toast.makeText(getApplicationContext(), "Problemas al Actualizar el Producto", Toast.LENGTH_SHORT).show();
+                            } else {
+                                llenarData();
+                            }
+                        }
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+
+        builder.show();
+    }
+
+    private boolean isValidNumber(String number){return number == null || number.length() == 0;}
+
     private void llenarData() {
         List<AddProductCar> mAppList = mydb.getProductCar(bundleset.getInt("empresa"), bundleset.getInt("sede"));
         mAdapter = new AppAdapter(ActCarritoMenu.this, mAppList);
@@ -177,13 +233,16 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
                 //dValor = dValor * data.get(i).getQuantity();
             }
 
-            dValor = dValor + 2500;
-            if (dValor > 20000) {
+            dValor = dValor + bundleset.getDouble("cosEnvio");
+
+            if (dValor > bundleset.getDouble("valMinimo")) {
                 pedirService.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 pedirService.setVisibility(View.GONE);
             }
-            total.setText( "Total: $"+dValor);
+
+            total.setText(String.format("Total:$%s", format.format(dValor)));
+
         }else{
             pedirService.setVisibility(View.GONE);
         }
@@ -196,9 +255,6 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
                 .content("Esta seguro de eliminar del carrito")
                 .positiveText("Aceptar")
                 .negativeText("Cancelar")
-                .backgroundColor(getResources().getColor(R.color.color_gris))
-                .positiveColor(getResources().getColor(R.color.color_negro))
-                .negativeColor(getResources().getColor(R.color.color_negro))
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
@@ -226,35 +282,82 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        //int id = item.getItemId();
-        /*
-        if (id == R.id.action_left) {
-            mListView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
-            return true;
-        }
-        if (id == R.id.action_right) {
-            mListView.setSwipeDirection(SwipeMenuListView.DIRECTION_RIGHT);
-            return true;
-        }*/
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.pedirServices:
 
-                cargarMedioPago();
+                VvalidarDisponivilidad();
 
                 break;
         }
+    }
+
+    public void VvalidarDisponivilidad(){
+        String url = String.format("%1$s%2$s", getString(R.string.url_base),"ValiDisponivilidad");
+        RequestQueue rq = Volley.newRequestQueue(this);
+        StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>(){
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        parseJSON2(response);
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
+                        intent.putExtra("STATE", "ERROR");
+                        startActivity(intent);
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("idEmpresa", String.valueOf(bundleset.getInt("empresa")));
+
+                return params;
+            }
+        };
+        rq.add(jsonRequest);
+    }
+
+    private boolean parseJSON2(String json) {
+        boolean indicant = false;
+        Gson gson = new Gson();
+        if (!json.equals("[]")){
+            try {
+
+                final HorarioEmpresa horarioJsEmpresa = gson.fromJson(json, HorarioEmpresa.class);
+
+                Date date = new Date();
+                DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss");
+
+                if (isHourInInterval(hourdateFormat.format(date).toString(), horarioJsEmpresa.getHorainicio(), horarioJsEmpresa.getHorafinal())) {
+                    cargarMedioPago();
+                } else {
+                    Toast.makeText(getApplicationContext(), "El establecimiento se encuentra Cerrado", Toast.LENGTH_SHORT).show();
+                }
+
+            }catch (IllegalStateException ex) {
+                ex.printStackTrace();
+                indicant = false;
+            }
+        }else {
+            Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
+            intent.putExtra("STATE", "EMPTY");
+            startActivity(intent);
+        }
+
+        return indicant;
+
+    }
+
+    public static boolean isHourInInterval(String target, String start, String end) {
+        return ((target.compareTo(start) >= 0) && (target.compareTo(end) <= 0));
     }
 
 
@@ -318,6 +421,7 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
                 Bundle bundle = new Bundle();
                 bundle.putInt("empresa", bundleset.getInt("empresa"));
                 bundle.putInt("sede", bundleset.getInt("sede"));
+
                 startActivity(new Intent(ActCarritoMenu.this, ActFinalizarPedidoMenu.class).putExtras(bundle));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 

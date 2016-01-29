@@ -255,6 +255,12 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
         car.setIdcompany(getSedeStatic().getIdempresa());
         car.setNameSede(getSedeStatic().getDescripcion());
 
+        car.setHoraInicioEmpresa(getEmpresastatic().getHorainicio());
+        car.setHoraFinalEmpresa(getEmpresastatic().getHorafinal());
+        car.setCostoEnvio(getSedeStatic().getCosenvio());
+        car.setValorMinimo(getEmpresastatic().getValorMin());
+
+
         if(getProductoStatic().getAdicionesList() != null && getProductoStatic().getAdicionesList().size() > 0){
             List<Adiciones> adicionesList = new ArrayList<>();
             for(int i = 0; i < root.getChildCount(); i++) {

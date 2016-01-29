@@ -39,8 +39,9 @@ public class DBHelper extends SQLiteOpenHelper {
         String sqlPerfil = "CREATE TABLE perfil (id integer primary key AUTOINCREMENT, nombre text, apellido text, "+
                                     " email text, celular text, direccion text, estado integer, foto BLOB )";
 
-        String sqlPedido = "CREATE TABLE carrito (id integer primary key AUTOINCREMENT, codeproduct int, nameProduct text, " +
-                           "                        quantity int, valueunitary REAL, valueoverall REAL, comment text, idcompany int, idsede int, urlimagen text, nombresede text)";
+        String sqlPedido = "CREATE TABLE carrito (id integer primary key AUTOINCREMENT, codeproduct int, nameProduct text, "+
+                           "                        quantity int, valueunitary REAL, valueoverall REAL, comment text, idcompany int, idsede int, urlimagen text, "+
+                           "                        nombresede text, horainicio text, horafinal text, costodomi REAL, valorminimo REAL)";
 
         String sqlHistoryhead = "CREATE TABLE historyhead (id integer primary key AUTOINCREMENT, nombreUsuario text, idCompany int, direccion text, "+
                                         " direccionReferen text, celular text, longitud REAL, latitud REAL)";
@@ -233,6 +234,11 @@ public class DBHelper extends SQLiteOpenHelper {
             values.put("urlimagen", data.getUrlimagen());
             values.put("nombresede", data.getNameSede());
 
+            values.put("horainicio", data.getHoraInicioEmpresa());
+            values.put("horafinal", data.getHoraFinalEmpresa());
+            values.put("costodomi", data.getCostoEnvio());
+            values.put("valorminimo", data.getValorMinimo());
+
             db.insert("carrito", null, values);
 
             if(data.getAdicionesList() != null && data.getAdicionesList().size() > 0){
@@ -331,6 +337,11 @@ public class DBHelper extends SQLiteOpenHelper {
                 productCar.setIdsede(Integer.parseInt(cursor.getString(8)));
                 productCar.setUrlimagen(cursor.getString(9));
                 productCar.setNameSede(cursor.getString(10));
+
+                productCar.setHoraInicioEmpresa(cursor.getString(11));
+                productCar.setHoraFinalEmpresa(cursor.getString(12));
+                productCar.setCostoEnvio(Double.parseDouble(cursor.getString(13)));
+                productCar.setValorMinimo(Double.parseDouble(cursor.getString(14)));
 
                 addProduct.add(productCar);
 

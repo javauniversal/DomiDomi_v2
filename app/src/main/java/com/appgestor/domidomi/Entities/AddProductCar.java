@@ -44,9 +44,45 @@ public class AddProductCar {
 
     private List<Adiciones> adicionesList;
 
+    private String horaInicioEmpresa;
 
+    private String horaFinalEmpresa;
 
+    private double costoEnvio;
 
+    private double valorMinimo;
+
+    public double getCostoEnvio() {
+        return costoEnvio;
+    }
+
+    public void setCostoEnvio(double costoEnvio) {
+        this.costoEnvio = costoEnvio;
+    }
+
+    public double getValorMinimo() {
+        return valorMinimo;
+    }
+
+    public void setValorMinimo(double valorMinimo) {
+        this.valorMinimo = valorMinimo;
+    }
+
+    public String getHoraInicioEmpresa() {
+        return horaInicioEmpresa;
+    }
+
+    public void setHoraInicioEmpresa(String horaInicioEmpresa) {
+        this.horaInicioEmpresa = horaInicioEmpresa;
+    }
+
+    public String getHoraFinalEmpresa() {
+        return horaFinalEmpresa;
+    }
+
+    public void setHoraFinalEmpresa(String horaFinalEmpresa) {
+        this.horaFinalEmpresa = horaFinalEmpresa;
+    }
     //Metodos GET SET
 
     public int getIdAutoIncrement() { return idAutoIncrement; }

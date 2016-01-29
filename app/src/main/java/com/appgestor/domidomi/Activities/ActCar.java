@@ -50,7 +50,9 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_car);
+
         mydb = new DBHelper(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         toolbar.setTitle(getEmpresastatic().getDescripcion());
         toolbar.setNavigationIcon(R.mipmap.ic_action_cartw);
@@ -218,6 +220,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
             }
 
             total.setText(String.format("Total: $%s", format.format(dValor)));
+
         }else{
             pedirService.setVisibility(View.GONE);
         }
@@ -280,4 +283,5 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
                 break;
         }
     }
+
 }
