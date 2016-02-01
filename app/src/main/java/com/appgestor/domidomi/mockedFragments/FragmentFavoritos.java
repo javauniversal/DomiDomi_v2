@@ -36,9 +36,6 @@ import java.util.Map;
 
 import dmax.dialog.SpotsDialog;
 
-import static com.appgestor.domidomi.Entities.Empresas.setEmpresastatic;
-
-
 public class FragmentFavoritos extends BaseVolleyFragment implements SwipyRefreshLayout.OnRefreshListener {
 
     private RecyclerView mRecyclerView;
@@ -129,7 +126,7 @@ public class FragmentFavoritos extends BaseVolleyFragment implements SwipyRefres
                         DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss");
 
                         if (isHourInInterval(hourdateFormat.format(date).toString(), listEmpresas.get(position).getHorainicio(), listEmpresas.get(position).getHorafinal())) {
-                            setEmpresastatic(listEmpresas.get(position));
+                            //setEmpresastatic(listEmpresas.get(position));
                             startActivity(new Intent(getActivity(), ActivitySedes.class));
                             getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         } else {

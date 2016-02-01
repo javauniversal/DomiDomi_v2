@@ -19,53 +19,58 @@
             android:background="#FFF"
             android:layout_height="wrap_content">
 
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:id="@+id/imgSede"
+                android:scaleType="centerCrop"
+                android:src="@drawable/no_img"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:id="@+id/linearLayout3">
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/imgSede">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nombre Sede"
-                    android:textColor="@color/colorAccent"
+                    android:text="Domicilios Delivery"
+                    android:textColor="@color/color_negro"
                     android:textStyle="bold"
-                    android:textSize="16dp"
-                    android:id="@+id/txtNombreSedexyz" />
+                    android:textSize="14dp"
+                    android:id="@+id/txtNombre" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Medellin"
-                    android:textSize="12dp"
-                    android:id="@+id/txtCiudad" />
+                    android:text="$ 0000"
+                    android:textSize="14dp"
+                    android:textColor="@color/color_negro"
+                    android:id="@+id/txtPedidoMunimo" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Calle 23 Carrera 12 # 23-23"
+                    android:text="Drirección"
                     android:textSize="12dp"
+                    android:textColor="@color/color_negro"
                     android:id="@+id/txtDireccion" />
-
-                <RatingBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:isIndicator="true"
-                    android:numStars="5"
-                    android:stepSize="0.1"
-                    android:id="@+id/ratingBar" />
 
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="48dp"
-                android:id="@+id/imageView5"
-                android:src="@drawable/domisede"
-                android:layout_centerVertical="true"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Horario"
+                android:id="@+id/txtHora"
+                android:textColor="@color/color_negro"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
 

@@ -31,9 +31,7 @@ import com.appgestor.domidomi.mockedFragments.FragMenu;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.appgestor.domidomi.Entities.Empresas.getEmpresastatic;
-import static com.appgestor.domidomi.Entities.Sede.getSedeStatic;
-
+import static com.appgestor.domidomi.Entities.Sede.getSedeStaticNew;
 
 public class ActMenu extends AppCompatActivity {
 
@@ -45,7 +43,7 @@ public class ActMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-        toolbar.setTitle(getSedeStatic().getDescripcion());
+        toolbar.setTitle(getSedeStaticNew().getDescripcion());
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -79,22 +77,12 @@ public class ActMenu extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-
         switch (id){
-            case R.id.action_settings:
-                finishAffinity();
-                return true;
             case R.id.action_cart:
                 Bundle bundle = new Bundle();
-                bundle.putInt("compania", getEmpresastatic().getIdempresa());
+                bundle.putInt("compania", getSedeStaticNew().getIdempresa());
                 startActivity(new Intent(ActMenu.this, ActCar.class).putExtras(bundle));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                return true;
-            case R.id.action_favorito:
-
-                setFavorito();
-
                 return true;
 
         }
@@ -130,9 +118,9 @@ public class ActMenu extends AppCompatActivity {
 
                 TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
 
-                params.put("descripcion", getEmpresastatic().getDescripcion());
+                //params.put("descripcion", getEmpresastatic().getDescripcion());
                 params.put("idTelefono", telephonyManager.getDeviceId());
-                params.put("idEmpresa", String.valueOf(getSedeStatic().getIdempresa()));
+                params.put("idEmpresa", String.valueOf(getSedeStaticNew().getIdempresa()));
 
                 return params;
 

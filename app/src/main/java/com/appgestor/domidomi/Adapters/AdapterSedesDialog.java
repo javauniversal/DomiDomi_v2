@@ -69,11 +69,13 @@ public class AdapterSedesDialog extends BaseAdapter {
 
                 bundle.putDouble("cosEnvio", elements.get(position).getCostoEnvio());
                 bundle.putDouble("valMinimo", elements.get(position).getValorMinimo());
+                bundle.putBoolean("indicador", true);
 
                 actx.startActivity(new Intent(actx, ActCarritoMenu.class).putExtras(bundle));
                 actx.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
             }
+
         });
 
         return convertView;

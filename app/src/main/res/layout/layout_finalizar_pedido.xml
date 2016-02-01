@@ -17,259 +17,253 @@
                 android:id="@+id/app_bar"
                 layout="@layout/app_bar"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/nombre_apellido_t"
-                android:textStyle="bold"
-                android:paddingTop="8dp"
-                android:paddingLeft="8dp"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textCapSentences"
-                android:background="@drawable/rounded_corner"
-                android:ems="10"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:id="@+id/editNombreCliente" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/celular_tel_fono"
-                android:textStyle="bold"
-                android:paddingTop="8dp"
-                android:paddingLeft="8dp"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:background="@drawable/rounded_corner"
-                android:id="@+id/editCelularCliente" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Teléfono"
-                android:textStyle="bold"
-                android:paddingTop="8dp"
-                android:paddingLeft="8dp"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="10"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:background="@drawable/rounded_corner"
-                android:id="@+id/editTelefonoCliente" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:paddingTop="8dp"
-                android:paddingLeft="8dp"
-                android:text="Ciudades" />
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spinner_ciudades"
-                android:layout_marginTop="5dp" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="vertical"
-                android:visibility="gone"
-                android:id="@+id/zonaLayout"
-                android:layout_height="wrap_content">
+                android:padding="10dp"
+                android:layout_height="match_parent">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_layout_password1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/editNombreCliente"
+                        android:hint="Nombre"
+                        android:inputType="text" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_layout_celular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Celular"
+                        android:id="@+id/editCelularCliente"
+                        android:inputType="number"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_layout_telefono"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Teléfono"
+                        android:id="@+id/editTelefonoCliente"
+                        android:inputType="number"/>
+
+                </android.support.design.widget.TextInputLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:paddingTop="8dp"
-                    android:paddingLeft="8dp"
-                    android:text="Zonas" />
+                    android:textColor="@color/colorAccent"
+                    android:text="Ciudades" />
 
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/spinner_zona"
-                    android:layout_marginTop="5dp" />
+                    android:id="@+id/spinner_ciudades"
+                    android:layout_marginTop="1dp" />
 
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:paddingTop="8dp"
-                android:paddingLeft="8dp"
-                android:text="Dirección" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <Spinner
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/spinner_dir"
-                    android:layout_weight="1" />
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:id="@+id/zonaLayout"
+                    android:layout_height="wrap_content">
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/txt_dir_1"
-                    android:layout_weight="1.1"
-                    android:gravity="center_vertical|center_horizontal" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorAccent"
+                        android:text="Zonas" />
+
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/spinner_zona"
+                        android:layout_marginTop="5dp" />
+
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="#"
-                    android:layout_weight="1.4"
-                    android:gravity="center_vertical|center_horizontal" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/txt_dir_2"
-                    android:layout_weight="1.1"
-                    android:gravity="center_vertical|center_horizontal" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="-"
-                    android:layout_weight="1.4"
-                    android:gravity="center_vertical|center_horizontal" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/txt_dir_3"
-                    android:layout_weight="1.1"
-                    android:gravity="center_vertical|center_horizontal" />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Barrio"
-                android:textStyle="bold"
-                android:paddingTop="8dp"
-                android:paddingLeft="8dp"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:ems="10"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:background="@drawable/rounded_corner"
-                android:id="@+id/editBarrioCliente" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/direcci_n_lugar_de_referencia"
-                android:textStyle="bold"
-                android:paddingTop="8dp"
-                android:paddingLeft="8dp"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPostalAddress"
-                android:ems="10"
-                android:background="@drawable/rounded_corner"
-                android:id="@+id/editDirReferencia"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/medio_de_pago"
-                android:textStyle="bold"
-                android:paddingTop="8dp"
-                android:paddingLeft="8dp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="6"
-                    android:src="@drawable/ic_credit_card_black_24dp"
-                    android:id="@+id/imageView4"
-                    android:contentDescription="@string/app_name" />
-
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:id="@+id/spinnerTarjetas" />
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:text="Dirección" />
 
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/escriba_la_cantidad"
-                android:textStyle="bold"
-                android:paddingTop="8dp"
-                android:paddingLeft="8dp"
-                android:id="@+id/txtEfectivo"
-                android:visibility="gone"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:visibility="gone"
-                android:background="@drawable/rounded_corner"
-                android:id="@+id/editEfectivo"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp" />
-
-            <LinearLayout
-                android:layout_height="wrap_content"
-                android:layout_width="fill_parent"
-                android:orientation="horizontal"
-                android:layout_marginTop="9dp"
-                android:gravity="right">
-
-                <Button
-                    android:id="@+id/button_cancel"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/BrandButtonStyle2"
-                    android:text="@string/cancelar" />
+                    android:layout_marginTop="1dp"
+                    android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/button_accept"
-                    android:layout_width="wrap_content"
+                    <Spinner
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/spinner_dir"
+                        android:layout_weight="1" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/txt_dir_1"
+                        android:layout_weight="1.1"
+                        android:gravity="center_vertical|center_horizontal" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="#"
+                        android:layout_weight="1.4"
+                        android:gravity="center_vertical|center_horizontal" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/txt_dir_2"
+                        android:layout_weight="1.1"
+                        android:gravity="center_vertical|center_horizontal" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="-"
+                        android:layout_weight="1.4"
+                        android:gravity="center_vertical|center_horizontal" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/txt_dir_3"
+                        android:layout_weight="1.1"
+                        android:gravity="center_vertical|center_horizontal" />
+
+                </LinearLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_layout_barrio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Barrio"
+                        android:id="@+id/editBarrioCliente"
+                        android:inputType="text"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_layout_referencia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Lugar de Referencia Ej: Torre, #Apto"
+                        android:id="@+id/editDirReferencia"
+                        android:inputType="text"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    style="@style/BrandButtonStyle2"
-                    android:text="@string/aceptar" />
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/paterMediosPagos">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Medios de Pados"
+                        android:textSize="15sp"
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:layout_margin="4dip"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorAccent" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/llMediosPagos"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:layout_marginTop="9dp"
+                    android:id="@+id/input_layout_Efectivo_liner"
+                    android:layout_height="wrap_content">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/input_layout_Efectivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Voy a pagar con un billete de Ej: 50,000"
+                            android:id="@+id/editEfectivo"
+                            android:inputType="number"/>
+
+                    </android.support.design.widget.TextInputLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="9dp"
+                    android:gravity="right">
+
+                    <Button
+                        android:id="@+id/button_cancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/BrandButtonStyle2"
+                        android:text="@string/cancelar" />
+
+                    <Button
+                        android:id="@+id/button_accept"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/BrandButtonStyle2"
+                        android:text="@string/aceptar" />
+
+                </LinearLayout>
 
             </LinearLayout>
 

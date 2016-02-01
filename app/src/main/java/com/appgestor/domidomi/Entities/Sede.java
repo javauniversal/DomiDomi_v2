@@ -19,6 +19,12 @@ public class Sede {
     @SerializedName("direccion")
     private String direccion;
 
+    @SerializedName("tiempoenv")
+    private String tiempoEnvio;
+
+    @SerializedName("cosenvio")
+    private double cosenvio;
+
     @SerializedName("estado")
     private int estado;
 
@@ -28,20 +34,29 @@ public class Sede {
     @SerializedName("longitud")
     private String longitud;
 
+    @SerializedName("distancia")
+    private int distancia;
+
     @SerializedName("idempresa")
     private int idempresa;
 
-    @SerializedName("tiempoenv")
-    private String tiempoEnvio;
+    @SerializedName("horainicio")
+    private String horainicio;
 
-    @SerializedName("cosenvio")
-    private double cosenvio;
+    @SerializedName("horafinal")
+    private String horafinal;
 
-    @SerializedName("menu")
-    private List<Menu> menus;
+    @SerializedName("pedidomeinimo")
+    private double pedidomeinimo;
+
+    @SerializedName("foto")
+    private String foto;
 
     @SerializedName("mpm")
     private List<MedioPago> medioPagoList;
+
+    @SerializedName("menu")
+    private List<Menu> menuList;
 
     public static Sede sedeStatic;
 
@@ -50,11 +65,11 @@ public class Sede {
 
 
     // MEtodos GET SET
-    public static Sede getSedeStatic() {
+    public static Sede getSedeStaticNew() {
         return sedeStatic;
     }
 
-    public static void setSedeStatic(Sede sedeStatic) {
+    public static void setSedeStaticNew(Sede sedeStatic) {
         Sede.sedeStatic = sedeStatic;
     }
 
@@ -122,14 +137,6 @@ public class Sede {
         this.idempresa = idempresa;
     }
 
-    public List<Menu> getMenus() {
-        return menus;
-    }
-
-    public void setMenus(List<Menu> menus) {
-        this.menus = menus;
-    }
-
     public List<MedioPago> getMedioPagoList() {
         return medioPagoList;
     }
@@ -162,4 +169,51 @@ public class Sede {
         Sede.sedeIdeStatic = sedeIdeStatic;
     }
 
+    public int getDistancia() {
+        return distancia;
+    }
+
+    public void setDistancia(int distancia) {
+        this.distancia = distancia;
+    }
+
+    public String getHorainicio() {
+        return horainicio;
+    }
+
+    public void setHorainicio(String horainicio) {
+        this.horainicio = horainicio;
+    }
+
+    public String getHorafinal() {
+        return horafinal;
+    }
+
+    public void setHorafinal(String horafinal) {
+        this.horafinal = horafinal;
+    }
+
+    public double getPedidomeinimo() {
+        return pedidomeinimo;
+    }
+
+    public void setPedidomeinimo(double pedidomeinimo) {
+        this.pedidomeinimo = pedidomeinimo;
+    }
+
+    public String getImgEmpresa() {
+        return foto;
+    }
+
+    public void setImgEmpresa(String imgEmpresa) {
+        this.foto = imgEmpresa;
+    }
+
+    public List<Menu> getMenuList() {
+        return menuList;
+    }
+
+    public void setMenuList(List<Menu> menuList) {
+        this.menuList = menuList;
+    }
 }

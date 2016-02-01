@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -30,7 +32,9 @@ import com.appgestor.domidomi.DataBase.DBHelper;
 import com.appgestor.domidomi.Entities.AddProductCar;
 import com.appgestor.domidomi.Entities.HorarioEmpresa;
 import com.appgestor.domidomi.Entities.ListMedioPago;
+import com.appgestor.domidomi.Entities.Sede;
 import com.appgestor.domidomi.R;
+import com.appgestor.domidomi.dark.Accounts;
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
@@ -48,6 +52,8 @@ import java.util.Map;
 import dmax.dialog.SpotsDialog;
 
 import static com.appgestor.domidomi.Entities.MedioPago.setMedioPagoListstatic;
+import static com.appgestor.domidomi.Entities.Menu.setMenuListStatic;
+import static com.appgestor.domidomi.Entities.Sede.setSedeStaticNew;
 
 public class ActCarritoMenu extends AppCompatActivity implements View.OnClickListener{
 
@@ -62,6 +68,8 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
     private RequestQueue rq;
     public static final String TAG = "MyTag";
     private DecimalFormat format;
+    int clicK = 0;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,13 +85,15 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
 
         format = new DecimalFormat("#,###.##");
 
+        alertDialog = new SpotsDialog(this, R.style.Custom);
+
         total = (TextView) findViewById(R.id.totaltexto);
         pedirService = (Button) findViewById(R.id.pedirServices);
         pedirService.setOnClickListener(this);
 
         TextView domicilioAdd = (TextView) findViewById(R.id.domicilioAdd);
-        domicilioAdd.setText(String.format("$%s", format.format(bundleset.getDouble("cosEnvio"))));
-        dialog = new SpotsDialog(ActCarritoMenu.this);
+        domicilioAdd.setText(String.format("$ +%s", format.format(bundleset.getDouble("cosEnvio"))));
+        dialog = new SpotsDialog(this, R.style.Custom);
         dialog.show();
 
         mListView = (SwipeMenuListView) findViewById(R.id.listView);
@@ -186,7 +196,6 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
         builder.setView(dialoglayout)
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
                         //Validaciones...
                         if (isValidNumber(numberEdit.getText().toString().trim())) {
                             numberEdit.setError("Campo requerido");
@@ -239,13 +248,14 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
                 pedirService.setVisibility(View.VISIBLE);
             } else {
                 pedirService.setVisibility(View.GONE);
+                Toast.makeText(this, "El pedido no supera el valor mínimo.", Toast.LENGTH_LONG).show();
             }
 
-            total.setText(String.format("$%s", format.format(dValor)));
+            total.setText(String.format("$ %s", format.format(dValor)));
 
         }else{
             pedirService.setVisibility(View.GONE);
-            total.setText(String.format("$%s", 0));
+            total.setText(String.format("$ %s", 0));
         }
 
     }
@@ -283,10 +293,97 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_tutorial, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.accion_add) {
+            getSedeId();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void getSedeId() {
+
+        alertDialog.show();
+
+        String url = String.format("%1$s%2$s", getString(R.string.url_base), "listSedesID");
+        rq = Volley.newRequestQueue(this);
+
+        StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>(){
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        parseJSONID(response);
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        alertDialog.dismiss();
+                        startActivity(new Intent(ActCarritoMenu.this, DetailsActivity.class).putExtra("STATE", "ERROR"));
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("idsede", String.valueOf(bundleset.getInt("sede")));
+
+                return params;
+            }
+        };
+
+        rq.add(jsonRequest);
+
+    }
+
+    private void parseJSONID(String json) {
+        if (!json.equals("[]")){
+            try {
+                Gson gson = new Gson();
+                Sede sedeID = gson.fromJson(json, Sede.class);
+
+                setSedeStaticNew(sedeID);
+                setMenuListStatic(sedeID.getMenuList());
+
+                startActivity(new Intent(this, ActMenu.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+
+                alertDialog.dismiss();
+
+            }catch (IllegalStateException ex) {
+                ex.printStackTrace();
+            }
+        } else {
+            alertDialog.dismiss();
+            startActivity(new Intent(this, DetailsActivity.class).putExtra("STATE", "EMPTYP"));
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }
+
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.pedirServices:
 
+                if (clicK == 1)
+                    return;
+
+                clicK = 1;
                 VvalidarDisponivilidad();
 
                 break;
@@ -318,7 +415,7 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
 
-                params.put("idEmpresa", String.valueOf(bundleset.getInt("empresa")));
+                params.put("idEmpresa", String.valueOf(bundleset.getInt("sede")));
 
                 return params;
             }
@@ -341,6 +438,7 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
                     cargarMedioPago();
                 } else {
                     Toast.makeText(getApplicationContext(), "El establecimiento se encuentra Cerrado", Toast.LENGTH_SHORT).show();
+                    clicK = 0;
                 }
 
             }catch (IllegalStateException ex) {
@@ -360,7 +458,6 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
     public static boolean isHourInInterval(String target, String start, String end) {
         return ((target.compareTo(start) >= 0) && (target.compareTo(end) <= 0));
     }
-
 
     public void cargarMedioPago(){
         String url = String.format("%1$s%2$s", getString(R.string.url_base),"getMedioPago");
@@ -422,9 +519,12 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
                 Bundle bundle = new Bundle();
                 bundle.putInt("empresa", bundleset.getInt("empresa"));
                 bundle.putInt("sede", bundleset.getInt("sede"));
+                bundle.putDouble("cosEnvio", bundleset.getDouble("cosEnvio"));
+
 
                 startActivity(new Intent(ActCarritoMenu.this, ActFinalizarPedidoMenu.class).putExtras(bundle));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
 
             }catch (IllegalStateException ex) {
                 ex.printStackTrace();
@@ -437,6 +537,24 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
         }
 
         return indicant;
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        clicK = 0;
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (!bundleset.getBoolean("indicador")) {
+            startActivity(new Intent(this, Accounts.class));
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
+        }
+        super.onBackPressed();  // optional depending on your needs
 
     }
 }

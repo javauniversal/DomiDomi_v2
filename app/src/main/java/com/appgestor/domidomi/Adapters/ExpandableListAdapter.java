@@ -21,7 +21,7 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.appgestor.domidomi.Entities.Sede.getSedeStatic;
+import static com.appgestor.domidomi.Entities.Menu.getMenuListStatic;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
@@ -75,8 +75,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         TextView txtValor = (TextView) convertView.findViewById(R.id.texValor);
         ImageView imagen = (ImageView) convertView.findViewById(R.id.profile_image);
 
+
         expandedListTextView.setText(expandedListText);
-        txtValor.setText(String.format("$ %s", format.format(getSedeStatic().getMenus().get(listPosition).getProductos().get(expandedListPosition).getPrecio())));
+
+        txtValor.setText(String.format("$ %s", format.format(getMenuListStatic().get(listPosition).getProductos().get(expandedListPosition).getPrecio())));
 
         ImageLoadingListener listener = new ImageLoadingListener(){
             @Override
@@ -103,7 +105,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
             }
         };
 
-        imageLoader1.displayImage(getSedeStatic().getMenus().get(listPosition).getProductos().get(expandedListPosition).getFoto(), imagen, options1, listener);
+        imageLoader1.displayImage(getMenuListStatic().get(listPosition).getProductos().get(expandedListPosition).getFoto(), imagen, options1, listener);
 
         return convertView;
     }

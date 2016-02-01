@@ -42,10 +42,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.appgestor.domidomi.Entities.Empresas.getEmpresastatic;
+import static com.appgestor.domidomi.Entities.Menu.getMenuListStatic;
 import static com.appgestor.domidomi.Entities.Producto.setProductoStatic;
-import static com.appgestor.domidomi.Entities.Sede.getSedeStatic;
-
+import static com.appgestor.domidomi.Entities.Sede.getSedeStaticNew;
 
 public class FragMenu extends BaseVolleyFragment {
 
@@ -138,17 +137,17 @@ public class FragMenu extends BaseVolleyFragment {
 
                 format = new DecimalFormat("#,###.##");
                 CargarImagen();
-                txtNombreSede.setText(getSedeStatic().getDescripcion());
-                txtDireccion.setText(getSedeStatic().getDireccion());
-                txtTiempo.setText(String.format("Tiempo de Entregas: %s aprox", getSedeStatic().getTiempoEnvio()));
-                txtCosto.setText(String.format("Costo de Envió: $ %s", format.format(getSedeStatic().getCosenvio())));
+                txtNombreSede.setText(getSedeStaticNew().getDescripcion());
+                txtDireccion.setText(getSedeStaticNew().getDireccion());
+                txtTiempo.setText(String.format("Tiempo de Entregas: %s aprox", getSedeStaticNew().getTiempoEnvio()));
+                txtCosto.setText(String.format("Costo de Envió: $ %s", format.format(getSedeStaticNew().getCosenvio())));
 
                 String concatAdiciones = "";
 
-                if (getSedeStatic() != null){
-                    if (getSedeStatic().getMedioPagoList() != null){
-                        for(int f = 0; f < getSedeStatic().getMedioPagoList().size(); f++) {
-                            concatAdiciones = concatAdiciones +" | "+ getSedeStatic().getMedioPagoList().get(f).getDescripcion();
+                if (getSedeStaticNew() != null){
+                    if (getSedeStaticNew().getMedioPagoList() != null){
+                        for(int f = 0; f < getSedeStaticNew().getMedioPagoList().size(); f++) {
+                            concatAdiciones = concatAdiciones +" | "+ getSedeStaticNew().getMedioPagoList().get(f).getDescripcion();
                         }
                     }
                 }
@@ -195,9 +194,8 @@ public class FragMenu extends BaseVolleyFragment {
             }
         };
 
-        imageLoader1.displayImage(getEmpresastatic().getFoto(), imgEmpresa, options1, listener);
+        imageLoader1.displayImage(getSedeStaticNew().getImgEmpresa(), imgEmpresa, options1, listener);
     }
-
 
     private void getComentarios() {
         String url = String.format("%1$s%2$s", getString(R.string.url_base), "getComentarios");
@@ -220,7 +218,7 @@ public class FragMenu extends BaseVolleyFragment {
             @Override
             protected Map<String, String> getParams(){
                 Map<String, String>  params = new HashMap<String, String>();
-                params.put("sede", String.valueOf(getSedeStatic().getIdsedes()));
+                params.put("sede", String.valueOf(getSedeStaticNew().getIdsedes()));
 
                 return params;
             }
@@ -279,7 +277,7 @@ public class FragMenu extends BaseVolleyFragment {
             @Override
             protected Map<String, String> getParams(){
                 Map<String, String>  params = new HashMap<>();
-                params.put("codigo", String.valueOf(getSedeStatic().getIdempresa()));
+                params.put("codigo", String.valueOf(getSedeStaticNew().getIdempresa()));
                 return params;
             }
         };
@@ -310,7 +308,7 @@ public class FragMenu extends BaseVolleyFragment {
         new AsyncTask<String[], Long, Long>(){
             @Override
             protected Long doInBackground(String[]... params) {
-                expandableListDetail = ExpandableListDataPump.getData(getSedeStatic().getMenus());
+                expandableListDetail = ExpandableListDataPump.getData(getMenuListStatic());
                 expandableListTitle = new ArrayList<>(expandableListDetail.keySet());
                 return null;
             }
@@ -345,7 +343,7 @@ public class FragMenu extends BaseVolleyFragment {
                     @Override
                     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
-                        setProductoStatic(getSedeStatic().getMenus().get(groupPosition).getProductos().get(childPosition));
+                        setProductoStatic(getMenuListStatic().get(groupPosition).getProductos().get(childPosition));
 
                         startActivity(new Intent(getActivity(), ActProductAdd.class));
                         getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

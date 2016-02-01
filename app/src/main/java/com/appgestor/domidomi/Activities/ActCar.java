@@ -33,8 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import static com.appgestor.domidomi.Entities.Empresas.getEmpresastatic;
-import static com.appgestor.domidomi.Entities.Sede.getSedeStatic;
+import static com.appgestor.domidomi.Entities.Sede.getSedeStaticNew;
 
 public class ActCar extends AppCompatActivity implements View.OnClickListener {
 
@@ -45,6 +44,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
     private SwipeMenuListView mListView;
     private List<AddProductCar> mAppListPublico;
     private DecimalFormat format;
+    int clicK = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
         mydb = new DBHelper(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-        toolbar.setTitle(getEmpresastatic().getDescripcion());
+        toolbar.setTitle(getSedeStaticNew().getDescripcion());
         toolbar.setNavigationIcon(R.mipmap.ic_action_cartw);
         setSupportActionBar(toolbar);
 
@@ -67,7 +67,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
 
         mListView = (SwipeMenuListView) findViewById(R.id.listView);
 
-        domicilioAdd.setText(String.format("$%s", format.format(getSedeStatic().getCosenvio())));
+        domicilioAdd.setText(String.format("$ %s", format.format(getSedeStaticNew().getCosenvio())));
 
         llenarData();
 
@@ -151,7 +151,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
     private boolean isValidNumber(String number){return number == null || number.length() == 0;}
 
     private void editarProducto(final int position) {
-        final List<AddProductCar> mAppList = mydb.getProductCar(getSedeStatic().getIdempresa(), getSedeStatic().getIdsedes());
+        final List<AddProductCar> mAppList = mydb.getProductCar(getSedeStaticNew().getIdempresa(), getSedeStaticNew().getIdsedes());
         //mAppList.get(position)
 
         LayoutInflater inflater = getLayoutInflater();
@@ -166,16 +166,15 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
         builder.setView(dialoglayout)
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
                         //Validaciones...
                         if (isValidNumber(numberEdit.getText().toString().trim())) {
-                            numberEdit.setError("Campo requerido");
-                            numberEdit.requestFocus();
-                        } else if (numberEdit.getText().toString().trim().equals("0")){
-                            numberEdit.setError("El valor debe ser mayor a 0");
-                            numberEdit.requestFocus();
+                            Toast.makeText(ActCar.this, "La cantidad es requerida", Toast.LENGTH_LONG).show();
+                            return;
+                        } else if (Integer.parseInt(numberEdit.getText().toString().trim()) <= 0){
+                            Toast.makeText(ActCar.this, "El valor debe ser mayor a 0", Toast.LENGTH_LONG).show();
+                            return;
                         } else {
-                            if (!mydb.UpdateProduct(Integer.parseInt(numberEdit.getText().toString()), getSedeStatic().getIdempresa(), getSedeStatic().getIdsedes(), mAppList.get(position))){
+                            if (!mydb.UpdateProduct(Integer.parseInt(numberEdit.getText().toString()), getSedeStaticNew().getIdempresa(), getSedeStaticNew().getIdsedes(), mAppList.get(position))){
                                 Toast.makeText(getApplicationContext(), "Problemas al Actualizar el Producto", Toast.LENGTH_SHORT).show();
                             } else {
                                 llenarData();
@@ -194,7 +193,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void llenarData() {
-        List<AddProductCar> mAppList = mydb.getProductCar(getSedeStatic().getIdempresa(), getSedeStatic().getIdsedes());
+        List<AddProductCar> mAppList = mydb.getProductCar(getSedeStaticNew().getIdempresa(), getSedeStaticNew().getIdsedes());
         mAdapter = new AppAdapter(ActCar.this, mAppList);
         mListView.setAdapter(mAdapter);
         sumarValoresFinales(mAppList);
@@ -208,22 +207,22 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
 
             for (int i = 0; i < data.size(); i++) {
                 dValor = dValor + data.get(i).getValueoverall();
-                //dValor = dValor * data.get(i).getQuantity();
             }
 
-            dValor = dValor + getSedeStatic().getCosenvio();
+            dValor = dValor + getSedeStaticNew().getCosenvio();
 
-            if (dValor > getEmpresastatic().getValorMin()) {
+            if (dValor > getSedeStaticNew().getPedidomeinimo()) {
                 pedirService.setVisibility(View.VISIBLE);
             }else{
                 pedirService.setVisibility(View.GONE);
+                Toast.makeText(this, "El pedido no supera el valor mínimo.", Toast.LENGTH_LONG).show();
             }
 
-            total.setText(String.format("$%s", format.format(dValor)));
+            total.setText(String.format("$ %s", format.format(dValor)));
 
         }else{
             pedirService.setVisibility(View.GONE);
-            total.setText(String.format("$%s", 0));
+            total.setText(String.format("$ %s", 0));
         }
 
     }
@@ -271,7 +270,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
                 Date date = new Date();
                 DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss");
 
-                if (isHourInInterval(hourdateFormat.format(date).toString(), getEmpresastatic().getHorainicio(), getEmpresastatic().getHorafinal())){
+                if (isHourInInterval(hourdateFormat.format(date).toString(), getSedeStaticNew().getHorainicio(), getSedeStaticNew().getHorafinal())){
                     //Abierto
                     startActivity(new Intent(ActCar.this, ActFinalizarPedido.class));
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -285,4 +284,9 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        clicK = 0;
+    }
 }

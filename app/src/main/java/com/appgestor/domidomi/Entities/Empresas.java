@@ -57,14 +57,6 @@ public class Empresas {
         Empresas.empresasListStatic = empresasListStatic;
     }
 
-    public static Empresas getEmpresastatic() {
-        return empresastatic;
-    }
-
-    public static void setEmpresastatic(Empresas empresastatic) {
-        Empresas.empresastatic = empresastatic;
-    }
-
     public int getIdempresa() {
         return idempresa;
     }

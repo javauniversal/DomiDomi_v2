@@ -31,8 +31,7 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutD
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.appgestor.domidomi.Entities.Empresas.getEmpresastatic;
-import static com.appgestor.domidomi.Entities.Sede.setSedeStatic;
+import static com.appgestor.domidomi.Entities.Sede.getSedeStaticNew;
 import static com.appgestor.domidomi.Entities.UbicacionPreferen.getLatitudStatic;
 import static com.appgestor.domidomi.Entities.UbicacionPreferen.getLongitudStatic;
 
@@ -40,8 +39,6 @@ public class ActivitySedes extends AppCompatActivity implements SwipyRefreshLayo
 
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
-    //private SwipyRefreshLayout mSwipyRefreshLayout;
-    //private AlertDialog alertDialog;
     private RandomTextView randomTextView;
     private RelativeLayout relativeLayout_radar;
     private RelativeLayout relativeLayout_sedes;
@@ -109,7 +106,7 @@ public class ActivitySedes extends AppCompatActivity implements SwipyRefreshLayo
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
 
-                params.put("empresa", String.valueOf(getEmpresastatic().getIdempresa()));
+                params.put("empresa", String.valueOf(getSedeStaticNew().getIdempresa()));
                 params.put("latitud", String.valueOf(getLatitudStatic()));
                 params.put("longitud", String.valueOf(getLongitudStatic()));
 
@@ -171,7 +168,7 @@ public class ActivitySedes extends AppCompatActivity implements SwipyRefreshLayo
                     @Override
                     public void onItemClick(View view, int position) {
 
-                        setSedeStatic(listSedes.get(position));
+                        //setSedeStatic(listSedes.get(position));
 
                         startActivity(new Intent(ActivitySedes.this, ActMenu.class));
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

@@ -36,7 +36,7 @@
                     android:text="@string/Descripcion"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:textColor="@color/color_negro"
+                    android:textColor="@color/colorAccent"
                     android:layout_weight="1"
                     android:layout_margin="4dip"/>
 
@@ -57,7 +57,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/color_1" />
+                android:background="@color/colorAccent" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -82,14 +82,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ingredientes"
                 android:textSize="15sp"
-                android:textColor="@color/color_negro"
+                android:textColor="@color/colorAccent"
                 android:textStyle="bold"
                 android:layout_margin="4dip"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/color_1" />
+                android:background="@color/colorAccent" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -115,14 +115,14 @@
                 android:text="@string/cantidad"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:textColor="@color/color_negro"
+                android:textColor="@color/colorAccent"
                 android:layout_margin="4dip"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/color_1" />
+                android:background="@color/colorAccent" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -159,14 +159,14 @@
                 android:layout_height="wrap_content"
                 android:text="Adiciones/Extras"
                 android:textSize="15sp"
-                android:textColor="@color/color_negro"
+                android:textColor="@color/colorAccent"
                 android:textStyle="bold"
                 android:layout_margin="4dip"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/color_1" />
+                android:background="@color/colorAccent" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -192,13 +192,13 @@
                 android:text="Precios"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:textColor="@color/color_negro"
+                android:textColor="@color/colorAccent"
                 android:layout_margin="4dip"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/color_1" />
+                android:background="@color/colorAccent" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -223,12 +223,13 @@
                 android:layout_width="wrap_content"
                 android:orientation="horizontal"
                 android:layout_gravity="right"
+                android:layout_marginTop="4dp"
                 android:layout_height="wrap_content">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total:$"
+                    android:text="Total: $"
                     android:textStyle="bold"
                     android:textColor="@color/color_negro"
                     android:layout_gravity="right" />
@@ -270,7 +271,7 @@
                 android:text="Comentario"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                android:textColor="@color/color_negro"
+                android:textColor="@color/colorAccent"
                 android:layout_margin="4dip"/>
 
             <LinearLayout

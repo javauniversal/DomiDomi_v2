@@ -67,16 +67,15 @@
     <style name="NoHeaderLight" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar2">
         <item name="colorPrimary">@color/color_1</item>
         <item name="colorPrimaryDark">@color/color_1</item>
-        <item name="colorAccent">#FFFFFF</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="drawerType">@integer/DRAWERTYPE_ACCOUNTS</item>
         <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
         <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
-        <item name="colorButtonNormal">@color/color_1</item>
     </style>
 
     <style name="MaterialNavigationDrawerTheme.Light.DarkActionBar2" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
-        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="theme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="drawerType">@integer/DRAWERTYPE_ACCOUNTS</item>
         <item name="drawerColor">#ffeeeeee</item>
         <item name="rippleBackport">false</item>

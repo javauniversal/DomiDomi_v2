@@ -4,9 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-/**
- * Created by servintesas on 18/12/15.
- */
 public class Menu {
 
     @SerializedName("idmenumovil")
@@ -23,6 +20,16 @@ public class Menu {
 
     @SerializedName("productos")
     private List<Producto> productos;
+
+    public static List<Menu> menuListStatic;
+
+    public static List<Menu> getMenuListStatic() {
+        return menuListStatic;
+    }
+
+    public static void setMenuListStatic(List<Menu> menuListStatic) {
+        Menu.menuListStatic = menuListStatic;
+    }
 
     public int getIdmenumovil() {
         return idmenumovil;

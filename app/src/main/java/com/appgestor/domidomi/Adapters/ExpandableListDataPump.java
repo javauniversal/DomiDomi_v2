@@ -19,19 +19,17 @@ public class ExpandableListDataPump {
         if(data != null) {
             for (int i = 0; i < data.size(); i++) {
 
-                List<String> technology = new ArrayList<>();
-                if (data.get(i).getProductos() != null) {
-                    elements = data.get(i).getProductos().size();
-                }
+                if (data.get(i).getProductos() != null){
 
-                for (int a = 0; a < elements; a++) {
-                    if (data.get(i).getProductos() != null) {
+                    List<String> technology = new ArrayList<>();
+                    elements = data.get(i).getProductos().size();
+
+                    for (int a = 0; a < elements; a++) {
                         technology.add(a, data.get(i).getProductos().get(a).getDescripcion());
                     }
+
+                    expandableListDetail.put(data.get(i).getDescipcion(), technology);
                 }
-
-                expandableListDetail.put(data.get(i).getDescipcion(), technology);
-
             }
         }
         return expandableListDetail;

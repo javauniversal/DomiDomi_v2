@@ -53,11 +53,10 @@ public class ActEstadoPedido extends AppCompatActivity {
         listView = (SwipeMenuListView) findViewById(R.id.listView);
         alertDialog = new SpotsDialog(this, R.style.Custom);
 
-
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         enviarPedido();
+
     }
 
     public void enviarPedido() {
@@ -79,6 +78,7 @@ public class ActEstadoPedido extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
+                        alertDialog.dismiss();
                         startActivity(new Intent(ActEstadoPedido.this, DetailsActivity.class).putExtra("STATE", "ERROR"));
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     }
@@ -95,7 +95,9 @@ public class ActEstadoPedido extends AppCompatActivity {
                 return params;
             }
         };
+
         rq.add(jsonRequest);
+
     }
 
     @Override
@@ -137,12 +139,13 @@ public class ActEstadoPedido extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
+
         startActivity(new Intent(ActEstadoPedido.this, Accounts.class));
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         finish();
         super.onBackPressed();  // optional depending on your needs
+
     }
 
 }

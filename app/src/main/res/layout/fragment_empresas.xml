@@ -1,24 +1,54 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="4dp"
-    android:background="@color/color_gris"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.appgestor.domidomi.mockedFragments.FragListEmpresas">
+    android:layout_height="match_parent">
 
-    <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
-        android:id="@+id/swipyrefreshlayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:direction="both">
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:visibility="visible"
+        android:id="@+id/relativeLayout_radar"
+        android:layout_height="match_parent">
 
-    </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
+        <com.appgestor.domidomi.RadarView.RadarScanView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="56dp">
 
-</LinearLayout>
+        </com.appgestor.domidomi.RadarView.RadarScanView>
+
+        <com.appgestor.domidomi.RadarView.RandomTextView
+            android:id="@+id/random_textview"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_centerInParent="true">
+
+        </com.appgestor.domidomi.RadarView.RandomTextView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="7dp"
+        android:visibility="gone"
+        android:id="@+id/relativeLayout_sedes"
+        android:background="@color/color_gris"
+        tools:showIn="@layout/activity_sedes"
+        android:layout_below="@+id/include"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

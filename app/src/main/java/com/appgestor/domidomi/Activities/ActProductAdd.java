@@ -34,9 +34,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.appgestor.domidomi.Entities.Empresas.getEmpresastatic;
 import static com.appgestor.domidomi.Entities.Producto.getProductoStatic;
-import static com.appgestor.domidomi.Entities.Sede.getSedeStatic;
+import static com.appgestor.domidomi.Entities.Sede.getSedeStaticNew;
 
 public class ActProductAdd extends AppCompatActivity implements View.OnClickListener{
 
@@ -93,9 +92,9 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
         ingredientes.setText(getProductoStatic().getIngredientes());
         format = new DecimalFormat("#,###.##");
 
-        precio.setText(String.format("Valor Unitario:$%s", format.format(getProductoStatic().getPrecio())));
+        precio.setText(String.format("Valor Unitario: $ %s", format.format(getProductoStatic().getPrecio())));
 
-        preciodec.setText(String.format("Valor Unitario:$%s", format.format(getProductoStatic().getPrecio())));
+        preciodec.setText(String.format("Valor Unitario: $ %s", format.format(getProductoStatic().getPrecio())));
 
         totalFinal.setText(String.format("%s",format.format(getProductoStatic().getPrecio())));
 
@@ -181,7 +180,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
             return true;
         }else if(id == R.id.action_cart){
             Bundle bundle = new Bundle();
-            bundle.putInt("compania", getEmpresastatic().getIdempresa());
+            bundle.putInt("compania", getSedeStaticNew().getIdempresa());
             startActivity(new Intent(ActProductAdd.this, ActCar.class).putExtras(bundle));
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             return true;
@@ -214,7 +213,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
                                     //Realizar pedido
                                     if (GuardarPedido()) {
                                         Bundle bundle = new Bundle();
-                                        bundle.putInt("compania", getSedeStatic().getIdsedes());
+                                        bundle.putInt("compania", getSedeStaticNew().getIdsedes());
                                         startActivity(new Intent(ActProductAdd.this, ActCar.class).putExtras(bundle));
                                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                                         finish();
@@ -248,14 +247,14 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
 
         car.setComment(myComment.getText().toString());
         car.setUrlimagen(getProductoStatic().getFoto());
-        car.setIdsede(getSedeStatic().getIdsedes());
-        car.setIdcompany(getSedeStatic().getIdempresa());
-        car.setNameSede(getSedeStatic().getDescripcion());
+        car.setIdsede(getSedeStaticNew().getIdsedes());
+        car.setIdcompany(getSedeStaticNew().getIdempresa());
+        car.setNameSede(getSedeStaticNew().getDescripcion());
 
-        car.setHoraInicioEmpresa(getEmpresastatic().getHorainicio());
-        car.setHoraFinalEmpresa(getEmpresastatic().getHorafinal());
-        car.setCostoEnvio(getSedeStatic().getCosenvio());
-        car.setValorMinimo(getEmpresastatic().getValorMin());
+        car.setHoraInicioEmpresa(getSedeStaticNew().getHorainicio());
+        car.setHoraFinalEmpresa(getSedeStaticNew().getHorafinal());
+        car.setCostoEnvio(getSedeStaticNew().getCosenvio());
+        car.setValorMinimo(getSedeStaticNew().getPedidomeinimo());
 
 
         if(getProductoStatic().getAdicionesList() != null && getProductoStatic().getAdicionesList().size() > 0){
@@ -276,7 +275,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
                                                 getProductoStatic().getAdicionesList().get(f).getValor(),
                                                 getProductoStatic().getAdicionesList().get(f).getEstado(),
                                                 getProductoStatic().getAdicionesList().get(f).getIdproductos(),
-                                                getSedeStatic().getIdsedes(),getEmpresastatic().getIdempresa()));
+                                                getSedeStaticNew().getIdsedes(),getSedeStaticNew().getIdempresa()));
                                 break;
                             }
                         }

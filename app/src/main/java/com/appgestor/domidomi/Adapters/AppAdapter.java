@@ -78,8 +78,8 @@ public class AppAdapter extends BaseAdapter {
         String adicion = mostrarAdiciones(item.getIdProduct(), item.getIdcompany(), item.getIdsede());
 
         holder.tv_name.setText(String.format("%1s(x%2s)", item.getNameProduct(),item.getQuantity()));
-        holder.tv_preci.setText(String.format("Precio: $%s", format.format(item.getValueunitary())));
-        holder.tv_cantidad.setText(String.format("Total: $%s", format.format(item.getValueoverall())));
+        holder.tv_preci.setText(String.format("Precio: $ %s", format.format(item.getValueunitary())));
+        holder.tv_cantidad.setText(String.format("Total: $ %s", format.format(item.getValueoverall())));
 
         if (adicion != null && adicion != ""){
             holder.tv_adiciones.setVisibility(View.VISIBLE);

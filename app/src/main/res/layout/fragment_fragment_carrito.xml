@@ -54,7 +54,7 @@
             android:textSize="17sp"
             android:textStyle="bold"
             android:textColor="@color/colorAccent"
-            android:text="No tiene articulos en el carrito"
+            android:text="No tiene artículos en el carrito"
             android:id="@+id/txtSinArticulos" />
 
     </LinearLayout>
