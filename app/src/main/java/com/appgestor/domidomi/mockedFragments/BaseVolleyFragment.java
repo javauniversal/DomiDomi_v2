@@ -1,12 +1,7 @@
 package com.appgestor.domidomi.mockedFragments;
 
-/**
- * Created by Santi on 26/05/2014.
- */
-
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.support.v4.app.Fragment;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -46,15 +41,15 @@ public class BaseVolleyFragment extends Fragment {
     }
 
     public void onPreStartConnection() {
-        getActivity().setProgressBarIndeterminateVisibility(true);
+        //getActivity().setProgressBarIndeterminateVisibility(true);
     }
 
     public void onConnectionFinished() {
-        getActivity().setProgressBarIndeterminateVisibility(false);
+        //getActivity().setProgressBarIndeterminateVisibility(false);
     }
 
     public void onConnectionFailed(String error) {
-        getActivity().setProgressBarIndeterminateVisibility(false);
-        Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+        //getActivity().setProgressBarIndeterminateVisibility(false);
+        //Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
     }
 }

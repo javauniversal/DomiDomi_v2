@@ -1,11 +1,10 @@
 package com.appgestor.domidomi.mockedFragments;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +34,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import dmax.dialog.SpotsDialog;
+
 import static com.appgestor.domidomi.Entities.Menu.setMenuListStatic;
 import static com.appgestor.domidomi.Entities.Sede.setSedeStaticNew;
 import static com.appgestor.domidomi.Entities.UbicacionPreferen.getLatitudStatic;
@@ -47,6 +48,7 @@ public class FragListEmpresas extends BaseVolleyFragment {
     private RandomTextView randomTextView;
     private RelativeLayout relativeLayout_radar;
     private RelativeLayout relativeLayout_sedes;
+    private AlertDialog alertDialog;
 
     public FragListEmpresas() {}
 
@@ -64,12 +66,15 @@ public class FragListEmpresas extends BaseVolleyFragment {
         relativeLayout_sedes = (RelativeLayout) myView.findViewById(R.id.relativeLayout_sedes);
 
         randomTextView = (RandomTextView) myView.findViewById(R.id.random_textview);
-        randomTextView.setOnRippleViewClickListener(new RandomTextView.OnRippleViewClickListener() {
+
+        alertDialog = new SpotsDialog(getActivity(), R.style.Custom);
+
+        /*randomTextView.setOnRippleViewClickListener(new RandomTextView.OnRippleViewClickListener() {
             @Override
             public void onRippleViewClicked(View view) {
                 //ActivitySedes.this.startActivity(new Intent(ActivitySedes.this, RefreshProgressActivity.class));
             }
-        });
+        });*/
 
         recycler = (RecyclerView) myView.findViewById(R.id.recycler_view);
         recycler.setHasFixedSize(true);
@@ -128,30 +133,30 @@ public class FragListEmpresas extends BaseVolleyFragment {
                 Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();
                 final ListSede listSedes = gson.fromJson(json, ListSede.class);
 
-                for (int i = 0; i < listSedes.size(); i++) {
+                /*for (int i = 0; i < listSedes.size(); i++) {
                     randomTextView.addKeyWord(listSedes.get(i).getDescripcion());
                 }
 
-                randomTextView.show();
+                randomTextView.show();*/
 
-                new Handler().postDelayed(new Runnable(){
+                Animation out = AnimationUtils.makeOutAnimation(getActivity(), true);
+                relativeLayout_radar.startAnimation(out);
+                relativeLayout_radar.setVisibility(View.GONE);
+
+                adapter = new AdapterRecyclerSedesEmpresa(getActivity(), listSedes);
+                recycler.setAdapter(adapter);
+                relativeLayout_sedes.setVisibility(View.VISIBLE);
+                /*new Handler().postDelayed(new Runnable(){
                     @Override
                     public void run() {
                         try {
-                            Animation out = AnimationUtils.makeOutAnimation(getActivity(), true);
-                            relativeLayout_radar.startAnimation(out);
-                            relativeLayout_radar.setVisibility(View.GONE);
 
-                            adapter = new AdapterRecyclerSedesEmpresa(getActivity(), listSedes);
-                            recycler.setAdapter(adapter);
 
-                            relativeLayout_sedes.setVisibility(View.VISIBLE);
                         }catch (Exception e){
                             Log.d("SedesEmpresas", e.getMessage());
                         }
                     }
-                }, 2 * 900);
-
+                }, 2 * 900);*/
                 recycler.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
@@ -187,6 +192,7 @@ public class FragListEmpresas extends BaseVolleyFragment {
     }
 
     private void getDataSedeDem(final int idSede) {
+        alertDialog.show();
         String url = String.format("%1$s%2$s", getString(R.string.url_base), "dataSedesDem");
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>(){
@@ -199,6 +205,7 @@ public class FragListEmpresas extends BaseVolleyFragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
+                        alertDialog.dismiss();
                         startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "ERROR"));
                         getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     }
@@ -217,7 +224,7 @@ public class FragListEmpresas extends BaseVolleyFragment {
     }
 
     private void parseJSONSEDE(String json) {
-
+        alertDialog.dismiss();
         if (!json.equals("[]")){
             try {
 

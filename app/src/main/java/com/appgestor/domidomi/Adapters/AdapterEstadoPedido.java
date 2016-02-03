@@ -77,10 +77,11 @@ public class AdapterEstadoPedido extends BaseAdapter {
         ViewHolder holder = (ViewHolder) convertView.getTag();
         EstadoPedido item = getItem(position);
 
-        holder.txtEmpresa.setText(String.format("Empresa: %s",item.getEmpresa()));
-        holder.txtDireccion.setText(String.format("Dirección: %s", item.getDireccion()));
-        holder.txtFecha.setText(String.format("Fecha del Pedido: %s", item.getFecha()));
+        holder.txtEmpresa.setText(String.format("%s",item.getEmpresa()));
+        holder.txtDireccion.setText(String.format("%s", item.getDireccion()));
+        holder.txtFecha.setText(String.format("%s", item.getFecha()));
         holder.txtCantidad.setText(String.format("Cantidad: %s", item.getCantidad()));
+        holder.txtNumeroOrden.setText(String.format("Pedido: %s", item.getIdordencompra()));
 
         String estado = null;
 
@@ -349,6 +350,7 @@ public class AdapterEstadoPedido extends BaseAdapter {
         TextView txtFecha;
         TextView txtCantidad;
         TextView txtEstado;
+        TextView txtNumeroOrden;
         Button cancelPedido;
 
         public ViewHolder(View view) {
@@ -357,6 +359,7 @@ public class AdapterEstadoPedido extends BaseAdapter {
             txtFecha = (TextView) view.findViewById(R.id.txtFecha);
             txtCantidad = (TextView) view.findViewById(R.id.txtCantidad);
             txtEstado = (TextView) view.findViewById(R.id.txtEstado);
+            txtNumeroOrden = (TextView) view.findViewById(R.id.txtNumeroOrden);
             cancelPedido = (Button) view.findViewById(R.id.btnCancel);
             view.setTag(this);
         }

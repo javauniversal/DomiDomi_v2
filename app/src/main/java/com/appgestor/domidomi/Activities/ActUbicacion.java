@@ -46,7 +46,7 @@ public class ActUbicacion extends AppCompatActivity implements View.OnClickListe
         title.setTypeface(custom_font);
         title.setTextSize(13);
 
-        title.setText("Delivery Domicilios");
+        title.setText("Domi Domi");
 
         ImageView imagen = (ImageView) findViewById(R.id.imageView9);
 

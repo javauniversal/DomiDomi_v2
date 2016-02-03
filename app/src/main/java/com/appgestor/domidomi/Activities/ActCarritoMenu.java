@@ -92,7 +92,7 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
         pedirService.setOnClickListener(this);
 
         TextView domicilioAdd = (TextView) findViewById(R.id.domicilioAdd);
-        domicilioAdd.setText(String.format("$ +%s", format.format(bundleset.getDouble("cosEnvio"))));
+        domicilioAdd.setText(String.format("$ %s", format.format(bundleset.getDouble("cosEnvio"))));
         dialog = new SpotsDialog(this, R.style.Custom);
         dialog.show();
 

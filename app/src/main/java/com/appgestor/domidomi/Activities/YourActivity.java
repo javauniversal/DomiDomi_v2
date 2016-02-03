@@ -41,7 +41,7 @@ public class YourActivity extends AwesomeSplash {
 
 
         //Customize Title
-        configSplash.setTitleSplash("Delivery");
+        configSplash.setTitleSplash("Domi Domi");
         configSplash.setTitleTextColor(R.color.actionBarColorText);
         configSplash.setTitleTextSize(19f); //float value
         configSplash.setAnimTitleDuration(3000);

@@ -10,9 +10,13 @@ import com.appgestor.domidomi.Activities.ActEstadoPedido;
 import com.appgestor.domidomi.Activities.MaterialNavigationDrawerCosmm;
 import com.appgestor.domidomi.LocationFragment12;
 import com.appgestor.domidomi.R;
+import com.appgestor.domidomi.Services.MyService;
 import com.appgestor.domidomi.mockedFragments.FragListEmpresas;
 import com.appgestor.domidomi.mockedFragments.FragmentCarrito;
 import com.appgestor.domidomi.mockedFragments.FragmentPeril;
+
+import static com.appgestor.domidomi.Entities.UbicacionPreferen.setLatitudStatic;
+import static com.appgestor.domidomi.Entities.UbicacionPreferen.setLongitudStatic;
 
 
 public class Accounts extends MaterialNavigationDrawerCosmm {
@@ -31,7 +35,7 @@ public class Accounts extends MaterialNavigationDrawerCosmm {
 
         // create sections
         this.addSection(newSection("Establecimientos", R.drawable.ic_restaurant_menu_black_24dp, new FragListEmpresas()));
-        this.addSection(newSection("Mis Pedidos", R.drawable.ic_view_compact_black_48dp,new Intent(this, ActEstadoPedido.class)));
+        this.addSection(newSection("Mis Pedidos", R.drawable.ic_playlist_add_check_black_24dp,new Intent(this, ActEstadoPedido.class)));
         this.addSection(newSection("Mi Ubicación", R.drawable.ic_pin_drop_black_48dp, new LocationFragment12()));
         this.addSection(newSection("Carrito", R.drawable.ic_local_grocery_store_black_24dp, new FragmentCarrito()));
         //this.addSection(newSection("Perfil", R.drawable.ic_face_black_24dp, new FragmentPeril()));
@@ -53,8 +57,18 @@ public class Accounts extends MaterialNavigationDrawerCosmm {
         }
 
         mBackPressed = System.currentTimeMillis();
-
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        MyService gps = new MyService(this);
+        if (gps.canGetLocation()){
+
+            setLatitudStatic(gps.getLatitude());
+            setLongitudStatic(gps.getLongitude());
+
+        }
+    }
 
 }

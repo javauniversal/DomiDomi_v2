@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Delivery Domicilios</string>
+    <string name="app_name">Domi Domi</string>
 
-    <string name="hello_world">Delivery Domicilios</string>
+    <string name="hello_world">Domi Domi</string>
 
     <!-- <string name="url_base">http://zonaapp.co/domidomi/service/</string> -->
     <string name="url_base">http://zonaapp.co/domidomi_master/service/</string>
