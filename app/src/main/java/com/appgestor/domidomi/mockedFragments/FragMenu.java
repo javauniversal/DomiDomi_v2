@@ -139,8 +139,8 @@ public class FragMenu extends BaseVolleyFragment {
                 CargarImagen();
                 txtNombreSede.setText(getSedeStaticNew().getDescripcion());
                 txtDireccion.setText(getSedeStaticNew().getDireccion());
-                txtTiempo.setText(String.format("Tiempo de Entregas: %s aprox", getSedeStaticNew().getTiempoEnvio()));
-                txtCosto.setText(String.format("Costo de Envió: $ %s", format.format(getSedeStaticNew().getCosenvio())));
+                txtTiempo.setText(String.format("Tiempo de Entrega: %s aprox", getSedeStaticNew().getTiempoEnvio()));
+                txtCosto.setText(String.format("Costo de Envío: $ %s", format.format(getSedeStaticNew().getCosenvio())));
 
                 String concatAdiciones = "";
 
@@ -152,7 +152,7 @@ public class FragMenu extends BaseVolleyFragment {
                     }
                 }
 
-                txtMedioPago.setText(String.format("Medios de Pagos: %s", concatAdiciones));
+                txtMedioPago.setText(String.format("Medios de Pago: %s", concatAdiciones));
 
                 setExpandableListView();
 
@@ -217,7 +217,7 @@ public class FragMenu extends BaseVolleyFragment {
         ) {
             @Override
             protected Map<String, String> getParams(){
-                Map<String, String>  params = new HashMap<String, String>();
+                Map<String, String>  params = new HashMap<>();
                 params.put("sede", String.valueOf(getSedeStaticNew().getIdsedes()));
 
                 return params;

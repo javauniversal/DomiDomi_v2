@@ -52,10 +52,25 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".Activities.ActCar"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".Activities.ActMenu">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.appgestor.domidomi.dark.Accounts" />
+
+        </activity>
+
         <activity
             android:name=".Activities.ActCarritoMenu"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".dark.Accounts">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.appgestor.domidomi.dark.Accounts" />
+        </activity>
+
         <activity
             android:name=".Activities.ActFinalizarPedidoMenu"
             android:theme="@style/AppTheme" />

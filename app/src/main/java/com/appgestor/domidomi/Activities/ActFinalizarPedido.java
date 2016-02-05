@@ -240,9 +240,9 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
 
     private void loadCiudades() {
         ciudades = new ArrayList<>();
-        ciudades.add(new Ciudades(1, "Medellin", 1));
-        ciudades.add(new Ciudades(2, "Bogota", 1));
-        prec3 = new ArrayAdapter<>(ActFinalizarPedido.this, android.R.layout.simple_spinner_dropdown_item, ciudades);
+        ciudades.add(new Ciudades(1, "Medellín", 1));
+        ciudades.add(new Ciudades(2, "Bogotá", 1));
+        prec3 = new ArrayAdapter<>(ActFinalizarPedido.this, R.layout.textview_spinner, ciudades);
     }
 
     private void setCiudades(){
@@ -253,7 +253,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selecte_ciudad = parent.getItemAtPosition(position).toString();
 
-                if (selecte_ciudad.equals("Medellin")){
+                if (selecte_ciudad.equals("Medellín")){
                     zonaLayout.setVisibility(View.VISIBLE);
                     loadLlenarZona();
                 }else {
@@ -271,7 +271,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
     }
 
     private void loadLlenarZona() {
-        dir1Zona_parant = new String[]{"Envigado", "Sabaneta", "Itagui", "La estrella", "Medellin", "Bello"};
+        dir1Zona_parant = new String[]{"Envigado", "Sabaneta", "Itaguí", "La Estrella", "Medellín", "Bello"};
     }
 
     private void setLlenarZona(){
@@ -360,11 +360,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
         }
 
         valorFinalPedido = valorFinalPedido + getSedeStaticNew().getCosenvio();
-        if (Double.parseDouble(editEfectivo.getText().toString()) >= valorFinalPedido){
-            return false;
-        }
-
-        return true;
+        return Double.parseDouble(editEfectivo.getText().toString()) < valorFinalPedido;
 
     }
 
@@ -404,7 +400,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
 
     private void loadAdress() {
         dir1_parant = new String[]{"Avenida", "Avenida Calle", "Avenida Carrera", "Calle", "Carrera", "Circular", "Circunvalar",
-                "Diagonal", "Manzana", "Transversal", "Via"};
+                "Diagonal", "Manzana", "Transversal", "Vía"};
 
         prec1 = new ArrayAdapter<>(ActFinalizarPedido.this, R.layout.textview_spinner, dir1_parant);
 

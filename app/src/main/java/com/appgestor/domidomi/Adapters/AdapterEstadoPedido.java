@@ -89,17 +89,17 @@ public class AdapterEstadoPedido extends BaseAdapter {
             case "Iniciado":
                 holder.cancelPedido.setVisibility(View.VISIBLE);
                 estado = "Iniciado";
-                holder.txtEstado.setTextColor(Color.parseColor("#088A08"));
+                holder.txtEstado.setTextColor(Color.parseColor("#86B404"));
                 break;
             case "En proceso":
                 estado = "En proceso";
                 holder.cancelPedido.setVisibility(View.GONE);
-                holder.txtEstado.setTextColor(Color.parseColor("#AEB404"));
+                holder.txtEstado.setTextColor(Color.parseColor("#A4A4A4"));
                 break;
             case "Alistado":
                 estado = "Alistado";
                 holder.cancelPedido.setVisibility(View.GONE);
-                holder.txtEstado.setTextColor(Color.parseColor("#0000FF"));
+                holder.txtEstado.setTextColor(Color.parseColor("#FFFF00"));
                 break;
             case "Enviado":
                 estado = "Enviado";
@@ -109,7 +109,12 @@ public class AdapterEstadoPedido extends BaseAdapter {
             case "Finalizado":
                 estado = "Finalizado";
                 holder.cancelPedido.setVisibility(View.GONE);
-                holder.txtEstado.setTextColor(Color.parseColor("#F20505"));
+                holder.txtEstado.setTextColor(Color.parseColor("#2E2EFE"));
+                break;
+            case "Cancelado":
+                estado = "Cancelado";
+                holder.cancelPedido.setVisibility(View.GONE);
+                holder.txtEstado.setTextColor(Color.parseColor("#FE2E2E"));
                 break;
 
         }

@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -55,8 +57,17 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         toolbar.setTitle(getSedeStaticNew().getDescripcion());
-        toolbar.setNavigationIcon(R.mipmap.ic_action_cartw);
         setSupportActionBar(toolbar);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         format = new DecimalFormat("#,###.##");
 
@@ -200,6 +211,25 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
         mAppListPublico = mAppList;
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_tutorial, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.accion_add) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
     private void sumarValoresFinales(List<AddProductCar> data){
 
         if(data.size() > 0){
@@ -230,7 +260,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
     private void deletePrduct(final int position){
         new MaterialDialog.Builder(ActCar.this)
                 .title("Eliminar producto")
-                .content("Esta seguro de eliminar del carrito?")
+                .content("¿Está seguro de eliminar del carrito?")
                 .positiveText("Aceptar")
                 .negativeText("Cancelar")
                 .callback(new MaterialDialog.ButtonCallback() {

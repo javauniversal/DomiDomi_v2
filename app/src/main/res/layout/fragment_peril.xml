@@ -14,7 +14,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
@@ -31,7 +31,7 @@
 
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/input_layout_password1"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="8dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -39,21 +39,23 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/editNombreCliente"
-                            android:hint="Nombre"
+                            android:hint="@string/nombre"
+                            android:textSize="@dimen/dimen_letra_app"
                             android:inputType="text" />
 
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/input_layout_celular"
-                        android:layout_marginTop="35dp"
+                        android:layout_marginTop="15dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Celular"
+                            android:hint="@string/celular"
+                            android:textSize="@dimen/dimen_letra_app"
                             android:id="@+id/editCelular"
                             android:inputType="number"/>
 
@@ -61,14 +63,15 @@
 
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/input_layout_telefono"
-                        android:layout_marginTop="35dp"
+                        android:layout_marginTop="15dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Teléfono"
+                            android:hint="@string/tel_fono"
+                            android:textSize="@dimen/dimen_letra_app"
                             android:id="@+id/editTelefono"
                             android:inputType="number"/>
 
@@ -84,29 +87,26 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_below="@+id/linearLayout2"
-                android:layout_centerHorizontal="true">
+                android:layout_marginTop="8dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Dirección"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorAccent"
+                    android:text="@string/direcci_n"
+                    android:textSize="@dimen/dimen_letra_app"
                     android:paddingTop="8dp"
-                    android:paddingLeft="8dp"/>
+                    android:paddingLeft="3dp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 
                     <Spinner
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/spinner_dir"
+                        android:textSize="@dimen/dimen_letra_app"
                         android:layout_weight="1" />
 
                     <EditText
@@ -114,14 +114,15 @@
                         android:layout_height="match_parent"
                         android:id="@+id/txt_dir_1"
                         android:layout_weight="1.1"
-                        android:textColor="@color/color_negro"
-                        android:gravity="center_vertical|center_horizontal" />
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:inputType="text" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="#"
-                        android:textColor="@color/color_negro"
+                        android:text="@string/separado"
+                        android:textSize="@dimen/dimen_letra_app"
                         android:layout_weight="1.4"
                         android:gravity="center_vertical|center_horizontal" />
 
@@ -129,15 +130,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/txt_dir_2"
-                        android:textColor="@color/color_negro"
                         android:layout_weight="1.1"
-                        android:gravity="center_vertical|center_horizontal" />
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:inputType="text" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="-"
-                        android:textColor="@color/color_negro"
+                        android:text="@string/separador2"
+                        android:textSize="@dimen/dimen_letra_app"
                         android:layout_weight="1.4"
                         android:gravity="center_vertical|center_horizontal" />
 
@@ -146,64 +148,89 @@
                         android:layout_height="match_parent"
                         android:id="@+id/txt_dir_3"
                         android:layout_weight="1.1"
-                        android:textColor="@color/color_negro"
-                        android:gravity="center_vertical|center_horizontal" />
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:inputType="text" />
 
                 </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:paddingTop="8dp"
-                    android:textColor="@color/colorAccent"
-                    android:paddingLeft="8dp"
-                    android:text="Ciudades" />
-
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/spinner_ciudades"
-                    android:layout_marginTop="5dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:visibility="gone"
-                    android:id="@+id/zonaLayout"
-                    android:layout_height="wrap_content">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="15sp"
-                        android:paddingLeft="8dp"
-                        android:text="Zonas" />
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content">
 
-                    <Spinner
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/dimen_letra_app"
+                            android:paddingLeft="3dp"
+                            android:text="@string/ciudades" />
+
+                        <Spinner
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/spinner_ciudades" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/spinner_zona"
-                        android:layout_marginTop="5dp" />
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:id="@+id/zonaLayout"
+                            android:visibility="gone"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/dimen_letra_app"
+                                android:paddingLeft="3dp"
+                                android:text="@string/zonas" />
+
+                            <Spinner
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/spinner_zona" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
+
+
+
+
+
 
                 <Switch
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Incluir En los pedido"
+                    android:text="@string/incluir_en_los_pedido"
                     android:id="@+id/switch1"
-                    android:textColor="@color/colorAccent"
                     android:layout_marginTop="10dp"
+                    android:textSize="@dimen/dimen_letra_app"
                     android:layout_gravity="right" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Guardar"
+                    android:text="@string/guardar"
                     android:layout_marginTop="14dp"
                     android:id="@+id/buttonG"
                     style="@style/BrandButtonStyle2"

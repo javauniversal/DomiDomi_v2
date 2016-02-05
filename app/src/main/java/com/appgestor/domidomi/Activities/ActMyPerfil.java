@@ -28,7 +28,6 @@ public class ActMyPerfil extends AppCompatActivity implements View.OnClickListen
 
     private Spinner spinner_dir;
     private String Calle_Carrera;
-    private String[] dir1Zona_parant;
     private String zona_dir;
     private Spinner spinner_zona;
     private LinearLayout zonaLayout;
@@ -42,7 +41,6 @@ public class ActMyPerfil extends AppCompatActivity implements View.OnClickListen
     private EditText txt_dir_1;
     private EditText txt_dir_2;
     private EditText txt_dir_3;
-    private Button btnGuardar;
     private DBHelper mydb;
     private Switch switch1;
     private Cliente cliente;
@@ -63,7 +61,7 @@ public class ActMyPerfil extends AppCompatActivity implements View.OnClickListen
         spinner_zona = (Spinner) findViewById(R.id.spinner_zona);
         spinner_dir = (Spinner) findViewById(R.id.spinner_dir);
 
-        btnGuardar = (Button) findViewById(R.id.buttonG);
+        Button btnGuardar = (Button) findViewById(R.id.buttonG);
         btnGuardar.setOnClickListener(this);
 
         editNombreCliente = (EditText) findViewById(R.id.editNombreCliente);
@@ -121,9 +119,9 @@ public class ActMyPerfil extends AppCompatActivity implements View.OnClickListen
     private void loadAdress() {
 
         dir1_parant = new String[]{"Avenida", "Avenida Calle", "Avenida Carrera", "Calle", "Carrera", "Circular", "Circunvalar",
-                "Diagonal", "Manzana", "Transversal", "Via"};
+                "Diagonal", "Manzana", "Transversal", "Vía"};
 
-        ArrayAdapter<String> prec1 = new ArrayAdapter<String>(ActMyPerfil.this, R.layout.textview_spinner, dir1_parant);
+        ArrayAdapter<String> prec1 = new ArrayAdapter<>(ActMyPerfil.this, R.layout.textview_spinner, dir1_parant);
         spinner_dir.setAdapter(prec1);
         spinner_dir.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -141,17 +139,17 @@ public class ActMyPerfil extends AppCompatActivity implements View.OnClickListen
     private void loadCiudades() {
 
         ciudades = new ArrayList<>();
-        ciudades.add(new Ciudades(1, "Medellin", 1));
-        ciudades.add(new Ciudades(2, "Bogota", 1));
+        ciudades.add(new Ciudades(1, "Medellín", 1));
+        ciudades.add(new Ciudades(2, "Bogotá", 1));
 
-        ArrayAdapter<Ciudades> prec3 = new ArrayAdapter<Ciudades>(ActMyPerfil.this, android.R.layout.simple_spinner_dropdown_item, ciudades);
+        ArrayAdapter<Ciudades> prec3 = new ArrayAdapter<>(ActMyPerfil.this, android.R.layout.simple_spinner_dropdown_item, ciudades);
         spinner_ciudades.setAdapter(prec3);
         spinner_ciudades.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selecte_ciudad = parent.getItemAtPosition(position).toString();
 
-                if (selecte_ciudad.equals("Medellin")){
+                if (selecte_ciudad.equals("Medellín")){
                     zonaLayout.setVisibility(View.VISIBLE);
                     loadLlenarZona();
                 }else {
@@ -167,7 +165,7 @@ public class ActMyPerfil extends AppCompatActivity implements View.OnClickListen
 
     private void loadLlenarZona() {
 
-        dir1Zona_parant = new String[]{"Envigado", "Sabaneta", "Itagui", "La estrella", "Medellin", "Bello"};
+        String[] dir1Zona_parant = new String[]{"Envigado", "Sabaneta", "Itaguí", "La Estrella", "Medellín", "Bello"};
         ArrayAdapter<String> prec1 = new ArrayAdapter<>(ActMyPerfil.this, R.layout.textview_spinner, dir1Zona_parant);
         spinner_zona.setAdapter(prec1);
         List<String> strListZona = new ArrayList<>(Arrays.asList(dir1Zona_parant));

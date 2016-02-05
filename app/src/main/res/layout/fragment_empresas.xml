@@ -3,11 +3,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/search_sedes12"
+        android:orientation="horizontal"
+        android:elevation="20dp"
+        android:layout_height="wrap_content">
+
+        <SearchView
+            android:id="@+id/search_sedes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:layout_weight="1"
+            android:paddingRight="10dp"
+            android:textSize="16sp"
+            android:layout_marginTop="4dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:paddingTop="19dp"
+            android:paddingBottom="9dp"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:src="@drawable/filter"
+            android:id="@+id/imgFilter"
+            android:contentDescription="@string/app_name" />
+
+
+    </LinearLayout>
+
+    <!-- Radar -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:visibility="visible"
         android:id="@+id/relativeLayout_radar"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/search_sedes12">
+
+
 
         <com.appgestor.domidomi.RadarView.RadarScanView
             android:layout_width="match_parent"
@@ -15,7 +52,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="56dp">
+            android:layout_marginTop="10dp">
 
         </com.appgestor.domidomi.RadarView.RadarScanView>
 
@@ -27,8 +64,21 @@
 
         </com.appgestor.domidomi.RadarView.RandomTextView>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="@dimen/dimen_letra_app"
+            android:text="@string/buscando_establecimientos_cercanos"
+            android:id="@+id/textView8"
+            android:textStyle="bold"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal" />
+
     </RelativeLayout>
 
+    <!-- ListView -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -37,9 +87,9 @@
         android:id="@+id/relativeLayout_sedes"
         android:background="@color/color_gris"
         tools:showIn="@layout/activity_sedes"
-        android:layout_below="@+id/include"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/search_sedes12">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"

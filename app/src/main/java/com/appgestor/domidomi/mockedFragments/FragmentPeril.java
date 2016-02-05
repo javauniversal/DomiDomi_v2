@@ -159,9 +159,9 @@ public class FragmentPeril extends Fragment {
     private void loadAdress() {
 
         dir1_parant = new String[]{"Avenida", "Avenida Calle", "Avenida Carrera", "Calle", "Carrera", "Circular", "Circunvalar",
-                "Diagonal", "Manzana", "Transversal", "Via"};
+                "Diagonal", "Manzana", "Transversal", "Vía"};
 
-        ArrayAdapter<String> prec1 = new ArrayAdapter<String>(getActivity(), R.layout.textview_spinner, dir1_parant);
+        ArrayAdapter<String> prec1 = new ArrayAdapter<>(getActivity(), R.layout.textview_spinner, dir1_parant);
         spinner_dir.setAdapter(prec1);
         spinner_dir.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -179,17 +179,17 @@ public class FragmentPeril extends Fragment {
     private void loadCiudades() {
 
         ciudades = new ArrayList<>();
-        ciudades.add(new Ciudades(1, "Medellin", 1));
-        ciudades.add(new Ciudades(2, "Bogota", 1));
+        ciudades.add(new Ciudades(1, "Medellín", 1));
+        ciudades.add(new Ciudades(2, "Bogotá", 1));
 
-        ArrayAdapter<Ciudades> prec3 = new ArrayAdapter<Ciudades>(getActivity(), android.R.layout.simple_spinner_dropdown_item, ciudades);
+        ArrayAdapter<Ciudades> prec3 = new ArrayAdapter<>(getActivity(), R.layout.textview_spinner, ciudades);
         spinner_ciudades.setAdapter(prec3);
         spinner_ciudades.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selecte_ciudad = parent.getItemAtPosition(position).toString();
 
-                if (selecte_ciudad.equals("Medellin")){
+                if (selecte_ciudad.equals("Medellín")){
                     zonaLayout.setVisibility(View.VISIBLE);
                     loadLlenarZona();
                 }else {
@@ -205,7 +205,7 @@ public class FragmentPeril extends Fragment {
 
     private void loadLlenarZona() {
 
-        dir1Zona_parant = new String[]{"Envigado", "Sabaneta", "Itagui", "La estrella", "Medellin", "Bello"};
+        dir1Zona_parant = new String[]{"Envigado", "Sabaneta", "Itaguí", "La Estrella", "Medellín", "Bello"};
         ArrayAdapter<String> prec1 = new ArrayAdapter<>(getActivity(), R.layout.textview_spinner, dir1Zona_parant);
         spinner_zona.setAdapter(prec1);
         List<String> strListZona = new ArrayList<>(Arrays.asList(dir1Zona_parant));

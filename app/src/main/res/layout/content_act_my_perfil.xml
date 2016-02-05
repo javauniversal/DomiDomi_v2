@@ -18,7 +18,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
@@ -54,7 +54,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Celular"
+                        android:text="@string/celular"
                         android:textStyle="bold"
                         android:paddingTop="8dp"
                         android:paddingLeft="8dp"/>
@@ -72,7 +72,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Teléfono"
+                        android:text="@string/tel_fono"
                         android:textStyle="bold"
                         android:paddingTop="8dp"
                         android:paddingLeft="8dp"/>
@@ -96,14 +96,12 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_below="@+id/linearLayout2"
-                android:layout_centerHorizontal="true">
+                android:layout_marginTop="12dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Dirección"
+                    android:text="@string/direccion"
                     android:textStyle="bold"
                     android:paddingTop="8dp"
                     android:paddingLeft="8dp"/>
@@ -125,12 +123,13 @@
                         android:layout_height="match_parent"
                         android:id="@+id/txt_dir_1"
                         android:layout_weight="1.1"
-                        android:gravity="center_vertical|center_horizontal" />
+                        android:gravity="center_vertical|center_horizontal"
+                        android:inputType="text" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="#"
+                        android:text="@string/separador"
                         android:layout_weight="1.4"
                         android:gravity="center_vertical|center_horizontal" />
 
@@ -139,12 +138,13 @@
                         android:layout_height="match_parent"
                         android:id="@+id/txt_dir_2"
                         android:layout_weight="1.1"
-                        android:gravity="center_vertical|center_horizontal" />
+                        android:gravity="center_vertical|center_horizontal"
+                        android:inputType="text" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="-"
+                        android:text="@string/separador2"
                         android:layout_weight="1.4"
                         android:gravity="center_vertical|center_horizontal" />
 
@@ -153,7 +153,8 @@
                         android:layout_height="match_parent"
                         android:id="@+id/txt_dir_3"
                         android:layout_weight="1.1"
-                        android:gravity="center_vertical|center_horizontal" />
+                        android:gravity="center_vertical|center_horizontal"
+                        android:inputType="text" />
 
                 </LinearLayout>
 
@@ -163,7 +164,7 @@
                     android:textStyle="bold"
                     android:paddingTop="8dp"
                     android:paddingLeft="8dp"
-                    android:text="Ciudades" />
+                    android:text="@string/ciudades" />
 
                 <Spinner
                     android:layout_width="match_parent"
@@ -184,7 +185,7 @@
                         android:layout_marginTop="10dp"
                         android:textStyle="bold"
                         android:textSize="15sp"
-                        android:text="Zonas" />
+                        android:text="@string/zonas" />
 
                     <Spinner
                         android:layout_width="match_parent"
@@ -197,7 +198,7 @@
                 <Switch
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Incluir En los pedido"
+                    android:text="@string/incluir_en_los_pedidos"
                     android:id="@+id/switch1"
                     android:layout_marginTop="10dp"
                     android:layout_gravity="right" />
@@ -205,7 +206,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Guardar"
+                    android:text="@string/guardar"
                     android:layout_marginTop="14dp"
                     android:id="@+id/buttonG"
                     style="@style/BrandButtonStyle2"

@@ -79,19 +79,14 @@ public class AdapterRecyclerSedesEmpresa extends RecyclerView.Adapter<RowViewHol
         holder.txtDireccion.setText(items.getDireccion());
 
         int color;
-        String estado;
-
-        if (isHourInInterval(hourdateFormat.format(date).toString(), items.getHorainicio(), items.getHorafinal())){
-            //Abierto
-            estado = "Abierto";
-            color = Color.parseColor("#0000FF");
-        }else{
-            //Cerrado
-            estado = "Cerrado";
+        if(items.getHorario().equals("Cerrado")){
             color = Color.parseColor("#FF0000");
+        } else {
+            color = Color.parseColor("#0000FF");
+
         }
 
-        holder.txtHora.setText(estado);
+        holder.txtHora.setText(items.getHorario());
         holder.txtHora.setTextColor(color);
     }
 

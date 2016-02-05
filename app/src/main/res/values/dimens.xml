@@ -31,4 +31,6 @@
     <dimen name="ancho_tabla">100dp</dimen>
     <dimen name="ancho_table_precio">10dp</dimen>
 
+    <dimen name="dimen_letra_app">13sp</dimen>
+
 </resources>

@@ -1,5 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp" >
@@ -26,30 +25,30 @@
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="name"
-            android:textSize="12sp" />
+            android:text="@string/name"
+            android:textSize="@dimen/dimen_letra_app" />
 
         <TextView
             android:id="@+id/tv_preci"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Precio"
-            android:textSize="12sp" />
+            android:text="@string/precio"
+            android:textSize="@dimen/dimen_letra_app" />
 
         <TextView
             android:id="@+id/tv_cantidad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cantidad"
-            android:textSize="12sp" />
+            android:text="@string/cantidad"
+            android:textSize="@dimen/dimen_letra_app" />
 
         <TextView
             android:id="@+id/tv_adiciones"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Adiciones:"
+            android:text="@string/adiciones"
             android:visibility="visible"
-            android:textSize="12sp" />
+            android:textSize="@dimen/dimen_letra_app" />
 
     </LinearLayout>
 

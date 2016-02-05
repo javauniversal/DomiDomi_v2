@@ -44,6 +44,7 @@ public class AdapterComentario extends BaseAdapter {
         final ViewHolder holder = (ViewHolder) convertView.getTag();
 
         holder.message.setText(elements.get(position).getComentario());
+        holder.fecha.setText(elements.get(position).getFechain());
 
         return convertView;
 
@@ -51,9 +52,11 @@ public class AdapterComentario extends BaseAdapter {
 
     class ViewHolder {
         public TextView message = null;
+        public TextView fecha = null;
 
         public ViewHolder(View view) {
             message = (TextView) view.findViewById(R.id.txtComentario);
+            fecha = (TextView) view.findViewById(R.id.txtFechaComentario);
             view.setTag(this);
         }
     }

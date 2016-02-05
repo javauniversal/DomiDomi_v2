@@ -1,5 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grid_item_bg_pressed">
@@ -31,8 +30,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombre Sede"
-                android:textSize="14sp"
+                android:text="@string/nombre_sede"
+                android:textSize="@dimen/dimen_letra_app"
                 android:textStyle="bold"
                 android:textColor="@color/colorAccent"
                 android:id="@+id/txtNombreSede" />
@@ -40,29 +39,29 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dirección"
-                android:textSize="12sp"
+                android:text="@string/direcci_n"
+                android:textSize="@dimen/dimen_letra_app"
                 android:id="@+id/txtDireccion" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tiempo de espera"
-                android:textSize="12sp"
+                android:text="@string/tiempo_de_espera"
+                android:textSize="@dimen/dimen_letra_app"
                 android:id="@+id/txtTiempoespera" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Costo de envió"
-                android:textSize="12sp"
+                android:text="@string/costo_de_env_o"
+                android:textSize="@dimen/dimen_letra_app"
                 android:id="@+id/txtCosto" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Medios de pagos"
-                android:textSize="12sp"
+                android:text="@string/medios_de_pagos"
+                android:textSize="@dimen/dimen_letra_app"
                 android:id="@+id/txtMediosPago" />
 
         </LinearLayout>

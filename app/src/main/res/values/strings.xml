@@ -4,7 +4,7 @@
     <string name="hello_world">Domi Domi</string>
 
     <!-- <string name="url_base">http://zonaapp.co/domidomi/service/</string> -->
-    <string name="url_base">http://zonaapp.co/domidomi_master/service/</string>
+    <string name="url_base">http://domidomi.zonaapp.co/service/</string>
     <!--<string name="url_base">http://172.20.32.75/dashboardd/services/</string>-->
 
     <string name="title_activity_act_ubicacion">Mi Ubicación</string>
@@ -19,6 +19,11 @@
         <item>Menú</item>
         <item>Información</item>
         <item>Comentarios</item>
+    </string-array>
+
+    <string-array name="pedidos">
+        <item>Seguimiento</item>
+        <item>Historial</item>
     </string-array>
 
     <string name="title_activity_act_product_add">Agregar Producto</string>
@@ -59,7 +64,7 @@
     <string name="informacion">Información</string>
     <string name="sede_sucursales">Sedes o sucursales</string>
 
-    <string name="titulo_confirmacion_pedido">Atención!</string>
+    <string name="titulo_confirmacion_pedido">¡Atención!</string>
     <string name="contenido_confirmacion_pedido">Desea seguir agregando más productos o quiere realizar el pedido?</string>
     <string name="add_producto">Seguir Agregando</string>
     <string name="realizar_pedido">Realizar Pedido</string>
@@ -106,5 +111,51 @@
     <string name="title_radar_view">Buscando establecimientos cercanos a tu posición actual</string>
     <string name="title_activity_act_my_perfil">Perfil</string>
     <string name="title_activity_act_direccion_escrita">"Direccion "</string>
+    <string name="tel_fono">Teléfono</string>
+    <string name="direcci_n">Dirección</string>
+    <string name="separado">#</string>
+    <string name="separador2">-</string>
+    <string name="ciudades">Ciudades</string>
+    <string name="zonas">Zonas</string>
+    <string name="incluir_en_los_pedido">Incluir En los pedido</string>
+    <string name="guardar">Guardar</string>
+    <string name="domicilios">Domicilios</string>
+    <string name="total">Total</string>
+    <string name="comentario">Comentario:</string>
+    <string name="barrio">Barrio</string>
+    <string name="adiciones_extras">Adiciones/Extras</string>
+    <string name="precios">Precios</string>
+    <string name="unidad">Unidad</string>
+    <string name="total_signo">Total: $</string>
+    <string name="_0">0</string>
+    <string name="separador">#</string>
+    <string name="voy_a_pagar_con_un_billete_de_ej_50_000">Voy a pagar con un billete de Ej: 50,000</string>
+    <string name="medios_de_pago">Medios de Pago</string>
+    <string name="lugar_de_referencia">Lugar de Referencia</string>
+    <string name="separador_2">-</string>
+    <string name="search">Search</string>
+    <string name="nombre_sede">Nombre Sede</string>
+    <string name="tiempo_de_espera">Tiempo de espera</string>
+    <string name="costo_de_env_o">Costo de envío</string>
+    <string name="medios_de_pagos">Medios de pagos</string>
+    <string name="name">name</string>
+    <string name="precio">Precio</string>
+    <string name="adiciones">Adiciones:</string>
+    <string name="establecimiento">Establecimiento</string>
+    <string name="estado">Estado</string>
+    <string name="fecha">Fecha</string>
+    <string name="orden">Orden #</string>
+    <string name="cancelar_pedido">Cancelar Pedido</string>
+    <string name="buscando_establecimientos_cercanos">Buscando Establecimientos Cercanos</string>
+    <string name="no_tiene_historial_de_pendientes">No tiene historial de pendientes</string>
+    <string name="no_tiene_pedidos_pendientes">No tiene pedidos pendientes</string>
+    <string name="nombre_de_la_sede">Nombre de la sede</string>
+    <string name="_2016_02_24">2016-02-24</string>
+    <string name="texto_del_comentario">Texto del comentario</string>
+    <string name="_0_">$0</string>
+    <string name="seleccione_una_sede_para_ver_su_carrito">Seleccione una sede para ver su carrito</string>
+    <string name="no_tiene_art_culos_en_el_carrito">No tiene artículos en el carrito</string>
+    <string name="incluir_en_los_pedidos">Incluir en los pedidos</string>
+    <string name="horario">Horario</string>
 
 </resources>

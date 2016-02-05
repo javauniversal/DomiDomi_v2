@@ -30,9 +30,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/nombre_empresa"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/dimen_letra_app"
+                    android:textColor="@color/colorAccent"
                     android:textStyle="bold"
-                    android:textColor="@color/color_negro"
                     android:id="@+id/textView3" />
 
                 <TextView
@@ -40,8 +40,7 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/margen_izquierdo"
                     android:text=""
-                    android:textSize="12sp"
-                    android:textColor="@color/color_negro"
+                    android:textSize="@dimen/dimen_letra_app"
                     android:id="@+id/txtNombreEmpresa"
                     android:layout_below="@+id/textView3"
                     android:layout_alignParentLeft="true"
@@ -67,7 +66,7 @@
             android:layout_marginBottom="14dip"
             android:padding="@dimen/margin_informacioin"
             android:orientation="vertical"
-            android:elevation="10dp"
+            android:elevation="20dp"
             android:descendantFocusability="blocksDescendants">
 
             <RelativeLayout
@@ -79,9 +78,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/nit"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/dimen_letra_app"
+                    android:textColor="@color/colorAccent"
                     android:textStyle="bold"
-                    android:textColor="@color/color_negro"
                     android:id="@+id/textView4" />
 
                 <ImageView
@@ -100,10 +99,9 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:paddingLeft="12dp"
-                    android:textSize="11sp"
+                    android:textSize="@dimen/dimen_letra_app"
                     android:id="@+id/txtNit"
                     android:layout_below="@+id/textView4"
-                    android:textColor="@color/color_negro"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
 
@@ -115,8 +113,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dip"
             android:padding="@dimen/margin_informacioin"
+            android:elevation="10dp"
             android:orientation="vertical"
-            android:elevation="@dimen/margininformacio"
             android:descendantFocusability="blocksDescendants">
 
             <RelativeLayout
@@ -128,9 +126,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/informacion"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/dimen_letra_app"
+                    android:textColor="@color/colorAccent"
                     android:textStyle="bold"
-                    android:textColor="@color/color_negro"
                     android:id="@+id/textView42" />
 
                 <ImageView
@@ -149,10 +147,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/senales"
                     android:paddingLeft="12dp"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/dimen_letra_app"
                     android:id="@+id/textDireccion"
                     android:layout_below="@+id/textView42"
-                    android:textColor="@color/color_negro"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
 
@@ -161,9 +158,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/senales"
                     android:paddingLeft="12dp"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/dimen_letra_app"
                     android:id="@+id/txtTelefono"
-                    android:textColor="@color/color_negro"
                     android:layout_below="@+id/textDireccion"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
@@ -173,11 +169,10 @@
                     android:layout_height="wrap_content"
                     android:text="@string/senales"
                     android:paddingLeft="12dp"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/dimen_letra_app"
                     android:id="@+id/txtCelulat"
                     android:layout_below="@+id/txtTelefono"
                     android:layout_alignParentLeft="true"
-                    android:textColor="@color/color_negro"
                     android:layout_alignParentStart="true" />
 
             </RelativeLayout>
@@ -187,8 +182,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/margin_informacioin"
-            android:orientation="vertical"
             android:elevation="10dp"
+            android:orientation="vertical"
             android:descendantFocusability="blocksDescendants">
 
             <RelativeLayout
@@ -200,9 +195,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/sede_sucursales"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/dimen_letra_app"
+                    android:textColor="@color/colorAccent"
                     android:textStyle="bold"
-                    android:textColor="@color/color_negro"
                     android:id="@+id/textView423" />
 
                 <TableLayout
@@ -212,6 +207,7 @@
                     android:layout_below="@+id/textView423" >
 
                 </TableLayout>
+
 
 
             </RelativeLayout>

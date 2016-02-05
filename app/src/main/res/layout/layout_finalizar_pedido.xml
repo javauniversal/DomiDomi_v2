@@ -32,7 +32,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/editNombreCliente"
-                        android:hint="Nombre"
+                        android:hint="@string/nombre"
+                        android:textSize="@dimen/dimen_letra_app"
                         android:inputType="text" />
 
                 </android.support.design.widget.TextInputLayout>
@@ -45,7 +46,8 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Celular"
+                        android:hint="@string/celular"
+                        android:textSize="@dimen/dimen_letra_app"
                         android:id="@+id/editCelularCliente"
                         android:inputType="number"/>
 
@@ -59,8 +61,9 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Teléfono"
+                        android:hint="@string/tel_fono"
                         android:id="@+id/editTelefonoCliente"
+                        android:textSize="@dimen/dimen_letra_app"
                         android:inputType="number"/>
 
                 </android.support.design.widget.TextInputLayout>
@@ -68,16 +71,14 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:paddingTop="8dp"
-                    android:textColor="@color/colorAccent"
-                    android:text="Ciudades" />
+                    android:paddingTop="3dp"
+                    android:textSize="@dimen/dimen_letra_app"
+                    android:text="@string/ciudades" />
 
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/spinner_ciudades"
-                    android:layout_marginTop="1dp" />
+                    android:id="@+id/spinner_ciudades" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -89,24 +90,22 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorAccent"
-                        android:text="Zonas" />
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:text="@string/zonas" />
 
                     <Spinner
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/spinner_zona"
-                        android:layout_marginTop="5dp" />
+                        android:layout_marginTop="3dp" />
 
                 </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorAccent"
-                    android:text="Dirección" />
+                    android:textSize="@dimen/dimen_letra_app"
+                    android:text="@string/direccion" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -125,12 +124,16 @@
                         android:layout_height="match_parent"
                         android:id="@+id/txt_dir_1"
                         android:layout_weight="1.1"
-                        android:gravity="center_vertical|center_horizontal" />
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:inputType="text" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="#"
+                        android:text="@string/separador"
+                        android:inputType="text"
+                        android:textSize="@dimen/dimen_letra_app"
                         android:layout_weight="1.4"
                         android:gravity="center_vertical|center_horizontal" />
 
@@ -138,13 +141,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/txt_dir_2"
+                        android:textSize="@dimen/dimen_letra_app"
                         android:layout_weight="1.1"
-                        android:gravity="center_vertical|center_horizontal" />
+                        android:gravity="center_vertical|center_horizontal"
+                        android:inputType="text" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="-"
+                        android:text="@string/separador_2"
+                        android:textSize="@dimen/dimen_letra_app"
                         android:layout_weight="1.4"
                         android:gravity="center_vertical|center_horizontal" />
 
@@ -153,37 +159,54 @@
                         android:layout_height="match_parent"
                         android:id="@+id/txt_dir_3"
                         android:layout_weight="1.1"
-                        android:gravity="center_vertical|center_horizontal" />
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:inputType="text" />
 
                 </LinearLayout>
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/input_layout_barrio"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:orientation="horizontal"
+                    android:baselineAligned="false">
 
-                    <EditText
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/input_layout_barrio"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Barrio"
-                        android:id="@+id/editBarrioCliente"
-                        android:inputType="text"/>
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content">
 
-                </android.support.design.widget.TextInputLayout>
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/barrio"
+                            android:textSize="@dimen/dimen_letra_app"
+                            android:id="@+id/editBarrioCliente"
+                            android:inputType="text"/>
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/input_layout_referencia"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    </android.support.design.widget.TextInputLayout>
 
-                    <EditText
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/input_layout_referencia"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Lugar de Referencia Ej: Torre, #Apto"
-                        android:id="@+id/editDirReferencia"
-                        android:inputType="text"/>
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content">
 
-                </android.support.design.widget.TextInputLayout>
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/lugar_de_referencia"
+                            android:id="@+id/editDirReferencia"
+                            android:textSize="@dimen/dimen_letra_app"
+                            android:inputType="text"/>
+
+                    </android.support.design.widget.TextInputLayout>
+
+                </LinearLayout>
+
+
 
 
 
@@ -191,22 +214,20 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="9dp"
                     android:id="@+id/paterMediosPagos">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Medios de Pados"
-                        android:textSize="15sp"
-                        android:textColor="@color/colorAccent"
-                        android:textStyle="bold"
+                        android:text="@string/medios_de_pago"
+                        android:textSize="@dimen/dimen_letra_app"
                         android:layout_margin="4dip"/>
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/colorAccent" />
+                        android:layout_height="0.4dp"
+                        android:background="@color/color_negro" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -234,7 +255,8 @@
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Voy a pagar con un billete de Ej: 50,000"
+                            android:textSize="@dimen/dimen_letra_app"
+                            android:hint="@string/voy_a_pagar_con_un_billete_de_ej_50_000"
                             android:id="@+id/editEfectivo"
                             android:inputType="number"/>
 

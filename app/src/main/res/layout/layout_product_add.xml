@@ -1,5 +1,4 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_gris">
@@ -34,7 +33,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/Descripcion"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/dimen_letra_app"
                     android:textStyle="bold"
                     android:textColor="@color/colorAccent"
                     android:layout_weight="1"
@@ -44,10 +43,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="15sp"
                     android:id="@+id/precio"
-                    android:textStyle="bold"
-                    android:textColor="@color/color_negro"
+                    android:textSize="@dimen/dimen_letra_app"
                     android:layout_margin="5dip"
                     android:gravity="right" />
 
@@ -63,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textColor="@color/color_negro"
+                android:textSize="@dimen/dimen_letra_app"
                 android:layout_margin="8dip"
                 android:id="@+id/descripcion" />
 
@@ -81,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ingredientes"
-                android:textSize="15sp"
+                android:textSize="@dimen/dimen_letra_app"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"
                 android:layout_margin="4dip"/>
@@ -95,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textColor="@color/color_negro"
+                android:textSize="@dimen/dimen_letra_app"
                 android:layout_margin="5dip"
                 android:id="@+id/ingredientes" />
 
@@ -113,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cantidad"
-                android:textSize="15sp"
+                android:textSize="@dimen/dimen_letra_app"
                 android:textStyle="bold"
                 android:textColor="@color/colorAccent"
                 android:layout_margin="4dip"/>
@@ -157,7 +154,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Adiciones/Extras"
+                android:text="@string/adiciones_extras"
                 android:textSize="15sp"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"
@@ -189,8 +186,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Precios"
-                android:textSize="15sp"
+                android:text="@string/precios"
+                android:textSize="@dimen/dimen_letra_app"
                 android:textStyle="bold"
                 android:textColor="@color/colorAccent"
                 android:layout_margin="4dip"/>
@@ -209,7 +206,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Unidad"
+                    android:text="@string/unidad"
+                    android:textSize="@dimen/dimen_letra_app"
                     android:layout_marginTop="6dp"
                     android:layout_marginRight="4dp"
                     android:textColor="@color/color_negro"
@@ -229,17 +227,19 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total: $"
+                    android:text="@string/total_signo"
                     android:textStyle="bold"
+                    android:textSize="@dimen/dimen_letra_app"
                     android:textColor="@color/color_negro"
                     android:layout_gravity="right" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    android:text="@string/_0"
                     android:textStyle="bold"
                     android:layout_margin="2dip"
+                    android:textSize="@dimen/dimen_letra_app"
                     android:id="@+id/totalFinal"
                     android:textColor="@color/color_negro"
                     android:layout_gravity="right" />
@@ -247,7 +247,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    android:text="@string/_0"
+                    android:textSize="@dimen/dimen_letra_app"
                     android:visibility="gone"
                     android:layout_margin="8dip"
                     android:id="@+id/totalFinalOculto"
@@ -268,9 +269,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Comentario"
-                android:textSize="15sp"
+                android:text="@string/comentario"
                 android:textStyle="bold"
+                android:textSize="@dimen/dimen_letra_app"
                 android:textColor="@color/colorAccent"
                 android:layout_margin="4dip"/>
 
@@ -291,21 +292,30 @@
                     android:inputType="textMultiLine"
                     android:scrollHorizontally="false"
                     android:minWidth="10.0dip"
-                    android:textColor="@color/color_negro"
+                    android:textSize="@dimen/dimen_letra_app"
                     android:maxWidth="180dip" />
 
             </LinearLayout>
 
         </LinearLayout>
-
-        <Button
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/agregar"
-            android:id="@+id/btnAdd"
-            style="@style/BrandButtonStyle2"
-            android:layout_marginBottom="20dp"
-            android:layout_gravity="center_horizontal" />
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/agregar"
+                android:id="@+id/btnAdd"
+                style="@style/BrandButtonStyle2"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
 

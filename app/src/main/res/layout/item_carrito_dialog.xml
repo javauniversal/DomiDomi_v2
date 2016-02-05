@@ -9,10 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="9dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/color_negro"
+        android:textSize="14sp"
         android:textStyle="bold"
-        android:text="Large Text"
+        android:text="@string/nombre_de_la_sede"
         android:id="@+id/txtSedeDialog" />
 
 </LinearLayout>

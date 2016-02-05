@@ -9,7 +9,8 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,8 +21,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Establecimiento"
+                android:text="@string/establecimiento"
                 android:textStyle="bold"
+                android:textSize="@dimen/dimen_letra_app"
                 android:id="@+id/txtEmpresa" />
 
         </LinearLayout>
@@ -35,8 +37,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cantidad"
+                android:text="@string/cantidad"
                 android:textStyle="bold"
+                android:textSize="@dimen/dimen_letra_app"
                 android:id="@+id/txtCantidad" />
 
         </LinearLayout>
@@ -56,15 +59,17 @@
             android:layout_weight="1"
             android:textStyle="bold"
             android:id="@+id/txtFecha"
-            android:text="Fecha"/>
+            android:textSize="@dimen/dimen_letra_app"
+            android:text="@string/fecha"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textStyle="bold"
+            android:textSize="@dimen/dimen_letra_app"
             android:id="@+id/txtNumeroOrden"
-            android:text="Orden # "/>
+            android:text="@string/orden"/>
 
     </LinearLayout>
 
@@ -73,10 +78,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:baselineAligned="false">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="1">
@@ -84,7 +90,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Dirección"
+                android:text="@string/direcci_n"
+                android:textSize="@dimen/dimen_letra_app"
                 android:textStyle="bold"
                 android:id="@+id/txtDireccion" />
 
@@ -104,7 +111,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Estado"
+            android:text="@string/estado"
+            android:textSize="@dimen/dimen_letra_app"
             android:id="@+id/txtEstado"
             android:gravity="fill_vertical" />
 
@@ -113,7 +121,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cancelar Pedido"
+        android:text="@string/cancelar_pedido"
         android:id="@+id/btnCancel"
         style="@style/BrandButtonStyle2"
         android:layout_gravity="right" />

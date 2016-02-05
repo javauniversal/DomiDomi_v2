@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <com.baoyz.swipemenulistview.SwipeMenuListView
-        android:id="@+id/listViewSeguimiento"
+        android:id="@+id/listViewHis"
         android:layout_marginTop="55dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
@@ -12,9 +12,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_height="wrap_content"
-        android:id="@+id/layoutSeguimiento"
+        android:id="@+id/layoutHis"
         android:visibility="gone"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal">
@@ -23,18 +23,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageView4"
-            android:src="@drawable/ic_wb_cloudy_black_48dp"
+            android:src="@drawable/ic_system_update_black_48dp"
             android:contentDescription="@string/app_name" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/dimen_letra_app"
-            android:text="@string/no_tiene_pedidos_pendientes"
+            android:text="@string/no_tiene_historial_de_pendientes"
             android:id="@+id/textView9"
             android:gravity="center_horizontal" />
 
     </LinearLayout>
-
 
 </RelativeLayout>

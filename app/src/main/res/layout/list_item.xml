@@ -12,7 +12,8 @@
         android:layout_height="56dp"
         android:src="@drawable/ic_credit_card_black_24dp"
         app:civ_border_width="1dp"
-        app:civ_border_color="@color/color_1"/>
+        app:civ_border_color="@color/colorAccent"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,10 +28,9 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="@string/nombre_del_producto"
-            android:textColor="@color/color_negro"
             android:layout_marginLeft="9dp"
             android:layout_marginStart="9dp"
-            android:textSize="13sp"
+            android:textSize="@dimen/dimen_letra_app"
             android:gravity="left" />
 
         <TextView
@@ -38,11 +38,10 @@
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="$"
-            android:textColor="@color/color_negro"
+            android:text=""
             android:layout_marginLeft="9dp"
             android:layout_marginStart="9dp"
-            android:textSize="13sp"
+            android:textSize="@dimen/dimen_letra_app"
             android:gravity="right" />
 
     </LinearLayout>

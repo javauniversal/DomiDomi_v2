@@ -84,8 +84,8 @@ public class ActDireccionEscrita extends AppCompatActivity implements View.OnCli
             protected Long doInBackground(String[]... params) {
 
                 ciudades = new ArrayList<>();
-                ciudades.add(new Ciudades(1, "Medellin", 1));
-                ciudades.add(new Ciudades(2, "Bogota", 1));
+                ciudades.add(new Ciudades(1, "Medellín", 1));
+                ciudades.add(new Ciudades(2, "Bogotá", 1));
 
                 return null;
             }
@@ -105,7 +105,7 @@ public class ActDireccionEscrita extends AppCompatActivity implements View.OnCli
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         selecte_ciudad = parent.getItemAtPosition(position).toString();
 
-                        if (selecte_ciudad.equals("Medellin")){
+                        if (selecte_ciudad.equals("Medellín")){
                             zonaLayout.setVisibility(View.VISIBLE);
                             loadLlenarZona();
                         }else {
@@ -130,7 +130,7 @@ public class ActDireccionEscrita extends AppCompatActivity implements View.OnCli
         new AsyncTask<String[], Long, Long>(){
             @Override
             protected Long doInBackground(String[]... params) {
-                dir1Zona_parant = new String[]{"Envigado", "Sabaneta", "Itagui", "La estrella", "Medellin", "Bello"};
+                dir1Zona_parant = new String[]{"Envigado", "Sabaneta", "Itaguí", "La Estrella", "Medellín", "Bello"};
 
                 return null;
             }
@@ -163,7 +163,7 @@ public class ActDireccionEscrita extends AppCompatActivity implements View.OnCli
             @Override
             protected Long doInBackground(String[]... params) {
                 dir1_parant = new String[]{"Avenida", "Avenida Calle", "Avenida Carrera", "Calle", "Carrera", "Circular", "Circunvalar",
-                        "Diagonal", "Manzana", "Transversal", "Via"};
+                        "Diagonal", "Manzana", "Transversal", "Vía"};
 
                 return null;
             }

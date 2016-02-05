@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -23,6 +25,7 @@ import com.appgestor.domidomi.Adapters.AdapterRecyclerSedesEmpresa;
 import com.appgestor.domidomi.Adapters.RecyclerItemClickListener;
 import com.appgestor.domidomi.Entities.LisMenuData;
 import com.appgestor.domidomi.Entities.ListSede;
+import com.appgestor.domidomi.Entities.Sede;
 import com.appgestor.domidomi.R;
 import com.appgestor.domidomi.RadarView.RandomTextView;
 import com.google.gson.Gson;
@@ -30,8 +33,10 @@ import com.google.gson.GsonBuilder;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import dmax.dialog.SpotsDialog;
@@ -49,6 +54,10 @@ public class FragListEmpresas extends BaseVolleyFragment {
     private RelativeLayout relativeLayout_radar;
     private RelativeLayout relativeLayout_sedes;
     private AlertDialog alertDialog;
+    private SearchView search;
+    private ListSede listSedes;
+    private ImageView imgFilter;
+    List<Sede> filteredList;
 
     public FragListEmpresas() {}
 
@@ -66,15 +75,12 @@ public class FragListEmpresas extends BaseVolleyFragment {
         relativeLayout_sedes = (RelativeLayout) myView.findViewById(R.id.relativeLayout_sedes);
 
         randomTextView = (RandomTextView) myView.findViewById(R.id.random_textview);
+        imgFilter = (ImageView) myView.findViewById(R.id.imgFilter);
 
         alertDialog = new SpotsDialog(getActivity(), R.style.Custom);
 
-        /*randomTextView.setOnRippleViewClickListener(new RandomTextView.OnRippleViewClickListener() {
-            @Override
-            public void onRippleViewClicked(View view) {
-                //ActivitySedes.this.startActivity(new Intent(ActivitySedes.this, RefreshProgressActivity.class));
-            }
-        });*/
+        search = (SearchView) myView.findViewById( R.id.search_sedes);
+        search.setOnQueryTextListener(listener);
 
         recycler = (RecyclerView) myView.findViewById(R.id.recycler_view);
         recycler.setHasFixedSize(true);
@@ -84,6 +90,38 @@ public class FragListEmpresas extends BaseVolleyFragment {
 
         return myView;
     }
+
+    SearchView.OnQueryTextListener listener = new SearchView.OnQueryTextListener() {
+        @Override
+        public boolean onQueryTextChange(String query) {
+            query = query.toLowerCase();
+            if(listSedes != null){
+                filteredList = new ArrayList<>();
+
+                for (int i = 0; i < listSedes.size(); i++) {
+                    final String text = listSedes.get(i).getDescripcion().toLowerCase();
+                    if (text.contains(query)) {
+                        filteredList.add(listSedes.get(i));
+                    }
+                }
+
+                recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+                adapter = new AdapterRecyclerSedesEmpresa(getActivity(), filteredList);
+                recycler.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+
+            }
+
+            return true;
+
+        }
+        public boolean onQueryTextSubmit(String query) {
+            return false;
+        }
+    };
+
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -131,12 +169,12 @@ public class FragListEmpresas extends BaseVolleyFragment {
         if (!json.equals("[]")){
             try {
                 Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();
-                final ListSede listSedes = gson.fromJson(json, ListSede.class);
+                listSedes = gson.fromJson(json, ListSede.class);
+
 
                 /*for (int i = 0; i < listSedes.size(); i++) {
                     randomTextView.addKeyWord(listSedes.get(i).getDescripcion());
                 }
-
                 randomTextView.show();*/
 
                 Animation out = AnimationUtils.makeOutAnimation(getActivity(), true);
@@ -145,18 +183,20 @@ public class FragListEmpresas extends BaseVolleyFragment {
 
                 adapter = new AdapterRecyclerSedesEmpresa(getActivity(), listSedes);
                 recycler.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+
                 relativeLayout_sedes.setVisibility(View.VISIBLE);
+
                 /*new Handler().postDelayed(new Runnable(){
                     @Override
                     public void run() {
                         try {
-
-
                         }catch (Exception e){
                             Log.d("SedesEmpresas", e.getMessage());
                         }
                     }
                 }, 2 * 900);*/
+
                 recycler.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
@@ -164,14 +204,26 @@ public class FragListEmpresas extends BaseVolleyFragment {
                         Date date = new Date();
                         DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss");
 
-                        if (isHourInInterval(hourdateFormat.format(date).toString(), listSedes.get(position).getHorainicio(), listSedes.get(position).getHorafinal())) {
+                        if (filteredList != null && filteredList.size() > 0){
+                            if (isHourInInterval(hourdateFormat.format(date).toString(), filteredList.get(position).getHorainicio(), filteredList.get(position).getHorafinal())) {
 
-                            setSedeStaticNew(listSedes.get(position));
+                                setSedeStaticNew(filteredList.get(position));
                             /**/
-                            getDataSedeDem(listSedes.get(position).getIdsedes());
+                                getDataSedeDem(filteredList.get(position).getIdsedes());
 
+                            } else {
+                                Toast.makeText(getActivity(), "El establecimiento se encuentra Cerrado", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
-                            Toast.makeText(getActivity(), "El establecimiento se encuentra Cerrado", Toast.LENGTH_SHORT).show();
+                            if (isHourInInterval(hourdateFormat.format(date).toString(), listSedes.get(position).getHorainicio(), listSedes.get(position).getHorafinal())) {
+
+                                setSedeStaticNew(listSedes.get(position));
+                            /**/
+                                getDataSedeDem(listSedes.get(position).getIdsedes());
+
+                            } else {
+                                Toast.makeText(getActivity(), "El establecimiento se encuentra Cerrado", Toast.LENGTH_SHORT).show();
+                            }
                         }
 
                     }
@@ -180,7 +232,7 @@ public class FragListEmpresas extends BaseVolleyFragment {
                 return true;
 
             }catch (IllegalStateException ex) {
-                ex.printStackTrace();
+                //ex.printStackTrace();
             }
 
         } else {
@@ -234,7 +286,7 @@ public class FragListEmpresas extends BaseVolleyFragment {
                 startActivity(new Intent(getActivity(), ActMenu.class));
                 getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
-            }catch (IllegalStateException ex) {
+            } catch (IllegalStateException ex) {
                 ex.printStackTrace();
             }
         } else {

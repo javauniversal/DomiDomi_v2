@@ -29,19 +29,19 @@ public class Accounts extends MaterialNavigationDrawerCosmm {
 
         // create sections
         setDrawerHeaderImage(R.drawable.side_nav_bar);
-        setUsername("Delivery Domicilios");
-        setUserEmail("La manera más facíl de pedir un domicilio");
+        setUsername("Domi Domi");
+        setUserEmail("La forma más fácil de pedir un domicilio");
         setFirstAccountPhoto(getResources().getDrawable(R.drawable.logo_transparente));
 
         // create sections
         this.addSection(newSection("Establecimientos", R.drawable.ic_restaurant_menu_black_24dp, new FragListEmpresas()));
-        this.addSection(newSection("Mis Pedidos", R.drawable.ic_playlist_add_check_black_24dp,new Intent(this, ActEstadoPedido.class)));
+        this.addSection(newSection("Seguimiento de los pedidos", R.drawable.ic_playlist_add_check_black_24dp, new Intent(this, ActEstadoPedido.class)));
         this.addSection(newSection("Mi Ubicación", R.drawable.ic_pin_drop_black_48dp, new LocationFragment12()));
         this.addSection(newSection("Carrito", R.drawable.ic_local_grocery_store_black_24dp, new FragmentCarrito()));
-        //this.addSection(newSection("Perfil", R.drawable.ic_face_black_24dp, new FragmentPeril()));
+        this.addSection(newSection("Perfil", R.drawable.ic_face_black_24dp, new FragmentPeril()));
 
         // create bottom section
-        this.addBottomSection(newSection("Perfil", R.drawable.ic_face_black_24dp, new FragmentPeril()));
+        //this.addBottomSection(newSection("Perfil", R.drawable.ic_face_black_24dp, new FragmentPeril()));
 
     }
 

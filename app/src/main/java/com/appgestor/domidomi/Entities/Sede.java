@@ -58,6 +58,9 @@ public class Sede {
     @SerializedName("menu")
     private List<Menu> menuList;
 
+    @SerializedName("horarioApertura")
+    private String horario;
+
     public static Sede sedeStatic;
 
     public static int sedeIdeStatic;
@@ -216,4 +219,13 @@ public class Sede {
     public void setMenuList(List<Menu> menuList) {
         this.menuList = menuList;
     }
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+
 }

@@ -80,8 +80,14 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
         mydb = new DBHelper(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         toolbar.setTitle(bundleset.getString("sedeNomebre"));
-        toolbar.setNavigationIcon(R.mipmap.ic_action_cartw);
         setSupportActionBar(toolbar);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         format = new DecimalFormat("#,###.##");
 
@@ -177,6 +183,9 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
                 return false;
             }
         });
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
     }
 
@@ -423,8 +432,7 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
         rq.add(jsonRequest);
     }
 
-    private boolean parseJSON2(String json) {
-        boolean indicant = false;
+    private void parseJSON2(String json) {
         Gson gson = new Gson();
         if (!json.equals("[]")){
             try {
@@ -443,16 +451,12 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
 
             }catch (IllegalStateException ex) {
                 ex.printStackTrace();
-                indicant = false;
             }
         }else {
             Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
             intent.putExtra("STATE", "EMPTY");
             startActivity(intent);
         }
-
-        return indicant;
-
     }
 
     public static boolean isHourInInterval(String target, String start, String end) {
@@ -506,8 +510,7 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
             rq.cancelAll(TAG);
     }
 
-    private boolean parseJSON(String json) {
-        boolean indicant = false;
+    private void parseJSON(String json) {
         Gson gson = new Gson();
         if (!json.equals("[]")){
             try {
@@ -528,22 +531,19 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
 
             }catch (IllegalStateException ex) {
                 ex.printStackTrace();
-                indicant = false;
             }
         }else {
             Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
             intent.putExtra("STATE", "EMPTY");
             startActivity(intent);
         }
-
-        return indicant;
-
     }
 
     @Override
     public void onResume(){
         super.onResume();
         clicK = 0;
+        llenarData();
     }
 
     @Override

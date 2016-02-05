@@ -17,6 +17,17 @@ public class Comentario {
     @SerializedName("idsedes")
     private int idsedes;
 
+    @SerializedName("fechain")
+    private String fechain;
+
+    public String getFechain() {
+        return fechain;
+    }
+
+    public void setFechain(String fechain) {
+        this.fechain = fechain;
+    }
+
     public int getIdcomentarios() {
         return idcomentarios;
     }
