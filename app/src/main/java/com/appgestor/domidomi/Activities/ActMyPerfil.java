@@ -139,8 +139,20 @@ public class ActMyPerfil extends AppCompatActivity implements View.OnClickListen
     private void loadCiudades() {
 
         ciudades = new ArrayList<>();
-        ciudades.add(new Ciudades(1, "Medellín", 1));
+        ciudades.add(new Ciudades(1, "Barranquilla", 1));
         ciudades.add(new Ciudades(2, "Bogotá", 1));
+        ciudades.add(new Ciudades(3, "Bucaramanga", 1));
+        ciudades.add(new Ciudades(4, "Cali", 1));
+        ciudades.add(new Ciudades(5, "Cartagena", 1));
+        ciudades.add(new Ciudades(6, "Cúcuta", 1));
+        ciudades.add(new Ciudades(7, "Manizales", 1));
+        ciudades.add(new Ciudades(8, "Medellín", 1));
+        ciudades.add(new Ciudades(9, "Montería", 1));
+        ciudades.add(new Ciudades(10, "Neiva", 1));
+        ciudades.add(new Ciudades(11, "Pasto", 1));
+        ciudades.add(new Ciudades(12, "Pereira", 1));
+        ciudades.add(new Ciudades(13, "Santa Marta", 1));
+        ciudades.add(new Ciudades(14, "Valledupar", 1));
 
         ArrayAdapter<Ciudades> prec3 = new ArrayAdapter<>(ActMyPerfil.this, android.R.layout.simple_spinner_dropdown_item, ciudades);
         spinner_ciudades.setAdapter(prec3);
@@ -165,7 +177,7 @@ public class ActMyPerfil extends AppCompatActivity implements View.OnClickListen
 
     private void loadLlenarZona() {
 
-        String[] dir1Zona_parant = new String[]{"Envigado", "Sabaneta", "Itaguí", "La Estrella", "Medellín", "Bello"};
+        String[] dir1Zona_parant = new String[]{"Bello", "Caldas", "Envigado",  "Itaguí", "La Estrella", "Medellín", "Sabaneta"};
         ArrayAdapter<String> prec1 = new ArrayAdapter<>(ActMyPerfil.this, R.layout.textview_spinner, dir1Zona_parant);
         spinner_zona.setAdapter(prec1);
         List<String> strListZona = new ArrayList<>(Arrays.asList(dir1Zona_parant));

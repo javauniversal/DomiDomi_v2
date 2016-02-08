@@ -1,32 +1,35 @@
 package com.appgestor.domidomi.Entities;
 
-/**
- * Created by Poo_Code on 20/06/2015.
- */
+import com.google.gson.annotations.SerializedName;
+
 public class Categoria {
 
-    private int codigo;
-    private String nombre;
-    private String foto;
+    @SerializedName("idcategoria")
+    private int idcategoria;
 
-    public Categoria(int codigo, String nombre, String foto) {
-        this.codigo = codigo;
-        this.nombre = nombre;
-        this.foto = foto;
+    @SerializedName("descipcionCategoria")
+    private String descipcionCategoria;
+
+    public boolean isChecked;
+
+    public Categoria(int idcategoria, String descipcionCategoria) {
+        this.idcategoria = idcategoria;
+        this.descipcionCategoria = descipcionCategoria;
     }
 
-    public int getCodigo() {
-        return codigo;
+    public int getIdcategoria() {
+        return idcategoria;
     }
 
-    public String getNombre() {
-        return nombre;
+    public void setIdcategoria(int idcategoria) {
+        this.idcategoria = idcategoria;
     }
 
-    public String getFoto() {
-        return foto;
+    public String getDescipcionCategoria() {
+        return descipcionCategoria;
     }
 
-
-
+    public void setDescipcionCategoria(String descipcionCategoria) {
+        this.descipcionCategoria = descipcionCategoria;
+    }
 }

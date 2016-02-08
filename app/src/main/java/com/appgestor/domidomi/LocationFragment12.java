@@ -139,7 +139,7 @@ public class LocationFragment12 extends Fragment implements OnMapReadyCallback, 
                 ex.printStackTrace();
             }
         } else {
-            startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "EMPTYP"));
+            startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "EMPTYI"));
             getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
 

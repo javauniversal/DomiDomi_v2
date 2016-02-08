@@ -39,6 +39,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.appgestor.domidomi.Services.MyService;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -53,6 +55,10 @@ import it.neokree.materialnavigationdrawer.util.MaterialActionBarDrawerToggle;
 import it.neokree.materialnavigationdrawer.util.MaterialDrawerLayout;
 import it.neokree.materialnavigationdrawer.util.TypefaceManager;
 import it.neokree.materialnavigationdrawer.util.Utils;
+
+import static com.appgestor.domidomi.Entities.UbicacionPreferen.getLatitudStatic;
+import static com.appgestor.domidomi.Entities.UbicacionPreferen.setLatitudStatic;
+import static com.appgestor.domidomi.Entities.UbicacionPreferen.setLongitudStatic;
 
 /**
  * Activity that extends ActionBarActivity with a Navigation Drawer with Material Design style
@@ -355,6 +361,16 @@ public abstract class MaterialNavigationDrawerCosmm<Fragment> extends ActionBarA
      */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(getLatitudStatic() == null || getLatitudStatic().equals("") || getLatitudStatic() == 0.0){
+            MyService gps = new MyService(this);
+            if (gps.canGetLocation()){
+
+                setLatitudStatic(gps.getLatitude());
+                setLongitudStatic(gps.getLongitude());
+
+            }
+        }
 
         Resources.Theme theme = this.getTheme();
         TypedValue typedValue = new TypedValue();
@@ -756,6 +772,10 @@ public abstract class MaterialNavigationDrawerCosmm<Fragment> extends ActionBarA
             layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, drawer);
         else
             layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_OPEN, drawer);
+
+
+
+
     }
 
 

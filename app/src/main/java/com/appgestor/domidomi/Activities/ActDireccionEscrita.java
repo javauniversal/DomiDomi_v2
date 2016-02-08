@@ -84,8 +84,20 @@ public class ActDireccionEscrita extends AppCompatActivity implements View.OnCli
             protected Long doInBackground(String[]... params) {
 
                 ciudades = new ArrayList<>();
-                ciudades.add(new Ciudades(1, "Medellín", 1));
+                ciudades.add(new Ciudades(1, "Barranquilla", 1));
                 ciudades.add(new Ciudades(2, "Bogotá", 1));
+                ciudades.add(new Ciudades(3, "Bucaramanga", 1));
+                ciudades.add(new Ciudades(4, "Cali", 1));
+                ciudades.add(new Ciudades(5, "Cartagena", 1));
+                ciudades.add(new Ciudades(6, "Cúcuta", 1));
+                ciudades.add(new Ciudades(7, "Manizales", 1));
+                ciudades.add(new Ciudades(8, "Medellín", 1));
+                ciudades.add(new Ciudades(9, "Montería", 1));
+                ciudades.add(new Ciudades(10, "Neiva", 1));
+                ciudades.add(new Ciudades(11, "Pasto", 1));
+                ciudades.add(new Ciudades(12, "Pereira", 1));
+                ciudades.add(new Ciudades(13, "Santa Marta", 1));
+                ciudades.add(new Ciudades(14, "Valledupar", 1));
 
                 return null;
             }
@@ -130,7 +142,7 @@ public class ActDireccionEscrita extends AppCompatActivity implements View.OnCli
         new AsyncTask<String[], Long, Long>(){
             @Override
             protected Long doInBackground(String[]... params) {
-                dir1Zona_parant = new String[]{"Envigado", "Sabaneta", "Itaguí", "La Estrella", "Medellín", "Bello"};
+                dir1Zona_parant = new String[]{"Bello", "Caldas", "Envigado",  "Itaguí", "La Estrella", "Medellín", "Sabaneta"};
 
                 return null;
             }

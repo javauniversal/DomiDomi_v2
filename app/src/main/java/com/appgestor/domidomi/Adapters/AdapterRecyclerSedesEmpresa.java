@@ -88,10 +88,7 @@ public class AdapterRecyclerSedesEmpresa extends RecyclerView.Adapter<RowViewHol
 
         holder.txtHora.setText(items.getHorario());
         holder.txtHora.setTextColor(color);
-    }
 
-    public static boolean isHourInInterval(String target, String start, String end) {
-        return ((target.compareTo(start) >= 0) && (target.compareTo(end) <= 0));
     }
 
     public void loadeImagenView(Sede data, ImageView img, final RowViewHolderSede holder){

@@ -29,7 +29,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String sqlPerfil = "CREATE TABLE perfil (id integer primary key AUTOINCREMENT, nombre text, celular text, "+
-                                    " telefono text, calle_carrera text, dir_1 text, dir_2 text, dir_3 text, ciudad text, zona text, incluir int )";
+                                    " telefono text, calle_carrera text, dir_1 text, dir_2 text, dir_3 text, ciudad text, zona text, incluir int, barrio text, dirReferencia text)";
 
         String sqlPedido = "CREATE TABLE carrito (id integer primary key AUTOINCREMENT, codeproduct int, nameProduct text, "+
                            "                        quantity int, valueunitary REAL, valueoverall REAL, comment text, idcompany int, idsede int, urlimagen text, "+
@@ -179,6 +179,8 @@ public class DBHelper extends SQLiteOpenHelper {
             values.put("ciudad", data.getCiudad());
             values.put("zona", data.getZona());
             values.put("incluir", data.getIncluir());
+            values.put("barrio", data.getBarrio());
+            values.put("dirReferencia", data.getDirReferencia());
 
             db.insert("perfil", null, values);
             db.close();
@@ -212,6 +214,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 cliente.setCiudad(cursor.getString(8));
                 cliente.setZona(cursor.getString(9));
                 cliente.setIncluir(Integer.parseInt(cursor.getString(10)));
+                cliente.setBarrio(cursor.getString(11));
+                cliente.setDirReferencia(cursor.getString(12));
 
             } while(cursor.moveToNext());
         }

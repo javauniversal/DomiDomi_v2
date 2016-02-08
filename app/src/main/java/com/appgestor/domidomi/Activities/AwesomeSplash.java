@@ -73,6 +73,7 @@ abstract public class AwesomeSplash extends AppCompatActivity {
 
             if (isInternetPresent) {
 
+
                 MyService gps = new MyService(this);
                 if(gps.getLatitude() == 0.0){
 

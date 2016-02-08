@@ -213,10 +213,37 @@
 
                 </LinearLayout>
 
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_layout_barrio"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
 
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/barrio"
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:id="@+id/editBarrioCliente"
+                        android:inputType="text"/>
 
+                </android.support.design.widget.TextInputLayout>
 
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_layout_referencia"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
 
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/lugar_de_referencia"
+                        android:id="@+id/editDirReferencia"
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:inputType="text"/>
+
+                </android.support.design.widget.TextInputLayout>
 
                 <Switch
                     android:layout_width="wrap_content"

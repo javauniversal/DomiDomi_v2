@@ -47,6 +47,8 @@ public class FragmentPeril extends Fragment {
     private DBHelper mydb;
     private Switch switch1;
     private Cliente cliente;
+    private EditText editBarrioCliente;
+    private EditText editDirReferencia;
 
     public FragmentPeril() { }
 
@@ -71,6 +73,9 @@ public class FragmentPeril extends Fragment {
         txt_dir_3 = (EditText) view.findViewById(R.id.txt_dir_3);
 
         switch1 = (Switch) view.findViewById(R.id.switch1);
+
+        editBarrioCliente = (EditText) view.findViewById(R.id.editBarrioCliente);
+        editDirReferencia = (EditText) view.findViewById(R.id.editDirReferencia);
 
         mydb = new DBHelper(getActivity());
 
@@ -99,7 +104,7 @@ public class FragmentPeril extends Fragment {
                 } else if (isValidNumber(txt_dir_2.getText().toString())){
                     txt_dir_2.setError("Requerido");
                     txt_dir_2.requestFocus();
-                } else if (isValidNumber(txt_dir_3.getText().toString())){
+                } else if (isValidNumber(txt_dir_3.getText().toString())) {
                     txt_dir_3.setError("Requerido");
                     txt_dir_3.requestFocus();
                 } else {
@@ -132,6 +137,8 @@ public class FragmentPeril extends Fragment {
             txt_dir_1.setText(cliente.getDir_1());
             txt_dir_2.setText(cliente.getDir_2());
             txt_dir_3.setText(cliente.getDir_3());
+            editBarrioCliente.setText(cliente.getBarrio());
+            editDirReferencia.setText(cliente.getDirReferencia());
 
             List<String> strListAd = new ArrayList<>(Arrays.asList(dir1_parant));
             spinner_dir.setSelection(strListAd.indexOf(cliente.getCalle_carrera()));
@@ -179,8 +186,20 @@ public class FragmentPeril extends Fragment {
     private void loadCiudades() {
 
         ciudades = new ArrayList<>();
-        ciudades.add(new Ciudades(1, "Medellín", 1));
+        ciudades.add(new Ciudades(1, "Barranquilla", 1));
         ciudades.add(new Ciudades(2, "Bogotá", 1));
+        ciudades.add(new Ciudades(3, "Bucaramanga", 1));
+        ciudades.add(new Ciudades(4, "Cali", 1));
+        ciudades.add(new Ciudades(5, "Cartagena", 1));
+        ciudades.add(new Ciudades(6, "Cúcuta", 1));
+        ciudades.add(new Ciudades(7, "Manizales", 1));
+        ciudades.add(new Ciudades(8, "Medellín", 1));
+        ciudades.add(new Ciudades(9, "Montería", 1));
+        ciudades.add(new Ciudades(10, "Neiva", 1));
+        ciudades.add(new Ciudades(11, "Pasto", 1));
+        ciudades.add(new Ciudades(12, "Pereira", 1));
+        ciudades.add(new Ciudades(13, "Santa Marta", 1));
+        ciudades.add(new Ciudades(14, "Valledupar", 1));
 
         ArrayAdapter<Ciudades> prec3 = new ArrayAdapter<>(getActivity(), R.layout.textview_spinner, ciudades);
         spinner_ciudades.setAdapter(prec3);
@@ -205,7 +224,7 @@ public class FragmentPeril extends Fragment {
 
     private void loadLlenarZona() {
 
-        dir1Zona_parant = new String[]{"Envigado", "Sabaneta", "Itaguí", "La Estrella", "Medellín", "Bello"};
+        dir1Zona_parant = new String[]{"Bello", "Caldas", "Envigado",  "Itaguí", "La Estrella", "Medellín", "Sabaneta"};
         ArrayAdapter<String> prec1 = new ArrayAdapter<>(getActivity(), R.layout.textview_spinner, dir1Zona_parant);
         spinner_zona.setAdapter(prec1);
         List<String> strListZona = new ArrayList<>(Arrays.asList(dir1Zona_parant));
@@ -242,6 +261,8 @@ public class FragmentPeril extends Fragment {
         cl.setCiudad(selecte_ciudad);
         cl.setZona(zona_dir);
         cl.setIncluir(swit);
+        cl.setBarrio(editBarrioCliente.getText().toString());
+        cl.setDirReferencia(editDirReferencia.getText().toString());
 
         mydb.deleteUsuario();
 

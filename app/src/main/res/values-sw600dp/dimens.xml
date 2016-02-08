@@ -7,9 +7,4 @@
 
     -->
 
-
-
-    <dimen name="ancho_tabla">10dp</dimen>
-    <dimen name="ancho_table_precio">10dp</dimen>
-
 </resources>

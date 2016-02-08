@@ -3,6 +3,12 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <!-- Esta dimencion es para celulares con pantalla de
+
+        * 640x480 - AVI
+
+    -->
+
     <!--Welcome sliding page  -->
     <dimen name="welcome_images_size">360.0dip</dimen>
     <dimen name="welcome_images_margin_top">0.0dip</dimen>
@@ -28,9 +34,10 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="margininformacio">10dp</dimen>
 
-    <dimen name="ancho_tabla">100dp</dimen>
-    <dimen name="ancho_table_precio">10dp</dimen>
+
 
     <dimen name="dimen_letra_app">13sp</dimen>
+
+    <dimen name="size_menu_text">4sp</dimen>
 
 </resources>

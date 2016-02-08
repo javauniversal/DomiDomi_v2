@@ -15,7 +15,16 @@ public class Cliente implements Serializable {
     private String ciudad;
     private String zona;
     private int incluir;
+    private String barrio;
+    private String dirReferencia;
 
+    public String getDirReferencia() {
+        return dirReferencia;
+    }
+
+    public void setDirReferencia(String dirReferencia) {
+        this.dirReferencia = dirReferencia;
+    }
 
     public int getCodigo() {
         return codigo;
@@ -104,5 +113,14 @@ public class Cliente implements Serializable {
     public void setDir_3(String dir_3) {
         this.dir_3 = dir_3;
     }
+
+    public String getBarrio() {
+        return barrio;
+    }
+
+    public void setBarrio(String barrio) {
+        this.barrio = barrio;
+    }
+
 
 }

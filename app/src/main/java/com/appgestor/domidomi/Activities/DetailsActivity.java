@@ -63,8 +63,8 @@ public class DetailsActivity extends AppCompatActivity {
                 break;
             case "EMPTY":
                 progressActivity.showEmpty(DrawableData,
-                        "No hay datos para mostrar",
-                        "Tenemos problemas en recuperar la información inténtelo más tarde.", skipIds);
+                        "No hay datos para mostrar.",
+                        "Por favor, inténtelo más tarde.", skipIds);
                 setTitle("No hay datos");
                 activityToolbar.setBackgroundColor(getResources().getColor(R.color.colorSinDatos));
                 break;
@@ -73,7 +73,7 @@ public class DetailsActivity extends AppCompatActivity {
                         "Sin conexión",
                         "No hemos podido establecer una conexión con nuestros servidores. Por favor, inténtalo de nuevo cuando esté conectado a Internet.", skipIds);
                 //"Inténtalo de nuevo", errorClickListener, skipIds);
-                setTitle("Error");
+                setTitle("Sin conexión");
                 activityToolbar.setBackgroundColor(getResources().getColor(R.color.colorSinDatos));
                 break;
             case "EMPTYP":
@@ -90,6 +90,13 @@ public class DetailsActivity extends AppCompatActivity {
                         "", skipIds);
                 //"Inténtalo de nuevo", errorClickListener, skipIds);
                 setTitle("No tiene articulos");
+                activityToolbar.setBackgroundColor(getResources().getColor(R.color.colorSinDatos));
+                break;
+            case "EMPTYI":
+                progressActivity.showEmpty(DrawableData,
+                        "No hay establecimientos cercanos.",
+                        "Por ahora no hay establecimientos cercanos a su ubicación... ¡Espéralos muy pronto!", skipIds);
+                setTitle("No hay datos");
                 activityToolbar.setBackgroundColor(getResources().getColor(R.color.colorSinDatos));
                 break;
         }

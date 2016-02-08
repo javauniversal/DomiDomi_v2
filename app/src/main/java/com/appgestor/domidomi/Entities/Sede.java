@@ -61,6 +61,28 @@ public class Sede {
     @SerializedName("horarioApertura")
     private String horario;
 
+    @SerializedName("idcategoria")
+    private int idcategoria;
+
+    @SerializedName("descipcionCategoria")
+    private String descipcionCategoria;
+
+    public int getIdcategoria() {
+        return idcategoria;
+    }
+
+    public void setIdcategoria(int idcategoria) {
+        this.idcategoria = idcategoria;
+    }
+
+    public String getDescipcionCategoria() {
+        return descipcionCategoria;
+    }
+
+    public void setDescipcionCategoria(String descipcionCategoria) {
+        this.descipcionCategoria = descipcionCategoria;
+    }
+
     public static Sede sedeStatic;
 
     public static int sedeIdeStatic;

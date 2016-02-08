@@ -72,7 +72,6 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
     private RequestQueue rq;
     private List<Ciudades> ciudades;
     private Spinner dir_3;
-    private Spinner dir_1;
     private String selecte_ciudad;
     private LinearLayout zonaLayout;
     private String[] dir1Zona_parant;
@@ -88,6 +87,7 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
     ArrayAdapter<String> prec1;
     ArrayAdapter<Ciudades> prec3;
     ArrayAdapter<String> prec123;
+    LinearLayout ll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +110,8 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
 
         Button myCancelar = (Button) findViewById(R.id.button_cancel);
         myCancelar.setOnClickListener(this);
+
+        ll = (LinearLayout) findViewById(R.id.llMediosPagos);
 
         editNombreCliente = (EditText) findViewById(R.id.editNombreCliente);
         editCelularCliente = (EditText) findViewById(R.id.editCelularCliente);
@@ -190,6 +192,8 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
                 txt_dir_1.setText(cliente.getDir_1());
                 txt_dir_2.setText(cliente.getDir_2());
                 txt_dir_3.setText(cliente.getDir_3());
+                editBarrioCliente.setText(cliente.getBarrio());
+                editDirReferencia.setText(cliente.getDirReferencia());
 
                 List<String> strListAd = new ArrayList<>(Arrays.asList(dir1_parant));
                 spinner_dir.setSelection(strListAd.indexOf(cliente.getCalle_carrera()));
@@ -201,7 +205,7 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
     }
 
     private void loadLlenarZona() {
-        dir1Zona_parant = new String[]{"Envigado", "Sabaneta", "Itaguí", "La Estrella", "Medellín", "Bello"};
+        dir1Zona_parant = new String[]{"Bello", "Caldas", "Envigado",  "Itaguí", "La Estrella", "Medellín", "Sabaneta"};
     }
 
     private void setLlenarZona(){
@@ -262,8 +266,6 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
 
         if (getMedioPagoListstatic() != null){
 
-            LinearLayout ll = (LinearLayout) findViewById(R.id.llMediosPagos);
-
             int mediosPAgos = getMedioPagoListstatic().size();
             for (int i = 0; i < mediosPAgos; i++) {
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -299,8 +301,20 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
 
     private void loadCiudades() {
         ciudades = new ArrayList<>();
-        ciudades.add(new Ciudades(1, "Medellín", 1));
+        ciudades.add(new Ciudades(1, "Barranquilla", 1));
         ciudades.add(new Ciudades(2, "Bogotá", 1));
+        ciudades.add(new Ciudades(3, "Bucaramanga", 1));
+        ciudades.add(new Ciudades(4, "Cali", 1));
+        ciudades.add(new Ciudades(5, "Cartagena", 1));
+        ciudades.add(new Ciudades(6, "Cúcuta", 1));
+        ciudades.add(new Ciudades(7, "Manizales", 1));
+        ciudades.add(new Ciudades(8, "Medellín", 1));
+        ciudades.add(new Ciudades(9, "Montería", 1));
+        ciudades.add(new Ciudades(10, "Neiva", 1));
+        ciudades.add(new Ciudades(11, "Pasto", 1));
+        ciudades.add(new Ciudades(12, "Pereira", 1));
+        ciudades.add(new Ciudades(13, "Santa Marta", 1));
+        ciudades.add(new Ciudades(14, "Valledupar", 1));
         prec3 = new ArrayAdapter<>(ActFinalizarPedidoMenu.this, R.layout.textview_spinner, ciudades);
     }
 
@@ -512,7 +526,7 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
                 objeto.setNombreUsuairo(editNombreCliente.getText().toString());
                 objeto.setCelularp(editCelularCliente.getText().toString());
                 objeto.setDireccionp(adressString);
-                objeto.setDireccionReferen(editDirReferencia.getText().toString());
+                objeto.setDireccionReferen("Barrio: "+editBarrioCliente.getText().toString()+", "+editDirReferencia.getText().toString());
                 //objeto.setMedioPago(masterItem.getIdmediopago());
 
                 objeto.setValorPago(Double.valueOf(editEfectivo.getText().toString()));

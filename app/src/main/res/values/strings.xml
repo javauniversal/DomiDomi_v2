@@ -13,12 +13,13 @@
     <string name="celular">Celular</string>
     <string name="direccion">Dirección</string>
     <string name="apellidos_nombres">Nombres y Apellidos</string>
+    <string name="categoria_filtro"><u>Categorías</u></string>
     <!-- Fin  -->
 
     <string-array name="tabs">
         <item>Menú</item>
-        <item>Información</item>
-        <item>Comentarios</item>
+        <item>Info</item>
+        <item>Reseñas</item>
     </string-array>
 
     <string-array name="pedidos">
@@ -116,10 +117,10 @@
     <string name="separado">#</string>
     <string name="separador2">-</string>
     <string name="ciudades">Ciudades</string>
-    <string name="zonas">Zonas</string>
+    <string name="zonas">Municipio</string>
     <string name="incluir_en_los_pedido">Incluir En los pedido</string>
     <string name="guardar">Guardar</string>
-    <string name="domicilios">Domicilios</string>
+    <string name="domicilios">Domicilio</string>
     <string name="total">Total</string>
     <string name="comentario">Comentario:</string>
     <string name="barrio">Barrio</string>

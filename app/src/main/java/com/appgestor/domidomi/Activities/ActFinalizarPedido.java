@@ -85,6 +85,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
     ArrayAdapter<String> prec1;
     ArrayAdapter<Ciudades> prec3;
     ArrayAdapter<String> prec123;
+    LinearLayout ll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,11 +100,13 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
 
         geocoder = new Geocoder(this, Locale.ENGLISH);
 
-        Button myAceptar = (Button)findViewById(R.id.button_accept);
+        Button myAceptar = (Button) findViewById(R.id.button_accept);
         myAceptar.setOnClickListener(this);
 
         Button myCancelar = (Button) findViewById(R.id.button_cancel);
         myCancelar.setOnClickListener(this);
+
+        ll = (LinearLayout) findViewById(R.id.llMediosPagos);
 
         editNombreCliente = (EditText) findViewById(R.id.editNombreCliente);
         editCelularCliente = (EditText) findViewById(R.id.editCelularCliente);
@@ -136,7 +139,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
             }
         });
 
-        new AsyncTask<String[], Long, Long>(){
+        new AsyncTask<String[], Long, Long>() {
             @Override
             protected Long doInBackground(String[]... params) {
 
@@ -149,13 +152,15 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                 return null;
             }
 
-            protected void onPreExecute() { }
+            protected void onPreExecute() {
+            }
 
             @Override
-            public void onProgressUpdate(Long... value) { }
+            public void onProgressUpdate(Long... value) {
+            }
 
             @Override
-            protected void onPostExecute(Long result){
+            protected void onPostExecute(Long result) {
                 alertDialog.dismiss();
                 setAdress();
                 setCiudades();
@@ -172,15 +177,16 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
     }
 
     private void setCargarCliente() {
-        if(cliente != null){
-            if(cliente.getIncluir() == 1){
+        if (cliente != null) {
+            if (cliente.getIncluir() == 1) {
                 editNombreCliente.setText(cliente.getNombre());
                 editCelularCliente.setText(cliente.getCelular());
                 editTelefonoCliente.setText(cliente.getTelefono());
                 txt_dir_1.setText(cliente.getDir_1());
                 txt_dir_2.setText(cliente.getDir_2());
                 txt_dir_3.setText(cliente.getDir_3());
-
+                editBarrioCliente.setText(cliente.getBarrio());
+                editDirReferencia.setText(cliente.getDirReferencia());
                 List<String> strListAd = new ArrayList<>(Arrays.asList(dir1_parant));
                 spinner_dir.setSelection(strListAd.indexOf(cliente.getCalle_carrera()));
 
@@ -202,9 +208,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
 
     private void CargarMedioPago() {
 
-        if (getSedeStaticNew().getMedioPagoList() != null){
-
-            LinearLayout ll = (LinearLayout) findViewById(R.id.llMediosPagos);
+        if (getSedeStaticNew().getMedioPagoList() != null) {
 
             int mediosPAgos = getSedeStaticNew().getMedioPagoList().size();
             for (int i = 0; i < mediosPAgos; i++) {
@@ -213,7 +217,8 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                 CheckBox cb = new CheckBox(this);
                 cb.setText(getSedeStaticNew().getMedioPagoList().get(i).getDescripcion());
                 cb.setId(getSedeStaticNew().getMedioPagoList().get(i).getIdmediopago());
-                ll.addView(cb);
+                if (ll != null)
+                    ll.addView(cb);
                 cb.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -240,12 +245,24 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
 
     private void loadCiudades() {
         ciudades = new ArrayList<>();
-        ciudades.add(new Ciudades(1, "Medellín", 1));
+        ciudades.add(new Ciudades(1, "Barranquilla", 1));
         ciudades.add(new Ciudades(2, "Bogotá", 1));
+        ciudades.add(new Ciudades(3, "Bucaramanga", 1));
+        ciudades.add(new Ciudades(4, "Cali", 1));
+        ciudades.add(new Ciudades(5, "Cartagena", 1));
+        ciudades.add(new Ciudades(6, "Cúcuta", 1));
+        ciudades.add(new Ciudades(7, "Manizales", 1));
+        ciudades.add(new Ciudades(8, "Medellín", 1));
+        ciudades.add(new Ciudades(9, "Montería", 1));
+        ciudades.add(new Ciudades(10, "Neiva", 1));
+        ciudades.add(new Ciudades(11, "Pasto", 1));
+        ciudades.add(new Ciudades(12, "Pereira", 1));
+        ciudades.add(new Ciudades(13, "Santa Marta", 1));
+        ciudades.add(new Ciudades(14, "Valledupar", 1));
         prec3 = new ArrayAdapter<>(ActFinalizarPedido.this, R.layout.textview_spinner, ciudades);
     }
 
-    private void setCiudades(){
+    private void setCiudades() {
 
         dir_3.setAdapter(prec3);
         dir_3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -253,10 +270,10 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selecte_ciudad = parent.getItemAtPosition(position).toString();
 
-                if (selecte_ciudad.equals("Medellín")){
+                if (selecte_ciudad.equals("Medellín")) {
                     zonaLayout.setVisibility(View.VISIBLE);
                     loadLlenarZona();
-                }else {
+                } else {
                     zonaLayout.setVisibility(View.GONE);
                 }
 
@@ -271,15 +288,15 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
     }
 
     private void loadLlenarZona() {
-        dir1Zona_parant = new String[]{"Envigado", "Sabaneta", "Itaguí", "La Estrella", "Medellín", "Bello"};
+        dir1Zona_parant = new String[]{"Bello", "Caldas", "Envigado",  "Itaguí", "La Estrella", "Medellín", "Sabaneta"};
     }
 
-    private void setLlenarZona(){
+    private void setLlenarZona() {
         loadLlenarZona();
         prec123 = new ArrayAdapter<>(ActFinalizarPedido.this, R.layout.textview_spinner, dir1Zona_parant);
     }
 
-    private void setZonas(){
+    private void setZonas() {
         spinner_zona.setAdapter(prec123);
         loadLlenarZona();
         List<String> strListZona = new ArrayList<>(Arrays.asList(dir1Zona_parant));
@@ -289,8 +306,10 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 zona_dir = parent.getItemAtPosition(position).toString();
             }
+
             @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
     }
 
@@ -303,13 +322,13 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                 if (isValidNumber(editNombreCliente.getText().toString())) {
                     editNombreCliente.setError("Campo requerido");
                     editNombreCliente.requestFocus();
-                } else if (isValidNumber(txt_dir_1.getText().toString())){
+                } else if (isValidNumber(txt_dir_1.getText().toString())) {
                     txt_dir_1.setError("Campo requerido");
                     txt_dir_1.requestFocus();
-                } else if (isValidNumber(txt_dir_2.getText().toString())){
+                } else if (isValidNumber(txt_dir_2.getText().toString())) {
                     txt_dir_2.setError("Campo requerido");
                     txt_dir_2.requestFocus();
-                } else if (isValidNumber(txt_dir_3.getText().toString())){
+                } else if (isValidNumber(txt_dir_3.getText().toString())) {
                     txt_dir_3.setError("Campo requerido");
                     txt_dir_3.requestFocus();
                 } else if (isValidNumber(editBarrioCliente.getText().toString())) {
@@ -318,18 +337,18 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                 } else if (isValidNumber(editDirReferencia.getText().toString())) {
                     editDirReferencia.setError("Campo requerido");
                     editDirReferencia.requestFocus();
-                } else if(validateCheckBox()){
+                } else if (validateCheckBox()) {
                     Toast.makeText(this, "Marque un medio de pago", Toast.LENGTH_LONG).show();
-                } else if(input_layout_Efectivo_liner.getVisibility() == View.VISIBLE && isValidNumber(editEfectivo.getText().toString())) {
+                } else if (input_layout_Efectivo_liner.getVisibility() == View.VISIBLE && isValidNumber(editEfectivo.getText().toString())) {
                     editEfectivo.setError("Por favor digite la cantidad con la que va apagar");
                     editEfectivo.requestFocus();
-                } else if(input_layout_Efectivo_liner.getVisibility() == View.VISIBLE && validateCantidadValor()) {
+                } else if (input_layout_Efectivo_liner.getVisibility() == View.VISIBLE && validateCantidadValor()) {
                     editEfectivo.setError("La cantidad con la que paga no supera el monto total del pedido.  ");
                     editEfectivo.requestFocus();
                 } else {
 
-                    if (isValidNumber(editCelularCliente.getText().toString())){
-                        if(isValidNumber(editTelefonoCliente.getText().toString())){
+                    if (isValidNumber(editCelularCliente.getText().toString())) {
+                        if (isValidNumber(editTelefonoCliente.getText().toString())) {
                             editCelularCliente.setError("Requerido");
                             editCelularCliente.requestFocus();
                         } else {
@@ -351,7 +370,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
         }
     }
 
-    private boolean validateCantidadValor(){
+    private boolean validateCantidadValor() {
 
         List<AddProductCar> mAppList = mydb.getProductCar(getSedeStaticNew().getIdempresa(), getSedeStaticNew().getIdsedes());
         double valorFinalPedido = 0;
@@ -366,29 +385,29 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
 
     private void resulFinalValidate() {
 
-        if(isValidNumber(editEfectivo.getText().toString()))
+        if (isValidNumber(editEfectivo.getText().toString()))
             editEfectivo.setText("0");
 
-        if (zonaLayout.getVisibility() == View.VISIBLE){
-            adressString = Calle_Carrera +" "+ txt_dir_1.getText().toString().trim() +" # "+ txt_dir_2.getText().toString().trim() +" - "+txt_dir_3.getText().toString().trim() +" "+zona_dir +" "+selecte_ciudad;
+        if (zonaLayout.getVisibility() == View.VISIBLE) {
+            adressString = Calle_Carrera + " " + txt_dir_1.getText().toString().trim() + " # " + txt_dir_2.getText().toString().trim() + " - " + txt_dir_3.getText().toString().trim() + " " + zona_dir + " " + selecte_ciudad;
         } else {
-            adressString = Calle_Carrera +" "+ txt_dir_1.getText().toString().trim() +" # "+ txt_dir_2.getText().toString().trim() +" - "+txt_dir_3.getText().toString().trim() +" "+selecte_ciudad;
+            adressString = Calle_Carrera + " " + txt_dir_1.getText().toString().trim() + " # " + txt_dir_2.getText().toString().trim() + " - " + txt_dir_3.getText().toString().trim() + " " + selecte_ciudad;
         }
         //
         alertDialog.show();
         loadAdressLatLon(adressString);
     }
 
-    private boolean validateCheckBox(){
+    private boolean validateCheckBox() {
 
         boolean resulCheckBox = true;
 
-        for(int i = 0; i < root.getChildCount(); i++) {
+        for (int i = 0; i < root.getChildCount(); i++) {
             View child = root.getChildAt(i);
             if (child instanceof CheckBox) {
                 CheckBox cb = (CheckBox) child;
                 int answer = cb.isChecked() ? 1 : 0;
-                if (answer == 1){
+                if (answer == 1) {
                     resulCheckBox = false;
                     break;
                 }
@@ -416,25 +435,28 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
 
         });
     }
 
-    private boolean isValidNumber(String number){return number == null || number.length() == 0;}
+    private boolean isValidNumber(String number) {
+        return number == null || number.length() == 0;
+    }
 
-    public void enviarPedido(){
+    public void enviarPedido() {
 
-        String url = String.format("%1$s%2$s", getString(R.string.url_base),"pruebaJson");
+        String url = String.format("%1$s%2$s", getString(R.string.url_base), "pruebaJson");
         rq = Volley.newRequestQueue(this);
 
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>(){
+                new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         // response
 
-                        if(mydb.DeleteProductAll(getSedeStaticNew().getIdempresa(), getSedeStaticNew().getIdsedes())){
+                        if (mydb.DeleteProductAll(getSedeStaticNew().getIdempresa(), getSedeStaticNew().getIdsedes())) {
                             alertDialog.dismiss();
                             Toast.makeText(ActFinalizarPedido.this, response, Toast.LENGTH_LONG).show();
 
@@ -442,14 +464,14 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                             finish();
 
-                        }else{
+                        } else {
                             alertDialog.dismiss();
                             Toast.makeText(ActFinalizarPedido.this, "Problemas con el pedido.", Toast.LENGTH_LONG).show();
                         }
 
                     }
                 },
-                new Response.ErrorListener(){
+                new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
@@ -463,13 +485,13 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
 
-                TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+                TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 
                 objeto.setImeiPhone(telephonyManager.getDeviceId());
                 objeto.setNombreUsuairo(editNombreCliente.getText().toString());
                 objeto.setCelularp(editCelularCliente.getText().toString());
                 objeto.setDireccionp(adressString);
-                objeto.setDireccionReferen(editDirReferencia.getText().toString());
+                objeto.setDireccionReferen("Barrio: "+editBarrioCliente.getText().toString()+", "+editDirReferencia.getText().toString());
 
                 //objeto.setMedioPago(masterItem.getIdmediopago());
 
@@ -487,12 +509,12 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
 
                 ArrayList<MedioPago> medioPagoList = new ArrayList<>();
 
-                for(int i = 0; i < root.getChildCount(); i++) {
+                for (int i = 0; i < root.getChildCount(); i++) {
                     View child = root.getChildAt(i);
                     if (child instanceof CheckBox) {
                         CheckBox cb = (CheckBox) child;
                         int answer = cb.isChecked() ? 1 : 0;
-                        if (answer == 1){
+                        if (answer == 1) {
                             MedioPago medioPago = new MedioPago();
                             medioPago.setDescripcion(cb.getText().toString());
                             medioPago.setIdmediopago(cb.getId());
@@ -515,8 +537,8 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
         rq.add(jsonRequest);
     }
 
-    public void loadAdressLatLon(final String adressObten){
-        new AsyncTask<String[], Long, Long>(){
+    public void loadAdressLatLon(final String adressObten) {
+        new AsyncTask<String[], Long, Long>() {
             @Override
             protected Long doInBackground(String[]... params) {
                 try {
@@ -535,15 +557,17 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                 return null;
             }
 
-            protected void onPreExecute() { }
+            protected void onPreExecute() {
+            }
 
             @Override
-            public void onProgressUpdate(Long... value) { }
+            public void onProgressUpdate(Long... value) {
+            }
 
             @Override
-            protected void onPostExecute(Long result){
+            protected void onPostExecute(Long result) {
 
-                if(returnedaddresses != null){
+                if (returnedaddresses != null) {
                     enviarPedido();
                 }
 
@@ -553,7 +577,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
     }
 
     @Override
-    protected void onStop () {
+    protected void onStop() {
         super.onStop();
         if (rq != null) {
             rq.cancelAll(TAG);
@@ -568,4 +592,9 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
 }

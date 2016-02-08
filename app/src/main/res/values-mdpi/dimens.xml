@@ -1,15 +1,10 @@
 <resources>
 
     <!-- Esta dimencion es para celulares con pantalla de
-
         * 43.2” 320x480 mdpi
-
-
     -->
 
-
-
-    <dimen name="ancho_tabla">10dp</dimen>
-    <dimen name="ancho_table_precio">10dp</dimen>
+    <dimen name="ancho_tabla">100dp</dimen>
+    <dimen name="ancho_table_precio">90dp</dimen>
 
 </resources>

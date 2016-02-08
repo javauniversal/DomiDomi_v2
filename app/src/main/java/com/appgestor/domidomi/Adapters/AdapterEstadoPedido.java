@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.AuthFailureError;
@@ -99,7 +100,7 @@ public class AdapterEstadoPedido extends BaseAdapter {
             case "Alistado":
                 estado = "Alistado";
                 holder.cancelPedido.setVisibility(View.GONE);
-                holder.txtEstado.setTextColor(Color.parseColor("#FFFF00"));
+                holder.txtEstado.setTextColor(Color.parseColor("#806000"));
                 break;
             case "Enviado":
                 estado = "Enviado";
@@ -291,9 +292,6 @@ public class AdapterEstadoPedido extends BaseAdapter {
                 .title("Alerta!")
                 .content("Quiere cancelar el pedido?")
                 .positiveText("Aceptar")
-                .backgroundColor(actx.getResources().getColor(R.color.color_gris))
-                .positiveColor(actx.getResources().getColor(R.color.color_negro))
-                .negativeColor(actx.getResources().getColor(R.color.color_negro))
                 .negativeText("Cancelar")
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
@@ -311,7 +309,8 @@ public class AdapterEstadoPedido extends BaseAdapter {
 
     public void enviarCancelar(final String idpedidocel, final int idcompra, final int idSede){
 
-        String url = String.format("%1$s%2$s", actx.getString(R.string.url_base), "CancelarPedido");
+        String url = String.format("%1$s%2$s", actx.getString(R.string.url_base), "CancelarPedido" +
+                "");
         RequestQueue rq = Volley.newRequestQueue(actx);
 
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
@@ -319,6 +318,9 @@ public class AdapterEstadoPedido extends BaseAdapter {
                     @Override
                     public void onResponse(String response) {
                         // response
+
+                        Toast.makeText(actx, response.toString(), Toast.LENGTH_LONG).show();
+
                         actx.startActivity(new Intent(actx, ActEstadoPedido.class));
                         actx.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         actx.finish();
