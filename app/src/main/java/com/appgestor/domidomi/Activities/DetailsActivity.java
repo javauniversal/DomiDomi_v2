@@ -94,9 +94,9 @@ public class DetailsActivity extends AppCompatActivity {
                 break;
             case "EMPTYI":
                 progressActivity.showEmpty(DrawableData,
-                        "No hay establecimientos cercanos.",
-                        "Por ahora no hay establecimientos cercanos a su ubicación... ¡Espéralos muy pronto!", skipIds);
-                setTitle("No hay datos");
+                        "¡Espérelos muy pronto!",
+                        "No hay establecimientos cercanos a su ubicación.", skipIds);
+                setTitle(":(");
                 activityToolbar.setBackgroundColor(getResources().getColor(R.color.colorSinDatos));
                 break;
         }

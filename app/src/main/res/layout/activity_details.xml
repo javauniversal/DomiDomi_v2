@@ -21,7 +21,7 @@
         android:theme="@style/Toolbar" />
 
     <TextView
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/activityToolbar"
         android:layout_marginTop="56dp"

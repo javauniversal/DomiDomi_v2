@@ -4,8 +4,8 @@
     <string name="hello_world">Domi Domi</string>
 
     <!-- <string name="url_base">http://zonaapp.co/domidomi/service/</string> -->
-    <string name="url_base">http://domidomi.zonaapp.co/service/</string>
-    <!--<string name="url_base">http://172.20.32.75/dashboardd/services/</string>-->
+    <!-- <string name="url_base">http://domidomi.zonaapp.co/service/</string> -->
+    <string name="url_base">http://domidemo.zonaapp.co/service/</string>
 
     <string name="title_activity_act_ubicacion">Mi Ubicación</string>
     <string name="senales">*</string>
@@ -148,7 +148,7 @@
     <string name="orden">Orden #</string>
     <string name="cancelar_pedido">Cancelar Pedido</string>
     <string name="buscando_establecimientos_cercanos">Buscando Establecimientos Cercanos</string>
-    <string name="no_tiene_historial_de_pendientes">No tiene historial de pendientes</string>
+    <string name="no_tiene_historial_de_pendientes">No tiene historial de pedidos</string>
     <string name="no_tiene_pedidos_pendientes">No tiene pedidos pendientes</string>
     <string name="nombre_de_la_sede">Nombre de la sede</string>
     <string name="_2016_02_24">2016-02-24</string>

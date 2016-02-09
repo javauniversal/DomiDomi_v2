@@ -142,17 +142,17 @@ public class FragMenu extends BaseVolleyFragment {
                 txtTiempo.setText(String.format("Tiempo de Entrega: %s aprox", getSedeStaticNew().getTiempoEnvio()));
                 txtCosto.setText(String.format("Costo de Envío: $ %s", format.format(getSedeStaticNew().getCosenvio())));
 
-                String concatAdiciones = "";
+                String mediosPagos = "";
 
                 if (getSedeStaticNew() != null){
                     if (getSedeStaticNew().getMedioPagoList() != null){
                         for(int f = 0; f < getSedeStaticNew().getMedioPagoList().size(); f++) {
-                            concatAdiciones = concatAdiciones +" | "+ getSedeStaticNew().getMedioPagoList().get(f).getDescripcion();
+                            mediosPagos = mediosPagos +" | "+ getSedeStaticNew().getMedioPagoList().get(f).getDescripcion();
                         }
                     }
                 }
 
-                txtMedioPago.setText(String.format("Medios de Pago: %s", concatAdiciones));
+                txtMedioPago.setText(String.format("Medios de Pago: %s", mediosPagos));
 
                 setExpandableListView();
 
@@ -325,6 +325,7 @@ public class FragMenu extends BaseVolleyFragment {
                 expandableListView.setAdapter(expandableListAdapter);
                 if (expandableListTitle.size() > 0)
                     expandableListView.expandGroup(0);
+
                 expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
                     @Override
                     public void onGroupExpand(int groupPosition) {
