@@ -26,6 +26,7 @@ import static com.appgestor.domidomi.Entities.Sede.getSedeIdeStatic;
 
 public class ActComentario extends AppCompatActivity implements View.OnClickListener {
 
+
     private EditText Comentario;
     private Button enviar;
     private Button cancelar;
