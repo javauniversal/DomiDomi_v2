@@ -24,7 +24,6 @@
                 android:layout_height="60dp"
                 android:id="@+id/imgSede"
                 android:scaleType="centerCrop"
-                android:src="@drawable/no_img"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"

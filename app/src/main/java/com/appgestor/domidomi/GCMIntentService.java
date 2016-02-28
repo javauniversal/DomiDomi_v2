@@ -69,8 +69,9 @@ public class GCMIntentService extends GCMBaseIntentService {
     }
 
     private void registrarUsuario(final String username, final String regId, final Context context){
+        //String url = "http://zonaapp.co/domidomi/service/notificaciones/";
+        String url = String.format("%1$s%2$s", getString(R.string.url_base), "notificaciones/");
 
-        String url = "http://zonaapp.co/domidomi/service/notificaciones/";
         RequestQueue rq = Volley.newRequestQueue(this);
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>(){

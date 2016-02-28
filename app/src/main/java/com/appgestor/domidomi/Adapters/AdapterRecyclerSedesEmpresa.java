@@ -60,7 +60,11 @@ public class AdapterRecyclerSedesEmpresa extends RecyclerView.Adapter<RowViewHol
     public RowViewHolderSede onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sedes, parent, false);
-        return new RowViewHolderSede(v, context);
+
+        RowViewHolderSede rowViewHolderSede = new  RowViewHolderSede(v, context);
+
+        return rowViewHolderSede;
+
     }
 
     @Override
