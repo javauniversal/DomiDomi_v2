@@ -23,59 +23,81 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Comentario"
+            android:text="Califique el servicio"
             android:textSize="15sp"
             android:textStyle="bold"
             android:textColor="@color/color_negro"
             android:layout_margin="4dip"/>
 
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ratingBar2" />
+
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:padding="6dp"
-            android:layout_height="wrap_content">
+            android:orientation="vertical"
+            android:id="@+id/layout_a"
+            android:visibility="gone"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Deja un comentario"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/color_negro"
+                android:layout_margin="4dip"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:padding="6dp"
+                android:layout_height="wrap_content">
 
 
-            <EditText
-                android:id="@+id/EditComment"
+                <EditText
+                    android:id="@+id/EditComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="3"
+                    android:background="@drawable/rounded_corner"
+                    android:gravity="top|left"
+                    android:inputType="textMultiLine"
+                    android:scrollHorizontally="false"
+                    android:minWidth="10.0dip"
+                    android:textColor="@color/color_negro"
+                    android:maxWidth="180dip" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:lines="3"
-                android:background="@drawable/rounded_corner"
-                android:gravity="top|left"
-                android:inputType="textMultiLine"
-                android:scrollHorizontally="false"
-                android:minWidth="10.0dip"
-                android:textColor="@color/color_negro"
-                android:maxWidth="180dip" />
+                android:layout_below="@+id/linearLayout6">
+
+                <!-- <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cancelar"
+                    android:layout_weight="1"
+                    android:id="@+id/btnCancelcom"
+                    style="@style/BrandButtonStyle2"
+                    android:layout_gravity="center_horizontal"/> -->
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/enviar"
+                    android:id="@+id/btnEnviar"
+                    style="@style/BrandButtonStyle2"
+                    android:layout_gravity="center_horizontal" />
+
+            </LinearLayout>
 
         </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout6">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/cancelar"
-            android:layout_weight="1"
-            android:id="@+id/btnCancelcom"
-            style="@style/BrandButtonStyle2"
-            android:layout_gravity="center_horizontal"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/enviar"
-            android:id="@+id/btnEnviar"
-            style="@style/BrandButtonStyle2"
-            android:layout_weight="1"
-            android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
 

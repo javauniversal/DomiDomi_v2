@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -53,22 +54,30 @@ public class GCMIntentService extends GCMBaseIntentService {
 
     @Override
     protected void onRegistered(Context context, String regId) {
-        Log.d("GCM", "onRegistered: Registrado OK.");
+        //Log.d("GCM", "onRegistered: Registrado OK.");
         //En este punto debeis obtener el usuario donde lo tengais guardado.
-        //Si no teneis un sistema de login y los usuarios son an�nimos podeis simplemente almacenar el regId
+        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 
-        TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-        String usuario = telephonyManager.getDeviceId();
+        //String usuario = telephonyManager.getDeviceId();
 
-        registrarUsuario(usuario, regId, context);
+
+        String identifier = null;
+        TelephonyManager tm = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+        if (tm != null)
+            //identifier = tm.getDeviceId();
+        if (identifier == null || identifier .length() == 0)
+            identifier = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+
+
+        registrarUsuario(identifier, regId);
     }
 
     @Override
     protected void onUnregistered(Context context, String s) {
-        Log.d("GCM", "onUnregistered: Desregistrado OK.");
+        //Log.d("GCM", "onUnregistered: Desregistrado OK.");
     }
 
-    private void registrarUsuario(final String username, final String regId, final Context context){
+    private void registrarUsuario(final String username, final String regId){
         //String url = "http://zonaapp.co/domidomi/service/notificaciones/";
         String url = String.format("%1$s%2$s", getString(R.string.url_base), "notificaciones/");
 
@@ -125,9 +134,9 @@ public class GCMIntentService extends GCMBaseIntentService {
 
             if(msg.charAt(x) == '%'){
 
-                String iiii = msg.substring(x+1);
+                String sede = msg.substring(x+1);
 
-                setSedeIdeStatic(Integer.parseInt(iiii));
+                setSedeIdeStatic(Integer.parseInt(sede));
 
                 Intent notIntent = new Intent(context, ActComentario.class);
                 PendingIntent contIntent = PendingIntent.getActivity(context, 0, notIntent, 0);

@@ -203,7 +203,6 @@ public class QuantityView extends LinearLayout implements View.OnClickListener {
     public void algoValor(){
 
         Double valorAdicion = 0.0;
-
         for(int i = 0; i < parentactivity.getChildCount(); i++) {
             View child = parentactivity.getChildAt(i);
             if (child instanceof CheckBox){
@@ -212,7 +211,7 @@ public class QuantityView extends LinearLayout implements View.OnClickListener {
                 if (answer == 1){
                     for(int f = 0; f < getProductoStatic().getAdicionesList().size(); f++) {
                         if(cb.getId() == getProductoStatic().getAdicionesList().get(f).getIdadicionales()){
-                            valorAdicion = valorAdicion + getProductoStatic().getAdicionesList().get(f).getValor();
+                            valorAdicion = (valorAdicion + getProductoStatic().getAdicionesList().get(f).getValor()) * getProductoStatic().getAdicionesList().get(f).getCantidadAdicion();
                             break;
                         }
                     }
@@ -220,10 +219,7 @@ public class QuantityView extends LinearLayout implements View.OnClickListener {
             }
         }
 
-        Double sumaAdiciones = valorAdicion * getQuantity();
-        Double sumaValorProducto = valorPrecio * getQuantity();
-
-        Double sumaTotal = sumaAdiciones + sumaValorProducto;
+        Double sumaTotal = (valorPrecio * quantity) + valorAdicion;
 
         textView.setText(String.format("%s", format.format(sumaTotal)));
         textView12.setText(sumaTotal+"");

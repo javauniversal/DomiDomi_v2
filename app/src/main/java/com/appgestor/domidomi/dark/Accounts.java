@@ -36,7 +36,7 @@ public class Accounts extends MaterialNavigationDrawerCosmm {
         // create sections
         this.addSection(newSection("Establecimientos", R.drawable.ic_restaurant_menu_black_24dp, new FragListEmpresas()));
         this.addSection(newSection("Seguimiento de los pedidos", R.drawable.ic_playlist_add_check_black_24dp, new Intent(this, ActEstadoPedido.class)));
-        this.addSection(newSection("Mi Ubicación", R.drawable.ic_pin_drop_black_48dp, new LocationFragment12()));
+        //this.addSection(newSection("Mi Ubicación", R.drawable.ic_pin_drop_black_48dp, new LocationFragment12()));
         this.addSection(newSection("Carrito", R.drawable.ic_local_grocery_store_black_24dp, new FragmentCarrito()));
         this.addSection(newSection("Perfil", R.drawable.ic_face_black_24dp, new FragmentPeril()));
 
@@ -70,7 +70,5 @@ public class Accounts extends MaterialNavigationDrawerCosmm {
 
         }
     }
-
-
 
 }

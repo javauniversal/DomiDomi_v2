@@ -7,6 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -28,7 +30,10 @@ public class ActComentario extends AppCompatActivity implements View.OnClickList
 
     private EditText Comentario;
     private Button enviar;
-    private Button cancelar;
+    private RatingBar ratingBar;
+    private LinearLayout layout_a;
+    //private Button cancelar;
+    private String rateValue;
     protected RequestQueue rq;
     public static final String TAG = "MyTag";
 
@@ -44,8 +49,21 @@ public class ActComentario extends AppCompatActivity implements View.OnClickList
         enviar = (Button) findViewById(R.id.btnEnviar);
         enviar.setOnClickListener(this);
 
-        cancelar = (Button) findViewById(R.id.btnCancelcom);
-        cancelar.setOnClickListener(this);
+        layout_a = (LinearLayout) findViewById(R.id.layout_a);
+
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar2);
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                rateValue = String.valueOf(ratingBar.getRating());
+                //Toast.makeText(ActComentario.this, rateValue, Toast.LENGTH_LONG).show();
+                layout_a.setVisibility(View.VISIBLE);
+            }
+        });
+
+
+        /*cancelar = (Button) findViewById(R.id.btnCancelcom);
+        cancelar.setOnClickListener(this);*/
 
     }
 
@@ -80,6 +98,7 @@ public class ActComentario extends AppCompatActivity implements View.OnClickList
 
                 params.put("comentario", Comentario.getText().toString());
                 params.put("sede", String.valueOf(getSedeIdeStatic()));
+                params.put("calificacion", rateValue);
 
                 return params;
             }
@@ -124,13 +143,11 @@ public class ActComentario extends AppCompatActivity implements View.OnClickList
 
                 break;
 
-            case R.id.btnCancelcom:
-
+            /*case R.id.btnCancelcom:
                 startActivity(new Intent(ActComentario.this, Accounts.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
-
-                break;
+                break;*/
         }
 
     }

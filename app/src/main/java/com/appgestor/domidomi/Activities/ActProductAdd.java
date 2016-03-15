@@ -1,10 +1,13 @@
 package com.appgestor.domidomi.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,6 +51,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
     private ProgressBar progressBar2;
     private DecimalFormat format;
     private LinearLayout root;
+    Double totalfinal = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,9 +136,53 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
                 ll.addView(cb);
                 cb.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        Double totaltemporal = Double.valueOf(totalFinalOculto.getText().toString());
-                        Double totalfinal = null;
+                    public void onClick(final View v) {
+
+
+                        final Double totaltemporal = Double.valueOf(totalFinalOculto.getText().toString());
+
+                        if (((CheckBox) v).isChecked()) {
+                            LayoutInflater inflater = getLayoutInflater();
+                            View dialoglayout = inflater.inflate(R.layout.dialog_edit_produt, null);
+
+                            final EditText numberEdit = (EditText) dialoglayout.findViewById(R.id.editTextNumber);
+                            numberEdit.setText(String.format("%s", 1));
+
+                            AlertDialog.Builder builder = new AlertDialog.Builder(ActProductAdd.this);
+                            builder.setCancelable(false);
+                            builder.setTitle("Seleccione la cantidad");
+                            builder.setView(dialoglayout)
+                                    .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+
+                                            for(int f = 0; f < getProductoStatic().getAdicionesList().size(); f++) {
+                                                if(v.getId() == getProductoStatic().getAdicionesList().get(f).getIdadicionales()){
+                                                    totalfinal = (totaltemporal + (getProductoStatic().getAdicionesList().get(f).getValor() * Integer.parseInt(numberEdit.getText().toString())));
+                                                    getProductoStatic().getAdicionesList().get(f).setCantidadAdicion(Integer.parseInt(numberEdit.getText().toString()));
+                                                    break;
+                                                }
+                                            }
+
+                                            totalFinal.setText(String.format("%s", format.format(totalfinal)));
+                                            totalFinalOculto.setText(totalfinal+"");
+                                        }
+                                    });
+
+                            builder.show();
+                        } else {
+                            for(int j = 0; j < getProductoStatic().getAdicionesList().size(); j++) {
+                                if(v.getId() == getProductoStatic().getAdicionesList().get(j).getIdadicionales()){
+                                    totalfinal = (totaltemporal - (getProductoStatic().getAdicionesList().get(j).getValor() * getProductoStatic().getAdicionesList().get(j).getCantidadAdicion()));
+                                    break;
+                                }
+                            }
+
+                            totalFinal.setText(String.format("%s", format.format(totalfinal)));
+                            totalFinalOculto.setText(totalfinal+"");
+                        }
+
+
+                        /*
                         if (((CheckBox) v).isChecked()) {
                             for(int f = 0; f < getProductoStatic().getAdicionesList().size(); f++) {
                                 if(v.getId() == getProductoStatic().getAdicionesList().get(f).getIdadicionales()){
@@ -154,6 +202,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
 
                         totalFinal.setText(String.format("%s", format.format(totalfinal)));
                         totalFinalOculto.setText(totalfinal+"");
+                        */
 
                     }
                 });
@@ -275,7 +324,8 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
                                                 getProductoStatic().getAdicionesList().get(f).getValor(),
                                                 getProductoStatic().getAdicionesList().get(f).getEstado(),
                                                 getProductoStatic().getAdicionesList().get(f).getIdproductos(),
-                                                getSedeStaticNew().getIdsedes(),getSedeStaticNew().getIdempresa()));
+                                                getSedeStaticNew().getIdsedes(),getSedeStaticNew().getIdempresa(),
+                                                getProductoStatic().getAdicionesList().get(f).getCantidadAdicion()));
                                 break;
                             }
                         }

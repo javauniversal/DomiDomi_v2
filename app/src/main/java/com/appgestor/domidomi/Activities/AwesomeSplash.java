@@ -73,7 +73,6 @@ abstract public class AwesomeSplash extends AppCompatActivity {
 
             if (isInternetPresent) {
 
-
                 MyService gps = new MyService(this);
                 if(gps.getLatitude() == 0.0){
 
@@ -116,9 +115,9 @@ abstract public class AwesomeSplash extends AppCompatActivity {
         if (regId.equals("")) {
             GCMRegistrar.register(context, "918001884534");
             GCMRegistrar.setRegisteredOnServer(this, true);
-            Log.v("GCM", "Registrado");
+            //Log.v("GCM", "Registrado");
         } else {
-            Log.v("GCM", "Ya registrado");
+            //Log.v("GCM", "Ya registrado");
         }
     }
 

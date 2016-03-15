@@ -39,6 +39,8 @@ public class Producto {
 
 
 
+
+
     public static Producto getProductoStatic() {
         return productoStatic;
     }

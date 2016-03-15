@@ -30,9 +30,11 @@ public class Adiciones {
 
     private int AutoIncrementAdicion;
 
+    private int cantidadAdicion;
+
     public Adiciones(){}
 
-    public Adiciones(int idadicionales, String descripcion, String tipo, double valor, int estado, int idproductos, int idSede, int idEmpresa) {
+    public Adiciones(int idadicionales, String descripcion, String tipo, double valor, int estado, int idproductos, int idSede, int idEmpresa, int cantidadAdicion) {
         this.idadicionales = idadicionales;
         this.descripcion = descripcion;
         this.tipo = tipo;
@@ -41,6 +43,7 @@ public class Adiciones {
         this.idproductos = idproductos;
         this.idSede = idSede;
         this.idEmpresa = idEmpresa;
+        this.cantidadAdicion = cantidadAdicion;
     }
 
 
@@ -124,6 +127,14 @@ public class Adiciones {
 
     public void setAutoIncrementAdicion(int autoIncrementAdicion) {
         AutoIncrementAdicion = autoIncrementAdicion;
+    }
+
+    public int getCantidadAdicion() {
+        return cantidadAdicion;
+    }
+
+    public void setCantidadAdicion(int cantidadAdicion) {
+        this.cantidadAdicion = cantidadAdicion;
     }
 
 }

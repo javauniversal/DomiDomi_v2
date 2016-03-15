@@ -24,9 +24,6 @@ import static com.appgestor.domidomi.Entities.UbicacionPreferen.setLongitudStati
 
 public class ActUbicacion extends AppCompatActivity implements View.OnClickListener{
 
-    private Button buttonU;
-    private Button buttonD;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -43,7 +43,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String sqlAdiciones = "CREATE TABLE adiciones (id integer primary key AUTOINCREMENT, idAdicion int, descripcion text, " +
                                                         " tipo text, valor REAL, estado int, idproductos int, idSede int,  "+
-                                                        " idEmpresa int, idCarrito int) ";
+                                                        " idEmpresa int, idCarrito int, cantidadAdicion int) ";
 
         String sqlIntro = "CREATE TABLE intro (id integer primary key AUTOINCREMENT, idintro text )";
 
@@ -273,6 +273,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         valueAdicion.put("idSede", data.getAdicionesList().get(f).getIdSede());
                         valueAdicion.put("idEmpresa", data.getAdicionesList().get(f).getIdEmpresa());
                         valueAdicion.put("idCarrito", idCarritoCompra);
+                        valueAdicion.put("cantidadAdicion", data.getAdicionesList().get(f).getCantidadAdicion());
 
                         db.insert("adiciones", null, valueAdicion);
 
