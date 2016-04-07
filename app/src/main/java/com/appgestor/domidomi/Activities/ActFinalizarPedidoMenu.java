@@ -6,10 +6,14 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,6 +22,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -33,10 +38,14 @@ import com.appgestor.domidomi.Entities.Ciudades;
 import com.appgestor.domidomi.Entities.Cliente;
 import com.appgestor.domidomi.Entities.MedioPago;
 import com.appgestor.domidomi.Entities.PedidoWebCabeza;
+import com.appgestor.domidomi.Mascara.MaskEditTextChangedListener;
+import com.appgestor.domidomi.Mascara.PesoEditTextChangedListener;
 import com.appgestor.domidomi.R;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -47,6 +56,7 @@ import java.util.Map;
 import dmax.dialog.SpotsDialog;
 
 import static com.appgestor.domidomi.Entities.MedioPago.getMedioPagoListstatic;
+import static com.appgestor.domidomi.Entities.Sede.getSedeStaticNew;
 
 
 public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.OnClickListener {
@@ -88,6 +98,8 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
     ArrayAdapter<Ciudades> prec3;
     ArrayAdapter<String> prec123;
     LinearLayout ll;
+    private TextView total_pedido;
+    private DecimalFormat format;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +109,8 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
 
         Intent intent = getIntent();
         bundle = intent.getExtras();
+
+        ll = (LinearLayout) findViewById(R.id.llMediosPagos);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
@@ -111,7 +125,6 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
         Button myCancelar = (Button) findViewById(R.id.button_cancel);
         myCancelar.setOnClickListener(this);
 
-        ll = (LinearLayout) findViewById(R.id.llMediosPagos);
 
         editNombreCliente = (EditText) findViewById(R.id.editNombreCliente);
         editCelularCliente = (EditText) findViewById(R.id.editCelularCliente);
@@ -119,6 +132,7 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
         txt_dir_1 = (EditText) findViewById(R.id.txt_dir_1);
         txt_dir_2 = (EditText) findViewById(R.id.txt_dir_2);
         txt_dir_3 = (EditText) findViewById(R.id.txt_dir_3);
+        total_pedido = (TextView) findViewById(R.id.total_pedido);
         editBarrioCliente = (EditText) findViewById(R.id.editBarrioCliente);
         editDirReferencia = (EditText) findViewById(R.id.editDirReferencia);
         editTelefonoCliente = (EditText) findViewById(R.id.editTelefonoCliente);
@@ -126,17 +140,15 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
 
         root = (LinearLayout) findViewById(R.id.llMediosPagos);
 
-        //loaandSpinner(spTarjetas);
-
         editEfectivo = (EditText) findViewById(R.id.editEfectivo);
+        PesoEditTextChangedListener maskValor = new PesoEditTextChangedListener("###,###,##0", editEfectivo);
+        editEfectivo.addTextChangedListener(maskValor);
 
         dir_3 = (Spinner) findViewById(R.id.spinner_ciudades);
 
         zonaLayout = (LinearLayout) findViewById(R.id.zonaLayout);
 
         spinner_zona = (Spinner) findViewById(R.id.spinner_zona);
-
-
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -148,6 +160,9 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
             }
         });
 
+        format = new DecimalFormat("#,###.##");
+        sumarValoresFinales(mydb.getProductCar(bundle.getInt("empresa"), bundle.getInt("sede")));
+
         new AsyncTask<String[], Long, Long>(){
             @Override
             protected Long doInBackground(String[]... params) {
@@ -155,7 +170,7 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
                 loadAdress();
                 loadCiudades();
                 setLlenarZona();
-                CargarMedioPago();
+
                 CargarDataCliente();
 
                 return null;
@@ -177,15 +192,17 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
 
         }.execute();
 
+        CargarMedioPago();
+
     }
 
     private void CargarDataCliente() {
-        cliente = mydb.getUsuarioAll();
+        //cliente = mydb.getUsuarioAll();
     }
 
     private void setCargarCliente() {
         if(cliente != null){
-            if(cliente.getIncluir() == 1){
+            /*if(cliente.getIncluir() == 1){
                 editNombreCliente.setText(cliente.getNombre());
                 editCelularCliente.setText(cliente.getCelular());
                 editTelefonoCliente.setText(cliente.getTelefono());
@@ -200,7 +217,7 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
 
                 selectValue(ciudades, cliente.getCiudad(), dir_3);
 
-            }
+            }*/
         }
     }
 
@@ -273,24 +290,31 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
                 CheckBox cb = new CheckBox(this);
                 cb.setText(getMedioPagoListstatic().get(i).getDescripcion());
                 cb.setId(getMedioPagoListstatic().get(i).getIdmediopago());
-                if (ll != null)
+                if (ll != null) {
                     ll.addView(cb);
+                }
+
                 cb.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (((CheckBox) v).isChecked()) {
 
+                        for (int i = 0; i < root.getChildCount(); i++) {
+                            View child = root.getChildAt(i);
+                            if (child instanceof CheckBox) {
+                                CheckBox cb = (CheckBox) child;
+                                cb.setError(null);
+                            }
+                        }
+
+                        if (((CheckBox) v).isChecked()) {
                             if (((CheckBox) v).getText().equals("Efectivo") || ((CheckBox) v).getText().equals("efectivo")) {
                                 input_layout_Efectivo_liner.setVisibility(View.VISIBLE);
                             }
-
                         } else {
-
                             if (((CheckBox) v).getText().equals("Efectivo") || ((CheckBox) v).getText().equals("efectivo")) {
                                 input_layout_Efectivo_liner.setVisibility(View.GONE);
                                 editEfectivo.setText("0");
                             }
-
                         }
                     }
                 });
@@ -343,7 +367,6 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
         });
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -369,18 +392,18 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
                     editDirReferencia.setError("Campo requerido");
                     editDirReferencia.requestFocus();
                 } else if(validateCheckBox()){
-                    Toast.makeText(this, "Marque un medio de pago", Toast.LENGTH_LONG).show();
-                } else if(input_layout_Efectivo_liner.getVisibility() == View.VISIBLE && isValidNumber(editEfectivo.getText().toString())) {
+                    //Toast.makeText(this, "Marque un medio de pago", Toast.LENGTH_LONG).show();
+                } else if(input_layout_Efectivo_liner.getVisibility() == View.VISIBLE && isValidNumber(limpiarMascara(editEfectivo))) {
                     editEfectivo.setError("Por favor digite la cantidad con la que va apagar");
                     editEfectivo.requestFocus();
                 } else if(input_layout_Efectivo_liner.getVisibility() == View.VISIBLE && validateCantidadValor()) {
-                    editEfectivo.setError("La cantidad con la que paga no supera el monto total del pedido.  ");
+                    editEfectivo.setError("La cantidad con la que paga no supera el monto total del pedido.");
                     editEfectivo.requestFocus();
                 }else {
 
                     if (isValidNumber(editCelularCliente.getText().toString())){
                         if(isValidNumber(editTelefonoCliente.getText().toString())){
-                            editCelularCliente.setError("Requerido");
+                            editCelularCliente.setError("Campo requerido");
                             editCelularCliente.requestFocus();
                         } else {
                             //Guardar
@@ -403,20 +426,37 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
 
     private boolean validateCantidadValor(){
 
-        List<AddProductCar> mAppList = mydb.getProductCar(bundle.getInt("empresa"), bundle.getInt("sede"));
-        double valorFinalPedido = 0;
-        for (int i = 0; i < mAppList.size(); i++) {
-            valorFinalPedido = valorFinalPedido + mAppList.get(i).getValueoverall();
+        int contador = 0;
+        boolean bandera = false;
+        for (int i = 0; i < root.getChildCount(); i++) {
+            View child = root.getChildAt(i);
+            if (child instanceof CheckBox) {
+                CheckBox cb = (CheckBox) child;
+                int answer = cb.isChecked() ? 1 : 0;
+                if (answer == 1) {
+                    contador++;
+                }
+            }
         }
 
-        valorFinalPedido = valorFinalPedido + bundle.getDouble("cosEnvio");
-        return Double.parseDouble(editEfectivo.getText().toString()) < valorFinalPedido;
+        if (contador == 1){
+            List<AddProductCar> mAppList = mydb.getProductCar(bundle.getInt("empresa"), bundle.getInt("sede"));
+            double valorFinalPedido = 0;
+            for (int e = 0; e < mAppList.size(); e++) {
+                valorFinalPedido = valorFinalPedido + mAppList.get(e).getValueoverall();
+            }
+
+            valorFinalPedido = valorFinalPedido + bundle.getDouble("cosEnvio");
+            bandera = Double.parseDouble(limpiarMascara(editEfectivo)) < valorFinalPedido;
+        }
+
+        return bandera;
 
     }
 
     private void resulFinalValidate() {
 
-        if(isValidNumber(editEfectivo.getText().toString()))
+        if(isValidNumber(limpiarMascara(editEfectivo)))
             editEfectivo.setText("0");
 
         if (zonaLayout.getVisibility() == View.VISIBLE){
@@ -430,21 +470,19 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
 
     private boolean validateCheckBox(){
 
-        boolean resulCheckBox = true;
-
         for(int i = 0; i < root.getChildCount(); i++) {
             View child = root.getChildAt(i);
             if (child instanceof CheckBox) {
                 CheckBox cb = (CheckBox) child;
                 int answer = cb.isChecked() ? 1 : 0;
                 if (answer == 1){
-                    resulCheckBox = false;
-                    break;
+                    return false;
                 }
+                cb.setError("Marque un medio de pago");
             }
         }
 
-        return resulCheckBox;
+        return true;
     }
 
     public void loadAdressLatLon(final String adressObten){
@@ -522,14 +560,18 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
 
                 TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
 
-                objeto.setImeiPhone(telephonyManager.getDeviceId());
+                if ( Build.VERSION.SDK_INT >= 23){
+                    objeto.setImeiPhone(Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID));
+                } else {
+                    objeto.setImeiPhone(telephonyManager.getDeviceId());
+                }
                 objeto.setNombreUsuairo(editNombreCliente.getText().toString());
                 objeto.setCelularp(editCelularCliente.getText().toString());
                 objeto.setDireccionp(adressString);
                 objeto.setDireccionReferen("Barrio: "+editBarrioCliente.getText().toString()+", "+editDirReferencia.getText().toString());
                 //objeto.setMedioPago(masterItem.getIdmediopago());
 
-                objeto.setValorPago(Double.valueOf(editEfectivo.getText().toString()));
+                objeto.setValorPago(Double.valueOf(limpiarMascara(editEfectivo)));
                 objeto.setLatitud(latitud);
                 objeto.setLongitud(longitud);
                 objeto.setIdEmpresaP(bundle.getInt("empresa"));
@@ -569,6 +611,29 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
             }
         };
         rq.add(jsonRequest);
+    }
+
+    private String limpiarMascara(EditText editText){
+        String editLimpio = editText.getText().toString().replaceAll("[R$]", "").replaceAll("[,]", "").replaceAll("[.]", "");
+        return editLimpio;
+    }
+
+    private void sumarValoresFinales(List<AddProductCar> data){
+
+        if(data.size() > 0){
+            double dValor = 0;
+
+            for (int i = 0; i < data.size(); i++) {
+                dValor = dValor + data.get(i).getValueoverall();
+            }
+
+            dValor = dValor + bundle.getDouble("cosEnvio");
+
+            total_pedido.setText(String.format("Total a Pagar: $ %s", format.format(dValor)));
+
+        }else{
+            total_pedido.setText(String.format("Total a Pagar: $ %s", 0));
+        }
     }
 
     @Override

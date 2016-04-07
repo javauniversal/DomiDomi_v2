@@ -77,31 +77,53 @@ public class AppAdapter extends BaseAdapter {
 
         String adicion = mostrarAdiciones(item.getIdProduct(), item.getIdcompany(), item.getIdsede());
 
-        holder.tv_name.setText(String.format("%1s(x%2s)", item.getNameProduct(),item.getQuantity()));
-        holder.tv_preci.setText(String.format("Precio: $ %s", format.format(item.getValueunitary())));
-        holder.tv_cantidad.setText(String.format("Total: $ %s", format.format(item.getValueoverall())));
+        double totalAdicion = totalAdiciones(item.getIdProduct(), item.getIdcompany(), item.getIdsede());
+
+        holder.tv_name.setText(String.format("%1s(x%2s)", item.getNameProduct(), item.getQuantity()));
+        holder.valorProductoCar.setText(String.format("Valor: $ %s", format.format(item.getValueunitary())));
+        holder.totalProductoCar.setText(String.format("Valor Total: $ %s", format.format(item.getValueunitary() * item.getQuantity())));
+
+        holder.tv_preci.setText(String.format("Valor Total: $ %s", format.format(item.getValueoverall())));
+
+        //holder.tv_cantidad.setText(String.format("Total: $ %s", format.format(item.getValueoverall())));
 
         if (adicion != null && adicion != ""){
             holder.tv_adiciones.setVisibility(View.VISIBLE);
+            holder.totalAdicion.setVisibility(View.VISIBLE);
             holder.tv_adiciones.setText(adicion);
+            holder.totalAdicion.setText(String.format("Total: $ %s", format.format(totalAdicion)));
         }else {
             holder.tv_adiciones.setVisibility(View.GONE);
+            holder.totalAdicion.setVisibility(View.GONE);
         }
 
         CargarImagen(holder,item);
         return convertView;
     }
 
+    private double totalAdiciones(int idProduct, int idcompany, int idsede) {
+
+        double totalAdicion = 0.0;
+
+        List<Adiciones> adicionesList = mydb.getAdiciones(idProduct, idcompany, idsede);
+        if(adicionesList.size() > 0){
+            for (int i = 0; i < adicionesList.size(); i++) {
+                totalAdicion = totalAdicion + (adicionesList.get(i).getCantidadAdicion() * adicionesList.get(i).getValor());
+            }
+        }
+        return totalAdicion;
+    }
+
     public String mostrarAdiciones(int idcarrito, int idempresa, int idsede){
 
-        List<Adiciones> adicionesList = mydb.getAdiciones(idcarrito,idempresa,idsede);
+        List<Adiciones> adicionesList = mydb.getAdiciones(idcarrito, idempresa, idsede);
 
         String formato = "";
 
         if(adicionesList.size() > 0){
             String concatAdiciones = "";
             for (int i = 0; i < adicionesList.size(); i++) {
-                concatAdiciones = concatAdiciones +" | "+ adicionesList.get(i).getDescripcion();
+                concatAdiciones = concatAdiciones +" | "+ adicionesList.get(i).getDescripcion() +"(x "+ adicionesList.get(i).getCantidadAdicion()+")";
             }
 
             formato = String.format(" %1s %2s", "Adiciones:", concatAdiciones);
@@ -141,15 +163,19 @@ public class AppAdapter extends BaseAdapter {
         ImageView iv_icon;
         TextView tv_name;
         TextView tv_preci;
-        TextView tv_cantidad;
+        TextView totalAdicion;
         TextView tv_adiciones;
+        TextView valorProductoCar;
+        TextView totalProductoCar;
 
         public ViewHolder(View view) {
             iv_icon = (ImageView) view.findViewById(R.id.iv_icon);
             tv_name = (TextView) view.findViewById(R.id.tv_name);
             tv_preci = (TextView) view.findViewById(R.id.tv_preci);
-            tv_cantidad = (TextView) view.findViewById(R.id.tv_cantidad);
+            totalAdicion = (TextView) view.findViewById(R.id.totalAdicion);
             tv_adiciones = (TextView) view.findViewById(R.id.tv_adiciones);
+            valorProductoCar = (TextView) view.findViewById(R.id.valorProductoCar);
+            totalProductoCar = (TextView) view.findViewById(R.id.totalProductoCar);
             view.setTag(this);
         }
     }

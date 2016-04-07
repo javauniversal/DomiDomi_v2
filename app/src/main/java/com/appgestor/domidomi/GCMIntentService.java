@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.TelephonyManager;
@@ -57,17 +58,12 @@ public class GCMIntentService extends GCMBaseIntentService {
         //Log.d("GCM", "onRegistered: Registrado OK.");
         //En este punto debeis obtener el usuario donde lo tengais guardado.
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-
-        //String usuario = telephonyManager.getDeviceId();
-
-
-        String identifier = null;
-        TelephonyManager tm = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
-        if (tm != null)
-            //identifier = tm.getDeviceId();
-        if (identifier == null || identifier .length() == 0)
+        String identifier;
+        if ( Build.VERSION.SDK_INT >= 23){
             identifier = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-
+        } else {
+            identifier = telephonyManager.getDeviceId();
+        }
 
         registrarUsuario(identifier, regId);
     }
@@ -109,8 +105,7 @@ public class GCMIntentService extends GCMBaseIntentService {
     }
 
     private void notificarMensaje(Context context, String msg){
-
-
+        String msg_limpio = msg;
         long[] vibrate = {100,100,200,300};
         Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -120,8 +115,8 @@ public class GCMIntentService extends GCMBaseIntentService {
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setLargeIcon(bm)
                         .setContentTitle("Mensaje de Alerta")
-                        .setContentText(msg)
-                        .setContentInfo("Domi Domi")
+                        .setContentText(limpiarMascara(msg_limpio))
+                        //.setContentInfo("Domi Domi")
                         .setVibrate(vibrate).setAutoCancel(true)
                         .setLights(Color.RED, 1, 0)
                         .setSound(alarmSound)
@@ -156,5 +151,19 @@ public class GCMIntentService extends GCMBaseIntentService {
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(NOTIF_ALERTA_ID, mBuilder.build());
 
+    }
+
+    private String limpiarMascara(String editText){
+
+        String sede = "";
+        for (int x=0;x<editText.length();x++){
+
+            if(editText.charAt(x) == '%'){
+                sede = editText.substring(x+1);
+            }
+        }
+
+        String editLimpio = editText.replaceAll("[%]", "").replaceAll(sede, "");
+        return editLimpio;
     }
 }

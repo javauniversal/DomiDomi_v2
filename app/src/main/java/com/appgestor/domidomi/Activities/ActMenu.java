@@ -57,7 +57,7 @@ public class ActMenu extends AppCompatActivity {
 
         mPager.setAdapter(new MyClasPagerAdapter(getSupportFragmentManager()));
         SlidingTabLayout mTabs = (SlidingTabLayout) findViewById(R.id.tabs);
-        mTabs.setBackgroundColor(getResources().getColor(R.color.color_1));
+        mTabs.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         mTabs.setSelectedIndicatorColors(getResources().getColor(R.color.colorAccent));
         mTabs.setDistributeEvenly(true);
         mTabs.setViewPager(mPager);
@@ -90,45 +90,6 @@ public class ActMenu extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setFavorito(){
-
-        String url = String.format("%1$s%2$s", getString(R.string.url_base), "setFavoritos");
-        rq = Volley.newRequestQueue(this);
-
-        StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>(){
-                    @Override
-                    public void onResponse(String response) {
-                        // response
-                        Toast.makeText(ActMenu.this, response, Toast.LENGTH_LONG).show();
-                    }
-                },
-                new Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // error
-                        startActivity(new Intent(ActMenu.this, DetailsActivity.class).putExtra("STATE", "ERROR"));
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    }
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-
-                TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-
-                //params.put("descripcion", getEmpresastatic().getDescripcion());
-                params.put("idTelefono", telephonyManager.getDeviceId());
-                params.put("idEmpresa", String.valueOf(getSedeStaticNew().getIdempresa()));
-
-                return params;
-
-            }
-
-        };
-        rq.add(jsonRequest);
-    }
 
     @Override
     protected void onStop () {

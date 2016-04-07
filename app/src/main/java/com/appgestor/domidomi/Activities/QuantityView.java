@@ -1,7 +1,9 @@
 package com.appgestor.domidomi.Activities;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -9,10 +11,12 @@ import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -38,6 +42,7 @@ public class QuantityView extends LinearLayout implements View.OnClickListener {
     private double valorPrecio = 0;
     private TextView textView;
     private TextView textView12;
+    private TextView textView3;
     private ViewGroup parentactivity;
     private DecimalFormat format;
 
@@ -165,25 +170,27 @@ public class QuantityView extends LinearLayout implements View.OnClickListener {
                     onQuantityChangeListener.onQuantityChanged(quantity, false);
             }
         } else if (v == mTextViewQuantity) {
-            /*AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setTitle("Change Quantity");
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("Digite la Cantidad");
 
             View inflate = LayoutInflater.from(getContext()).inflate(me.himanshusoni.quantityview.R.layout.qv_dialog_changequantity, null, false);
             final EditText et = (EditText) inflate.findViewById(me.himanshusoni.quantityview.R.id.qv_et_change_qty);
             et.setText(String.valueOf(quantity));
 
             builder.setView(inflate);
-            builder.setPositiveButton("Change", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     String newQuantity = et.getText().toString();
                     if (isNumber(newQuantity)) {
                         int intNewQuantity = Integer.parseInt(newQuantity);
                         setQuantity(intNewQuantity);
+                        algoValor();
+
                     }
                 }
-            }).setNegativeButton("Cancel", null);
-            builder.show();*/
+            }).setNegativeButton("Cancelar", null);
+            builder.show();
         }
     }
 
@@ -192,16 +199,16 @@ public class QuantityView extends LinearLayout implements View.OnClickListener {
         return onQuantityChangeListener;
     }
 
-    public void setValorTotal(double presio, TextView textview, TextView textview2, ViewGroup parent){
+    public void setValorTotal(double presio, TextView textview, TextView textview2, ViewGroup parent, TextView textview3){
         valorPrecio = presio;
         textView = textview;
         textView12 = textview2;
+        textView3 = textview3;
         format = new DecimalFormat("#,###.##");
         parentactivity = parent;
     }
 
     public void algoValor(){
-
         Double valorAdicion = 0.0;
         for(int i = 0; i < parentactivity.getChildCount(); i++) {
             View child = parentactivity.getChildAt(i);
@@ -223,6 +230,7 @@ public class QuantityView extends LinearLayout implements View.OnClickListener {
 
         textView.setText(String.format("%s", format.format(sumaTotal)));
         textView12.setText(sumaTotal+"");
+        textView3.setText(String.format("Total Productos: $ %s", format.format(valorPrecio * quantity)));
 
     }
 

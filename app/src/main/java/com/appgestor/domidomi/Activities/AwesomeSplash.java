@@ -7,7 +7,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -21,7 +20,7 @@ import com.appgestor.domidomi.Entities.ConfigSplash;
 import com.appgestor.domidomi.R;
 import com.appgestor.domidomi.Services.MyService;
 import com.appgestor.domidomi.cnst.Flags;
-import com.appgestor.domidomi.dark.Accounts;
+import com.appgestor.domidomi.dark.ActivityMain;
 import com.appgestor.domidomi.utils.UIUtil;
 import com.appgestor.domidomi.utils.ValidationUtil;
 import com.daimajia.androidanimations.library.YoYo;
@@ -85,7 +84,7 @@ abstract public class AwesomeSplash extends AppCompatActivity {
                     setLatitudStatic(gps.getLatitude());
                     setLongitudStatic(gps.getLongitude());
 
-                    startActivity(new Intent(this, Accounts.class));
+                    startActivity(new Intent(this, ActivityMain.class));
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     finish();
                 }

@@ -1,19 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="AppTheme" parent="AppTheme.Base">
-        <item name="colorPrimary">@color/color_1</item>
-        <item name="colorPrimaryDark">@color/color_1</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorButtonNormal">@color/colorAccent</item>
-    </style>
-
     <style name="BrandButtonStyle" parent="Widget.AppCompat.Button.Colored">
-        <item name="colorButtonNormal">@color/color_1</item>
+        <item name="colorButtonNormal">@color/colorPrimary</item>
         <item name="android:textColor">@color/actionBarColorText</item>
     </style>
 
     <style name="BrandButtonStyle2" parent="Widget.AppCompat.Button.Colored">
-        <item name="colorButtonNormal">@color/color_1</item>
+        <item name="colorButtonNormal">@color/colorPrimary</item>
         <item name="android:textColor">#fff</item>
     </style>
 
@@ -29,23 +22,6 @@
         <item name="android:divider">@android:color/transparent</item>
     </style>
 
-    <style name="Custom" parent="android:Theme.DeviceDefault.Dialog">
-        <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
-        <item name="DialogTitleText">Cargando...</item>
-        <item name="DialogSpotColor">@color/color_1</item>
-        <item name="DialogSpotCount">4</item>
-        <item name="android:windowBackground">@color/transparent</item>
-    </style>
-
-    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/color_1</item>
-        <item name="colorPrimaryDark">@color/color_1</item>
-        <item name="colorAccent">#FFFFFF</item>
-        <item name="android:windowBackground">@android:color/white</item>
-        <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
-        <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
-    </style>
-
     <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
         <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif-light</item>
     </style>
@@ -54,50 +30,34 @@
         <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif-light</item>
     </style>
 
-    <!-- Accounts -->
-    <style name="AccountsLight" parent="MaterialNavigationDrawerTheme">
-        <item name="colorPrimary">@color/color_1</item>
-        <item name="colorPrimaryDark">@color/color_1</item>
-        <item name="colorAccent">#FFFFFF</item>
-        <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
-        <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
-    </style>
 
-    <!-- No Drawer Header -->
-    <style name="NoHeaderLight" parent="MaterialNavigationDrawerTheme.Light.DarkActionBar2">
-        <item name="colorPrimary">@color/color_1</item>
-        <item name="colorPrimaryDark">@color/color_1</item>
+    <style name="NoHeaderLight.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="NoHeaderLight.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="drawerType">@integer/DRAWERTYPE_ACCOUNTS</item>
-        <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
-        <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
     </style>
 
-    <style name="MaterialNavigationDrawerTheme.Light.DarkActionBar2" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="theme">@style/ThemeOverlay.AppCompat.Light</item>
-        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
-        <item name="drawerType">@integer/DRAWERTYPE_ACCOUNTS</item>
-        <item name="drawerColor">#ffeeeeee</item>
-        <item name="rippleBackport">false</item>
-        <item name="uniqueToolbarColor">false</item>
-        <item name="singleAccount">false</item>
-        <item name="sectionStyle">@style/MaterialSectionTheme.Light</item>
-        <item name="subheaderStyle">@style/MaterialSubheaderTheme.Light</item>
-        <item name="accountStyle">@style/MaterialAccountTheme</item>
-        <item name="multipaneSupport">false</item>
-        <item name="defaultSectionLoaded">0</item>
-        <item name="learningPattern">true</item>
-        <item name="toolbarElevation">false</item>
-        <item name="colorPrimary">@color/color_1</item>
-        <item name="colorPrimaryDark">@color/color_1</item>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="NoHeaderLight.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="NoHeaderLight.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Custom" parent="android:Theme.DeviceDefault.Dialog">
+        <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
+        <item name="DialogTitleText">Cargando...</item>
+        <item name="DialogSpotColor">@color/colorAccent</item>
+        <item name="DialogSpotCount">4</item>
+        <item name="android:windowBackground">@color/transparent</item>
+    </style>
 
 </resources>

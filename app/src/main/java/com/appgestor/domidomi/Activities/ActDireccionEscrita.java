@@ -17,7 +17,7 @@ import android.widget.Spinner;
 
 import com.appgestor.domidomi.Entities.Ciudades;
 import com.appgestor.domidomi.R;
-import com.appgestor.domidomi.dark.Accounts;
+import com.appgestor.domidomi.dark.ActivityMain;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -279,7 +279,7 @@ public class ActDireccionEscrita extends AppCompatActivity implements View.OnCli
                         setZonaStatic(zona_dir);
                     }
 
-                    startActivity(new Intent(ActDireccionEscrita.this, Accounts.class));
+                    startActivity(new Intent(ActDireccionEscrita.this, ActivityMain.class));
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     finish();
 

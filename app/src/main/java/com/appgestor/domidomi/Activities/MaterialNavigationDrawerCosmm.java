@@ -69,7 +69,7 @@ import static com.appgestor.domidomi.Entities.UbicacionPreferen.setLongitudStati
 @SuppressLint("InflateParams")
 public abstract class MaterialNavigationDrawerCosmm<Fragment> extends ActionBarActivity implements MaterialSectionListener,MaterialAccount.OnAccountDataLoaded {
 
-    //    public static final int BOTTOM_SECTION_START = 10000;
+    //public static final int BOTTOM_SECTION_START = 10000;
     private static final int USER_CHANGE_TRANSITION = 500;
 
     public static final int BACKPATTERN_BACK_ANYWHERE = 0;
@@ -355,10 +355,7 @@ public abstract class MaterialNavigationDrawerCosmm<Fragment> extends ActionBarA
 
     @SuppressWarnings("unchecked")
     @Override
-    /**
-     * Do not Override this method!!! <br>
-     * Use init() instead
-     */
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -375,11 +372,11 @@ public abstract class MaterialNavigationDrawerCosmm<Fragment> extends ActionBarA
         Resources.Theme theme = this.getTheme();
         TypedValue typedValue = new TypedValue();
         theme.resolveAttribute(it.neokree.materialnavigationdrawer.R.attr.drawerType,typedValue,true);
-        drawerHeaderType = typedValue.data;
+        //drawerHeaderType = typedValue.data;
         theme.resolveAttribute(it.neokree.materialnavigationdrawer.R.attr.rippleBackport,typedValue,false);
         rippleSupport = typedValue.data != 0;
         theme.resolveAttribute(it.neokree.materialnavigationdrawer.R.attr.uniqueToolbarColor,typedValue,false);
-        uniqueToolbarColor = typedValue.data != 0;
+        //uniqueToolbarColor = typedValue.data != 0;
         theme.resolveAttribute(it.neokree.materialnavigationdrawer.R.attr.singleAccount,typedValue,false);
         singleAccount = typedValue.data != 0;
         theme.resolveAttribute(it.neokree.materialnavigationdrawer.R.attr.multipaneSupport,typedValue,false);

@@ -8,13 +8,12 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.appgestor.domidomi.R;
 import com.appgestor.domidomi.Services.MyService;
-import com.appgestor.domidomi.dark.Accounts;
+import com.appgestor.domidomi.dark.ActivityMain;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.nineoldandroids.animation.Animator;
@@ -77,7 +76,7 @@ public class ActUbicacion extends AppCompatActivity implements View.OnClickListe
                     setLatitudStatic(gps.getLatitude());
                     setLongitudStatic(gps.getLongitude());
 
-                    startActivity(new Intent(this, Accounts.class));
+                    startActivity(new Intent(this, ActivityMain.class));
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     finish();
 
@@ -130,7 +129,7 @@ public class ActUbicacion extends AppCompatActivity implements View.OnClickListe
             setLatitudStatic(gps.getLatitude());
             setLongitudStatic(gps.getLongitude());
 
-            startActivity(new Intent(this, Accounts.class));
+            startActivity(new Intent(this, ActivityMain.class));
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
         }

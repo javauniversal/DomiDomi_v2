@@ -27,7 +27,7 @@ public class RadarScanView extends View
     private int centerX;
     private int centerY;
     private int radarRadius;
-    private int circleColor = Color.parseColor("#a2a2a2");
+    private int circleColor = Color.parseColor("#F44336");
     private int radarColor = Color.parseColor("#99a2a2a2");
     private int tailColor = Color.parseColor("#50aaaaaa");
 

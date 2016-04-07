@@ -80,15 +80,15 @@ public class AdapterRecyclerSedesEmpresa extends RecyclerView.Adapter<RowViewHol
         loadeImagenView(items, holder.imgSede, holder);
         holder.txtNombre.setText(items.getDescripcion());
         holder.txtPedidoMunimo.setText(String.format("Pedido Mínimo $ %s", format.format(items.getPedidomeinimo())));
-        holder.txtDireccion.setText(items.getDireccion());
+        holder.ratingBar.setRating(Float.parseFloat(String.valueOf(items.getCalificacion())));
+        //holder.txtDireccion.setText(items.getDireccion());
 
         int color;
-        if(items.getHorario().equals("Cerrado")){
-            color = Color.parseColor("#FF0000");
-        } else {
-            color = Color.parseColor("#0000FF");
+        if(items.getHorario().equals("Cerrado"))
+            color = Color.parseColor("#D32F2F");
+        else
+            color = Color.parseColor("#03A9F4");
 
-        }
 
         holder.txtHora.setText(items.getHorario());
         holder.txtHora.setTextColor(color);

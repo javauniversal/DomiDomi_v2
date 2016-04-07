@@ -9,40 +9,35 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:baselineAligned="false">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1">
+        android:layout_gravity="center_horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/establecimiento"
                 android:textStyle="bold"
+                android:layout_weight="1"
                 android:textSize="@dimen/dimen_letra_app"
                 android:id="@+id/txtEmpresa" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/cantidad"
                 android:textStyle="bold"
+                android:layout_weight="1.7"
                 android:textSize="@dimen/dimen_letra_app"
                 android:id="@+id/txtCantidad" />
 
-        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.0"
+            android:textStyle="bold"
+            android:id="@+id/txtDetalle"
+            android:text="@string/categoria_filtro"
+            android:textSize="@dimen/dimen_letra_app"/>
+
 
     </LinearLayout>
 
@@ -65,11 +60,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.4"
             android:textStyle="bold"
             android:textSize="@dimen/dimen_letra_app"
             android:id="@+id/txtNumeroOrden"
-            android:text="@string/orden"/>
+            android:text="Número de Pedido:"/>
+
+
 
     </LinearLayout>
 
@@ -96,8 +93,6 @@
                 android:id="@+id/txtDireccion" />
 
         </LinearLayout>
-
-
 
     </LinearLayout>
 

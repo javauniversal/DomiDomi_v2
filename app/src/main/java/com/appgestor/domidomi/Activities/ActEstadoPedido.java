@@ -12,7 +12,7 @@ import android.view.View;
 
 import com.appgestor.domidomi.R;
 import com.appgestor.domidomi.ViewPager.SlidingTabLayout;
-import com.appgestor.domidomi.dark.Accounts;
+import com.appgestor.domidomi.dark.ActivityMain;
 import com.appgestor.domidomi.mockedFragments.FragmentMenuPedidos;
 
 public class ActEstadoPedido extends AppCompatActivity {
@@ -29,7 +29,7 @@ public class ActEstadoPedido extends AppCompatActivity {
 
         mPager.setAdapter(new MyFragmentPedidoEstado(getSupportFragmentManager()));
         SlidingTabLayout mTabs = (SlidingTabLayout) findViewById(R.id.tabs);
-        mTabs.setBackgroundColor(getResources().getColor(R.color.color_1));
+        mTabs.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         mTabs.setSelectedIndicatorColors(getResources().getColor(R.color.colorAccent));
         mTabs.setDistributeEvenly(true);
         mTabs.setViewPager(mPager);
@@ -39,7 +39,7 @@ public class ActEstadoPedido extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ActEstadoPedido.this, Accounts.class));
+                startActivity(new Intent(ActEstadoPedido.this, ActivityMain.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
             }
@@ -79,7 +79,7 @@ public class ActEstadoPedido extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        startActivity(new Intent(ActEstadoPedido.this, Accounts.class));
+        startActivity(new Intent(ActEstadoPedido.this, ActivityMain.class));
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         finish();
         super.onBackPressed();  // optional depending on your needs

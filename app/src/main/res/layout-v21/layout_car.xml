@@ -21,7 +21,7 @@
         android:elevation="17dp"
         android:layout_height="85dp"
         android:padding="9dp"
-        android:background="@color/color_1"
+        android:background="@color/colorPrimary"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/linearLayout"

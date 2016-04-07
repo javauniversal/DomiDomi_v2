@@ -67,6 +67,17 @@ public class Sede {
     @SerializedName("descipcionCategoria")
     private String descipcionCategoria;
 
+    @SerializedName("calificacion")
+    private double calificacion;
+
+    public double getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(double calificacion) {
+        this.calificacion = calificacion;
+    }
+
     public int getIdcategoria() {
         return idcategoria;
     }

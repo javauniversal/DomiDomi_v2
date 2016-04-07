@@ -52,6 +52,8 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
     private DecimalFormat format;
     private LinearLayout root;
     Double totalfinal = null;
+    Double totalAdicion = 0.0;
+    private TextView totalAdiciones;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +86,15 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
 
         cantidad = (QuantityView) findViewById(R.id.quantityView_default);
 
-        TextView preciodec = (TextView) findViewById(R.id.preciodesc);
+        totalAdiciones = (TextView) findViewById(R.id.totalAdiciones);
+
+
+        TextView totalProducto = (TextView) findViewById(R.id.totalProducto);
+
+        //valorAdiccion = (TextView) findViewById(R.id.valorAdiccion);
+
         totalFinal = (TextView) findViewById(R.id.totalFinal);
+
         totalFinalOculto = (TextView) findViewById(R.id.totalFinalOculto);
         myComment = (EditText) findViewById(R.id.EditComment);
 
@@ -98,7 +107,9 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
 
         precio.setText(String.format("Valor Unitario: $ %s", format.format(getProductoStatic().getPrecio())));
 
-        preciodec.setText(String.format("Valor Unitario: $ %s", format.format(getProductoStatic().getPrecio())));
+        totalProducto.setText(String.format("Total Productos: $ %s", format.format(getProductoStatic().getPrecio())));
+
+        totalAdiciones.setText(String.format("Total Adiciones: $ %s", format.format(0)));
 
         totalFinal.setText(String.format("%s",format.format(getProductoStatic().getPrecio())));
 
@@ -110,7 +121,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
         CargarAdiciones();
 
         root = (LinearLayout) findViewById(R.id.llAdiciones); //or whatever your root control is
-        cantidad.setValorTotal(getProductoStatic().getPrecio(), totalFinal, totalFinalOculto,  root);
+        cantidad.setValorTotal(getProductoStatic().getPrecio(), totalFinal, totalFinalOculto, root, totalProducto);
 
     }
 
@@ -130,14 +141,14 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 layoutParams.setMargins(0, 70, 0, 0);
 
-                CheckBox cb = new CheckBox(this);
+                final CheckBox cb = new CheckBox(this);
                 cb.setText(String.format("%1s $ %2s",getProductoStatic().getAdicionesList().get(i).getDescripcion(),format.format(getProductoStatic().getAdicionesList().get(i).getValor())));
                 cb.setId(getProductoStatic().getAdicionesList().get(i).getIdadicionales());
+
                 ll.addView(cb);
                 cb.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(final View v) {
-
 
                         final Double totaltemporal = Double.valueOf(totalFinalOculto.getText().toString());
 
@@ -147,24 +158,39 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
 
                             final EditText numberEdit = (EditText) dialoglayout.findViewById(R.id.editTextNumber);
                             numberEdit.setText(String.format("%s", 1));
-
+                            numberEdit.setSelection(numberEdit.getText().toString().length());
                             AlertDialog.Builder builder = new AlertDialog.Builder(ActProductAdd.this);
                             builder.setCancelable(false);
-                            builder.setTitle("Seleccione la cantidad");
+                            builder.setTitle("Digite la Cantidad");
                             builder.setView(dialoglayout)
                                     .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
 
-                                            for(int f = 0; f < getProductoStatic().getAdicionesList().size(); f++) {
-                                                if(v.getId() == getProductoStatic().getAdicionesList().get(f).getIdadicionales()){
-                                                    totalfinal = (totaltemporal + (getProductoStatic().getAdicionesList().get(f).getValor() * Integer.parseInt(numberEdit.getText().toString())));
-                                                    getProductoStatic().getAdicionesList().get(f).setCantidadAdicion(Integer.parseInt(numberEdit.getText().toString()));
-                                                    break;
-                                                }
-                                            }
+                                            if (!numberEdit.getText().toString().equals("")){
+                                                if(Integer.parseInt(numberEdit.getText().toString()) > 0){
+                                                    for(int f = 0; f < getProductoStatic().getAdicionesList().size(); f++) {
+                                                        if(v.getId() == getProductoStatic().getAdicionesList().get(f).getIdadicionales()){
+                                                            totalfinal = (totaltemporal + (getProductoStatic().getAdicionesList().get(f).getValor() * Integer.parseInt(numberEdit.getText().toString())));
 
-                                            totalFinal.setText(String.format("%s", format.format(totalfinal)));
-                                            totalFinalOculto.setText(totalfinal+"");
+                                                            totalAdicion = totalAdicion + getProductoStatic().getAdicionesList().get(f).getValor() * Integer.parseInt(numberEdit.getText().toString());
+
+                                                            getProductoStatic().getAdicionesList().get(f).setCantidadAdicion(Integer.parseInt(numberEdit.getText().toString()));
+
+                                                            break;
+                                                        }
+                                                    }
+
+                                                    totalFinal.setText(String.format("%s", format.format(totalfinal)));
+                                                    totalFinalOculto.setText(totalfinal+"");
+
+                                                    totalAdiciones.setText(String.format("Total Adiciones: $ %s", format.format(totalAdicion)));
+
+                                                } else {
+                                                    cb.toggle();
+                                                }
+                                            } else {
+                                                cb.toggle();
+                                            }
                                         }
                                     });
 
@@ -173,12 +199,17 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
                             for(int j = 0; j < getProductoStatic().getAdicionesList().size(); j++) {
                                 if(v.getId() == getProductoStatic().getAdicionesList().get(j).getIdadicionales()){
                                     totalfinal = (totaltemporal - (getProductoStatic().getAdicionesList().get(j).getValor() * getProductoStatic().getAdicionesList().get(j).getCantidadAdicion()));
+
+                                    totalAdicion = totalAdicion - getProductoStatic().getAdicionesList().get(j).getValor() * getProductoStatic().getAdicionesList().get(j).getCantidadAdicion();
+
                                     break;
                                 }
                             }
 
                             totalFinal.setText(String.format("%s", format.format(totalfinal)));
-                            totalFinalOculto.setText(totalfinal+"");
+                            totalFinalOculto.setText(totalfinal + "");
+
+                            totalAdiciones.setText(String.format("Total Adiciones: $ %s", format.format(totalAdicion)));
                         }
 
 

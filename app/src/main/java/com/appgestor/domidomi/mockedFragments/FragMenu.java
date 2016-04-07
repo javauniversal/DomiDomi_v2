@@ -46,7 +46,7 @@ import static com.appgestor.domidomi.Entities.Menu.getMenuListStatic;
 import static com.appgestor.domidomi.Entities.Producto.setProductoStatic;
 import static com.appgestor.domidomi.Entities.Sede.getSedeStaticNew;
 
-public class FragMenu extends BaseVolleyFragment {
+public class FragMenu extends BaseVolleyFragmentSoport {
 
     private ExpandableListView expandableListView;
     private ExpandableListAdapter expandableListAdapter;
@@ -56,15 +56,15 @@ public class FragMenu extends BaseVolleyFragment {
     private int operador;
     private TextView nombreEmpresa;
     private TextView nit;
-    private TextView direccion;
+    //private TextView direccion;
     private TextView telefono;
     private TextView celular;
 
     private TextView txtNombreSede;
-    private TextView txtDireccion;
+    //private TextView txtDireccion;
     private TextView txtTiempo;
     private TextView txtCosto;
-    private TextView txtMedioPago;
+    //private TextView txtMedioPago;
     private ImageView imgEmpresa;
     protected DecimalFormat format;
 
@@ -101,10 +101,10 @@ public class FragMenu extends BaseVolleyFragment {
                 rootView = inflater.inflate(R.layout.fragment_menu, container, false);
 
                 txtNombreSede = (TextView) rootView.findViewById(R.id.txtNombreSede);
-                txtDireccion = (TextView) rootView.findViewById(R.id.txtDireccion);
+                //txtDireccion = (TextView) rootView.findViewById(R.id.txtDireccion);
                 txtTiempo = (TextView) rootView.findViewById(R.id.txtTiempoespera);
                 txtCosto = (TextView) rootView.findViewById(R.id.txtCosto);
-                txtMedioPago = (TextView) rootView.findViewById(R.id.txtMediosPago);
+                //txtMedioPago = (TextView) rootView.findViewById(R.id.txtMediosPago);
                 imgEmpresa = (ImageView) rootView.findViewById(R.id.imgEmpresa);
 
                 expandableListView = (ExpandableListView) rootView.findViewById(R.id.expandableListView);
@@ -115,7 +115,7 @@ public class FragMenu extends BaseVolleyFragment {
 
                 nombreEmpresa = (TextView) rootView.findViewById(R.id.txtNombreEmpresa);
                 nit = (TextView) rootView.findViewById(R.id.txtNit);
-                direccion = (TextView) rootView.findViewById(R.id.textDireccion);
+                //direccion = (TextView) rootView.findViewById(R.id.textDireccion);
                 telefono = (TextView) rootView.findViewById(R.id.txtTelefono);
                 celular = (TextView) rootView.findViewById(R.id.txtCelulat);
                 tabla = (TableLayout) rootView.findViewById(R.id.myTable);
@@ -138,21 +138,21 @@ public class FragMenu extends BaseVolleyFragment {
                 format = new DecimalFormat("#,###.##");
                 CargarImagen();
                 txtNombreSede.setText(getSedeStaticNew().getDescripcion());
-                txtDireccion.setText(getSedeStaticNew().getDireccion());
+                //txtDireccion.setText(getSedeStaticNew().getDireccion());
                 txtTiempo.setText(String.format("Tiempo de Entrega: %s aprox", getSedeStaticNew().getTiempoEnvio()));
                 txtCosto.setText(String.format("Costo de Envío: $ %s", format.format(getSedeStaticNew().getCosenvio())));
 
                 String mediosPagos = "";
 
-                if (getSedeStaticNew() != null){
+                /*if (getSedeStaticNew() != null){
                     if (getSedeStaticNew().getMedioPagoList() != null){
                         for(int f = 0; f < getSedeStaticNew().getMedioPagoList().size(); f++) {
                             mediosPagos = mediosPagos +" | "+ getSedeStaticNew().getMedioPagoList().get(f).getDescripcion();
                         }
                     }
-                }
+                }*/
 
-                txtMedioPago.setText(String.format("Medios de Pago: %s", mediosPagos));
+                //txtMedioPago.setText(String.format("Medios de Pago: %s", mediosPagos));
 
                 setExpandableListView();
 
@@ -251,7 +251,7 @@ public class FragMenu extends BaseVolleyFragment {
 
                                 nombreEmpresa.setText(comData.getDescripcion());
                                 nit.setText(comData.getNit());
-                                direccion.setText(String.format("Dir: %1$s", comData.getDireccion()));
+                                //direccion.setText(String.format("Dir: %1$s", comData.getDireccion()));
                                 telefono.setText(String.format("Tel: %1$s", comData.getTelefono()));
                                 celular.setText(String.format("Cel: %1$s", comData.getCelular()));
 
@@ -355,25 +355,6 @@ public class FragMenu extends BaseVolleyFragment {
 
             }
         }.execute();
-    }
-
-    private void parseJSONSet(String json) {
-
-        if (json != null && json.length() > 0) {
-            try {
-                Gson gson = new Gson();
-                Comentario comentario = gson.fromJson(json, Comentario.class);
-                comentarios.add(comentario);
-                adapter.notifyDataSetChanged();
-            }catch (IllegalStateException ex) {
-                ex.printStackTrace();
-            }
-
-        }else{
-            startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "EMPTY"));
-            getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-        }
-
     }
 
     private void parseJSON2(String json) {

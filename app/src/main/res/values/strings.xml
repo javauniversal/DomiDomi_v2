@@ -13,7 +13,7 @@
     <string name="celular">Celular</string>
     <string name="direccion">Dirección</string>
     <string name="apellidos_nombres">Nombres y Apellidos</string>
-    <string name="categoria_filtro"><u>Categorías</u></string>
+    <string name="categoria_filtro"><u>Detalle</u></string>
     <!-- Fin  -->
 
     <string-array name="tabs">
@@ -100,7 +100,7 @@
     <string name="aceptar">Aceptar</string>
     <string name="enviar">Enviar</string>
     <string name="nombre_apellido_t">Nombre/Apellido</string>
-    <string name="nombre">Nombre</string>
+    <string name="nombre">Nombres</string>
     <string name="medio_de_pago">Medio de pago</string>
     <string name="latitud">Latitud</string>
     <string name="direcci_n_lugar_de_referencia">Dirección/Lugar de referencia</string>
@@ -116,21 +116,21 @@
     <string name="direcci_n">Dirección</string>
     <string name="separado">#</string>
     <string name="separador2">-</string>
-    <string name="ciudades">Ciudades</string>
+    <string name="ciudades">Ciudad</string>
     <string name="zonas">Municipio</string>
     <string name="incluir_en_los_pedido">Incluir En los pedido</string>
     <string name="guardar">Guardar</string>
     <string name="domicilios">Domicilio</string>
-    <string name="total">Total</string>
+    <string name="total">Total a Pagar</string>
     <string name="comentario">Comentario:</string>
     <string name="barrio">Barrio</string>
     <string name="adiciones_extras">Adiciones/Extras</string>
-    <string name="precios">Precios</string>
+    <string name="precios">Valores</string>
     <string name="unidad">Unidad</string>
     <string name="total_signo">Total: $</string>
     <string name="_0">0</string>
     <string name="separador">#</string>
-    <string name="voy_a_pagar_con_un_billete_de_ej_50_000">Voy a pagar con un billete de Ej: 50,000</string>
+    <string name="voy_a_pagar_con_un_billete_de_ej_50_000">Valor en efectivo con el que voy a pagar... Ej: 50.000</string>
     <string name="medios_de_pago">Medios de Pago</string>
     <string name="lugar_de_referencia">Lugar de Referencia</string>
     <string name="separador_2">-</string>
@@ -158,5 +158,17 @@
     <string name="no_tiene_art_culos_en_el_carrito">No tiene artículos en el carrito</string>
     <string name="incluir_en_los_pedidos">Incluir en los pedidos</string>
     <string name="horario">Horario</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_establecimiento">Establecimientos</string>
+    <string name="action_seguimiento">Seguimiento</string>
+    <string name="action_carrito">Carrito</string>
+    <string name="action_perfil">Perfil</string>
+    <string name="action_comunicar">Comunicar</string>
+    <string name="action_compartir">Compartir</string>
+    <string name="title_activity_act_create_perfil">Crear Perfil</string>
 
 </resources>

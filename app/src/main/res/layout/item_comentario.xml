@@ -17,21 +17,14 @@
             android:padding="7dp"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_face_black_24dp"
-                android:id="@+id/imageView7"
-                android:contentDescription="@string/app_name" />
-
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="7dp"
-                android:layout_toRightOf="@+id/imageView7"
-                android:layout_toEndOf="@+id/imageView7">
+                android:layout_toLeftOf="@+id/imageView7"
+                android:layout_toStartOf="@+id/imageView7">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -47,18 +40,24 @@
                         android:textStyle="bold"
                         android:textSize="@dimen/dimen_letra_app"/>
 
-                    <TextView
+                    <RatingBar
                         android:layout_width="wrap_content"
+                        style="?android:attr/ratingBarStyleSmall"
                         android:layout_height="wrap_content"
-                        android:text="@string/_2016_02_24"
-                        android:layout_marginLeft="13dp"
-                        android:id="@+id/txtFechaComentario"
-                        android:textColor="@color/colorAccent"
-                        android:textStyle="bold"
-                        android:textSize="11sp"/>
+                        android:layout_marginLeft="15dp"
+                        android:id="@+id/ratingBar4" />
+
 
                 </LinearLayout>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_2016_02_24"
+                    android:id="@+id/txtFechaComentario"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    android:textSize="11sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -70,6 +69,16 @@
                     android:textSize="11sp"/>
 
             </LinearLayout>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_thumb_up_outline_grey600_36dp"
+                android:id="@+id/imageView7"
+                android:contentDescription="@string/app_name"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
 
         </RelativeLayout>

@@ -36,12 +36,12 @@
                 android:textColor="@color/colorAccent"
                 android:id="@+id/txtNombreSede" />
 
-            <TextView
+            <!-- <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/direcci_n"
                 android:textSize="@dimen/dimen_letra_app"
-                android:id="@+id/txtDireccion" />
+                android:id="@+id/txtDireccion" /> -->
 
             <TextView
                 android:layout_width="wrap_content"
@@ -57,12 +57,12 @@
                 android:textSize="@dimen/dimen_letra_app"
                 android:id="@+id/txtCosto" />
 
-            <TextView
+            <!-- <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/medios_de_pagos"
                 android:textSize="@dimen/dimen_letra_app"
-                android:id="@+id/txtMediosPago" />
+                android:id="@+id/txtMediosPago" /> -->
 
         </LinearLayout>
 

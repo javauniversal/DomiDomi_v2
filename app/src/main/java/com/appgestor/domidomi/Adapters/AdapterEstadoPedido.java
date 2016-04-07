@@ -34,7 +34,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 public class AdapterEstadoPedido extends BaseAdapter {
 
     private Activity actx;
@@ -82,7 +81,8 @@ public class AdapterEstadoPedido extends BaseAdapter {
         holder.txtDireccion.setText(String.format("%s", item.getDireccion()));
         holder.txtFecha.setText(String.format("%s", item.getFecha()));
         holder.txtCantidad.setText(String.format("Cantidad: %s", item.getCantidad()));
-        holder.txtNumeroOrden.setText(String.format("Pedido: %s", item.getIdordencompra()));
+        holder.txtNumeroOrden.setText(String.format("Número de Pedido: %s", item.getIdordencompra()));
+        holder.txtDetalle.setTextColor(Color.BLUE);
 
         String estado = null;
 
@@ -129,7 +129,7 @@ public class AdapterEstadoPedido extends BaseAdapter {
             }
         });
 
-        convertView.setOnClickListener(new View.OnClickListener() {
+        holder.txtDetalle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -309,8 +309,7 @@ public class AdapterEstadoPedido extends BaseAdapter {
 
     public void enviarCancelar(final String idpedidocel, final int idcompra, final int idSede){
 
-        String url = String.format("%1$s%2$s", actx.getString(R.string.url_base), "CancelarPedido" +
-                "");
+        String url = String.format("%1$s%2$s", actx.getString(R.string.url_base), "CancelarPedido");
         RequestQueue rq = Volley.newRequestQueue(actx);
 
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
@@ -358,6 +357,7 @@ public class AdapterEstadoPedido extends BaseAdapter {
         TextView txtCantidad;
         TextView txtEstado;
         TextView txtNumeroOrden;
+        TextView txtDetalle;
         Button cancelPedido;
 
         public ViewHolder(View view) {
@@ -366,6 +366,7 @@ public class AdapterEstadoPedido extends BaseAdapter {
             txtFecha = (TextView) view.findViewById(R.id.txtFecha);
             txtCantidad = (TextView) view.findViewById(R.id.txtCantidad);
             txtEstado = (TextView) view.findViewById(R.id.txtEstado);
+            txtDetalle = (TextView) view.findViewById(R.id.txtDetalle);
             txtNumeroOrden = (TextView) view.findViewById(R.id.txtNumeroOrden);
             cancelPedido = (Button) view.findViewById(R.id.btnCancel);
             view.setTag(this);

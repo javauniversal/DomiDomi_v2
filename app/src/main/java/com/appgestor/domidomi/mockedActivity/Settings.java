@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.appgestor.domidomi.R;
-import com.appgestor.domidomi.dark.Accounts;
+import com.appgestor.domidomi.dark.ActivityMain;
 
 
 public class Settings extends AppCompatActivity {
@@ -41,7 +41,7 @@ public class Settings extends AppCompatActivity {
                     @Override
                     public void onNegative(MaterialDialog dialog) {
                         dialog.dismiss();
-                        startActivity(new Intent(Settings.this, Accounts.class));
+                        startActivity(new Intent(Settings.this, ActivityMain.class));
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         finish();
                     }

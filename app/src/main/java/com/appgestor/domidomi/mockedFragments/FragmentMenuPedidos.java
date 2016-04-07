@@ -4,7 +4,9 @@ package com.appgestor.domidomi.mockedFragments;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +32,7 @@ import java.util.Map;
 
 import dmax.dialog.SpotsDialog;
 
-public class FragmentMenuPedidos extends BaseVolleyFragment {
+public class FragmentMenuPedidos extends BaseVolleyFragmentSoport {
 
     private int operador;
     protected View rootView;
@@ -119,8 +121,15 @@ public class FragmentMenuPedidos extends BaseVolleyFragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
 
-                TelephonyManager telephonyManager = (TelephonyManager)getActivity().getSystemService(Context.TELEPHONY_SERVICE);
-                params.put("idTelefono", telephonyManager.getDeviceId());
+                TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+                String identifier;
+                if ( Build.VERSION.SDK_INT >= 23){
+                    identifier = Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID);
+                } else {
+                    identifier = telephonyManager.getDeviceId();
+                }
+
+                params.put("idTelefono", identifier);
                 return params;
             }
         };
@@ -173,8 +182,16 @@ public class FragmentMenuPedidos extends BaseVolleyFragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
 
-                TelephonyManager telephonyManager = (TelephonyManager)getActivity().getSystemService(Context.TELEPHONY_SERVICE);
-                params.put("idTelefono", telephonyManager.getDeviceId());
+                TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+                String identifier;
+                if ( Build.VERSION.SDK_INT >= 23){
+                    identifier = Settings.Secure.getString(getActivity().getContentResolver(), Settings.Secure.ANDROID_ID);
+                } else {
+                    identifier = telephonyManager.getDeviceId();
+                }
+
+                params.put("idTelefono", identifier);
+
                 return params;
             }
         };

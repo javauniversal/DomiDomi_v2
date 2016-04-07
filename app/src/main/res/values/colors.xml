@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="color_1">#F20505</color>
-    <color name="color_2">#FF5722</color>
+
     <color name="transparent_holo_light_blue">#4433b5e5</color>
     <color name="actionBarColor">#3e699c</color>
     <color name="actionBarColorText">#ffffff</color>
@@ -13,5 +12,8 @@
     <color name="filn">#607D8B</color>
     <color name="colorSinDatos">#fbc02d</color>
     <color name="colorErrorConexion">#42a5f5</color>
-    <color name="colorAccent">#2196f3</color>
+
+    <color name="colorPrimary">#F44336</color>
+    <color name="colorPrimaryDark">#D32F2F</color>
+    <color name="colorAccent">#03A9F4</color>
 </resources>

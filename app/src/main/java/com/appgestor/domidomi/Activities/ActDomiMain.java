@@ -8,7 +8,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.appgestor.domidomi.R;
-import com.appgestor.domidomi.dark.Accounts;
+import com.appgestor.domidomi.dark.ActivityMain;
 
 public class ActDomiMain extends AppCompatActivity {
 
@@ -26,7 +26,7 @@ public class ActDomiMain extends AppCompatActivity {
             @Override
             public void run() {
                 Bundle bundle = new Bundle();
-                startActivity(new Intent(ActDomiMain.this, Accounts.class).putExtras(bundle));
+                startActivity(new Intent(ActDomiMain.this, ActivityMain.class).putExtras(bundle));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
             }

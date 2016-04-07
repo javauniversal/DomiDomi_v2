@@ -18,7 +18,7 @@ import com.appgestor.domidomi.DataBase.DBHelper;
 import com.appgestor.domidomi.Entities.Ciudades;
 import com.appgestor.domidomi.Entities.Cliente;
 import com.appgestor.domidomi.R;
-import com.appgestor.domidomi.dark.Accounts;
+import com.appgestor.domidomi.dark.ActivityMain;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -83,7 +83,7 @@ public class ActMyPerfil extends AppCompatActivity implements View.OnClickListen
 
     private void setDataBase() {
 
-        cliente = mydb.getUsuarioAll();
+        //cliente = mydb.getUsuarioAll();
         boolean indiswi = false;
         if(cliente != null){
             editNombreCliente.setText(cliente.getNombre());
@@ -98,8 +98,8 @@ public class ActMyPerfil extends AppCompatActivity implements View.OnClickListen
 
             selectValue(ciudades, cliente.getCiudad(), spinner_ciudades);
 
-            if(cliente.getIncluir() == 1)
-                indiswi = true;
+            //if(cliente.getIncluir() == 1)
+            //    indiswi = true;
 
             switch1.setChecked(indiswi);
 
@@ -249,12 +249,12 @@ public class ActMyPerfil extends AppCompatActivity implements View.OnClickListen
         cl.setDir_3(txt_dir_3.getText().toString());
         cl.setCiudad(selecte_ciudad);
         cl.setZona(zona_dir);
-        cl.setIncluir(swit);
+        //cl.setIncluir(swit);
 
         mydb.deleteUsuario();
 
         if (mydb.insertUsuario(cl)){
-            startActivity(new Intent(this, Accounts.class));
+            startActivity(new Intent(this, ActivityMain.class));
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
         } else {

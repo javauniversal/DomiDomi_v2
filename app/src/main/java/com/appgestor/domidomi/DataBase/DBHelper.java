@@ -29,7 +29,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String sqlPerfil = "CREATE TABLE perfil (id integer primary key AUTOINCREMENT, nombre text, celular text, "+
-                                    " telefono text, calle_carrera text, dir_1 text, dir_2 text, dir_3 text, ciudad text, zona text, incluir int, barrio text, dirReferencia text)";
+                                    " telefono text, calle_carrera text, dir_1 text, dir_2 text, dir_3 text, ciudad text," +
+                                    " zona text, incluir int, barrio text, dirReferencia text, oficina text, numerooficina int)";
 
         String sqlPedido = "CREATE TABLE carrito (id integer primary key AUTOINCREMENT, codeproduct int, nameProduct text, "+
                            "                        quantity int, valueunitary REAL, valueoverall REAL, comment text, idcompany int, idsede int, urlimagen text, "+
@@ -178,9 +179,10 @@ public class DBHelper extends SQLiteOpenHelper {
             values.put("dir_3", data.getDir_3());
             values.put("ciudad", data.getCiudad());
             values.put("zona", data.getZona());
-            values.put("incluir", data.getIncluir());
             values.put("barrio", data.getBarrio());
             values.put("dirReferencia", data.getDirReferencia());
+            values.put("oficina", data.getOficina());
+            values.put("numerooficina", data.getNum_oficina());
 
             db.insert("perfil", null, values);
             db.close();
@@ -192,15 +194,16 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public Cliente getUsuarioAll(){
+    public List<Cliente> getUsuarioAll(){
+        List<Cliente> clientes = new ArrayList<>();
 
-        Cliente cliente = new Cliente();
-        String sql = "SELECT * FROM perfil LIMIT 1";
+        String sql = "SELECT * FROM perfil";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
-
+        Cliente cliente;
         if (cursor.moveToFirst()) {
             do {
+                cliente = new Cliente();
                 cliente.setCodigo(Integer.parseInt(cursor.getString(0)));
                 cliente.setNombre(cursor.getString(1));
                 cliente.setCelular(cursor.getString(2));
@@ -213,14 +216,16 @@ public class DBHelper extends SQLiteOpenHelper {
 
                 cliente.setCiudad(cursor.getString(8));
                 cliente.setZona(cursor.getString(9));
-                cliente.setIncluir(Integer.parseInt(cursor.getString(10)));
                 cliente.setBarrio(cursor.getString(11));
                 cliente.setDirReferencia(cursor.getString(12));
+                cliente.setOficina(cursor.getString(13));
+                cliente.setNum_oficina(Integer.parseInt(cursor.getString(14)));
 
+                clientes.add(cliente);
             } while(cursor.moveToNext());
         }
 
-        return cliente;
+        return clientes;
 
     }
 
@@ -296,11 +301,42 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    public boolean DeletePerfil(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        int p = db.delete("perfil", "id = ? ", new String[]{String.valueOf(id)});
+        db.close();
+        return p > 0;
+    }
+
+    public boolean UpdatePerfil(int id, Cliente cliente){
+
+        ContentValues valores = new ContentValues();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        valores.put("nombre", cliente.getNombre());
+        valores.put("celular", cliente.getCelular());
+        valores.put("telefono", cliente.getTelefono());
+        valores.put("calle_carrera", cliente.getCalle_carrera());
+        valores.put("dir_1", cliente.getDir_1());
+        valores.put("dir_2", cliente.getDir_2());
+        valores.put("dir_3", cliente.getDir_3());
+        valores.put("ciudad",cliente.getCiudad());
+        valores.put("zona", cliente.getZona());
+        valores.put("barrio", cliente.getBarrio());
+        valores.put("dirReferencia", cliente.getDirReferencia());
+        valores.put("oficina", cliente.getOficina());
+        valores.put("numerooficina", cliente.getNum_oficina());
+
+        int p = db.update("perfil", valores, String.format("id = %1$s", id), null);
+        db.close();
+        return p > 0;
+    }
+
     public List<Adiciones> getAdiciones(int idcarrito, int idempresa, int idsede){
         ArrayList<Adiciones> addAdiciones = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String columns[] = {"id","idAdicion","descripcion","tipo","valor","estado","idproductos","idSede", "idEmpresa", "idCarrito"};
+        String columns[] = {"id","idAdicion","descripcion","tipo","valor","estado","idproductos","idSede", "idEmpresa", "idCarrito", "cantidadAdicion"};
 
         Cursor cursor = db.query("adiciones",columns, "idCarrito = ? AND idEmpresa = ? AND idSede = ?",
                 new String[] {String.valueOf(idcarrito),String.valueOf(idempresa),String.valueOf(idsede)}, null, null, null, null);
@@ -321,6 +357,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 adiciones.setIdSede(Integer.parseInt(cursor.getString(7)));
                 adiciones.setIdEmpresa(Integer.parseInt(cursor.getString(8)));
                 adiciones.setIdCarritoCompra(Integer.parseInt(cursor.getString(9)));
+                adiciones.setCantidadAdicion(Integer.parseInt(cursor.getString(10)));
 
                 addAdiciones.add(adiciones);
 

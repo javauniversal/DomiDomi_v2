@@ -19,7 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.appgestor.domidomi.R;
-import com.appgestor.domidomi.dark.Accounts;
+import com.appgestor.domidomi.dark.ActivityMain;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -77,7 +77,7 @@ public class ActComentario extends AppCompatActivity implements View.OnClickList
                     public void onResponse(String response) {
 
                         Toast.makeText(ActComentario.this, "Comentario enviado", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(ActComentario.this, Accounts.class));
+                        startActivity(new Intent(ActComentario.this, ActivityMain.class));
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         finish();
 
@@ -135,11 +135,11 @@ public class ActComentario extends AppCompatActivity implements View.OnClickList
         switch (v.getId()){
             case R.id.btnEnviar:
 
-                if (isValidNumber(Comentario.getText().toString())) {
-                    Comentario.setError("El comentario es un campo requerido");
-                }else{
+                //if (isValidNumber(Comentario.getText().toString())) {
+                //    Comentario.setError("El comentario es un campo requerido");
+                //}else{
                     setComentarios();
-                }
+                //}
 
                 break;
 
@@ -155,7 +155,7 @@ public class ActComentario extends AppCompatActivity implements View.OnClickList
     @Override
     public void onBackPressed() {
 
-        startActivity(new Intent(this, Accounts.class));
+        startActivity(new Intent(this, ActivityMain.class));
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         finish();
         super.onBackPressed();  // optional depending on your needs

@@ -20,6 +20,17 @@ public class Comentario {
     @SerializedName("fechain")
     private String fechain;
 
+    @SerializedName("calificacion")
+    private double calificacion;
+
+    public double getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(double calificacion) {
+        this.calificacion = calificacion;
+    }
+
     public String getFechain() {
         return fechain;
     }

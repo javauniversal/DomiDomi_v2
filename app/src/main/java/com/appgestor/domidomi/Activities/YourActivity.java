@@ -7,7 +7,7 @@ import com.appgestor.domidomi.Entities.ConfigSplash;
 import com.appgestor.domidomi.R;
 import com.appgestor.domidomi.Services.MyService;
 import com.appgestor.domidomi.cnst.Flags;
-import com.appgestor.domidomi.dark.Accounts;
+import com.appgestor.domidomi.dark.ActivityMain;
 import com.daimajia.androidanimations.library.Techniques;
 
 import static com.appgestor.domidomi.Entities.UbicacionPreferen.setLatitudStatic;
@@ -20,14 +20,13 @@ public class YourActivity extends AwesomeSplash {
     //DO NOT OVERRIDE onCreate()!
     //if you need to start some services do it in initSplash()!
 
-
     @Override
     public void initSplash(ConfigSplash configSplash) {
 
         /* you don't have to override every property */
 
         //Customize Circular Reveal
-        configSplash.setBackgroundColor(R.color.color_1); //any color you want form colors.xml
+        configSplash.setBackgroundColor(R.color.colorPrimary); //any color you want form colors.xml
         configSplash.setAnimCircularRevealDuration(2000); //int ms
         configSplash.setRevealFlagX(Flags.REVEAL_RIGHT);  //or Flags.REVEAL_LEFT
         configSplash.setRevealFlagY(Flags.REVEAL_BOTTOM); //or Flags.REVEAL_TOP
@@ -46,7 +45,7 @@ public class YourActivity extends AwesomeSplash {
         configSplash.setTitleTextSize(19f); //float value
         configSplash.setAnimTitleDuration(3000);
         configSplash.setAnimTitleTechnique(Techniques.Tada);
-        configSplash.setTitleFont("fonts/speed.ttf"); //provide string to your font located in assets/fonts/
+        //configSplash.setTitleFont("fonts/speed.ttf"); //provide string to your font located in assets/fonts/
     }
 
     @Override
@@ -71,7 +70,7 @@ public class YourActivity extends AwesomeSplash {
                 setLatitudStatic(gps.getLatitude());
                 setLongitudStatic(gps.getLongitude());
 
-                startActivity(new Intent(this, Accounts.class));
+                startActivity(new Intent(this, ActivityMain.class));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
 

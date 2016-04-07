@@ -25,21 +25,21 @@
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/name"
+            android:text="Producto"
             android:textSize="@dimen/dimen_letra_app" />
 
         <TextView
-            android:id="@+id/tv_preci"
+            android:id="@+id/valorProductoCar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/precio"
+            android:text="Valor: "
             android:textSize="@dimen/dimen_letra_app" />
 
         <TextView
-            android:id="@+id/tv_cantidad"
+            android:id="@+id/totalProductoCar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cantidad"
+            android:text="Total: "
             android:textSize="@dimen/dimen_letra_app" />
 
         <TextView
@@ -48,6 +48,20 @@
             android:layout_height="wrap_content"
             android:text="@string/adiciones"
             android:visibility="visible"
+            android:textSize="@dimen/dimen_letra_app" />
+
+        <TextView
+            android:id="@+id/totalAdicion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total:"
+            android:textSize="@dimen/dimen_letra_app" />
+
+        <TextView
+            android:id="@+id/tv_preci"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Valor Total:"
             android:textSize="@dimen/dimen_letra_app" />
 
     </LinearLayout>

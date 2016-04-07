@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import com.appgestor.domidomi.Entities.ListComentarios;
 import com.appgestor.domidomi.R;
@@ -45,6 +47,13 @@ public class AdapterComentario extends BaseAdapter {
 
         holder.message.setText(elements.get(position).getComentario());
         holder.fecha.setText(elements.get(position).getFechain());
+        holder.ratingBar.setRating(Float.parseFloat(String.valueOf(elements.get(position).getCalificacion())));
+
+        if (elements.get(position).getCalificacion() < 3.0){
+            holder.imageView.setImageResource(R.drawable.ic_thumb_down_outline_grey600_36dp);
+        } else {
+            holder.imageView.setImageResource(R.drawable.ic_thumb_up_outline_grey600_36dp);
+        }
 
         return convertView;
 
@@ -53,10 +62,14 @@ public class AdapterComentario extends BaseAdapter {
     class ViewHolder {
         public TextView message = null;
         public TextView fecha = null;
+        public RatingBar ratingBar;
+        public ImageView imageView;
 
         public ViewHolder(View view) {
             message = (TextView) view.findViewById(R.id.txtComentario);
             fecha = (TextView) view.findViewById(R.id.txtFechaComentario);
+            ratingBar = (RatingBar) view.findViewById(R.id.ratingBar4);
+            imageView = (ImageView) view.findViewById(R.id.imageView7);
             view.setTag(this);
         }
     }

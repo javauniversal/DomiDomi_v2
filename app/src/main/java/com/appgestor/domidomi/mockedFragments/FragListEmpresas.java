@@ -4,16 +4,18 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -25,7 +27,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.appgestor.domidomi.Activities.ActMenu;
 import com.appgestor.domidomi.Activities.DetailsActivity;
-import com.appgestor.domidomi.Activities.SmoothCheckBox;
 import com.appgestor.domidomi.Adapters.AdapterRecyclerSedesEmpresa;
 import com.appgestor.domidomi.Adapters.RecyclerItemClickListener;
 import com.appgestor.domidomi.Entities.Categoria;
@@ -34,6 +35,7 @@ import com.appgestor.domidomi.Entities.ListSede;
 import com.appgestor.domidomi.Entities.Sede;
 import com.appgestor.domidomi.R;
 import com.appgestor.domidomi.RadarView.RandomTextView;
+import com.appgestor.domidomi.dark.ActivityMain;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -62,13 +64,20 @@ public class FragListEmpresas extends BaseVolleyFragment {
     private RelativeLayout relativeLayout_radar;
     private RelativeLayout relativeLayout_sedes;
     private AlertDialog alertDialog;
-    private SearchView search;
+    //private SearchView search;
     private ListSede listSedes;
-    private TextView imgFilter;
+    //private TextView imgFilter;
     //List<Sede> filteredList;
     List<Sede> filterList;
     private ArrayList<Categoria> mList;
     private List<Categoria> CategoriesSelecteds = new ArrayList<>();
+    private static Toolbar toolbarf;
+
+    public static FragListEmpresas newInstance(Toolbar toolbar) {
+        FragListEmpresas fragment = new FragListEmpresas();
+        toolbarf = toolbar;
+        return fragment;
+    }
 
     public FragListEmpresas() {}
 
@@ -80,18 +89,19 @@ public class FragListEmpresas extends BaseVolleyFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View myView = inflater.inflate(R.layout.fragment_empresas, container, false);
 
         relativeLayout_radar = (RelativeLayout) myView.findViewById(R.id.relativeLayout_radar);
         relativeLayout_sedes = (RelativeLayout) myView.findViewById(R.id.relativeLayout_sedes);
 
         randomTextView = (RandomTextView) myView.findViewById(R.id.random_textview);
-        imgFilter = (TextView) myView.findViewById(R.id.imgFilter);
+        //imgFilter = (TextView) myView.findViewById(R.id.imgFilter);
 
         alertDialog = new SpotsDialog(getActivity(), R.style.Custom);
 
-        search = (SearchView) myView.findViewById( R.id.search_sedes);
-        search.setOnQueryTextListener(listener);
+        //search = (SearchView) myView.findViewById( R.id.search_sedes);
+        //search.setOnQueryTextListener(listener);
 
         recycler = (RecyclerView) myView.findViewById(R.id.recycler_view);
         recycler.setHasFixedSize(true);
@@ -99,161 +109,16 @@ public class FragListEmpresas extends BaseVolleyFragment {
         RecyclerView.LayoutManager lManager = new LinearLayoutManager(getActivity());
         recycler.setLayoutManager(lManager);
 
-
-
         return myView;
     }
 
-    SearchView.OnQueryTextListener listener = new SearchView.OnQueryTextListener() {
-        @Override
-        public boolean onQueryTextChange(String query) {
-            query = query.toLowerCase();
 
-            filterList = getNewListFromFilter(query);
-
-            recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-            adapter = new AdapterRecyclerSedesEmpresa(getActivity(), filterList);
-            recycler.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
-
-            /*
-            if(listSedes != null){
-                filteredList = new ArrayList<>();
-
-                for (int i = 0; i < listSedes.size(); i++) {
-                    final String text = listSedes.get(i).getDescripcion().toLowerCase();
-                    if (text.contains(query)) {
-                        filteredList.add(listSedes.get(i));
-                    }
-                }
-
-                recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-                adapter = new AdapterRecyclerSedesEmpresa(getActivity(), filteredList);
-                recycler.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-
-            }
-            */
-
-            return true;
-
-        }
-        public boolean onQueryTextSubmit(String query) {
-            return false;
-        }
-    };
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        imgFilter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (mList == null)
-                    return;
-
-                LayoutInflater inflater = getActivity().getLayoutInflater();
-                View dialoglayout = inflater.inflate(R.layout.categoria_dialog_filter, null);
-                ListView listview = (ListView) dialoglayout.findViewById(R.id.lv);
-
-                listview.setAdapter(new BaseAdapter() {
-                    @Override
-                    public int getCount() {
-                        if (mList == null) {
-                            return 0;
-                        } else {
-                            return mList.size();
-                        }
-                    }
-
-                    @Override
-                    public Object getItem(int position) {
-                        return mList.get(position);
-                    }
-
-                    @Override
-                    public long getItemId(int position) {
-                        return 0;
-                    }
-
-                    @Override
-                    public View getView(final int position, View convertView, ViewGroup parent) {
-                        ViewHolder holder;
-                        if (convertView == null) {
-                            holder = new ViewHolder();
-                            convertView = View.inflate(getActivity(), R.layout.item_categoria, null);
-                            holder.tv = (TextView) convertView.findViewById(R.id.tv);
-                            holder.cb = (SmoothCheckBox) convertView.findViewById(R.id.scb);
-                            convertView.setTag(holder);
-                        } else {
-                            holder = (ViewHolder) convertView.getTag();
-                        }
-
-                        final Categoria categoria = mList.get(position);
-                        holder.cb.setOnCheckedChangeListener(new SmoothCheckBox.OnCheckedChangeListener() {
-                            @Override
-                            public void onCheckedChanged(SmoothCheckBox checkBox, boolean isChecked) {
-                                categoria.isChecked = isChecked;
-                            }
-                        });
-                        holder.tv.setText(categoria.getDescipcionCategoria());
-                        holder.cb.setChecked(categoria.isChecked);
-
-
-                        return convertView;
-                    }
-
-                    class ViewHolder {
-                        SmoothCheckBox cb;
-                        TextView tv;
-                    }
-                });
-
-                listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Categoria categoria = (Categoria) parent.getAdapter().getItem(position);
-                        categoria.isChecked = !categoria.isChecked;
-                        SmoothCheckBox checkBox = (SmoothCheckBox) view.findViewById(R.id.scb);
-                        checkBox.setChecked(categoria.isChecked, true);
-                    }
-                });
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setCancelable(false);
-                builder.setTitle("Filtrar por Categorías");
-                builder.setView(dialoglayout).setPositiveButton("Filtrar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                        CategoriesSelecteds = new ArrayList<Categoria>();
-                        for (int i = 0; i < mList.size(); i++) {
-                            if (mList.get(i).isChecked) {
-                                CategoriesSelecteds.add(mList.get(i));
-                            }
-                        }
-
-                        filterList = getNewListFromFilter(search.getQuery());
-
-                        recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-                        adapter = new AdapterRecyclerSedesEmpresa(getActivity(), filterList);
-                        recycler.setAdapter(adapter);
-                        adapter.notifyDataSetChanged();
-                    }
-
-                }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
-
-                builder.show();
-            }
-
-        });
+        setHasOptionsMenu(true);
 
         setupGrid();
     }
@@ -373,7 +238,7 @@ public class FragListEmpresas extends BaseVolleyFragment {
                 adapter = new AdapterRecyclerSedesEmpresa(getActivity(), listSedes);
                 recycler.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
-
+                toolbarf.setTitle("Establecimientos");
                 relativeLayout_sedes.setVisibility(View.VISIBLE);
 
                 recycler.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
@@ -469,6 +334,53 @@ public class FragListEmpresas extends BaseVolleyFragment {
 
     public static boolean isHourInInterval(String target, String start, String end) {
         return ((target.compareTo(start) >= 0) && (target.compareTo(end) <= 0));
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        // Implementing ActionBar Search inside a fragment
+        MenuItem item = menu.add("Search");
+        item.setIcon(R.drawable.abc_ic_search_api_mtrl_alpha); // sets icon
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        SearchView sv = new SearchView(((ActivityMain) getActivity()).getSupportActionBar().getThemedContext());
+        //SearchView sv = new SearchView(getActivity().getActionBar().getThemedContext());
+
+        // modifying the text inside edittext component
+        int id = sv.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        TextView textView = (TextView) sv.findViewById(id);
+        textView.setHint("Buscar...");
+        textView.setHintTextColor(getResources().getColor(R.color.color_gris));
+        textView.setTextColor(getResources().getColor(R.color.actionBarColorText));
+
+        // implementing the listener
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                if (s.length() < 4) {
+                    return true;
+                } else {
+                    //doSearch(s);
+                    return false;
+                }
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                newText = newText.toLowerCase();
+                filterList = getNewListFromFilter(newText);
+                recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+                adapter = new AdapterRecyclerSedesEmpresa(getActivity(), filterList);
+                recycler.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+
+                return true;
+            }
+        });
+        item.setActionView(sv);
     }
 
     public class SortBasedOnCatDescription implements Comparator

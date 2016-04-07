@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Cliente implements Serializable {
 
     private int codigo;
+    private String nombre_perfil;
     private String nombre;
     private String celular;
     private String telefono;
@@ -14,7 +15,25 @@ public class Cliente implements Serializable {
     private String dir_3;
     private String ciudad;
     private String zona;
-    private int incluir;
+    private String oficina;
+    private int num_oficina;
+
+    public String getOficina() {
+        return oficina;
+    }
+
+    public void setOficina(String oficina) {
+        this.oficina = oficina;
+    }
+
+    public int getNum_oficina() {
+        return num_oficina;
+    }
+
+    public void setNum_oficina(int num_oficina) {
+        this.num_oficina = num_oficina;
+    }
+
     private String barrio;
     private String dirReferencia;
 
@@ -74,14 +93,6 @@ public class Cliente implements Serializable {
         this.zona = zona;
     }
 
-    public int getIncluir() {
-        return incluir;
-    }
-
-    public void setIncluir(int incluir) {
-        this.incluir = incluir;
-    }
-
     public String getCalle_carrera() {
         return calle_carrera;
     }
@@ -122,5 +133,12 @@ public class Cliente implements Serializable {
         this.barrio = barrio;
     }
 
+    public String getNombre_perfil() {
+        return nombre_perfil;
+    }
+
+    public void setNombre_perfil(String nombre_perfil) {
+        this.nombre_perfil = nombre_perfil;
+    }
 
 }

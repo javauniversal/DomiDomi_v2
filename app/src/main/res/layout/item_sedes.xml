@@ -35,7 +35,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
-                android:layout_toRightOf="@+id/imgSede">
+                android:layout_toRightOf="@+id/imgSede"
+                android:id="@+id/linearLayout3">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -54,13 +55,19 @@
                     android:textColor="@color/color_negro"
                     android:id="@+id/txtPedidoMunimo" />
 
-                <TextView
+                <!-- <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/direccion"
                     android:textSize="@dimen/dimen_letra_app"
                     android:textColor="@color/color_negro"
-                    android:id="@+id/txtDireccion" />
+                    android:id="@+id/txtDireccion" /> -->
+
+                <RatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:id="@+id/ratingBar3" />
 
             </LinearLayout>
 
@@ -75,6 +82,8 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
+
+
 
         </RelativeLayout>
 

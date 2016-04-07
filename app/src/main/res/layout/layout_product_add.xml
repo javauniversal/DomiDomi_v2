@@ -105,7 +105,6 @@
             android:orientation="vertical"
             android:descendantFocusability="blocksDescendants">
 
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -150,15 +149,34 @@
             android:visibility="gone"
             android:descendantFocusability="blocksDescendants">
 
-
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/adiciones_extras"
-                android:textSize="15sp"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold"
-                android:layout_margin="4dip"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/adiciones_extras"
+                    android:textSize="15sp"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:layout_margin="4dip"
+                    android:gravity="left" />
+
+                <!-- <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cantidad"
+                    android:layout_weight="1"
+                    android:textSize="15sp"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    android:layout_margin="4dip"
+                    android:gravity="right" /> -->
+
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -206,12 +224,24 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/unidad"
+                    android:text="Valor Productos"
                     android:textSize="@dimen/dimen_letra_app"
                     android:layout_marginTop="6dp"
+                    android:textStyle="bold"
                     android:layout_marginRight="4dp"
                     android:textColor="@color/color_negro"
-                    android:id="@+id/preciodesc" />
+                    android:id="@+id/totalProducto" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Adiciones"
+                    android:textSize="@dimen/dimen_letra_app"
+                    android:layout_marginTop="6dp"
+                    android:textStyle="bold"
+                    android:layout_marginRight="4dp"
+                    android:textColor="@color/color_negro"
+                    android:id="@+id/totalAdiciones" />
 
             </LinearLayout>
 
@@ -221,13 +251,13 @@
                 android:layout_width="wrap_content"
                 android:orientation="horizontal"
                 android:layout_gravity="right"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="5dp"
                 android:layout_height="wrap_content">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/total_signo"
+                    android:text="Valor Total:"
                     android:textStyle="bold"
                     android:textSize="@dimen/dimen_letra_app"
                     android:textColor="@color/color_negro"
@@ -287,7 +317,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:lines="3"
-                    android:maxLength="500"
+                    android:maxLength="150"
                     android:background="@drawable/rounded_corner"
                     android:gravity="top|left"
                     android:inputType="textMultiLine"

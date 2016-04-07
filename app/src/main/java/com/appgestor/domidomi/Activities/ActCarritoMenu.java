@@ -34,7 +34,7 @@ import com.appgestor.domidomi.Entities.HorarioEmpresa;
 import com.appgestor.domidomi.Entities.ListMedioPago;
 import com.appgestor.domidomi.Entities.Sede;
 import com.appgestor.domidomi.R;
-import com.appgestor.domidomi.dark.Accounts;
+import com.appgestor.domidomi.dark.ActivityMain;
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
@@ -550,7 +550,7 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
     public void onBackPressed() {
 
         if (!bundleset.getBoolean("indicador")) {
-            startActivity(new Intent(this, Accounts.class));
+            startActivity(new Intent(this, ActivityMain.class));
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
         }
