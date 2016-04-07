@@ -18,6 +18,8 @@ public class Cliente implements Serializable {
     private String oficina;
     private int num_oficina;
 
+    public boolean isChecked;
+
     public String getOficina() {
         return oficina;
     }

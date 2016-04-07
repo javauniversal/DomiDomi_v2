@@ -14,16 +14,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:textSize="20sp"
+        android:textSize="@dimen/dimen_letra_app"
         android:textStyle="bold|italic"/>
 
-    <com.appgestor.domidomi.Activities.SmoothCheckBox
+    <!--<com.appgestor.domidomi.Activities.SmoothCheckBox
         android:id="@+id/scb"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_gravity="center_vertical|right"
         android:layout_weight="1"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp"/> -->
 
 
 </LinearLayout>

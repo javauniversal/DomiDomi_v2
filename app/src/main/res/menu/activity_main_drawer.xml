@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_establecimiento"
+            android:icon="@drawable/ic_silverware_variant"
+            android:title="@string/action_establecimiento" />
+        <item
+            android:id="@+id/nav_seguimiento"
+            android:icon="@drawable/ic_file_check"
+            android:title="@string/action_seguimiento" />
+        <item
+            android:id="@+id/nav_carrito"
+            android:icon="@drawable/ic_cart"
+            android:title="@string/action_carrito" />
+        <item
+            android:id="@+id/nav_perfil"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/action_perfil" />
+    </group>
+
+    <item android:title="@string/action_comunicar">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_share_variant"
+                android:title="@string/action_compartir" />
+
+        </menu>
+    </item>
+
+</menu>
