@@ -17,7 +17,6 @@ import com.appgestor.domidomi.mockedFragments.FragmentMenuPedidos;
 
 public class ActEstadoPedido extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

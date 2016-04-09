@@ -3,9 +3,10 @@ package com.appgestor.domidomi.Entities;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class EstadoPedido {
+public class EstadoPedido implements Serializable {
 
     @SerializedName("idordencompra")
     private int idordencompra;

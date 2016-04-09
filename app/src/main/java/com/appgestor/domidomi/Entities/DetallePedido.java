@@ -3,7 +3,10 @@ package com.appgestor.domidomi.Entities;
 
 import com.google.gson.annotations.SerializedName;
 
-public class DetallePedido {
+import java.io.Serializable;
+import java.util.List;
+
+public class DetallePedido implements Serializable {
 
     @SerializedName("iddetordencompra")
     private int iddetordencompra;
@@ -28,6 +31,17 @@ public class DetallePedido {
 
     @SerializedName("idordencompra")
     private int idordencompra;
+
+    @SerializedName("adiciones")
+    private List<AdicionGet> adicionGetList;
+
+    public List<AdicionGet> getAdicionGetList() {
+        return adicionGetList;
+    }
+
+    public void setAdicionGetList(List<AdicionGet> adicionGetList) {
+        this.adicionGetList = adicionGetList;
+    }
 
     public int getIddetordencompra() {
         return iddetordencompra;

@@ -25,7 +25,6 @@ import com.appgestor.domidomi.DataBase.DBHelper;
 import com.appgestor.domidomi.Entities.AddProductCar;
 import com.appgestor.domidomi.Entities.Adiciones;
 import com.appgestor.domidomi.R;
-import com.appgestor.domidomi.mockedActivity.Settings;
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -255,8 +254,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            startActivity(new Intent(ActProductAdd.this, Settings.class));
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
             return true;
         }else if(id == R.id.action_cart){
             Bundle bundle = new Bundle();

@@ -47,8 +47,6 @@
             android:name=".dark.ActivityMain"
             android:theme="@style/AppTheme"></activity>
 
-        <activity android:name=".mockedActivity.Settings" />
-
         <activity
             android:name=".Activities.ActMenu"
             android:theme="@style/AppTheme" />
@@ -144,6 +142,10 @@
         <activity
             android:name=".Activities.ActCreatePerfil"
             android:label="@string/title_activity_act_create_perfil"
+            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".Activities.ActDetalleCompra"
+            android:label="@string/title_activity_act_detalle_compra"
             android:theme="@style/AppTheme"></activity>
     </application>
 
