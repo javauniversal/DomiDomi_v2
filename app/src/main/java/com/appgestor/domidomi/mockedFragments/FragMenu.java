@@ -252,8 +252,8 @@ public class FragMenu extends BaseVolleyFragmentSoport {
                                 nombreEmpresa.setText(comData.getDescripcion());
                                 nit.setText(comData.getNit());
                                 //direccion.setText(String.format("Dir: %1$s", comData.getDireccion()));
-                                telefono.setText(String.format("Tel: %1$s", comData.getTelefono()));
-                                celular.setText(String.format("Cel: %1$s", comData.getCelular()));
+                                telefono.setText(String.format("%1$s", comData.getTelefono()));
+                                celular.setText(String.format("%1$s", comData.getCelular()));
 
                                 if(comData.getSedes() != null || comData.getSedes().size() > 1){
                                     setAdapterSedes(comData.getSedes());
