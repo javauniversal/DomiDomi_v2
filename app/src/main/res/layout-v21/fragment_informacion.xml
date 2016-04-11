@@ -1,249 +1,252 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_marginTop="17dp"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
-    <android.support.v7.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spacing_large"
-        android:layout_marginLeft="@dimen/spacing_large"
-        android:layout_marginRight="@dimen/spacing_large"
-        app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="4dp"
-        app:contentPaddingBottom="13dp"
-        app:contentPaddingLeft="13dp"
-        app:contentPaddingRight="13dp"
-        app:contentPaddingTop="13dp">
+        android:orientation="vertical"
+        android:background="@color/grid_item_bg_pressed"
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginTop="17dp"
+            android:layout_marginBottom="@dimen/spacing_large"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:layout_marginRight="@dimen/spacing_large"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            app:contentPaddingBottom="13dp"
+            app:contentPaddingLeft="13dp"
+            app:contentPaddingRight="13dp"
+            app:contentPaddingTop="13dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/dimen_letra_app"
-                android:text="@string/nombre_empresa"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold"
-                android:id="@+id/textView8" />
-
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
-
-                <ImageView
-                    android:id="@+id/image_mail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:tint="@color/colorPrimary"
-                    android:src="@drawable/ic_domain_black_24dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/margen_izquierdo"
-                    android:text="Nombre de empresa"
-                    android:textSize="@dimen/dimen_letra_app"
-                    android:id="@+id/txtNombreEmpresa"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/image_mail"
-                    android:layout_toEndOf="@+id/image_mail" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
-
-                <ImageView
-                    android:id="@+id/image_nit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:tint="@color/colorPrimary"
-                    android:src="@drawable/ic_playlist_add_check_black_24dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                    android:textSize="@dimen/dimen_letra_app"
+                    android:text="@string/nombre_empresa"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    android:id="@+id/textView8" />
 
-                <TextView
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/margen_izquierdo"
-                    android:text="@string/nit"
-                    android:textSize="@dimen/dimen_letra_app"
-                    android:id="@+id/txtNit"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/image_nit"
-                    android:layout_toEndOf="@+id/image_nit" />
+                    android:layout_marginTop="9dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
 
-            </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/image_mail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tint="@color/colorPrimary"
+                        android:src="@drawable/ic_domain_black_24dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
 
-        </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/margen_izquierdo"
+                        android:text="Nombre de empresa"
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:id="@+id/txtNombreEmpresa"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/image_mail"
+                        android:layout_toEndOf="@+id/image_mail" />
 
-    </android.support.v7.widget.CardView>
+                </RelativeLayout>
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spacing_large"
-        android:layout_marginLeft="@dimen/spacing_large"
-        android:layout_marginRight="@dimen/spacing_large"
-        app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="4dp"
-        app:contentPaddingBottom="13dp"
-        app:contentPaddingLeft="13dp"
-        app:contentPaddingRight="13dp"
-        app:contentPaddingTop="13dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
 
-        <LinearLayout
+                    <ImageView
+                        android:id="@+id/image_nit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tint="@color/colorPrimary"
+                        android:src="@drawable/ic_playlist_add_check_black_24dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/margen_izquierdo"
+                        android:text="@string/nit"
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:id="@+id/txtNit"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/image_nit"
+                        android:layout_toEndOf="@+id/image_nit" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginBottom="@dimen/spacing_large"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:layout_marginRight="@dimen/spacing_large"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            app:contentPaddingBottom="13dp"
+            app:contentPaddingLeft="13dp"
+            app:contentPaddingRight="13dp"
+            app:contentPaddingTop="13dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/dimen_letra_app"
-                android:text="@string/informacion"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold" />
-
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
-
-                <ImageView
-                    android:id="@+id/image_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:tint="@color/colorPrimary"
-                    android:src="@drawable/ic_settings_phone_black_24dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/margen_izquierdo"
-                    android:text="Nombre de empresa"
-                    android:textSize="@dimen/dimen_letra_app"
-                    android:id="@+id/txtTelefono"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/image_info"
-                    android:layout_toEndOf="@+id/image_info" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
-
-                <ImageView
-                    android:id="@+id/image_info2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:tint="@color/colorPrimary"
-                    android:src="@drawable/ic_settings_cell_black_24dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                    android:textSize="@dimen/dimen_letra_app"
+                    android:text="@string/informacion"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold" />
 
-                <TextView
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/margen_izquierdo"
-                    android:text="Telefono"
-                    android:textSize="@dimen/dimen_letra_app"
-                    android:id="@+id/txtCelulat"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/image_info2"
-                    android:layout_toEndOf="@+id/image_info2" />
+                    android:layout_marginTop="9dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
 
-            </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/image_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tint="@color/colorPrimary"
+                        android:src="@drawable/ic_settings_phone_black_24dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
 
-        </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/margen_izquierdo"
+                        android:text="Nombre de empresa"
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:id="@+id/txtTelefono"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/image_info"
+                        android:layout_toEndOf="@+id/image_info" />
 
-    </android.support.v7.widget.CardView>
+                </RelativeLayout>
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spacing_large"
-        android:layout_marginLeft="@dimen/spacing_large"
-        android:layout_marginRight="@dimen/spacing_large"
-        app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="4dp"
-        app:contentPaddingBottom="13dp"
-        app:contentPaddingLeft="13dp"
-        app:contentPaddingRight="13dp"
-        app:contentPaddingTop="13dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
 
-        <LinearLayout
+                    <ImageView
+                        android:id="@+id/image_info2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tint="@color/colorPrimary"
+                        android:src="@drawable/ic_settings_cell_black_24dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/margen_izquierdo"
+                        android:text="Telefono"
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:id="@+id/txtCelulat"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/image_info2"
+                        android:layout_toEndOf="@+id/image_info2" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginBottom="@dimen/spacing_large"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:layout_marginRight="@dimen/spacing_large"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            app:contentPaddingBottom="13dp"
+            app:contentPaddingLeft="13dp"
+            app:contentPaddingRight="13dp"
+            app:contentPaddingTop="13dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/dimen_letra_app"
-                android:text="@string/sede_sucursales"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold" />
-
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
+                android:orientation="vertical">
 
-                <TableLayout
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/dimen_letra_app"
+                    android:text="@string/sede_sucursales"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentStart="true"
-                    android:id="@+id/myTable" >
+                    android:layout_marginTop="9dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
 
-                </TableLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:id="@+id/liner_sedes_dimacas">
 
-            </RelativeLayout>
+                    </LinearLayout>
+
+                </RelativeLayout>
 
 
-        </LinearLayout>
+            </LinearLayout>
 
-    </android.support.v7.widget.CardView>
-
-</LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</ScrollView>
 

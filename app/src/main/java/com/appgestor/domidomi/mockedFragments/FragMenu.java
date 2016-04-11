@@ -5,11 +5,14 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -73,6 +76,7 @@ public class FragMenu extends BaseVolleyFragmentSoport {
     private InformacioCompania comData;
     private ListComentarios comentarios;
     private AdapterComentario adapter;
+    private LinearLayout lm;
 
     public static FragMenu newInstance(Bundle param1) {
         FragMenu fragment = new FragMenu();
@@ -118,7 +122,8 @@ public class FragMenu extends BaseVolleyFragmentSoport {
                 //direccion = (TextView) rootView.findViewById(R.id.textDireccion);
                 telefono = (TextView) rootView.findViewById(R.id.txtTelefono);
                 celular = (TextView) rootView.findViewById(R.id.txtCelulat);
-                tabla = (TableLayout) rootView.findViewById(R.id.myTable);
+               // tabla = (TableLayout) rootView.findViewById(R.id.myTable);
+                lm = (LinearLayout) rootView.findViewById(R.id.liner_sedes_dimacas);
 
                 break;
             case 2:
@@ -286,19 +291,20 @@ public class FragMenu extends BaseVolleyFragmentSoport {
 
     public void setAdapterSedes(ArrayList<Sede> hijos){
 
+
         for (int i = 0; i < hijos.size(); i++){
-            TableRow currentRow = new TableRow(getContext());
-            TableLayout.LayoutParams params = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
 
-            TextView currentText = new TextView(getContext());
-            currentText.setText(hijos.get(i).getDescripcion());
-            currentText.setTextSize(12);
-            currentText.setTextColor(Color.BLACK);
+            LinearLayout ll1 = new LinearLayout(getActivity());
+            ll1.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            ll1.setOrientation(LinearLayout.VERTICAL);
 
-            currentRow.setLayoutParams(params);
-            currentRow.addView(currentText);
-
-            tabla.addView(currentRow);
+            TextView product = new TextView(getActivity());
+            product.setText(hijos.get(i).getDescripcion());
+            product.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f));
+            //product.setGravity(Gravity.LEFT);
+            product.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+            ll1.addView(product);
+            lm.addView(ll1);
         }
 
     }

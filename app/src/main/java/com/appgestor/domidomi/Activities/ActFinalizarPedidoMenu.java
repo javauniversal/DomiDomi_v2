@@ -231,7 +231,7 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
                             holder = new ViewHolder();
                             convertView = View.inflate(ActFinalizarPedidoMenu.this, R.layout.item_categoria, null);
                             holder.tv = (TextView) convertView.findViewById(R.id.tv);
-                            //holder.cb = (SmoothCheckBox) convertView.findViewById(R.id.scb);
+                            holder.tvd = (TextView) convertView.findViewById(R.id.tvd);
                             convertView.setTag(holder);
                         } else {
                             holder = (ViewHolder) convertView.getTag();
@@ -245,7 +245,7 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
 
                             }
                         });*/
-
+                        holder.tvd.setText(cliente.getNombre());
                         if (cliente.getOficina().equals("Ninguno")){
                             holder.tv.setText(String.format("%1s %2s # %3s - %4s", cliente.getCalle_carrera(), cliente.getDir_1(),
                                     cliente.getDir_2(), cliente.getDir_3()));
@@ -263,6 +263,7 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
 
                     class ViewHolder {
                         //SmoothCheckBox cb;
+                        TextView tvd;
                         TextView tv;
                     }
                 });
@@ -556,6 +557,13 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
             editBarrioCliente.setError("Este campo es obligatorio");
             indicadorValidate = true;
         } else if (validateCheckBox()) {
+            for(int i = 0; i < root.getChildCount(); i++) {
+                View child = root.getChildAt(i);
+                if (child instanceof CheckBox) {
+                    CheckBox cb = (CheckBox) child;
+                    cb.setError("Marque un medio de pago");
+                }
+            }
             indicadorValidate = true;
         } else if (input_layout_Efectivo_liner.getVisibility() == View.VISIBLE && isValidNumber(limpiarMascara(editEfectivo))) {
             editEfectivo.setFocusable(true);
@@ -586,7 +594,7 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
                 if (answer == 1){
                     return false;
                 }
-                cb.setError("Marque un medio de pago");
+                //cb.setError("Marque un medio de pago");
             }
         }
 

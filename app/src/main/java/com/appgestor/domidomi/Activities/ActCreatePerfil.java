@@ -93,31 +93,6 @@ public class ActCreatePerfil extends AppCompatActivity implements DatePickerDial
 
         fabGuardar = (FloatingActionButton) findViewById(R.id.fab_guardar);
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-
-        });
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-
-        /*fecha_cumple.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar now = Calendar.getInstance();
-                DatePickerDialog dpd = com.borax12.materialdaterangepicker.date.DatePickerDialog.newInstance(
-                        ActCreatePerfil.this,
-                        now.get(Calendar.YEAR),
-                        now.get(Calendar.MONTH),
-                        now.get(Calendar.DAY_OF_MONTH)
-                );
-                dpd.show(getFragmentManager(), "Datepickerdialog");
-            }
-        });*/
-
         loadAdress();
 
         loadOficina();
@@ -129,7 +104,18 @@ public class ActCreatePerfil extends AppCompatActivity implements DatePickerDial
         if (bundle != null) {
             thumbs = (Cliente)bundle.getSerializable("value");
             loadLlenarEditar(thumbs);
+            toolbar.setTitle("Editar Perfil");
         }
+
+        setSupportActionBar(toolbar);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+
+        });
 
         fabGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,6 +125,9 @@ public class ActCreatePerfil extends AppCompatActivity implements DatePickerDial
                 }
             }
         });
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
     }
 
     private void loadLlenarEditar(Cliente thumbs) {

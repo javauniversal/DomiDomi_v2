@@ -73,7 +73,7 @@
 
     <!-- Menu -->
     <string name="menu_lista">Lista de restaurante</string>
-    <string name="menu_perfiles">Perfil</string>
+    <string name="menu_perfiles">Perfiles</string>
     <string name="menu_ubicacion">Mi ubicacion</string>
     <string name="menu_carrito">Carro</string>
     <string name="menu_categoria">Categoria</string>
@@ -166,7 +166,7 @@
     <string name="action_establecimiento">Establecimientos</string>
     <string name="action_seguimiento">Seguimiento</string>
     <string name="action_carrito">Carrito</string>
-    <string name="action_perfil">Perfil</string>
+    <string name="action_perfil">Perfiles</string>
     <string name="action_comunicar">Comunicar</string>
     <string name="action_compartir">Compartir</string>
     <string name="title_activity_act_create_perfil">Crear Perfil</string>

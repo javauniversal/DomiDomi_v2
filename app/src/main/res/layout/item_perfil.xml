@@ -6,72 +6,14 @@
 
     <LinearLayout
         android:orientation="vertical"
+        android:padding="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:layout_marginBottom="3dp"
-            android:layout_marginLeft="7dp"
-            android:layout_marginRight="7dp">
-
-            <ImageView
-                android:id="@+id/igm_direccion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tint="@color/colorPrimary"
-                android:src="@drawable/ic_person_pin_circle_black_24dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="8dp"
-                android:textSize="@dimen/dimen_letra_app"
-                android:layout_toEndOf="@+id/igm_direccion"
-                android:text="Dirección"
-                android:id="@+id/txt_direccion" />
-
-    </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:layout_marginLeft="7dp"
-            android:layout_marginRight="7dp">
-
-            <ImageView
-                android:id="@+id/img_cell"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tint="@color/colorPrimary"
-                android:src="@drawable/ic_settings_cell_black_24dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="8dp"
-                android:layout_toEndOf="@+id/img_cell"
-                android:textSize="@dimen/dimen_letra_app"
-                android:text="Celular"
-                android:id="@+id/txt_cell" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="7dp"
+            android:layout_marginTop="8dp"
             android:layout_marginLeft="7dp"
             android:layout_marginRight="7dp">
 
@@ -93,7 +35,40 @@
                 android:layout_toEndOf="@+id/image_mail"
                 android:textSize="@dimen/dimen_letra_app"
                 android:text="Nombre"
-                android:id="@+id/txtNombre" />
+                android:id="@+id/txtNombre"
+                android:layout_marginLeft="8dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp">
+
+            <ImageView
+                android:id="@+id/igm_direccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tint="@color/colorPrimary"
+                android:src="@drawable/ic_person_pin_circle_black_24dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:textSize="@dimen/dimen_letra_app"
+                android:layout_toEndOf="@+id/igm_direccion"
+                android:text="Dirección"
+                android:id="@+id/txt_direccion"
+                android:layout_toRightOf="@+id/igm_direccion"
+                android:layout_marginLeft="8dp" />
 
         </RelativeLayout>
 

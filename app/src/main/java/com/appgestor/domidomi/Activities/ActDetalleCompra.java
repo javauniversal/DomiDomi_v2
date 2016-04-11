@@ -31,6 +31,7 @@ public class ActDetalleCompra extends AppCompatActivity {
     private TextView txt_valor_prodocto;
     private TextView txt_valor_total_prodocto;
     private TextView totales_pedido;
+    private TextView txt_valor_domicilio;
     private DecimalFormat format;
     private double total_adiciones = 0.0;
     private double total_producto = 0.0;
@@ -52,6 +53,7 @@ public class ActDetalleCompra extends AppCompatActivity {
         txt_valor_prodocto = (TextView) findViewById(R.id.txt_valor_prodocto);
         txt_valor_total_prodocto = (TextView) findViewById(R.id.txt_valor_total_prodocto);
         totales_pedido = (TextView) findViewById(R.id.totales_pedido);
+        txt_valor_domicilio = (TextView) findViewById(R.id.txt_valor_domicilio);
         card_view_adiciones = (CardView) findViewById(R.id.card_view_adiciones);
         ralative_adiciones = (RelativeLayout) findViewById(R.id.ralative_adiciones);
 
@@ -84,12 +86,16 @@ public class ActDetalleCompra extends AppCompatActivity {
     private void cargarDatosPedido(EstadoPedido item) {
         cargarAdicion(item);
         cargarProducto(item);
-
-        cargarSumaTotal();
+        cargarDomicilio(item);
+        cargarSumaTotal(item);
     }
 
-    private void cargarSumaTotal() {
-        txt_valor_total_prodocto.setText(String.format("$ %1s", format.format(total_producto+total_adiciones)));
+    private void cargarDomicilio(EstadoPedido item) {
+        txt_valor_domicilio.setText(String.format("$ %1s", format.format(item.getCosenvio())));
+    }
+
+    private void cargarSumaTotal(EstadoPedido item) {
+        txt_valor_total_prodocto.setText(String.format("$ %1s", format.format(total_producto+total_adiciones+item.getCosenvio())));
     }
 
     private void cargarProducto(EstadoPedido item) {

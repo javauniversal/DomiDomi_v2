@@ -70,11 +70,11 @@ public class AppAdapterPerfil extends BaseAdapter {
                     item.getDir_1().trim(), item.getDir_2().trim(), item.getDir_3().trim(), item.getOficina(), item.getNum_oficina()));
         }
 
-        if (item.getCelular().equals("")){
+        /*if (item.getCelular().equals("")){
             holder.txt_cell.setText(String.format("%s", item.getTelefono()));
         } else {
             holder.txt_cell.setText(String.format("%s", item.getCelular()));
-        }
+        }*/
 
         holder.txt_nombre.setText(String.format("%s", item.getNombre()));
 
@@ -83,14 +83,15 @@ public class AppAdapterPerfil extends BaseAdapter {
 
     class ViewHolder {
 
-        TextView txt_direccion;
-        TextView txt_cell;
         TextView txt_nombre;
+        TextView txt_direccion;
+        //TextView txt_cell;
+
 
         public ViewHolder(View view) {
 
             txt_direccion = (TextView) view.findViewById(R.id.txt_direccion);
-            txt_cell = (TextView) view.findViewById(R.id.txt_cell);
+            //txt_cell = (TextView) view.findViewById(R.id.txt_cell);
             txt_nombre = (TextView) view.findViewById(R.id.txtNombre);
 
             view.setTag(this);

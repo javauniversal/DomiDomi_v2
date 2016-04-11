@@ -1,256 +1,306 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="15dp"
-    android:paddingLeft="2dp"
-    android:paddingRight="2dp"
-    android:paddingTop="15dp"
-    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.appgestor.domidomi.Activities.ActDetalleCompra"
     tools:showIn="@layout/activity_detalle_compra">
 
-    <android.support.v7.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spacing_large"
-        android:layout_marginLeft="@dimen/spacing_large"
-        android:layout_marginRight="@dimen/spacing_large"
-        app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="4dp"
-        app:contentPaddingBottom="15dp"
-        app:contentPaddingLeft="15dp"
-        app:contentPaddingRight="15dp"
-        app:contentPaddingTop="15dp">
+        android:layout_height="match_parent"
+        android:paddingBottom="15dp"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:paddingTop="15dp"
+        android:orientation="vertical"
+        >
 
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <!-- <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/dimen_letra_app"
-                android:text="Productos"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold"
-                android:id="@+id/textView8" /> -->
+            android:layout_marginBottom="@dimen/spacing_large"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:layout_marginRight="@dimen/spacing_large"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            app:contentPaddingBottom="15dp"
+            app:contentPaddingLeft="15dp"
+            app:contentPaddingRight="15dp"
+            app:contentPaddingTop="15dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/liner_productos_dinamic">
+                android:orientation="vertical">
+
+                <!-- <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/dimen_letra_app"
+                    android:text="Productos"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    android:id="@+id/textView8" /> -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/liner_productos_dinamic">
+
+                </LinearLayout>
+
 
             </LinearLayout>
 
+        </android.support.v7.widget.CardView>
 
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:id="@+id/card_view_adiciones"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spacing_large"
-        android:layout_marginLeft="@dimen/spacing_large"
-        android:layout_marginRight="@dimen/spacing_large"
-        app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="4dp"
-        app:contentPaddingBottom="15dp"
-        app:contentPaddingLeft="15dp"
-        app:contentPaddingRight="15dp"
-        app:contentPaddingTop="15dp">
-
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
+            android:id="@+id/card_view_adiciones"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <!--<TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/dimen_letra_app"
-                android:text="Adiciones"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold" />-->
+            android:layout_marginBottom="@dimen/spacing_large"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:layout_marginRight="@dimen/spacing_large"
+            app:cardBackgroundColor="@android:color/white"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            app:contentPaddingBottom="15dp"
+            app:contentPaddingLeft="15dp"
+            app:contentPaddingRight="15dp"
+            app:contentPaddingTop="15dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/liner_adiciones_dinamic">
+                android:orientation="vertical">
+
+                <!--<TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/dimen_letra_app"
+                    android:text="Adiciones"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold" />-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/liner_adiciones_dinamic">
+
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+        </android.support.v7.widget.CardView>
 
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spacing_large"
-        android:layout_marginLeft="@dimen/spacing_large"
-        android:layout_marginRight="@dimen/spacing_large"
-        app:cardBackgroundColor="@android:color/white"
-        app:contentPaddingTop="7dp"
-        app:contentPaddingLeft="7dp"
-        app:contentPaddingRight="7dp"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="4dp">
-
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_large"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:layout_marginRight="@dimen/spacing_large"
+            app:cardBackgroundColor="@android:color/white"
+            app:contentPaddingTop="7dp"
+            app:contentPaddingLeft="7dp"
+            app:contentPaddingRight="7dp"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/dimen_letra_app"
-                android:text="Totales"
-                android:id="@+id/totales_pedido"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold" />
-
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp">
-
-                <ImageView
-                    android:id="@+id/image_producto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:tint="@color/colorPrimary"
-                    android:src="@drawable/ic_monetization_on_black_24dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total Productos:"
-                    android:textStyle="bold"
-                    android:id="@+id/txt_sub_producto"
                     android:textSize="@dimen/dimen_letra_app"
+                    android:text="Totales"
+                    android:id="@+id/totales_pedido"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/image_producto"
-                    android:layout_toEndOf="@+id/image_producto" />
+                    android:layout_marginRight="8dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <ImageView
+                        android:id="@+id/image_producto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tint="@color/colorPrimary"
+                        android:src="@drawable/ic_monetization_on_black_24dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total Productos:"
+                        android:textStyle="bold"
+                        android:id="@+id/txt_sub_producto"
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/image_producto"
+                        android:layout_toEndOf="@+id/image_producto" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$50.000"
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:id="@+id/txt_valor_prodocto"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="$50.000"
-                    android:textSize="@dimen/dimen_letra_app"
-                    android:id="@+id/txt_valor_prodocto"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:id="@+id/ralative_adiciones"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp">
-
-                <ImageView
-                    android:id="@+id/image_sub_adiciones"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:tint="@color/colorPrimary"
-                    android:src="@drawable/ic_monetization_on_black_24dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Total Adiciones:"
-                    android:textStyle="bold"
-                    android:id="@+id/txt_sub_adiciones"
-                    android:textSize="@dimen/dimen_letra_app"
+                    android:layout_marginBottom="8dp"
+                    android:id="@+id/ralative_adiciones"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/image_sub_adiciones"
-                    android:layout_toEndOf="@+id/image_sub_adiciones" />
+                    android:layout_marginRight="8dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <ImageView
+                        android:id="@+id/image_sub_adiciones"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tint="@color/colorPrimary"
+                        android:src="@drawable/ic_monetization_on_black_24dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total Adiciones:"
+                        android:textStyle="bold"
+                        android:id="@+id/txt_sub_adiciones"
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/image_sub_adiciones"
+                        android:layout_toEndOf="@+id/image_sub_adiciones" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$20.000"
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:id="@+id/txt_valor_adicion"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="$20.000"
-                    android:textSize="@dimen/dimen_letra_app"
-                    android:id="@+id/txt_valor_adicion"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp">
-
-                <ImageView
-                    android:id="@+id/image_referencia"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:tint="@color/colorPrimary"
-                    android:src="@drawable/ic_monetization_on_black_24dp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Total:"
-                    android:id="@+id/txt_total"
-                    android:textSize="@dimen/dimen_letra_app"
+                    android:layout_marginBottom="8dp"
+                    android:id="@+id/ralative_domicilio"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
-                    android:textStyle="bold"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/image_referencia"
-                    android:layout_toEndOf="@+id/image_referencia" />
+                    android:layout_marginRight="8dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <ImageView
+                        android:id="@+id/image_domicilio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tint="@color/colorPrimary"
+                        android:src="@drawable/ic_monetization_on_black_24dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Valor Domicilio:"
+                        android:textStyle="bold"
+                        android:id="@+id/txt_domicilio"
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/image_domicilio"
+                        android:layout_toEndOf="@+id/image_domicilio" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$1.500"
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:id="@+id/txt_valor_domicilio"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="$70.000"
-                    android:textSize="@dimen/dimen_letra_app"
-                    android:id="@+id/txt_valor_total_prodocto"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp">
 
-            </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/image_referencia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tint="@color/colorPrimary"
+                        android:src="@drawable/ic_monetization_on_black_24dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
 
-        </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total:"
+                        android:id="@+id/txt_total"
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
+                        android:textStyle="bold"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/image_referencia"
+                        android:layout_toEndOf="@+id/image_referencia" />
 
-    </android.support.v7.widget.CardView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$70.000"
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:id="@+id/txt_valor_total_prodocto"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
 
-</LinearLayout>
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+</ScrollView>
+

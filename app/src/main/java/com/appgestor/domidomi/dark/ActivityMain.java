@@ -103,7 +103,7 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
 
             fManager.beginTransaction().replace(R.id.contentPanel, carritoF).commit();
         } else if (id == R.id.nav_perfil) {
-            toolbar.setTitle("Perfil");
+            toolbar.setTitle("Perfiles");
             if (perfilF == null)
                 perfilF = new FragmentPeril();
 

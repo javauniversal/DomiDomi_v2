@@ -145,6 +145,9 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
                 cb.setId(getProductoStatic().getAdicionesList().get(i).getIdadicionales());
 
                 ll.addView(cb);
+
+
+
                 cb.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(final View v) {

@@ -66,7 +66,9 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="8dp"
                         android:layout_toEndOf="@+id/image_mail"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toRightOf="@+id/image_mail">
 
                         <EditText
                             android:layout_width="match_parent"
@@ -106,7 +108,9 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="8dp"
                         android:layout_toEndOf="@+id/image_cell"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/image_cell"
+                        android:layout_marginLeft="8dp">
 
                         <EditText
                             android:layout_width="match_parent"
@@ -146,7 +150,9 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="8dp"
                         android:layout_toEndOf="@+id/image_phone"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/image_phone"
+                        android:layout_marginLeft="8dp">
 
                         <EditText
                             android:layout_width="match_parent"
@@ -215,7 +221,9 @@
                         android:id="@+id/spinner_dir"
                         android:layout_marginStart="8dp"
                         android:layout_toEndOf="@+id/image_dir"
-                        android:textSize="@dimen/dimen_letra_app"/>
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:layout_toRightOf="@+id/image_dir"
+                        android:layout_marginLeft="8dp" />
 
                 </RelativeLayout>
 
@@ -241,15 +249,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginStart="8dp"
-                        android:layout_toEndOf="@+id/image_dir_dir">
+                        android:layout_toEndOf="@+id/image_dir_dir"
+                        android:layout_toRightOf="@+id/image_dir_dir">
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/numbera"
                             android:layout_width="match_parent"
-                            android:layout_marginStart="8dp"
                             android:layout_weight="1"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="8dp">
 
                             <EditText
                                 android:layout_width="match_parent"
@@ -267,14 +275,14 @@
                             android:layout_height="match_parent"
                             android:text="@string/separado"
                             android:textSize="@dimen/dimen_letra_app"
-                            android:layout_weight="1.2"
+                            android:layout_weight="1.4"
                             android:gravity="center_vertical|center_horizontal" />
 
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/numberb"
                             android:layout_width="match_parent"
-                            android:layout_weight="1"
+                            android:layout_weight="1.1"
                             android:layout_height="match_parent">
 
                             <EditText
@@ -293,13 +301,13 @@
                             android:layout_height="match_parent"
                             android:text="@string/separador2"
                             android:textSize="@dimen/dimen_letra_app"
-                            android:layout_weight="1.2"
+                            android:layout_weight="1.4"
                             android:gravity="center_vertical|center_horizontal" />
 
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/numberc"
                             android:layout_width="match_parent"
-                            android:layout_weight="1"
+                            android:layout_weight="1.1"
                             android:layout_height="match_parent">
 
                             <EditText

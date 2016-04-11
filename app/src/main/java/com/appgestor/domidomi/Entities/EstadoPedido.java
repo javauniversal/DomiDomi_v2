@@ -53,6 +53,9 @@ public class EstadoPedido implements Serializable {
     @SerializedName("valor")
     private double valor;
 
+    @SerializedName("cosenvio")
+    private double cosenvio;
+
     @SerializedName("detalle")
     private List<DetallePedido> detallePedidoList;
 
@@ -182,5 +185,13 @@ public class EstadoPedido implements Serializable {
 
     public void setValor(double valor) {
         this.valor = valor;
+    }
+
+    public double getCosenvio() {
+        return cosenvio;
+    }
+
+    public void setCosenvio(double cosenvio) {
+        this.cosenvio = cosenvio;
     }
 }
