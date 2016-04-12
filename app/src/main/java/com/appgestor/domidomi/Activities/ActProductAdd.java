@@ -7,10 +7,13 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -114,12 +117,14 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
 
         totalFinalOculto.setText(String.format("%s", getProductoStatic().getPrecio()));
 
+        root = (LinearLayout) findViewById(R.id.liner_adiciones_dinamic); //or whatever your root control is
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
         CargarAdiciones();
 
-        root = (LinearLayout) findViewById(R.id.llAdiciones); //or whatever your root control is
+
         cantidad.setValorTotal(getProductoStatic().getPrecio(), totalFinal, totalFinalOculto, root, totalProducto);
 
     }
@@ -127,26 +132,32 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
     public void CargarAdiciones(){
 
         LinearLayout pll = (LinearLayout) findViewById(R.id.paterAdiciones);
+        //LinearLayout lm = (LinearLayout) findViewById(R.id.llAdiciones);
 
         if(getProductoStatic().getAdicionesList() != null){
-
             pll.setVisibility(View.VISIBLE);
-
-            LinearLayout ll = (LinearLayout) findViewById(R.id.llAdiciones);
 
             int adiciones = getProductoStatic().getAdicionesList().size();
             for (int i = 0; i < adiciones; i++) {
 
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMargins(0, 70, 0, 0);
+                LinearLayout ll = new LinearLayout(this);
+                ll.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                ll.setOrientation(LinearLayout.HORIZONTAL);
 
                 final CheckBox cb = new CheckBox(this);
                 cb.setText(String.format("%1s $ %2s",getProductoStatic().getAdicionesList().get(i).getDescripcion(),format.format(getProductoStatic().getAdicionesList().get(i).getValor())));
                 cb.setId(getProductoStatic().getAdicionesList().get(i).getIdadicionales());
-
+                cb.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f));
+                cb.setGravity(Gravity.LEFT | Gravity.CENTER);
+                cb.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
                 ll.addView(cb);
 
-
+                final TextView valor = new TextView(this);
+                valor.setText("0");
+                valor.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, 3.7f));
+                valor.setGravity(Gravity.CENTER);
+                valor.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+                ll.addView(valor);
 
                 cb.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -182,7 +193,10 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
                                                         }
                                                     }
 
+                                                    valor.setText(numberEdit.getText().toString());
+
                                                     totalFinal.setText(String.format("%s", format.format(totalfinal)));
+
                                                     totalFinalOculto.setText(totalfinal+"");
 
                                                     totalAdiciones.setText(String.format("Total Adiciones: $ %s", format.format(totalAdicion)));
@@ -208,37 +222,22 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
                                 }
                             }
 
+                            valor.setText("0");
+
                             totalFinal.setText(String.format("%s", format.format(totalfinal)));
+
                             totalFinalOculto.setText(totalfinal + "");
 
                             totalAdiciones.setText(String.format("Total Adiciones: $ %s", format.format(totalAdicion)));
                         }
 
-
-                        /*
-                        if (((CheckBox) v).isChecked()) {
-                            for(int f = 0; f < getProductoStatic().getAdicionesList().size(); f++) {
-                                if(v.getId() == getProductoStatic().getAdicionesList().get(f).getIdadicionales()){
-                                    totalfinal = (totaltemporal + (getProductoStatic().getAdicionesList().get(f).getValor()*cantidad.getQuantity()));
-                                    break;
-
-                                }
-                            }
-                        }else{
-                            for(int j = 0; j < getProductoStatic().getAdicionesList().size(); j++) {
-                                if(v.getId() == getProductoStatic().getAdicionesList().get(j).getIdadicionales()){
-                                    totalfinal = (totaltemporal - (getProductoStatic().getAdicionesList().get(j).getValor()*cantidad.getQuantity()));
-                                    break;
-                                }
-                            }
-                        }
-
-                        totalFinal.setText(String.format("%s", format.format(totalfinal)));
-                        totalFinalOculto.setText(totalfinal+"");
-                        */
-
                     }
                 });
+
+
+                root.addView(ll);
+
+
             }
 
         }
@@ -340,32 +339,8 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
 
         if(getProductoStatic().getAdicionesList() != null && getProductoStatic().getAdicionesList().size() > 0){
             List<Adiciones> adicionesList = new ArrayList<>();
-            for(int i = 0; i < root.getChildCount(); i++) {
-                View child = root.getChildAt(i);
-                if (child instanceof CheckBox) {
-                    CheckBox cb = (CheckBox)child;
-                    int answer = cb.isChecked() ? 1 : 0;
-                    if (answer == 1){
-                        for(int f = 0; f < getProductoStatic().getAdicionesList().size(); f++) {
-                            if(cb.getId() == getProductoStatic().getAdicionesList().get(f).getIdadicionales()){
 
-                                adicionesList.add(
-                                        new Adiciones(cb.getId(),
-                                                getProductoStatic().getAdicionesList().get(f).getDescripcion(),
-                                                getProductoStatic().getAdicionesList().get(f).getTipo(),
-                                                getProductoStatic().getAdicionesList().get(f).getValor(),
-                                                getProductoStatic().getAdicionesList().get(f).getEstado(),
-                                                getProductoStatic().getAdicionesList().get(f).getIdproductos(),
-                                                getSedeStaticNew().getIdsedes(),getSedeStaticNew().getIdempresa(),
-                                                getProductoStatic().getAdicionesList().get(f).getCantidadAdicion()));
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-
-            car.setAdicionesList(adicionesList);
+            car.setAdicionesList(loopQuestions(root, adicionesList));
         }
 
         if (mydb.insertProduct(car)){
@@ -378,6 +353,44 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
         }
 
     }
+
+    private  List<Adiciones> loopQuestions(ViewGroup parent, List<Adiciones> CurrentSum) {
+        for(int i = 0; i < parent.getChildCount(); i++) {
+            View child = parent.getChildAt(i);
+
+            if(child instanceof CheckBox) {
+                //Support for Checkboxes
+                CheckBox cb = (CheckBox)child;
+                int answer = cb.isChecked() ? 1 : 0;
+                if (answer == 1){
+                    for(int f = 0; f < getProductoStatic().getAdicionesList().size(); f++) {
+                        if(cb.getId() == getProductoStatic().getAdicionesList().get(f).getIdadicionales()){
+
+                            CurrentSum.add(
+                                    new Adiciones(cb.getId(),
+                                            getProductoStatic().getAdicionesList().get(f).getDescripcion(),
+                                            getProductoStatic().getAdicionesList().get(f).getTipo(),
+                                            getProductoStatic().getAdicionesList().get(f).getValor(),
+                                            getProductoStatic().getAdicionesList().get(f).getEstado(),
+                                            getProductoStatic().getAdicionesList().get(f).getIdproductos(),
+                                            getSedeStaticNew().getIdsedes(),getSedeStaticNew().getIdempresa(),
+                                            getProductoStatic().getAdicionesList().get(f).getCantidadAdicion()));
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if(child instanceof ViewGroup) {
+                //Nested Q&A
+                ViewGroup group = (ViewGroup)child;
+                CurrentSum = loopQuestions(group, CurrentSum);
+            }
+        }
+
+        return CurrentSum;
+    }
+
 
     private void CargarImagen() {
         //Setup the ImageLoader, we'll use this to display our images

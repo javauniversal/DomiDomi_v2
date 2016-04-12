@@ -58,14 +58,11 @@ public class Sede {
     @SerializedName("menu")
     private List<Menu> menuList;
 
+    @SerializedName("categorias")
+    private List<Categoria> categorias;
+
     @SerializedName("horarioApertura")
     private String horario;
-
-    @SerializedName("idcategoria")
-    private int idcategoria;
-
-    @SerializedName("descipcionCategoria")
-    private String descipcionCategoria;
 
     @SerializedName("calificacion")
     private double calificacion;
@@ -78,27 +75,9 @@ public class Sede {
         this.calificacion = calificacion;
     }
 
-    public int getIdcategoria() {
-        return idcategoria;
-    }
-
-    public void setIdcategoria(int idcategoria) {
-        this.idcategoria = idcategoria;
-    }
-
-    public String getDescipcionCategoria() {
-        return descipcionCategoria;
-    }
-
-    public void setDescipcionCategoria(String descipcionCategoria) {
-        this.descipcionCategoria = descipcionCategoria;
-    }
-
     public static Sede sedeStatic;
 
     public static int sedeIdeStatic;
-
-
 
     // MEtodos GET SET
     public static Sede getSedeStaticNew() {
@@ -261,4 +240,11 @@ public class Sede {
         this.horario = horario;
     }
 
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
+    }
 }

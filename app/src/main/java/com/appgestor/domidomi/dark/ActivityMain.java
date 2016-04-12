@@ -127,7 +127,7 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
         share.putExtra(Intent.EXTRA_SUBJECT, "Descarga la mejor aplicación de domicilios");
         share.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=com.appgestor.domidomi&hl=es");
 
-        startActivity(Intent.createChooser(share, "Share link!"));
+        startActivity(Intent.createChooser(share, "Compartir"));
     }
 
     @Override

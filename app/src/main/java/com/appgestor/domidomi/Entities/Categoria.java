@@ -2,19 +2,19 @@ package com.appgestor.domidomi.Entities;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Categoria {
+    public class Categoria {
 
     @SerializedName("idcategoria")
     private int idcategoria;
 
-    @SerializedName("descipcionCategoria")
-    private String descipcionCategoria;
+    @SerializedName("descripcion")
+    private String descripcion;
 
     public boolean isChecked;
 
-    public Categoria(int idcategoria, String descipcionCategoria) {
+    public Categoria(int idcategoria, String descripcion) {
         this.idcategoria = idcategoria;
-        this.descipcionCategoria = descipcionCategoria;
+        this.descripcion = descripcion;
     }
 
     public int getIdcategoria() {
@@ -25,11 +25,11 @@ public class Categoria {
         this.idcategoria = idcategoria;
     }
 
-    public String getDescipcionCategoria() {
-        return descipcionCategoria;
+    public void setDescipcion(String descipcionCategoria) {
+        this.descripcion = descipcionCategoria;
     }
 
-    public void setDescipcionCategoria(String descipcionCategoria) {
-        this.descipcionCategoria = descipcionCategoria;
+    public String getDescipcion() {
+        return descripcion;
     }
 }

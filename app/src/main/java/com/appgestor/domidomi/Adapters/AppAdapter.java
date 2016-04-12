@@ -79,23 +79,32 @@ public class AppAdapter extends BaseAdapter {
 
         double totalAdicion = totalAdiciones(item.getIdProduct(), item.getIdcompany(), item.getIdsede());
 
-        holder.tv_name.setText(String.format("%1s(x%2s)", item.getNameProduct(), item.getQuantity()));
-        holder.valorProductoCar.setText(String.format("Valor: $ %s", format.format(item.getValueunitary())));
-        holder.totalProductoCar.setText(String.format("Valor Total: $ %s", format.format(item.getValueunitary() * item.getQuantity())));
+        holder.tv_name.setText(String.format("%1s - (x%2s)", item.getNameProduct(), item.getQuantity()));
 
-        holder.tv_preci.setText(String.format("Valor Total: $ %s", format.format(item.getValueoverall())));
-
-        //holder.tv_cantidad.setText(String.format("Total: $ %s", format.format(item.getValueoverall())));
+        holder.valor_total_productos.setText(String.format("$ %s", format.format(item.getValueunitary() * item.getQuantity())));
 
         if (adicion != null && adicion != ""){
             holder.tv_adiciones.setVisibility(View.VISIBLE);
-            holder.totalAdicion.setVisibility(View.VISIBLE);
+            holder.total_adiciones.setVisibility(View.VISIBLE);
+            holder.tituloadiciones.setVisibility(View.VISIBLE);
+
             holder.tv_adiciones.setText(adicion);
-            holder.totalAdicion.setText(String.format("Total: $ %s", format.format(totalAdicion)));
+            holder.total_adiciones.setText(String.format("$ %s", format.format(totalAdicion)));
         }else {
             holder.tv_adiciones.setVisibility(View.GONE);
-            holder.totalAdicion.setVisibility(View.GONE);
+            holder.total_adiciones.setVisibility(View.GONE);
+            holder.tituloadiciones.setVisibility(View.GONE);
         }
+
+        holder.sut_total.setText(String.format("$ %s", format.format(item.getValueoverall())));
+
+
+        //holder.valorProductoCar.setText(String.format("Valor: $ %s", format.format(item.getValueunitary())));
+        //holder.totalProductoCar.setText();
+
+        //holder.tv_preci.setText(String.format("Valor Total: $ %s", format.format(item.getValueoverall())));
+
+        //holder.tv_cantidad.setText(String.format("Total: $ %s", format.format(item.getValueoverall())));
 
         CargarImagen(holder,item);
         return convertView;
@@ -123,10 +132,15 @@ public class AppAdapter extends BaseAdapter {
         if(adicionesList.size() > 0){
             String concatAdiciones = "";
             for (int i = 0; i < adicionesList.size(); i++) {
-                concatAdiciones = concatAdiciones +" | "+ adicionesList.get(i).getDescripcion() +"(x "+ adicionesList.get(i).getCantidadAdicion()+")";
+                if (concatAdiciones.isEmpty()){
+                    concatAdiciones = adicionesList.get(i).getDescripcion() +" - (x"+ adicionesList.get(i).getCantidadAdicion()+")";
+                }
+                else {
+                    concatAdiciones = concatAdiciones +" | "+ adicionesList.get(i).getDescripcion() +" - (x"+ adicionesList.get(i).getCantidadAdicion()+")";
+                }
             }
 
-            formato = String.format(" %1s %2s", "Adiciones:", concatAdiciones);
+            formato = String.format("%1s %2s", "Adiciones: ", concatAdiciones);
         }
 
         return formato;
@@ -162,20 +176,21 @@ public class AppAdapter extends BaseAdapter {
 
         ImageView iv_icon;
         TextView tv_name;
-        TextView tv_preci;
-        TextView totalAdicion;
+        TextView valor_total_productos;
         TextView tv_adiciones;
-        TextView valorProductoCar;
-        TextView totalProductoCar;
+        TextView total_adiciones;
+        TextView sut_total;
+        TextView tituloadiciones;
 
         public ViewHolder(View view) {
             iv_icon = (ImageView) view.findViewById(R.id.iv_icon);
             tv_name = (TextView) view.findViewById(R.id.tv_name);
-            tv_preci = (TextView) view.findViewById(R.id.tv_preci);
-            totalAdicion = (TextView) view.findViewById(R.id.totalAdicion);
+            valor_total_productos = (TextView) view.findViewById(R.id.valor_total_productos);
             tv_adiciones = (TextView) view.findViewById(R.id.tv_adiciones);
-            valorProductoCar = (TextView) view.findViewById(R.id.valorProductoCar);
-            totalProductoCar = (TextView) view.findViewById(R.id.totalProductoCar);
+            total_adiciones = (TextView) view.findViewById(R.id.total_adiciones);
+            sut_total = (TextView) view.findViewById(R.id.sut_total);
+            tituloadiciones = (TextView) view.findViewById(R.id.tituloadiciones);
+
             view.setTag(this);
         }
     }

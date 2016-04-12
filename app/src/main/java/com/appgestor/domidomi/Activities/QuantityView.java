@@ -209,22 +209,18 @@ public class QuantityView extends LinearLayout implements View.OnClickListener {
     }
 
     public void algoValor(){
-        Double valorAdicion = 0.0;
-        for(int i = 0; i < parentactivity.getChildCount(); i++) {
+
+        /*for(int i = 0; i < parentactivity.getChildCount(); i++) {
             View child = parentactivity.getChildAt(i);
+
             if (child instanceof CheckBox){
                 CheckBox cb = (CheckBox)child;
                 int answer = cb.isChecked() ? 1 : 0;
-                if (answer == 1){
-                    for(int f = 0; f < getProductoStatic().getAdicionesList().size(); f++) {
-                        if(cb.getId() == getProductoStatic().getAdicionesList().get(f).getIdadicionales()){
-                            valorAdicion = (valorAdicion + getProductoStatic().getAdicionesList().get(f).getValor()) * getProductoStatic().getAdicionesList().get(f).getCantidadAdicion();
-                            break;
-                        }
-                    }
-                }
+
             }
-        }
+        }*/
+
+        Double valorAdicion = loopQuestions(parentactivity, 0.0);
 
         Double sumaTotal = (valorPrecio * quantity) + valorAdicion;
 
@@ -232,6 +228,34 @@ public class QuantityView extends LinearLayout implements View.OnClickListener {
         textView12.setText(sumaTotal+"");
         textView3.setText(String.format("Total Productos: $ %s", format.format(valorPrecio * quantity)));
 
+    }
+
+    private Double loopQuestions(ViewGroup parent, Double CurrentSum) {
+        for(int i = 0; i < parent.getChildCount(); i++) {
+            View child = parent.getChildAt(i);
+
+            if(child instanceof CheckBox) {
+                //Support for Checkboxes
+                CheckBox cb = (CheckBox)child;
+                int answer = cb.isChecked() ? 1 : 0;
+                if (answer == 1){
+                    for(int f = 0; f < getProductoStatic().getAdicionesList().size(); f++) {
+                        if(cb.getId() == getProductoStatic().getAdicionesList().get(f).getIdadicionales()){
+                            CurrentSum += (getProductoStatic().getAdicionesList().get(f).getValor()) * getProductoStatic().getAdicionesList().get(f).getCantidadAdicion();
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if(child instanceof ViewGroup) {
+                //Nested Q&A
+                ViewGroup group = (ViewGroup)child;
+                CurrentSum = loopQuestions(group, CurrentSum);
+            }
+        }
+
+        return CurrentSum;
     }
 
     public void setOnQuantityChangeListener(OnQuantityChangeListener onQuantityChangeListener) {

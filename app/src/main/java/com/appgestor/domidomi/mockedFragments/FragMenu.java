@@ -330,7 +330,7 @@ public class FragMenu extends BaseVolleyFragmentSoport {
                 expandableListAdapter = new ExpandableListAdapter(getActivity(), expandableListTitle, expandableListDetail);
                 expandableListView.setAdapter(expandableListAdapter);
                 if (expandableListTitle.size() > 0)
-                    expandableListView.expandGroup(0);
+                    //expandableListView.expandGroup(0);
 
                 expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
                     @Override

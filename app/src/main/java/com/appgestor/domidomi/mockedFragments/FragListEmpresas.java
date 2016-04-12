@@ -16,6 +16,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -27,6 +30,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.appgestor.domidomi.Activities.ActMenu;
 import com.appgestor.domidomi.Activities.DetailsActivity;
+import com.appgestor.domidomi.Activities.SmoothCheckBox;
 import com.appgestor.domidomi.Adapters.AdapterRecyclerSedesEmpresa;
 import com.appgestor.domidomi.Adapters.RecyclerItemClickListener;
 import com.appgestor.domidomi.Entities.Categoria;
@@ -69,9 +73,11 @@ public class FragListEmpresas extends BaseVolleyFragment {
     //private TextView imgFilter;
     //List<Sede> filteredList;
     List<Sede> filterList;
-    private ArrayList<Categoria> mList;
+    private List<Categoria> mList;
     private List<Categoria> CategoriesSelecteds = new ArrayList<>();
     private static Toolbar toolbarf;
+    private String filtertext = "";
+    private boolean isLocked = false;
 
     public static FragListEmpresas newInstance(Toolbar toolbar) {
         FragListEmpresas fragment = new FragListEmpresas();
@@ -99,6 +105,7 @@ public class FragListEmpresas extends BaseVolleyFragment {
         //imgFilter = (TextView) myView.findViewById(R.id.imgFilter);
 
         alertDialog = new SpotsDialog(getActivity(), R.style.Custom);
+        alertDialog.setCancelable(false);
 
         //search = (SearchView) myView.findViewById( R.id.search_sedes);
         //search.setOnQueryTextListener(listener);
@@ -140,10 +147,20 @@ public class FragListEmpresas extends BaseVolleyFragment {
         if (CategoriesSelecteds.size() > 0 && !query.toString().equals("")) {
             for (int i = 0; i < listSedes.size(); i++) {
                 for (int g = 0; g < CategoriesSelecteds.size(); g++) {
-                    if (listSedes.get(i).getIdcategoria() == CategoriesSelecteds.get(g).getIdcategoria()
-                            || listSedes.get(i).getDescripcion().toLowerCase().contains(query)) {
-                        filteredListCategoria.add(listSedes.get(i));
+                    //validar por cada una de las categorias que tiene asociada cada una de las sedes y adicionalmente
+                    // tener en cuenta el String que el usuario escribío en la caja de filtro
+
+                    if (listSedes.get(i).getCategorias() != null) {
+                        for (int k = 0; k < listSedes.get(i).getCategorias().size(); k++) {
+                            if (listSedes.get(i).getCategorias().get(k).getIdcategoria() == CategoriesSelecteds.get(g).getIdcategoria()
+                                    && listSedes.get(i).getDescripcion().toLowerCase().contains(query)) {
+
+                                if (filteredListCategoria.indexOf(listSedes.get(i)) < 0)
+                                    filteredListCategoria.add(listSedes.get(i));
+                            }
+                        }
                     }
+
                 }
             }
         }
@@ -157,8 +174,16 @@ public class FragListEmpresas extends BaseVolleyFragment {
         else if (CategoriesSelecteds.size() > 0 && query.toString().equals("")) {
             for (int i = 0; i < listSedes.size(); i++) {
                 for (int g = 0; g < CategoriesSelecteds.size(); g++) {
-                    if (listSedes.get(i).getIdcategoria() == CategoriesSelecteds.get(g).getIdcategoria()) {
-                        filteredListCategoria.add(listSedes.get(i));
+                    //validar por cada una de las categorias que tiene asociada cada una de las sedes
+
+                    if (listSedes.get(i).getCategorias() != null) {
+                        for (int k = 0; k < listSedes.get(i).getCategorias().size(); k++) {
+                            if (listSedes.get(i).getCategorias().get(k).getIdcategoria() == CategoriesSelecteds.get(g).getIdcategoria()) {
+
+                                if (filteredListCategoria.indexOf(listSedes.get(i)) < 0)
+                                    filteredListCategoria.add(listSedes.get(i));
+                            }
+                        }
                     }
                 }
             }
@@ -213,17 +238,22 @@ public class FragListEmpresas extends BaseVolleyFragment {
                 boolean Find;
 
                 for (int i = 0; i < listSedes.size(); i++) {
+
                     Find = false;
-                    if (mList != null){
-                        for (int j = 0; j < mList.size(); j++) {
-                            if (mList.get(j).getIdcategoria() == listSedes.get(i).getIdcategoria()){
-                                Find = true;
-                                break;
+
+                    if (listSedes.get(i).getCategorias() != null) {
+                        for (int k = 0; k < listSedes.get(i).getCategorias().size(); k++) {
+                            for (int j = 0; j < mList.size(); j++) {
+                                if (mList.get(j).getIdcategoria() == listSedes.get(i).getCategorias().get(k).getIdcategoria()) {
+                                    Find = true;
+                                    break;
+                                }
+                            }
+
+                            if (!Find) {
+                                mList.add(new Categoria(listSedes.get(i).getCategorias().get(k).getIdcategoria(), listSedes.get(i).getCategorias().get(k).getDescipcion()));
                             }
                         }
-                    }
-                    if (!Find) {
-                        mList.add(new Categoria(listSedes.get(i).getIdcategoria(), listSedes.get(i).getDescipcionCategoria()));
                     }
                 }
 
@@ -245,23 +275,35 @@ public class FragListEmpresas extends BaseVolleyFragment {
                     @Override
                     public void onItemClick(View view, int position) {
 
-                        Date date = new Date();
-                        DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss");
+                        if (isLocked)
+                            return;
 
-                        if (filterList != null && filterList.size() > 0){
-                            if (isHourInInterval(hourdateFormat.format(date).toString(), filterList.get(position).getHorainicio(), filterList.get(position).getHorafinal())) {
-                                setSedeStaticNew(filterList.get(position));
-                                getDataSedeDem(filterList.get(position).getIdsedes());
+                        try {
+
+                            setSedeStaticNew(null);
+                            setMenuListStatic(null);
+
+                            Date date = new Date();
+                            DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss");
+
+                            if (filterList != null && filterList.size() > 0) {
+                                if (isHourInInterval(hourdateFormat.format(date).toString(), filterList.get(position).getHorainicio(), filterList.get(position).getHorafinal())) {
+                                    setSedeStaticNew(filterList.get(position));
+                                    getDataSedeDem(filterList.get(position).getIdsedes());
+                                } else {
+                                    Toast.makeText(getActivity(), "El establecimiento se encuentra Cerrado", Toast.LENGTH_SHORT).show();
+                                }
                             } else {
-                                Toast.makeText(getActivity(), "El establecimiento se encuentra Cerrado", Toast.LENGTH_SHORT).show();
+                                if (isHourInInterval(hourdateFormat.format(date).toString(), listSedes.get(position).getHorainicio(), listSedes.get(position).getHorafinal())) {
+                                    setSedeStaticNew(listSedes.get(position));
+                                    getDataSedeDem(listSedes.get(position).getIdsedes());
+                                } else {
+                                    Toast.makeText(getActivity(), "El establecimiento se encuentra Cerrado", Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        } else {
-                            if (isHourInInterval(hourdateFormat.format(date).toString(), listSedes.get(position).getHorainicio(), listSedes.get(position).getHorafinal())) {
-                                setSedeStaticNew(listSedes.get(position));
-                                getDataSedeDem(listSedes.get(position).getIdsedes());
-                            } else {
-                                Toast.makeText(getActivity(), "El establecimiento se encuentra Cerrado", Toast.LENGTH_SHORT).show();
-                            }
+                        }
+                        catch (Exception eX) {
+                            isLocked = false;
                         }
                     }
                 }));
@@ -313,22 +355,32 @@ public class FragListEmpresas extends BaseVolleyFragment {
     }
 
     private void parseJSONSEDE(String json) {
-        alertDialog.dismiss();
+
         if (!json.equals("[]")){
             try {
 
                 Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();
                 final LisMenuData lismenudata = gson.fromJson(json, LisMenuData.class);
                 setMenuListStatic(lismenudata);
+
+                if (lismenudata == null || lismenudata.isEmpty() || lismenudata.size() < 1)
+                    return;
+
                 startActivity(new Intent(getActivity(), ActMenu.class));
-                getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                //getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
             } catch (IllegalStateException ex) {
                 ex.printStackTrace();
             }
+            finally {
+                isLocked = false;
+                alertDialog.dismiss();
+            }
         } else {
             startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "EMPTY"));
             getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            isLocked = false;
+            alertDialog.dismiss();
         }
     }
 
@@ -341,9 +393,22 @@ public class FragListEmpresas extends BaseVolleyFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
         // Implementing ActionBar Search inside a fragment
+
+
+        MenuItem item2 = menu.add("Filtrar");
+        item2.setIcon(R.drawable.ic_filter_list_white_24dp); // sets icon
+        item2.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        item2.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                DialogMenu();
+                return true;
+            }
+        });
         MenuItem item = menu.add("Search");
         item.setIcon(R.drawable.abc_ic_search_api_mtrl_alpha); // sets icon
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
         SearchView sv = new SearchView(((ActivityMain) getActivity()).getSupportActionBar().getThemedContext());
         //SearchView sv = new SearchView(getActivity().getActionBar().getThemedContext());
 
@@ -370,6 +435,7 @@ public class FragListEmpresas extends BaseVolleyFragment {
             public boolean onQueryTextChange(String newText) {
 
                 newText = newText.toLowerCase();
+                filtertext = newText;
                 filterList = getNewListFromFilter(newText);
                 recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -383,13 +449,108 @@ public class FragListEmpresas extends BaseVolleyFragment {
         item.setActionView(sv);
     }
 
-    public class SortBasedOnCatDescription implements Comparator
-    {
-        public int compare(Object o1, Object o2)
-        {
+    public void DialogMenu(){
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View dialoglayout = inflater.inflate(R.layout.categoria_dialog_filter, null);
+        ListView listview = (ListView) dialoglayout.findViewById(R.id.lv);
+        listview.setAdapter(new BaseAdapter() {
+            @Override
+            public int getCount() {
+                if (mList == null) {
+                    return 0;
+                } else {
+                    return mList.size();
+                }
+            }
+
+            @Override
+            public Object getItem(int position) {
+                return mList.get(position);
+            }
+
+            @Override
+            public long getItemId(int position) {
+                return 0;
+            }
+
+            @Override
+            public View getView(final int position, View convertView, ViewGroup parent) {
+                ViewHolder holder;
+                if (convertView == null) {
+                    holder = new ViewHolder();
+                    convertView = View.inflate(getActivity(), R.layout.item_categoria_filtro, null);
+                    holder.tv = (TextView) convertView.findViewById(R.id.tv);
+                    holder.cb = (SmoothCheckBox) convertView.findViewById(R.id.scb);
+                    convertView.setTag(holder);
+                } else {
+                    holder = (ViewHolder) convertView.getTag();
+                }
+
+                final Categoria categoria = mList.get(position);
+                holder.cb.setOnCheckedChangeListener(new SmoothCheckBox.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(SmoothCheckBox checkBox, boolean isChecked) {
+                        categoria.isChecked = isChecked;
+                    }
+                });
+                holder.tv.setText(categoria.getDescipcion());
+                holder.cb.setChecked(categoria.isChecked);
+
+
+                return convertView;
+            }
+
+            class ViewHolder {
+                SmoothCheckBox cb;
+                TextView tv;
+            }
+        });
+
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Categoria categoria = (Categoria) parent.getAdapter().getItem(position);
+                categoria.isChecked = !categoria.isChecked;
+                SmoothCheckBox checkBox = (SmoothCheckBox) view.findViewById(R.id.scb);
+                checkBox.setChecked(categoria.isChecked, true);
+            }
+        });
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setCancelable(false);
+        builder.setTitle("Filtrar por Categorías");
+        builder.setView(dialoglayout).setPositiveButton("Filtrar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+                CategoriesSelecteds = new ArrayList<Categoria>();
+                for (int i = 0; i < mList.size(); i++) {
+                    if (mList.get(i).isChecked) {
+                        CategoriesSelecteds.add(mList.get(i));
+                    }
+                }
+
+                filterList = getNewListFromFilter(filtertext);
+
+                recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+                adapter = new AdapterRecyclerSedesEmpresa(getActivity(), filterList);
+                recycler.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+
+        }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.show();
+    }
+
+    public class SortBasedOnCatDescription implements Comparator {
+        public int compare(Object o1, Object o2) {
             Categoria dd1 = (Categoria) o1;// where FBFriends_Obj is your object class
             Categoria dd2 = (Categoria) o2;
-            return dd1.getDescipcionCategoria().compareToIgnoreCase(dd2.getDescipcionCategoria());//where uname is field name
+            return dd1.getDescipcion().compareToIgnoreCase(dd2.getDescipcion());//where uname is field name
         }
 
     }
