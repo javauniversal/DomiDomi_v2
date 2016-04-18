@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.appgestor.domidomi.Activities.ActCar"
+    tools:showIn="@layout/layout_car_list">
+
+
+
+    <com.baoyz.swipemenulistview.SwipeMenuListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/app_bar"
+        android:layout_above="@+id/linearLayout" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="20dp"
+        android:padding="8dp"
+        android:background="@color/colorPrimary"
+        android:id="@+id/linearLayout"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp">
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Domicilio :"
+                android:textSize="@dimen/dimen_letra_app"
+                android:textStyle="bold"
+                android:textColor="@color/actionBarColorText"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$0"
+                android:id="@+id/valor_domicilio"
+                android:textStyle="bold"
+                android:textColor="@color/actionBarColorText"
+                android:textSize="@dimen/dimen_letra_app"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total a Pagar :"
+                android:textSize="@dimen/dimen_letra_app"
+                android:id="@+id/textView3"
+                android:textStyle="bold"
+                android:textColor="@color/actionBarColorText"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$0"
+                android:textSize="@dimen/dimen_letra_app"
+                android:id="@+id/total_pago"
+                android:textStyle="bold"
+                android:textColor="@color/actionBarColorText"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="@style/BrandButtonStyle2"
+            android:text="@string/realizar_pedido"
+            android:visibility="gone"
+            android:id="@+id/pedirServices" />
+
+    </LinearLayout>
+
+</RelativeLayout>

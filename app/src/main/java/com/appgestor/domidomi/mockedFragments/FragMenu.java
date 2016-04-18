@@ -21,14 +21,17 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.appgestor.domidomi.Activities.ActAddCarritoEdit;
 import com.appgestor.domidomi.Activities.ActProductAdd;
 import com.appgestor.domidomi.Activities.DetailsActivity;
 import com.appgestor.domidomi.Adapters.AdapterComentario;
 import com.appgestor.domidomi.Adapters.ExpandableListAdapter;
 import com.appgestor.domidomi.Adapters.ExpandableListDataPump;
+import com.appgestor.domidomi.Entities.Adiciones;
 import com.appgestor.domidomi.Entities.Comentario;
 import com.appgestor.domidomi.Entities.InformacioCompania;
 import com.appgestor.domidomi.Entities.ListComentarios;
+import com.appgestor.domidomi.Entities.ProductoEditAdd;
 import com.appgestor.domidomi.Entities.Sede;
 import com.appgestor.domidomi.R;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
@@ -352,9 +355,50 @@ public class FragMenu extends BaseVolleyFragmentSoport {
 
                         setProductoStatic(getMenuListStatic().get(groupPosition).getProductos().get(childPosition));
 
-                        startActivity(new Intent(getActivity(), ActProductAdd.class));
-                        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                        ProductoEditAdd productoEditAdd = new ProductoEditAdd();
 
+                        productoEditAdd.setCodigo_producto(getMenuListStatic().get(groupPosition).getProductos().get(childPosition).getIdproductos());
+                        productoEditAdd.setDescripcion(getMenuListStatic().get(groupPosition).getProductos().get(childPosition).getDescripcion());
+                        productoEditAdd.setIngredientes(getMenuListStatic().get(groupPosition).getProductos().get(childPosition).getIngredientes());
+                        productoEditAdd.setPrecio(getMenuListStatic().get(groupPosition).getProductos().get(childPosition).getPrecio());
+                        productoEditAdd.setCantidad(getMenuListStatic().get(groupPosition).getProductos().get(childPosition).getCantidad());
+                        productoEditAdd.setFoto(getMenuListStatic().get(groupPosition).getProductos().get(childPosition).getFoto());
+                        productoEditAdd.setEstado(getMenuListStatic().get(groupPosition).getProductos().get(childPosition).getEstado());
+                        productoEditAdd.setIdmenumovil(getMenuListStatic().get(groupPosition).getProductos().get(childPosition).getIdmenumovil());
+                        productoEditAdd.setCosto_envio(getSedeStaticNew().getCosenvio());
+                        productoEditAdd.setId_empresa(getSedeStaticNew().getIdempresa());
+                        productoEditAdd.setId_sede(getSedeStaticNew().getIdsedes());
+                        productoEditAdd.setNombre_sede(getSedeStaticNew().getDescripcion());
+                        productoEditAdd.setHora_inicial(getSedeStaticNew().getHorainicio());
+                        productoEditAdd.setHora_final(getSedeStaticNew().getHorafinal());
+                        productoEditAdd.setValor_minimo(getSedeStaticNew().getPedidomeinimo());
+
+                        if (getMenuListStatic().get(groupPosition).getProductos().get(childPosition).getAdicionesList() != null &&
+                                getMenuListStatic().get(groupPosition).getProductos().get(childPosition).getAdicionesList().size() > 0) {
+
+                            List<Adiciones> adicionesList = new ArrayList<>();
+                            Adiciones adiciones;
+                            for (int i = 0; i < getMenuListStatic().get(groupPosition).getProductos().get(childPosition).getAdicionesList().size(); i++){
+                                adiciones = new Adiciones();
+                                adiciones.setIdadicionales(getMenuListStatic().get(groupPosition).getProductos().get(childPosition).getAdicionesList().get(i).getIdadicionales());
+                                adiciones.setDescripcion(getMenuListStatic().get(groupPosition).getProductos().get(childPosition).getAdicionesList().get(i).getDescripcion());
+                                adiciones.setTipo(getMenuListStatic().get(groupPosition).getProductos().get(childPosition).getAdicionesList().get(i).getTipo());
+                                adiciones.setValor(getMenuListStatic().get(groupPosition).getProductos().get(childPosition).getAdicionesList().get(i).getValor());
+                                adiciones.setEstado(getMenuListStatic().get(groupPosition).getProductos().get(childPosition).getAdicionesList().get(i).getEstado());
+                                adiciones.setIdproductos(getMenuListStatic().get(groupPosition).getProductos().get(childPosition).getAdicionesList().get(i).getIdproductos());
+                                adiciones.setIdSede(getSedeStaticNew().getIdsedes());
+                                adiciones.setIdEmpresa(getSedeStaticNew().getIdempresa());
+                                adicionesList.add(adiciones);
+                            }
+                            productoEditAdd.setAdicionesList(adicionesList);
+                        }
+
+                        Bundle bundle = new Bundle();
+                        Intent intent = new Intent(getActivity(), ActAddCarritoEdit.class);
+                        bundle.putSerializable("value", productoEditAdd);
+                        bundle.putString("indicador", "nuevo");
+                        intent.putExtras(bundle);
+                        startActivity(intent);
                         return false;
                     }
                 });

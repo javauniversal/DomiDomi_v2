@@ -2,7 +2,11 @@ package com.appgestor.domidomi.Entities;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Adiciones {
+import java.io.Serializable;
+
+public class Adiciones implements Serializable {
+
+    private int id_autoincrement;
 
     @SerializedName("idadicionales")
     private int idadicionales;
@@ -34,7 +38,7 @@ public class Adiciones {
 
     public Adiciones(){}
 
-    public Adiciones(int idadicionales, String descripcion, String tipo, double valor, int estado, int idproductos, int idSede, int idEmpresa, int cantidadAdicion) {
+    public Adiciones(int idadicionales, String descripcion, String tipo, double valor, int estado, int idproductos, int idSede, int idEmpresa, int cantidadAdicion, int AutoIncrementAdicion) {
         this.idadicionales = idadicionales;
         this.descripcion = descripcion;
         this.tipo = tipo;
@@ -44,9 +48,8 @@ public class Adiciones {
         this.idSede = idSede;
         this.idEmpresa = idEmpresa;
         this.cantidadAdicion = cantidadAdicion;
+        this.AutoIncrementAdicion = AutoIncrementAdicion;
     }
-
-
 
     //Metodos GET SET
     public int getIdSede() {

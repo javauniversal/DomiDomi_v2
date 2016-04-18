@@ -47,7 +47,7 @@ public class PedidoWebCabeza {
     private int idSedeP;
 
     @SerializedName("productos")
-    private List<AddProductCar> producto;
+    private List<ProductoEditAdd> producto;
 
     @SerializedName("mediosPagosList")
     private List<MedioPago> mediosPagosList;
@@ -140,11 +140,11 @@ public class PedidoWebCabeza {
         this.estadoPedido = estadoPedido;
     }
 
-    public List<AddProductCar> getProducto() {
+    public List<ProductoEditAdd> getProducto() {
         return producto;
     }
 
-    public void setProducto(List<AddProductCar> producto) {
+    public void setProducto(List<ProductoEditAdd> producto) {
         this.producto = producto;
     }
 

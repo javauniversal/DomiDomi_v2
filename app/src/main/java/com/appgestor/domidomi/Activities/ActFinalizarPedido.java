@@ -42,6 +42,8 @@ import com.appgestor.domidomi.Entities.Ciudades;
 import com.appgestor.domidomi.Entities.Cliente;
 import com.appgestor.domidomi.Entities.MedioPago;
 import com.appgestor.domidomi.Entities.PedidoWebCabeza;
+import com.appgestor.domidomi.Entities.ProductoEditAdd;
+import com.appgestor.domidomi.Entities.Sede;
 import com.appgestor.domidomi.Mascara.PesoEditTextChangedListener;
 import com.appgestor.domidomi.R;
 import com.google.gson.Gson;
@@ -56,8 +58,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import dmax.dialog.SpotsDialog;
-
-import static com.appgestor.domidomi.Entities.Sede.getSedeStaticNew;
 
 public class ActFinalizarPedido extends AppCompatActivity implements View.OnClickListener {
 
@@ -105,6 +105,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
     private DecimalFormat format;
     private LinearLayout root;
     private Cliente publicCliente = new Cliente();
+    private Bundle reicieveParams;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +113,8 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.layout_finalizar_pedido);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        reicieveParams = getIntent().getExtras();
 
         alertDialog = new SpotsDialog(this, R.style.Custom);
 
@@ -167,7 +170,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
 
         format = new DecimalFormat("#,###.##");
 
-        sumarValoresFinales(mydb.getProductCar(getSedeStaticNew().getIdempresa(), getSedeStaticNew().getIdsedes()));
+        sumarValoresFinales(mydb.selectProductoCarrito(reicieveParams.getInt("empresa"), reicieveParams.getInt("sede")));
 
         loadAdress();
 
@@ -401,8 +404,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                     @Override
                     public void onResponse(String response) {
                         // response
-
-                        if (mydb.DeleteProductAll(getSedeStaticNew().getIdempresa(), getSedeStaticNew().getIdsedes())) {
+                        if (mydb.DeleteProductAll(reicieveParams.getInt("empresa"), reicieveParams.getInt("sede"))) {
                             alertDialog.dismiss();
                             Toast.makeText(ActFinalizarPedido.this, response, Toast.LENGTH_LONG).show();
 
@@ -455,14 +457,14 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                 objeto.setValorPago(Double.valueOf(limpiarMascara(editEfectivo)));
                 objeto.setLatitud(latitud);
                 objeto.setLongitud(longitud);
-                objeto.setIdEmpresaP(getSedeStaticNew().getIdempresa());
-                objeto.setIdSedeP(getSedeStaticNew().getIdsedes());
+                objeto.setIdEmpresaP(reicieveParams.getInt("empresa"));
+                objeto.setIdSedeP(reicieveParams.getInt("sede"));
 
-                List<AddProductCar> mAppList = mydb.getProductCar(getSedeStaticNew().getIdempresa(), getSedeStaticNew().getIdsedes());
+                List<ProductoEditAdd> mAppList = mydb.selectProductoCarrito(reicieveParams.getInt("empresa"), reicieveParams.getInt("sede"));
 
-                for (int i = 0; i < mAppList.size(); i++) {
+                /*for (int i = 0; i < mAppList.size(); i++) {
                     mAppList.get(i).setAdicionesList(mydb.getAdiciones(mAppList.get(i).getIdProduct(), mAppList.get(i).getIdcompany(), mAppList.get(i).getIdsede()));
-                }
+                }*/
 
                 ArrayList<MedioPago> medioPagoList = new ArrayList<>();
 
@@ -607,13 +609,13 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
         }
 
         if (contador == 1){
-            List<AddProductCar> mAppList = mydb.getProductCar(getSedeStaticNew().getIdempresa(), getSedeStaticNew().getIdsedes());
+            List<ProductoEditAdd> mAppList = mydb.selectProductoCarrito(reicieveParams.getInt("empresa"), reicieveParams.getInt("sede"));
             double valorFinalPedido = 0;
             for (int e = 0; e < mAppList.size(); e++) {
-                valorFinalPedido = valorFinalPedido + mAppList.get(e).getValueoverall();
+                valorFinalPedido = valorFinalPedido + mAppList.get(e).getValor_total();
             }
 
-            valorFinalPedido = valorFinalPedido + getSedeStaticNew().getCosenvio();
+            valorFinalPedido = valorFinalPedido + mAppList.get(0).getCosto_envio();
             bandera = Double.parseDouble(limpiarMascara(editEfectivo)) < valorFinalPedido;
         }
 
@@ -638,65 +640,16 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
 
     private boolean isValidNumber(String number){return number == null || number.length() == 0;}
 
-    private void CargarMedioPago() {
-
-        if (getSedeStaticNew().getMedioPagoList() != null) {
-
-            ll = (LinearLayout) findViewById(R.id.llMediosPagos);
-
-            int mediosPAgos = getSedeStaticNew().getMedioPagoList().size();
-            for (int i = 0; i < mediosPAgos; i++) {
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMargins(0, 70, 0, 0);
-                CheckBox cb = new CheckBox(ActFinalizarPedido.this);
-                cb.setText(getSedeStaticNew().getMedioPagoList().get(i).getDescripcion());
-                cb.setId(getSedeStaticNew().getMedioPagoList().get(i).getIdmediopago());
-                if (ll != null)
-                    ll.addView(cb);
-
-                cb.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        for (int i = 0; i < root.getChildCount(); i++) {
-                            View child = root.getChildAt(i);
-                            if (child instanceof CheckBox) {
-                                CheckBox cb = (CheckBox) child;
-                                cb.setError(null);
-                            }
-                        }
-
-                        if (((CheckBox) v).isChecked()) {
-
-                            if (((CheckBox) v).getText().equals("Efectivo") || ((CheckBox) v).getText().equals("efectivo")) {
-                                input_layout_Efectivo_liner.setVisibility(View.VISIBLE);
-                            }
-
-                        } else {
-
-                            if (((CheckBox) v).getText().equals("Efectivo") || ((CheckBox) v).getText().equals("efectivo")) {
-                                input_layout_Efectivo_liner.setVisibility(View.GONE);
-                                editEfectivo.setText("0");
-                            }
-
-                        }
-                    }
-                });
-            }
-
-        }
-    }
-
-    private void sumarValoresFinales(List<AddProductCar> data){
+    private void sumarValoresFinales(List<ProductoEditAdd> data){
 
         if(data.size() > 0){
             double dValor = 0;
 
             for (int i = 0; i < data.size(); i++) {
-                dValor = dValor + data.get(i).getValueoverall();
+                dValor = dValor + data.get(i).getValor_total();
             }
 
-            dValor = dValor + getSedeStaticNew().getCosenvio();
+            dValor = dValor + data.get(0).getCosto_envio();
 
             total_pedido.setText(String.format("Total a Pagar: $ %s", format.format(dValor)));
 
@@ -829,6 +782,100 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
     @Override
     public void onStart() {
         super.onStart();
+
+    }
+
+    public void CargarMedioPago() {
+        String url = String.format("%1$s%2$s", getString(R.string.url_base), "listSedesID");
+        rq = Volley.newRequestQueue(this);
+        StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>(){
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        parseJSONID(response);
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        startActivity(new Intent(ActFinalizarPedido.this, DetailsActivity.class).putExtra("STATE", "ERROR"));
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("idsede", String.valueOf(reicieveParams.getInt("sede")));
+
+                return params;
+            }
+        };
+        rq.add(jsonRequest);
+    }
+
+    private void parseJSONID(String json) {
+        if (!json.equals("[]")){
+            try {
+                Gson gson = new Gson();
+                Sede sedeID = gson.fromJson(json, Sede.class);
+
+                if (sedeID.getMenuList() != null) {
+
+                    ll = (LinearLayout) findViewById(R.id.llMediosPagos);
+
+                    int mediosPAgos = sedeID.getMedioPagoList().size();
+                    for (int i = 0; i < mediosPAgos; i++) {
+                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                        layoutParams.setMargins(0, 70, 0, 0);
+                        CheckBox cb = new CheckBox(ActFinalizarPedido.this);
+                        cb.setText(sedeID.getMedioPagoList().get(i).getDescripcion());
+                        cb.setId(sedeID.getMedioPagoList().get(i).getIdmediopago());
+                        if (ll != null)
+                            ll.addView(cb);
+
+                        cb.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                for (int i = 0; i < root.getChildCount(); i++) {
+                                    View child = root.getChildAt(i);
+                                    if (child instanceof CheckBox) {
+                                        CheckBox cb = (CheckBox) child;
+                                        cb.setError(null);
+                                    }
+                                }
+
+                                if (((CheckBox) v).isChecked()) {
+
+                                    if (((CheckBox) v).getText().equals("Efectivo") || ((CheckBox) v).getText().equals("efectivo")) {
+                                        input_layout_Efectivo_liner.setVisibility(View.VISIBLE);
+                                    }
+
+                                } else {
+
+                                    if (((CheckBox) v).getText().equals("Efectivo") || ((CheckBox) v).getText().equals("efectivo")) {
+                                        input_layout_Efectivo_liner.setVisibility(View.GONE);
+                                        editEfectivo.setText("0");
+                                    }
+
+                                }
+                            }
+                        });
+                    }
+
+                }
+
+            }catch (IllegalStateException ex) {
+                ex.printStackTrace();
+            }
+        } else {
+            alertDialog.dismiss();
+            startActivity(new Intent(this, DetailsActivity.class).putExtra("STATE", "EMPTYP"));
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        }
 
     }
 }

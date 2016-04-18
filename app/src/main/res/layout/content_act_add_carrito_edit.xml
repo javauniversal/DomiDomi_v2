@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.appgestor.domidomi.Activities.ActAddCarritoEdit"
+    tools:showIn="@layout/activity_add_carrito_edit">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/id_imagen_content"
+            android:layout_height="250dp"
+            android:elevation="30dp">
+
+            <com.flaviofaria.kenburnsview.KenBurnsView
+                android:id="@+id/displayImagen"
+                android:scaleType="center"
+                android:layout_width="match_parent"
+                android:layout_height="250dp" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/focus_thief"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="15dp"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_large"
+                android:layout_marginLeft="@dimen/spacing_large"
+                android:layout_marginRight="@dimen/spacing_large"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="2dp"
+                app:contentPaddingBottom="5dp"
+                app:contentPaddingLeft="7dp"
+                app:contentPaddingRight="7dp"
+                app:contentPaddingTop="7dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:text="@string/Descripcion"
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:id="@+id/textView8" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="6dp">
+
+                        <ImageView
+                            android:id="@+id/image_descripcioin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:tint="@color/colorPrimary"
+                            android:src="@drawable/ic_beenhere_black_24dp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Pollo Entero apanado con salasa"
+                            android:id="@+id/nombre_producto"
+                            android:paddingLeft="10dp"
+                            android:textSize="@dimen/dimen_letra_app"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/image_descripcioin"
+                            android:layout_toEndOf="@+id/image_descripcioin" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="6dp">
+
+                        <ImageView
+                            android:id="@+id/image_cell"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:tint="@color/colorPrimary"
+                            android:src="@drawable/ic_monetization_on_black_24dp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="10dp"
+                            android:text="Valor Producto:"
+                            android:textSize="@dimen/dimen_letra_app"
+                            android:id="@+id/textView3"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/image_cell"
+                            android:layout_toEndOf="@+id/image_cell" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$23,000"
+                            android:textSize="@dimen/dimen_letra_app"
+                            android:id="@+id/precio"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true" />
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_large"
+                android:layout_marginLeft="@dimen/spacing_large"
+                android:layout_marginRight="@dimen/spacing_large"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="2dp"
+                app:contentPaddingBottom="5dp"
+                app:contentPaddingLeft="7dp"
+                app:contentPaddingRight="7dp"
+                app:contentPaddingTop="7dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:text="@string/ingredientes"
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="6dp">
+
+                        <TextView
+                            android:id="@+id/ingredientes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:tint="@color/colorPrimary"
+                            android:textSize="@dimen/dimen_letra_app"
+                            android:text="Ingredientes de todo los sabores y olores que es lo menor "
+                            android:src="@drawable/ic_monetization_on_black_24dp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_large"
+                android:layout_marginLeft="@dimen/spacing_large"
+                android:layout_marginRight="@dimen/spacing_large"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="2dp"
+                app:contentPaddingBottom="5dp"
+                app:contentPaddingLeft="7dp"
+                app:contentPaddingRight="7dp"
+                app:contentPaddingTop="7dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:text="@string/cantidad"
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="6dp">
+
+                        <com.appgestor.domidomi.Activities.QuantityView
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/quantityView_default"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:qv_minQuantity="1"
+                            app:qv_quantity="1"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_large"
+                android:layout_marginLeft="@dimen/spacing_large"
+                android:layout_marginRight="@dimen/spacing_large"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="2dp"
+                android:id="@+id/card_view"
+                android:visibility="gone"
+                app:contentPaddingBottom="5dp"
+                app:contentPaddingLeft="7dp"
+                app:contentPaddingRight="7dp"
+                app:contentPaddingTop="7dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/adiciones_extras"
+                            android:textSize="@dimen/dimen_letra_app"
+                            android:layout_weight="1"
+                            android:textColor="@color/colorAccent"
+                            android:textStyle="bold"
+
+                            android:layout_margin="4dip" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Cantidad"
+                            android:textSize="@dimen/dimen_letra_app"
+                            android:layout_weight="3.4"
+                            android:textColor="@color/colorAccent"
+                            android:textStyle="bold"
+                            android:layout_margin="4dip"
+                            android:gravity="center" />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="6dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:id="@+id/liner_adiciones_dinamic"/>
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_large"
+                android:layout_marginLeft="@dimen/spacing_large"
+                android:layout_marginRight="@dimen/spacing_large"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="2dp"
+                app:contentPaddingBottom="5dp"
+                app:contentPaddingLeft="7dp"
+                app:contentPaddingRight="7dp"
+                app:contentPaddingTop="7dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:text="Valores"
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp">
+
+                        <ImageView
+                            android:id="@+id/image_t"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:tint="@color/colorPrimary"
+                            android:src="@drawable/ic_monetization_on_black_24dp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total Productos:"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/dimen_letra_app"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/image_t"
+                            android:layout_toEndOf="@+id/image_t" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$50.000"
+                            android:textSize="@dimen/dimen_letra_app"
+                            android:id="@+id/txt_valor_prodocto"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp">
+
+                        <ImageView
+                            android:id="@+id/image_producto"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:tint="@color/colorPrimary"
+                            android:src="@drawable/ic_monetization_on_black_24dp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total Adiciones:"
+                            android:textStyle="bold"
+                            android:id="@+id/txt_valor_adiciones"
+                            android:textSize="@dimen/dimen_letra_app"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/image_producto"
+                            android:layout_toEndOf="@+id/image_producto" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$50.000"
+                            android:textSize="@dimen/dimen_letra_app"
+                            android:id="@+id/txt_valor_adicioness"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp">
+
+                        <ImageView
+                            android:id="@+id/image_total"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:tint="@color/colorPrimary"
+                            android:src="@drawable/ic_monetization_on_black_24dp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Valor Total:"
+                            android:textStyle="bold"
+                            android:id="@+id/txt_sub_producto"
+                            android:textSize="@dimen/dimen_letra_app"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/image_total"
+                            android:layout_toEndOf="@+id/image_total" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$50.000"
+                            android:textSize="@dimen/dimen_letra_app"
+                            android:id="@+id/txt_valor_total"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:id="@+id/totalFinalOculto"
+                        android:layout_gravity="right" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="80dp"
+                android:layout_marginLeft="@dimen/spacing_large"
+                android:layout_marginRight="@dimen/spacing_large"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="2dp"
+                app:contentPaddingBottom="5dp"
+                app:contentPaddingLeft="7dp"
+                app:contentPaddingRight="7dp"
+                app:contentPaddingTop="7dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:text="@string/comentario"
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginBottom="29dp"
+                        android:layout_marginLeft="6dp"
+
+                        android:layout_marginRight="6dp">
+
+                        <EditText
+                            android:id="@+id/EditComment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:lines="3"
+                            android:maxLength="150"
+                            android:background="@drawable/rounded_corner"
+                            android:gravity="top|left"
+                            android:inputType="textMultiLine"
+                            android:scrollHorizontally="false"
+                            android:minWidth="10.0dip"
+                            android:textSize="@dimen/dimen_letra_app"
+                            android:maxWidth="180dip" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</ScrollView>

@@ -74,7 +74,7 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_car);
+        setContentView(R.layout.layout_car_list);
         Intent intent = getIntent();
         bundleset = intent.getExtras();
         mydb = new DBHelper(this);
@@ -93,12 +93,12 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
 
         alertDialog = new SpotsDialog(this, R.style.Custom);
 
-        total = (TextView) findViewById(R.id.totaltexto);
-        pedirService = (Button) findViewById(R.id.pedirServices);
-        pedirService.setOnClickListener(this);
+        //total = (TextView) findViewById(R.id.totaltexto);
+        //pedirService = (Button) findViewById(R.id.pedirServices);
+        //pedirService.setOnClickListener(this);
 
-        TextView domicilioAdd = (TextView) findViewById(R.id.domicilioAdd);
-        domicilioAdd.setText(String.format("$ %s", format.format(bundleset.getDouble("cosEnvio"))));
+        //TextView domicilioAdd = (TextView) findViewById(R.id.domicilioAdd);
+        //domicilioAdd.setText(String.format("$ %s", format.format(bundleset.getDouble("cosEnvio"))));
         dialog = new SpotsDialog(this, R.style.Custom);
         dialog.show();
 
@@ -234,7 +234,7 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
 
     private void llenarData() {
         List<AddProductCar> mAppList = mydb.getProductCar(bundleset.getInt("empresa"), bundleset.getInt("sede"));
-        mAdapter = new AppAdapter(ActCarritoMenu.this, mAppList);
+        //mAdapter = new AppAdapter(ActCarritoMenu.this, mAppList);
         mListView.setAdapter(mAdapter);
         sumarValoresFinales(mAppList);
         mAppListPublico = mAppList;
@@ -279,13 +279,13 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onPositive(MaterialDialog dialog) {
                         //Aceptar
-                        if (!mydb.DeleteProduct(mAppListPublico.get(position).getIdProduct(), mAppListPublico.get(position).getIdcompany())) {
+                        /*if (!mydb.DeleteProduct(mAppListPublico.get(position).getIdProduct(), mAppListPublico.get(position).getIdcompany())) {
                             Toast.makeText(getApplicationContext(), "Problemas al eliminar el producto", Toast.LENGTH_SHORT).show();
                         } else {
                             mAppListPublico.remove(position);
                             mAdapter.notifyDataSetChanged();
                             sumarValoresFinales(mAppListPublico);
-                        }
+                        }*/
                     }
 
                     @Override
@@ -320,9 +320,6 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
     }
 
     public void getSedeId() {
-
-        alertDialog.show();
-
         String url = String.format("%1$s%2$s", getString(R.string.url_base), "listSedesID");
         rq = Volley.newRequestQueue(this);
 
@@ -347,9 +344,7 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-
                 params.put("idsede", String.valueOf(bundleset.getInt("sede")));
-
                 return params;
             }
         };
@@ -387,7 +382,7 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.pedirServices:
+            /*case R.id.pedirServices:
 
                 if (clicK == 1)
                     return;
@@ -395,7 +390,7 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
                 clicK = 1;
                 VvalidarDisponivilidad();
 
-                break;
+                break;*/
         }
     }
 

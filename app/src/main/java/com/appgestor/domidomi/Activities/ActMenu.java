@@ -80,9 +80,11 @@ public class ActMenu extends AppCompatActivity {
         switch (id){
             case R.id.action_cart:
                 Bundle bundle = new Bundle();
-                bundle.putInt("compania", getSedeStaticNew().getIdempresa());
+                bundle.putInt("sede", getSedeStaticNew().getIdsedes());
+                bundle.putInt("empresa", getSedeStaticNew().getIdempresa());
                 startActivity(new Intent(ActMenu.this, ActCar.class).putExtras(bundle));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
                 return true;
 
         }

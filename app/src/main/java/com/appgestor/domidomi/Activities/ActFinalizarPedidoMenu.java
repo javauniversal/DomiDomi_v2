@@ -492,7 +492,7 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
 
                 objeto.setMediosPagosList(medioPagoList);
 
-                objeto.setProducto(mAppList);
+                //objeto.setProducto(mAppList);
                 String parJSON = new Gson().toJson(objeto, PedidoWebCabeza.class);
 
                 params.put("pedido", parJSON);

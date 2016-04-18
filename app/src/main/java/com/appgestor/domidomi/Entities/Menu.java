@@ -2,9 +2,10 @@ package com.appgestor.domidomi.Entities;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Menu {
+public class Menu implements Serializable {
 
     @SerializedName("idmenumovil")
     private int idmenumovil;

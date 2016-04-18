@@ -79,6 +79,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
         CargarImagen();
 
         ImageView imagenAgotado = (ImageView) findViewById(R.id.inside_imageview);
+
         if(getProductoStatic().getCantidad() == 0)
             imagenAgotado.setImageResource(R.drawable.agotado);
 
@@ -90,10 +91,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
 
         totalAdiciones = (TextView) findViewById(R.id.totalAdiciones);
 
-
         TextView totalProducto = (TextView) findViewById(R.id.totalProducto);
-
-        //valorAdiccion = (TextView) findViewById(R.id.valorAdiccion);
 
         totalFinal = (TextView) findViewById(R.id.totalFinal);
 
@@ -124,8 +122,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
 
         CargarAdiciones();
 
-
-        cantidad.setValorTotal(getProductoStatic().getPrecio(), totalFinal, totalFinalOculto, root, totalProducto);
+        //cantidad.setValorTotal(getProductoStatic().getPrecio(), totalFinal, totalFinalOculto, root, totalProducto);
 
     }
 
@@ -230,7 +227,6 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
 
                             totalAdiciones.setText(String.format("Total Adiciones: $ %s", format.format(totalAdicion)));
                         }
-
                     }
                 });
 
@@ -275,7 +271,7 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
         switch (view.getId()){
             case R.id.btnAdd:
 
-                if(cantidad.getQuantity() < 1){
+                if(cantidad.getQuantity() < 1) {
                     Toast.makeText(this, "La cantidad debe ser mayor a 0", Toast.LENGTH_LONG).show();
                 }else if(getProductoStatic().getCantidad() == 0) {
                     Toast.makeText(this, "El producto se encuentra agotado", Toast.LENGTH_LONG).show();
@@ -374,7 +370,8 @@ public class ActProductAdd extends AppCompatActivity implements View.OnClickList
                                             getProductoStatic().getAdicionesList().get(f).getEstado(),
                                             getProductoStatic().getAdicionesList().get(f).getIdproductos(),
                                             getSedeStaticNew().getIdsedes(),getSedeStaticNew().getIdempresa(),
-                                            getProductoStatic().getAdicionesList().get(f).getCantidadAdicion()));
+                                            getProductoStatic().getAdicionesList().get(f).getCantidadAdicion(),
+                                            getProductoStatic().getAdicionesList().get(f).getAutoIncrementAdicion()));
                             break;
                         }
                     }

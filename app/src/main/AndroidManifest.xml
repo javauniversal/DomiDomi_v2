@@ -45,8 +45,7 @@
         </activity>
         <activity
             android:name=".dark.ActivityMain"
-            android:theme="@style/AppTheme"></activity>
-
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Activities.ActMenu"
             android:theme="@style/AppTheme" />
@@ -56,10 +55,10 @@
         <activity
             android:name=".Activities.ActCar"
             android:parentActivityName=".Activities.ActMenu"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Activities.ActCarritoMenu"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Activities.ActFinalizarPedidoMenu"
             android:theme="@style/AppTheme" />
@@ -94,7 +93,7 @@
         <activity
             android:name=".Activities.ActivitySedes"
             android:label="@string/title_activity_activity_sedes"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
 
         <receiver
             android:name="com.google.android.gcm.GCMBroadcastReceiver"
@@ -113,7 +112,7 @@
         <activity
             android:name=".Activities.ActEstadoPedido"
             android:label="@string/title_activity_act_estado_pedido"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Activities.ActComentario"
             android:label="@string/title_activity_act_comentario"
@@ -129,7 +128,7 @@
         <activity
             android:name=".Activities.ActMyPerfil"
             android:label="@string/title_activity_act_my_perfil"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Activities.ActDireccionEscrita"
             android:label="@string/title_activity_act_direccion_escrita"
@@ -142,10 +141,14 @@
         <activity
             android:name=".Activities.ActCreatePerfil"
             android:label="@string/title_activity_act_create_perfil"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Activities.ActDetalleCompra"
             android:label="@string/title_activity_act_detalle_compra"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Activities.ActAddCarritoEdit"
+            android:label="@string/title_activity_act_add_carrito_edit"
             android:theme="@style/AppTheme"></activity>
     </application>
 

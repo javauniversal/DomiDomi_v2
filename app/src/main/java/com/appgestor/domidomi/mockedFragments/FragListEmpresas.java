@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -68,10 +67,7 @@ public class FragListEmpresas extends BaseVolleyFragment {
     private RelativeLayout relativeLayout_radar;
     private RelativeLayout relativeLayout_sedes;
     private AlertDialog alertDialog;
-    //private SearchView search;
     private ListSede listSedes;
-    //private TextView imgFilter;
-    //List<Sede> filteredList;
     List<Sede> filterList;
     private List<Categoria> mList;
     private List<Categoria> CategoriesSelecteds = new ArrayList<>();
@@ -137,7 +133,7 @@ public class FragListEmpresas extends BaseVolleyFragment {
         List<Sede> filteredListCategoria = new ArrayList<>();
 
         if (CategoriesSelecteds == null) {
-            CategoriesSelecteds = new ArrayList<Categoria>();
+            CategoriesSelecteds = new ArrayList<>();
         }
 
         if (listSedes == null){
@@ -423,12 +419,8 @@ public class FragListEmpresas extends BaseVolleyFragment {
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                if (s.length() < 4) {
-                    return true;
-                } else {
-                    //doSearch(s);
-                    return false;
-                }
+                //doSearch(s);
+                return s.length() < 4;
             }
 
             @Override
@@ -522,7 +514,7 @@ public class FragListEmpresas extends BaseVolleyFragment {
         builder.setView(dialoglayout).setPositiveButton("Filtrar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
 
-                CategoriesSelecteds = new ArrayList<Categoria>();
+                CategoriesSelecteds = new ArrayList<>();
                 for (int i = 0; i < mList.size(); i++) {
                     if (mList.get(i).isChecked) {
                         CategoriesSelecteds.add(mList.get(i));

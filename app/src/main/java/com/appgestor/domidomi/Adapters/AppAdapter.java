@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.appgestor.domidomi.DataBase.DBHelper;
 import com.appgestor.domidomi.Entities.AddProductCar;
 import com.appgestor.domidomi.Entities.Adiciones;
+import com.appgestor.domidomi.Entities.ProductoEditAdd;
 import com.appgestor.domidomi.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -24,13 +25,13 @@ import java.util.List;
 public class AppAdapter extends BaseAdapter {
 
     private Activity actx;
-    List<AddProductCar> data;
+    List<ProductoEditAdd> data;
     private ImageLoader imageLoader1;
     private DisplayImageOptions options1;
     private DBHelper mydb;
     private DecimalFormat format;
 
-    public AppAdapter(Activity actx, List<AddProductCar> data){
+    public AppAdapter(Activity actx, List<ProductoEditAdd> data){
         this.actx = actx;
         this.data = data;
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(actx).build();
@@ -55,7 +56,7 @@ public class AppAdapter extends BaseAdapter {
     }
 
     @Override
-    public AddProductCar getItem(int position) {
+    public ProductoEditAdd getItem(int position) {
         return data.get(position);
     }
 
@@ -73,15 +74,15 @@ public class AppAdapter extends BaseAdapter {
 
         ViewHolder holder = (ViewHolder) convertView.getTag();
 
-        AddProductCar item = getItem(position);
+        ProductoEditAdd item = getItem(position);
 
-        String adicion = mostrarAdiciones(item.getIdProduct(), item.getIdcompany(), item.getIdsede());
+        String adicion = mostrarAdiciones(item.getAdicionesListselet());
 
-        double totalAdicion = totalAdiciones(item.getIdProduct(), item.getIdcompany(), item.getIdsede());
+        double totalAdicion = totalAdiciones(item.getAdicionesListselet());
 
-        holder.tv_name.setText(String.format("%1s - (x%2s)", item.getNameProduct(), item.getQuantity()));
+        holder.tv_name.setText(String.format("%1s - (x%2s)", item.getDescripcion(), item.getCantidad()));
 
-        holder.valor_total_productos.setText(String.format("$ %s", format.format(item.getValueunitary() * item.getQuantity())));
+        holder.valor_total_productos.setText(String.format("$ %s", format.format(item.getPrecio() * item.getCantidad())));
 
         if (adicion != null && adicion != ""){
             holder.tv_adiciones.setVisibility(View.VISIBLE);
@@ -96,47 +97,37 @@ public class AppAdapter extends BaseAdapter {
             holder.tituloadiciones.setVisibility(View.GONE);
         }
 
-        holder.sut_total.setText(String.format("$ %s", format.format(item.getValueoverall())));
-
-
-        //holder.valorProductoCar.setText(String.format("Valor: $ %s", format.format(item.getValueunitary())));
-        //holder.totalProductoCar.setText();
-
-        //holder.tv_preci.setText(String.format("Valor Total: $ %s", format.format(item.getValueoverall())));
-
-        //holder.tv_cantidad.setText(String.format("Total: $ %s", format.format(item.getValueoverall())));
+        holder.sut_total.setText(String.format("$ %s", format.format(item.getValor_total())));
 
         CargarImagen(holder,item);
         return convertView;
     }
 
-    private double totalAdiciones(int idProduct, int idcompany, int idsede) {
-
+    private double totalAdiciones(List<Adiciones> adicionesListselet) {
         double totalAdicion = 0.0;
-
-        List<Adiciones> adicionesList = mydb.getAdiciones(idProduct, idcompany, idsede);
-        if(adicionesList.size() > 0){
-            for (int i = 0; i < adicionesList.size(); i++) {
-                totalAdicion = totalAdicion + (adicionesList.get(i).getCantidadAdicion() * adicionesList.get(i).getValor());
+        if(adicionesListselet.size() > 0){
+            for (int i = 0; i < adicionesListselet.size(); i++) {
+                totalAdicion = totalAdicion + (adicionesListselet.get(i).getCantidadAdicion() * adicionesListselet.get(i).getValor());
             }
         }
+
         return totalAdicion;
     }
 
-    public String mostrarAdiciones(int idcarrito, int idempresa, int idsede){
+    public String mostrarAdiciones(List<Adiciones> adicionesListselet){
 
-        List<Adiciones> adicionesList = mydb.getAdiciones(idcarrito, idempresa, idsede);
+        //List<Adiciones> adicionesList = mydb.getAdiciones(idcarrito, idempresa, idsede);
 
         String formato = "";
 
-        if(adicionesList.size() > 0){
+        if(adicionesListselet.size() > 0){
             String concatAdiciones = "";
-            for (int i = 0; i < adicionesList.size(); i++) {
+            for (int i = 0; i < adicionesListselet.size(); i++) {
                 if (concatAdiciones.isEmpty()){
-                    concatAdiciones = adicionesList.get(i).getDescripcion() +" - (x"+ adicionesList.get(i).getCantidadAdicion()+")";
+                    concatAdiciones = adicionesListselet.get(i).getDescripcion() +" - (x"+ adicionesListselet.get(i).getCantidadAdicion()+")";
                 }
                 else {
-                    concatAdiciones = concatAdiciones +" | "+ adicionesList.get(i).getDescripcion() +" - (x"+ adicionesList.get(i).getCantidadAdicion()+")";
+                    concatAdiciones = concatAdiciones +" | "+ adicionesListselet.get(i).getDescripcion() +" - (x"+ adicionesListselet.get(i).getCantidadAdicion()+")";
                 }
             }
 
@@ -147,7 +138,7 @@ public class AppAdapter extends BaseAdapter {
     }
 
 
-    private void CargarImagen(ViewHolder holder,AddProductCar item){
+    private void CargarImagen(ViewHolder holder, ProductoEditAdd item){
         ImageLoadingListener listener = new ImageLoadingListener(){
             @Override
             public void onLoadingStarted(String arg0, View arg1) {
@@ -169,7 +160,7 @@ public class AppAdapter extends BaseAdapter {
             }
         };
 
-        imageLoader1.displayImage(item.getUrlimagen(), holder.iv_icon, options1 , listener);
+        imageLoader1.displayImage(item.getFoto(), holder.iv_icon, options1 , listener);
     }
 
     class ViewHolder {

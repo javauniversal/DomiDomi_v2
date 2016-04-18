@@ -12,8 +12,7 @@
             android:id="@+id/app_bar"
             layout="@layout/app_bar" />
 
-        <include
-            android:id="@+id/app_bar879"
+        <include android:id="@+id/app_bar879"
             layout="@layout/app_imagen" />
 
         <LinearLayout
@@ -145,6 +144,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dip"
             android:orientation="vertical"
+            android:visibility="gone"
             android:id="@+id/paterAdiciones">
 
             <LinearLayout
@@ -188,9 +188,6 @@
 
 
         </LinearLayout>
-
-
-
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -327,6 +324,7 @@
             </LinearLayout>
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -343,8 +341,6 @@
                 android:layout_gravity="center_horizontal" />
 
         </LinearLayout>
-
-
 
     </LinearLayout>
 

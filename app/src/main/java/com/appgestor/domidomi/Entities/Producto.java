@@ -2,9 +2,10 @@ package com.appgestor.domidomi.Entities;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Producto {
+public class Producto implements Serializable{
 
     @SerializedName("idproductos")
     private int idproductos;
@@ -34,11 +35,6 @@ public class Producto {
     private List<Adiciones> adicionesList;
 
     public static Producto productoStatic;
-
-
-
-
-
 
 
     public static Producto getProductoStatic() {

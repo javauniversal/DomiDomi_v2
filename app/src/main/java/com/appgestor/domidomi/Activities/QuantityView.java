@@ -20,10 +20,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.appgestor.domidomi.Entities.ProductoEditAdd;
+
 import java.text.DecimalFormat;
-
-import static com.appgestor.domidomi.Entities.Producto.getProductoStatic;
-
 
 public class QuantityView extends LinearLayout implements View.OnClickListener {
 
@@ -39,10 +38,11 @@ public class QuantityView extends LinearLayout implements View.OnClickListener {
     private Button mButtonAdd, mButtonRemove;
     private TextView mTextViewQuantity;
 
-    private double valorPrecio = 0;
+    private ProductoEditAdd productoEditAdd;
     private TextView textView;
     private TextView textView12;
     private TextView textView3;
+    private TextView txt_total_adiciones;
     private ViewGroup parentactivity;
     private DecimalFormat format;
 
@@ -155,7 +155,7 @@ public class QuantityView extends LinearLayout implements View.OnClickListener {
             } else {
                 quantity += 1;
                 mTextViewQuantity.setText(String.valueOf(quantity));
-                algoValor();
+                cargarValorCantidad();
                 if (onQuantityChangeListener != null)
                     onQuantityChangeListener.onQuantityChanged(quantity, false);
             }
@@ -165,7 +165,7 @@ public class QuantityView extends LinearLayout implements View.OnClickListener {
             } else {
                 quantity -= 1;
                 mTextViewQuantity.setText(String.valueOf(quantity));
-                algoValor();
+                cargarValorCantidad();
                 if (onQuantityChangeListener != null)
                     onQuantityChangeListener.onQuantityChanged(quantity, false);
             }
@@ -185,7 +185,7 @@ public class QuantityView extends LinearLayout implements View.OnClickListener {
                     if (isNumber(newQuantity)) {
                         int intNewQuantity = Integer.parseInt(newQuantity);
                         setQuantity(intNewQuantity);
-                        algoValor();
+                        cargarValorCantidad();
 
                     }
                 }
@@ -199,34 +199,26 @@ public class QuantityView extends LinearLayout implements View.OnClickListener {
         return onQuantityChangeListener;
     }
 
-    public void setValorTotal(double presio, TextView textview, TextView textview2, ViewGroup parent, TextView textview3){
-        valorPrecio = presio;
-        textView = textview;
-        textView12 = textview2;
-        textView3 = textview3;
+    public void setValorTotal(ProductoEditAdd productoEditAdd, TextView valor_total, TextView valor_total_oculto, ViewGroup parent, TextView total_producto, TextView total_adiciones){
+        this.productoEditAdd = productoEditAdd;
+        textView = valor_total;
+        textView12 = valor_total_oculto;
+        textView3 = total_producto;
         format = new DecimalFormat("#,###.##");
         parentactivity = parent;
+        txt_total_adiciones = total_adiciones;
     }
 
-    public void algoValor(){
-
-        /*for(int i = 0; i < parentactivity.getChildCount(); i++) {
-            View child = parentactivity.getChildAt(i);
-
-            if (child instanceof CheckBox){
-                CheckBox cb = (CheckBox)child;
-                int answer = cb.isChecked() ? 1 : 0;
-
-            }
-        }*/
+    public void cargarValorCantidad(){
 
         Double valorAdicion = loopQuestions(parentactivity, 0.0);
 
-        Double sumaTotal = (valorPrecio * quantity) + valorAdicion;
+        Double sumaTotal = (productoEditAdd.getPrecio() * quantity) + valorAdicion;
 
-        textView.setText(String.format("%s", format.format(sumaTotal)));
+        txt_total_adiciones.setText(String.format("$ %s", format.format(valorAdicion)));
+        textView.setText(String.format("$ %s", format.format(sumaTotal)));
         textView12.setText(sumaTotal+"");
-        textView3.setText(String.format("Total Productos: $ %s", format.format(valorPrecio * quantity)));
+        textView3.setText(String.format("$ %s", format.format(productoEditAdd.getPrecio() * quantity)));
 
     }
 
@@ -239,9 +231,9 @@ public class QuantityView extends LinearLayout implements View.OnClickListener {
                 CheckBox cb = (CheckBox)child;
                 int answer = cb.isChecked() ? 1 : 0;
                 if (answer == 1){
-                    for(int f = 0; f < getProductoStatic().getAdicionesList().size(); f++) {
-                        if(cb.getId() == getProductoStatic().getAdicionesList().get(f).getIdadicionales()){
-                            CurrentSum += (getProductoStatic().getAdicionesList().get(f).getValor()) * getProductoStatic().getAdicionesList().get(f).getCantidadAdicion();
+                    for(int f = 0; f < productoEditAdd.getAdicionesList().size(); f++) {
+                        if(cb.getId() == productoEditAdd.getAdicionesList().get(f).getIdadicionales()){
+                            CurrentSum += (productoEditAdd.getAdicionesList().get(f).getValor()) * productoEditAdd.getAdicionesList().get(f).getCantidadAdicion();
                             break;
                         }
                     }

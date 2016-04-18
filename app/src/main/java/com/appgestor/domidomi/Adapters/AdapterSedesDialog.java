@@ -8,8 +8,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.appgestor.domidomi.Activities.ActCar;
 import com.appgestor.domidomi.Activities.ActCarritoMenu;
 import com.appgestor.domidomi.Entities.AddProductCar;
+import com.appgestor.domidomi.Entities.ProductoEditAdd;
 import com.appgestor.domidomi.R;
 
 import java.util.List;
@@ -17,9 +19,9 @@ import java.util.List;
 public class AdapterSedesDialog extends BaseAdapter {
 
     private Activity actx;
-    private List<AddProductCar> elements;
+    private List<ProductoEditAdd> elements;
 
-    public AdapterSedesDialog(Activity actx, List<AddProductCar> elements){
+    public AdapterSedesDialog(Activity actx, List<ProductoEditAdd> elements){
         this.actx = actx;
         this.elements = elements;
     }
@@ -53,25 +55,16 @@ public class AdapterSedesDialog extends BaseAdapter {
         }
         final ViewHolder holder = (ViewHolder) convertView.getTag();
 
-        holder.txtSedeDialog.setText(elements.get(position).getNameSede());
+        holder.txtSedeDialog.setText(elements.get(position).getNombre_sede());
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Bundle bundle = new Bundle();
-                bundle.putInt("empresa", elements.get(position).getIdcompany());
-                bundle.putInt("sede", elements.get(position).getIdsede());
-                bundle.putString("sedeNomebre", elements.get(position).getNameSede());
-
-                bundle.putString("horaInicial", elements.get(position).getHoraInicioEmpresa());
-                bundle.putString("horaFinal", elements.get(position).getHoraFinalEmpresa());
-
-                bundle.putDouble("cosEnvio", elements.get(position).getCostoEnvio());
-                bundle.putDouble("valMinimo", elements.get(position).getValorMinimo());
-                bundle.putBoolean("indicador", true);
-
-                actx.startActivity(new Intent(actx, ActCarritoMenu.class).putExtras(bundle));
+                bundle.putInt("sede", elements.get(position).getId_sede());
+                bundle.putInt("empresa", elements.get(position).getId_empresa());
+                actx.startActivity(new Intent(actx, ActCar.class).putExtras(bundle));
                 actx.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
             }

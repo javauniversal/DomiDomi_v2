@@ -10,10 +10,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.appgestor.domidomi.Activities.ActCar;
 import com.appgestor.domidomi.Activities.ActCarritoMenu;
 import com.appgestor.domidomi.Adapters.AdapterSedesDialog;
 import com.appgestor.domidomi.DataBase.DBHelper;
 import com.appgestor.domidomi.Entities.AddProductCar;
+import com.appgestor.domidomi.Entities.ProductoEditAdd;
 import com.appgestor.domidomi.R;
 
 import java.util.List;
@@ -54,7 +56,7 @@ public class FragmentCarrito extends Fragment {
 
     public void getEmpresas(){
 
-        List<AddProductCar> addProductCars = mydb.getProductCarAll();
+        List<ProductoEditAdd> addProductCars = mydb.getProductCarAll();
         if (addProductCars == null || addProductCars.size() <= 0){
 
             linerSinArticulos.setVisibility(View.VISIBLE);
@@ -65,28 +67,18 @@ public class FragmentCarrito extends Fragment {
             linearLayout4.setVisibility(View.VISIBLE);
 
             if (addProductCars.size() == 1){
+
                 Bundle bundle = new Bundle();
-                bundle.putInt("empresa", addProductCars.get(0).getIdcompany());
-                bundle.putInt("sede", addProductCars.get(0).getIdsede());
-                bundle.putString("sedeNomebre", addProductCars.get(0).getNameSede());
-
-                bundle.putString("horaInicial", addProductCars.get(0).getHoraInicioEmpresa());
-                bundle.putString("horaFinal", addProductCars.get(0).getHoraFinalEmpresa());
-
-                bundle.putDouble("cosEnvio", addProductCars.get(0).getCostoEnvio());
-                bundle.putDouble("valMinimo", addProductCars.get(0).getValorMinimo());
-                bundle.putBoolean("indicador", false);
-
-                startActivity(new Intent(getActivity(), ActCarritoMenu.class).putExtras(bundle));
+                bundle.putInt("sede", addProductCars.get(0).getId_sede());
+                bundle.putInt("empresa", addProductCars.get(0).getId_empresa());
+                bundle.putString("paginacion", "menu");
+                startActivity(new Intent(getActivity(), ActCar.class).putExtras(bundle));
                 getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
             } else {
-
                 AdapterSedesDialog adapterSedesDialog = new AdapterSedesDialog(getActivity(), addProductCars);
                 listView.setAdapter(adapterSedesDialog);
-
             }
-
         }
 
     }

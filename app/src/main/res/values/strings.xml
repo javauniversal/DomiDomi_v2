@@ -171,5 +171,6 @@
     <string name="action_compartir">Compartir</string>
     <string name="title_activity_act_create_perfil">Crear Perfil</string>
     <string name="title_activity_act_detalle_compra">Detalle del pedido</string>
+    <string name="title_activity_act_add_carrito_edit">Editar Carrito</string>
 
 </resources>
