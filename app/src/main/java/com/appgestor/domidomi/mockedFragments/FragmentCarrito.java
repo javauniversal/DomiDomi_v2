@@ -9,11 +9,14 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import com.appgestor.domidomi.Activities.ActCar;
+import com.appgestor.domidomi.Activities.ActCarritoMenu;
 import com.appgestor.domidomi.Adapters.AdapterSedesDialog;
 import com.appgestor.domidomi.DataBase.DBHelper;
 import com.appgestor.domidomi.Entities.ProductoEditAdd;
 import com.appgestor.domidomi.R;
 import java.util.List;
+
+import static com.appgestor.domidomi.Entities.Bean.setPagina_static;
 
 public class FragmentCarrito extends Fragment {
 
@@ -63,8 +66,8 @@ public class FragmentCarrito extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putInt("sede", addProductCars.get(0).getId_sede());
                 bundle.putInt("empresa", addProductCars.get(0).getId_empresa());
-                bundle.putString("paginacion", "menu");
-                startActivity(new Intent(getActivity(), ActCar.class).putExtras(bundle));
+                setPagina_static("menu_solo_uno");
+                startActivity(new Intent(getActivity(), ActCarritoMenu.class).putExtras(bundle));
                 getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
             } else {

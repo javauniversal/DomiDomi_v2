@@ -59,25 +59,16 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
 
         Bundle reicieveParams = getIntent().getExtras();
 
-        indicadorcar = reicieveParams.getString("paginacion");
+        //indicadorcar = reicieveParams.getString("paginacion");
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (indicadorcar != null){
-                    if (indicadorcar.equals("menu")){
-                        startActivity(new Intent(ActCar.this, ActivityMain.class));
-                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                        finish();
-                    } else {
-                        finish();
-                    }
-                } else {
-                    finish();
-                }
+                startActivity(new Intent(ActCar.this, ActMenu.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
             }
         });
-
 
 
         valor_domicilio = (TextView) findViewById(R.id.valor_domicilio);
@@ -176,9 +167,10 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
         Intent intent = new Intent(ActCar.this, ActAddCarritoEdit.class);
         bundle.putSerializable("value", productoEditAdd);
         bundle.putString("indicador", "editar");
+        bundle.putString("pagina", "editar");
         intent.putExtras(bundle);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     private int dp2px(int dp) {
@@ -264,7 +256,10 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.accion_add) {
-            if (indicadorcar != null){
+            startActivity(new Intent(ActCar.this, ActMenu.class));
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            finish();
+            /*if (indicadorcar != null){
                 if (indicadorcar.equals("menu")) {
                     startActivity(new Intent(ActCar.this, ActivityMain.class));
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -274,7 +269,8 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
                 }
             } else {
                 onBackPressed();
-            }
+            }*/
+
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -312,16 +308,8 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onBackPressed() {
-        if (indicadorcar != null){
-            if (indicadorcar.equals("menu")){
-                startActivity(new Intent(ActCar.this, ActivityMain.class));
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();
-            } else {
-                finish();
-            }
-        } else {
-            finish();
-        }
+        startActivity(new Intent(ActCar.this, ActMenu.class));
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        finish();
     }
 }

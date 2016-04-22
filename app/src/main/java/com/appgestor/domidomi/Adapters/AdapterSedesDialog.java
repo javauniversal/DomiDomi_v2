@@ -16,6 +16,8 @@ import com.appgestor.domidomi.R;
 
 import java.util.List;
 
+import static com.appgestor.domidomi.Entities.Bean.setPagina_static;
+
 public class AdapterSedesDialog extends BaseAdapter {
 
     private Activity actx;
@@ -64,9 +66,9 @@ public class AdapterSedesDialog extends BaseAdapter {
                 Bundle bundle = new Bundle();
                 bundle.putInt("sede", elements.get(position).getId_sede());
                 bundle.putInt("empresa", elements.get(position).getId_empresa());
-                actx.startActivity(new Intent(actx, ActCar.class).putExtras(bundle));
+                setPagina_static("menu_muchos");
+                actx.startActivity(new Intent(actx, ActCarritoMenu.class).putExtras(bundle));
                 actx.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-
             }
 
         });

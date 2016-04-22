@@ -397,6 +397,8 @@ public class FragMenu extends BaseVolleyFragmentSoport {
                         Intent intent = new Intent(getActivity(), ActAddCarritoEdit.class);
                         bundle.putSerializable("value", productoEditAdd);
                         bundle.putString("indicador", "nuevo");
+                        bundle.putString("pagina", "editar");
+
                         intent.putExtras(bundle);
                         startActivity(intent);
                         return false;

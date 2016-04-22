@@ -56,6 +56,7 @@ public class ActAddCarritoEdit extends AppCompatActivity {
     private Double totalAdicion = 0.0;
     private DBHelper mydb;
     private String indicador_accion;
+    private String pagina;
 
 
     @Override
@@ -85,7 +86,9 @@ public class ActAddCarritoEdit extends AppCompatActivity {
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         productoEditAdd = (ProductoEditAdd) bundle.getSerializable("value");
+
         indicador_accion = bundle.getString("indicador");
+        pagina = bundle.getString("pagina");
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,16 +128,6 @@ public class ActAddCarritoEdit extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 onBackPressed();
-                /*if (indicador_accion.equals("nuevo")) {
-                    startActivity(new Intent(ActAddCarritoEdit.this, ActMenu.class));
-                    finish();
-                } else {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("sede", productoEditAdd.getId_sede());
-                    bundle.putInt("empresa", productoEditAdd.getId_empresa());
-                    startActivity(new Intent(ActAddCarritoEdit.this, ActCar.class).putExtras(bundle));
-                    finish();
-                }*/
             }
         });
 
@@ -185,10 +178,15 @@ public class ActAddCarritoEdit extends AppCompatActivity {
             Bundle bundle = new Bundle();
             bundle.putInt("sede", productoEditAdd.getId_sede());
             bundle.putInt("empresa", productoEditAdd.getId_empresa());
-            bundle.putString("paginacion", "sin_menu");
-            startActivity(new Intent(ActAddCarritoEdit.this, ActCar.class).putExtras(bundle));
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-            finish();
+
+            if (pagina.equals("editar")){
+                startActivity(new Intent(ActAddCarritoEdit.this, ActCar.class).putExtras(bundle));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            } else {
+                startActivity(new Intent(ActAddCarritoEdit.this, ActCarritoMenu.class).putExtras(bundle));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            }
+
             return true;
         }
 
@@ -224,10 +222,11 @@ public class ActAddCarritoEdit extends AppCompatActivity {
                                     Bundle bundle = new Bundle();
                                     bundle.putInt("sede", productoEditAdd.getId_sede());
                                     bundle.putInt("empresa", productoEditAdd.getId_empresa());
-                                    bundle.putString("paginacion", "sin_menu");
+
+                                    //bundle.putString("paginacion", "sin_menu");
                                     startActivity(new Intent(ActAddCarritoEdit.this, ActCar.class).putExtras(bundle));
                                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                                    finish();
+
                                 }
                             }
                             @Override
@@ -240,13 +239,19 @@ public class ActAddCarritoEdit extends AppCompatActivity {
                         }).show();
             } else {
                 if (GuardarPedido()) {
+
                     Bundle bundle = new Bundle();
                     bundle.putInt("sede", productoEditAdd.getId_sede());
                     bundle.putInt("empresa", productoEditAdd.getId_empresa());
-                    bundle.putString("paginacion", "sin_menu");
-                    startActivity(new Intent(ActAddCarritoEdit.this, ActCar.class).putExtras(bundle));
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                    finish();
+
+                    if (pagina.equals("editar")){
+                        startActivity(new Intent(ActAddCarritoEdit.this, ActCar.class).putExtras(bundle));
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    } else {
+                        startActivity(new Intent(ActAddCarritoEdit.this, ActCarritoMenu.class).putExtras(bundle));
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    }
+
                 }
             }
         }

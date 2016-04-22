@@ -26,6 +26,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.appgestor.domidomi.R;
 import com.appgestor.domidomi.ViewPager.SlidingTabLayout;
+import com.appgestor.domidomi.dark.ActivityMain;
 import com.appgestor.domidomi.mockedFragments.FragMenu;
 
 import java.util.HashMap;
@@ -49,7 +50,9 @@ public class ActMenu extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                startActivity(new Intent(ActMenu.this, ActivityMain.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
             }
         });
 
@@ -92,7 +95,6 @@ public class ActMenu extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
     @Override
     protected void onStop () {
@@ -138,6 +140,13 @@ public class ActMenu extends AppCompatActivity {
         public int getCount() {
             return tabas.length;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(ActMenu.this, ActivityMain.class));
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        finish();
     }
 
 }

@@ -162,13 +162,6 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
         format = new DecimalFormat("#,###.##");
 
         sumarValoresFinales(mydb.selectProductoCarrito(reicieveParams.getInt("empresa"), reicieveParams.getInt("sede")));
@@ -182,6 +175,13 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
         CargarMedioPago();
 
         CargarDatosPerfil();
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
     }
 
@@ -885,4 +885,5 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
         }
 
     }
+
 }

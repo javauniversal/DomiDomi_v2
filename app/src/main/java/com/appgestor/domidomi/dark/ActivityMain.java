@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.appgestor.domidomi.Activities.ActCar;
+import com.appgestor.domidomi.Activities.ActCarritoMenu;
 import com.appgestor.domidomi.Activities.ActEstadoPedido;
 import com.appgestor.domidomi.DataBase.DBHelper;
 import com.appgestor.domidomi.Entities.ProductoEditAdd;
@@ -27,6 +28,7 @@ import com.appgestor.domidomi.mockedFragments.FragmentPeril;
 
 import java.util.List;
 
+import static com.appgestor.domidomi.Entities.Bean.setPagina_static;
 import static com.appgestor.domidomi.Entities.UbicacionPreferen.setLatitudStatic;
 import static com.appgestor.domidomi.Entities.UbicacionPreferen.setLongitudStatic;
 
@@ -41,6 +43,7 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
     private static final int TIME_INTERVAL = 2000; // # milliseconds, desired time passed between two back presses.
     private long mBackPressed;
     private DBHelper mydb;
+    private String indicadorcar = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +55,21 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
         mydb = new DBHelper(this);
 
         FragmentManager fManager = getFragmentManager();
-        establecimientoF = new FragListEmpresas();
 
-        fManager.beginTransaction().replace(R.id.contentPanel, establecimientoF.newInstance(toolbar)).commit();
+        Bundle reicieveParams = getIntent().getExtras();
+        if (reicieveParams != null)
+            indicadorcar = reicieveParams.getString("fragmento");
+
+        if (indicadorcar != null) {
+            if (indicadorcar.equals("carrito")){
+                carritoF = new FragmentCarrito();
+                fManager.beginTransaction().replace(R.id.contentPanel, carritoF).commit();
+            }
+        } else {
+            establecimientoF = new FragListEmpresas();
+            fManager.beginTransaction().replace(R.id.contentPanel, establecimientoF.newInstance(toolbar)).commit();
+        }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -119,8 +134,8 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
                     Bundle bundle = new Bundle();
                     bundle.putInt("sede", addProductCars.get(0).getId_sede());
                     bundle.putInt("empresa", addProductCars.get(0).getId_empresa());
-                    bundle.putString("paginacion", "menu");
-                    startActivity(new Intent(this, ActCar.class).putExtras(bundle));
+                    setPagina_static("menu_solo_uno");
+                    startActivity(new Intent(this, ActCarritoMenu.class).putExtras(bundle));
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 } else {
                     toolbar.setTitle("Carrito");

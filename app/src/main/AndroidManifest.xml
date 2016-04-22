@@ -43,35 +43,42 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".dark.ActivityMain"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"/>
+
         <activity
             android:name=".Activities.ActMenu"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"/>
+
         <activity
             android:name=".Activities.ActProductAdd"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"/>
+
         <activity
             android:name=".Activities.ActCar"
-            android:parentActivityName=".Activities.ActMenu"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".Activities.ActCarritoMenu"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".Activities.ActFinalizarPedidoMenu"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".Activities.ActFinalizarPedido"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".Activities.DetailsActivity"
             android:theme="@style/AppTheme"
@@ -168,7 +175,7 @@
             android:name=".Activities.ActAddCarritoEdit"
             android:label="@string/title_activity_act_add_carrito_edit"
             android:theme="@style/AppTheme"
-            android:screenOrientation="portrait" ></activity>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
