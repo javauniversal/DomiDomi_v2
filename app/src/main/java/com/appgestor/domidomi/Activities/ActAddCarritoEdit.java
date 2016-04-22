@@ -185,6 +185,7 @@ public class ActAddCarritoEdit extends AppCompatActivity {
             Bundle bundle = new Bundle();
             bundle.putInt("sede", productoEditAdd.getId_sede());
             bundle.putInt("empresa", productoEditAdd.getId_empresa());
+            bundle.putString("paginacion", "sin_menu");
             startActivity(new Intent(ActAddCarritoEdit.this, ActCar.class).putExtras(bundle));
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             finish();
@@ -223,6 +224,7 @@ public class ActAddCarritoEdit extends AppCompatActivity {
                                     Bundle bundle = new Bundle();
                                     bundle.putInt("sede", productoEditAdd.getId_sede());
                                     bundle.putInt("empresa", productoEditAdd.getId_empresa());
+                                    bundle.putString("paginacion", "sin_menu");
                                     startActivity(new Intent(ActAddCarritoEdit.this, ActCar.class).putExtras(bundle));
                                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                                     finish();
@@ -241,6 +243,7 @@ public class ActAddCarritoEdit extends AppCompatActivity {
                     Bundle bundle = new Bundle();
                     bundle.putInt("sede", productoEditAdd.getId_sede());
                     bundle.putInt("empresa", productoEditAdd.getId_empresa());
+                    bundle.putString("paginacion", "sin_menu");
                     startActivity(new Intent(ActAddCarritoEdit.this, ActCar.class).putExtras(bundle));
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     finish();

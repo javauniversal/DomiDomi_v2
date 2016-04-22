@@ -19,13 +19,12 @@ import com.appgestor.domidomi.DataBase.DBHelper;
 import com.appgestor.domidomi.Entities.Ciudades;
 import com.appgestor.domidomi.Entities.Cliente;
 import com.appgestor.domidomi.R;
-import com.borax12.materialdaterangepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ActCreatePerfil extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class ActCreatePerfil extends AppCompatActivity {
 
     //private Button fecha_cumple;
     //private EditText edit_cumple;
@@ -81,7 +80,7 @@ public class ActCreatePerfil extends AppCompatActivity implements DatePickerDial
         spinner_zona = (Spinner) findViewById(R.id.spinner_zona);
 
         edit_nombres = (EditText) findViewById(R.id.edit_nombres);
-        edit_nombres.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+        //edit_nombres.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
 
         edit_cell = (EditText) findViewById(R.id.edit_cell);
         edit_phone = (EditText) findViewById(R.id.edit_phone);
@@ -325,13 +324,6 @@ public class ActCreatePerfil extends AppCompatActivity implements DatePickerDial
 
             }
         });
-    }
-
-    @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth, int yearEnd, int monthOfYearEnd, int dayOfMonthEnd) {
-        monthOfYear = monthOfYear+1;
-        fecha = year+"/"+monthOfYear+"/"+dayOfMonth;
-        //edit_cumple.setText(fecha);
     }
 
     private void loadAdress() {

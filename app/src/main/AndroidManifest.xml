@@ -45,29 +45,37 @@
         </activity>
         <activity
             android:name=".dark.ActivityMain"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activities.ActMenu"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activities.ActProductAdd"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activities.ActCar"
             android:parentActivityName=".Activities.ActMenu"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ActCarritoMenu"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ActFinalizarPedidoMenu"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ActFinalizarPedido"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.DetailsActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -84,7 +92,8 @@
 
         <activity
             android:name=".ActMaps"
-            android:label="@string/title_activity_act_maps" />
+            android:label="@string/title_activity_act_maps"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -93,7 +102,8 @@
         <activity
             android:name=".Activities.ActivitySedes"
             android:label="@string/title_activity_activity_sedes"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
 
         <receiver
             android:name="com.google.android.gcm.GCMBroadcastReceiver"
@@ -112,28 +122,34 @@
         <activity
             android:name=".Activities.ActEstadoPedido"
             android:label="@string/title_activity_act_estado_pedido"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ActComentario"
             android:label="@string/title_activity_act_comentario"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activities.ActUbicacion"
             android:label="@string/title_activity_act_ubicacion"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".RadarView.RefreshProgressActivity"
             android:label="@string/title_activity_act_ubicacion"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ActMyPerfil"
             android:label="@string/title_activity_act_my_perfil"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Activities.ActDireccionEscrita"
             android:label="@string/title_activity_act_direccion_escrita"
             android:parentActivityName=".Activities.ActUbicacion"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.appgestor.domidomi.Activities.ActUbicacion" />
@@ -141,15 +157,18 @@
         <activity
             android:name=".Activities.ActCreatePerfil"
             android:label="@string/title_activity_act_create_perfil"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ActDetalleCompra"
             android:label="@string/title_activity_act_detalle_compra"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ActAddCarritoEdit"
             android:label="@string/title_activity_act_add_carrito_edit"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" ></activity>
     </application>
 
 </manifest>

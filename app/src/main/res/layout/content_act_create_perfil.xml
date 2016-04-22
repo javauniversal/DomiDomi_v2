@@ -76,7 +76,7 @@
                             android:hint="@string/nombre"
                             android:textSize="@dimen/dimen_letra_app"
                             android:digits="abcdefghijklmnñopqrstuvwxyz ABCDEFGHIJKLMNÑOPQRSTUVWXYZ áéíóú ÁÉÍÓÚ 0123456789"
-                            android:inputType="textCapWords"/>
+                            android:inputType="text"/>
 
                     </android.support.design.widget.TextInputLayout>
 

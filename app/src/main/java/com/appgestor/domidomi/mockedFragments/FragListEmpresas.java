@@ -213,7 +213,6 @@ public class FragListEmpresas extends BaseVolleyFragment {
             protected Map<String, String> getParams(){
                 Map<String, String> params = new HashMap<>();
 
-
                 params.put("latitud", String.valueOf(getLatitudStatic()));
                 params.put("longitud", String.valueOf(getLongitudStatic()));
 
@@ -384,12 +383,10 @@ public class FragListEmpresas extends BaseVolleyFragment {
         return ((target.compareTo(start) >= 0) && (target.compareTo(end) <= 0));
     }
 
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
         // Implementing ActionBar Search inside a fragment
-
 
         MenuItem item2 = menu.add("Filtrar");
         item2.setIcon(R.drawable.ic_filter_list_white_24dp); // sets icon

@@ -14,12 +14,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.appgestor.domidomi.Activities.ActCar;
 import com.appgestor.domidomi.Activities.ActEstadoPedido;
+import com.appgestor.domidomi.DataBase.DBHelper;
+import com.appgestor.domidomi.Entities.ProductoEditAdd;
 import com.appgestor.domidomi.R;
 import com.appgestor.domidomi.Services.MyService;
 import com.appgestor.domidomi.mockedFragments.FragListEmpresas;
 import com.appgestor.domidomi.mockedFragments.FragmentCarrito;
 import com.appgestor.domidomi.mockedFragments.FragmentPeril;
+
+import java.util.List;
+
 import static com.appgestor.domidomi.Entities.UbicacionPreferen.setLatitudStatic;
 import static com.appgestor.domidomi.Entities.UbicacionPreferen.setLongitudStatic;
 
@@ -33,6 +40,7 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
     private FragmentCarrito carritoF;
     private static final int TIME_INTERVAL = 2000; // # milliseconds, desired time passed between two back presses.
     private long mBackPressed;
+    private DBHelper mydb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +49,7 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
         toolbar = (Toolbar) findViewById(R.id.toolbarhome);
         toolbar.setTitle("Buscando Establecimientos");
         setSupportActionBar(toolbar);
+        mydb = new DBHelper(this);
 
         FragmentManager fManager = getFragmentManager();
         establecimientoF = new FragListEmpresas();
@@ -97,11 +106,31 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(this, ActEstadoPedido.class));
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         } else if (id == R.id.nav_carrito) {
-            toolbar.setTitle("Carrito");
-            if (carritoF == null)
-                carritoF = new FragmentCarrito();
 
-            fManager.beginTransaction().replace(R.id.contentPanel, carritoF).commit();
+            List<ProductoEditAdd> addProductCars = mydb.getProductCarAll();
+            if (addProductCars == null || addProductCars.size() <= 0) {
+                toolbar.setTitle("Carrito");
+                if (carritoF == null)
+                    carritoF = new FragmentCarrito();
+
+                fManager.beginTransaction().replace(R.id.contentPanel, carritoF).commit();
+            } else {
+                if (addProductCars.size() == 1) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("sede", addProductCars.get(0).getId_sede());
+                    bundle.putInt("empresa", addProductCars.get(0).getId_empresa());
+                    bundle.putString("paginacion", "menu");
+                    startActivity(new Intent(this, ActCar.class).putExtras(bundle));
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                } else {
+                    toolbar.setTitle("Carrito");
+                    if (carritoF == null)
+                        carritoF = new FragmentCarrito();
+
+                    fManager.beginTransaction().replace(R.id.contentPanel, carritoF).commit();
+                }
+            }
+
         } else if (id == R.id.nav_perfil) {
             toolbar.setTitle("Perfiles");
             if (perfilF == null)

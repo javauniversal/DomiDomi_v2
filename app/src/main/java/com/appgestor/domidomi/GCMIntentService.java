@@ -1,9 +1,11 @@
 package com.appgestor.domidomi;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -106,6 +108,42 @@ public class GCMIntentService extends GCMBaseIntentService {
 
     private void notificarMensaje(Context context, String msg){
         String msg_limpio = msg;
+        PendingIntent pi = null;
+        boolean indicador = true;
+        for (int x=0; x < msg.length(); x++){
+            if(msg.charAt(x) == '%') {
+                String sede = msg.substring(x + 1);
+                setSedeIdeStatic(Integer.parseInt(sede));
+                pi = PendingIntent.getActivity(this, 0, new Intent(this, ActComentario.class), 0);
+                indicador = false;
+                break;
+            }
+        }
+
+        if (indicador){
+            pi = PendingIntent.getActivity(this, 0, new Intent(this, ActEstadoPedido.class), 0);
+        }
+
+        long[] vibrate = {100,100,200,300};
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        Notification notification = new NotificationCompat.Builder(this)
+                .setTicker("Alerta!")
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setLargeIcon(bm)
+                .setContentTitle("Mensaje de Alerta")
+                .setContentText(limpiarMascara(msg_limpio))
+                .setContentIntent(pi)
+                .setVibrate(vibrate).setAutoCancel(true)
+                .setLights(Color.RED, 1, 0)
+                .setSound(alarmSound)
+                .setAutoCancel(true)
+                .build();
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(0, notification);
+
+        /*String msg_limpio = msg;
         long[] vibrate = {100,100,200,300};
         Bitmap bm = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -125,7 +163,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 
         boolean indicador = true;
 
-        for (int x=0;x<msg.length();x++){
+        for (int x=0; x < msg.length(); x++){
 
             if(msg.charAt(x) == '%'){
 
@@ -143,6 +181,7 @@ public class GCMIntentService extends GCMBaseIntentService {
         }
 
         if (indicador){
+
             Intent notIntent = new Intent(context, ActEstadoPedido.class);
             PendingIntent contIntent = PendingIntent.getActivity(context, 0, notIntent, 0);
             mBuilder.setContentIntent(contIntent);
@@ -150,6 +189,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(NOTIF_ALERTA_ID, mBuilder.build());
+        */
 
     }
 

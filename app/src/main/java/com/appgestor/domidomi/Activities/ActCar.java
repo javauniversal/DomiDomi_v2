@@ -69,9 +69,11 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
                         startActivity(new Intent(ActCar.this, ActivityMain.class));
                         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                         finish();
+                    } else {
+                        finish();
                     }
                 } else {
-                    onBackPressed();
+                    finish();
                 }
             }
         });
@@ -176,6 +178,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
         bundle.putString("indicador", "editar");
         intent.putExtras(bundle);
         startActivity(intent);
+        finish();
     }
 
     private int dp2px(int dp) {
@@ -262,9 +265,11 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
         int id = item.getItemId();
         if (id == R.id.accion_add) {
             if (indicadorcar != null){
-                if (indicadorcar.equals("menu")){
+                if (indicadorcar.equals("menu")) {
                     startActivity(new Intent(ActCar.this, ActivityMain.class));
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    finish();
+                } else {
                     finish();
                 }
             } else {
@@ -302,6 +307,21 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
                 }
 
                 break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (indicadorcar != null){
+            if (indicadorcar.equals("menu")){
+                startActivity(new Intent(ActCar.this, ActivityMain.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                finish();
+            } else {
+                finish();
+            }
+        } else {
+            finish();
         }
     }
 }

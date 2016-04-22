@@ -82,6 +82,7 @@ public class ActMenu extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putInt("sede", getSedeStaticNew().getIdsedes());
                 bundle.putInt("empresa", getSedeStaticNew().getIdempresa());
+                bundle.putString("paginacion", "sin_menu");
                 startActivity(new Intent(ActMenu.this, ActCar.class).putExtras(bundle));
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 

@@ -2,6 +2,7 @@ package com.appgestor.domidomi.Activities;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -265,7 +266,13 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setCancelable(false);
                 builder.setTitle("Seleccionar perfil");
-                builder.setView(dialoglayout);
+                builder.setView(dialoglayout).setPositiveButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        finish();
+                    }
+                });
                 final AlertDialog ad = builder.show();
 
                 listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {

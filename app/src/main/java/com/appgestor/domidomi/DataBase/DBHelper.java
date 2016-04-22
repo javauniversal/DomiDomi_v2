@@ -198,6 +198,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
             db.update("carrito_producto", values, String.format("id = %1$s", data.getAuto_incremental()), null);
 
+            int c = db.delete("adiciones", "idCarrito = ? AND idSede = ? AND idEmpresa = ? ",
+                    new String[] {String.valueOf(data.getAuto_incremental()), String.valueOf(data.getId_sede()), String.valueOf(data.getId_empresa())});
+
             if(data.getAdicionesListselet() != null && data.getAdicionesListselet().size() > 0) {
                 ContentValues valueAdicion = new ContentValues();
                 for(int f = 0; f < data.getAdicionesListselet().size(); f++) {
@@ -213,13 +216,16 @@ public class DBHelper extends SQLiteOpenHelper {
                         valueAdicion.put("idCarrito", data.getAuto_incremental());
                         valueAdicion.put("cantidadAdicion", data.getAdicionesListselet().get(f).getCantidadAdicion());
 
-                        db.update("adiciones", valueAdicion, String.format("id = %1$s ", data.getAdicionesListselet().get(f).getAutoIncrementAdicion()), null);
+                        db.insert("adiciones", null, valueAdicion);
 
                     } catch (SQLiteConstraintException e){
                         return false;
                     }
                 }
             }
+
+            int b = db.delete("adiciones_car_compra", "idCarrito = ? AND idSede = ? AND idEmpresa = ? ",
+                    new String[] {String.valueOf(data.getAuto_incremental()), String.valueOf(data.getId_sede()), String.valueOf(data.getId_empresa())});
 
             if(data.getAdicionesList() != null && data.getAdicionesList().size() > 0) {
                 ContentValues valueAdicion = new ContentValues();
@@ -236,8 +242,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         valueAdicion.put("idCarrito", data.getAuto_incremental());
                         valueAdicion.put("cantidadAdicion", data.getAdicionesList().get(f).getCantidadAdicion());
 
-                        db.update("adiciones_car_compra", valueAdicion, String.format("id = %1$s", data.getAdicionesList().get(f).getAutoIncrementAdicion()), null);
-
+                        db.insert("adiciones_car_compra", null, valueAdicion);
                     } catch (SQLiteConstraintException e){
                         return false;
                     }
