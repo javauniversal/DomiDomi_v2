@@ -42,7 +42,7 @@ import java.util.List;
 import static com.appgestor.domidomi.Entities.Producto.getProductoStatic;
 import static com.appgestor.domidomi.Entities.Sede.getSedeStaticNew;
 
-public class ActProductAdd extends AppCompatActivity implements View.OnClickListener{
+public class ActProductAdd extends AppCompatActivity implements View.OnClickListener {
 
     private KenBurnsView displayImagen;
     private QuantityView cantidad;

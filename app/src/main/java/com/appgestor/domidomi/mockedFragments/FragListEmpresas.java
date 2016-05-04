@@ -362,7 +362,7 @@ public class FragListEmpresas extends BaseVolleyFragment {
                     return;
 
                 startActivity(new Intent(getActivity(), ActMenu.class));
-                //getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
             } catch (IllegalStateException ex) {
                 ex.printStackTrace();

@@ -20,6 +20,7 @@ import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import static com.appgestor.domidomi.Entities.Menu.getMenuListStatic;
 
@@ -150,7 +151,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         }
         TextView listTitleTextView = (TextView) convertView.findViewById(R.id.listTitle);
         listTitleTextView.setTypeface(null, Typeface.BOLD);
-        listTitleTextView.setText(listTitle);
+        listTitleTextView.setText(listTitle.split(Pattern.quote("||"))[0]);
         return convertView;
     }
 

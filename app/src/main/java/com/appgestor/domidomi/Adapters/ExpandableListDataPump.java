@@ -12,7 +12,6 @@ public class ExpandableListDataPump {
 
 
     public static HashMap<String, List<String>> getData(List<Menu> data) {
-        int elements = 0;
 
         HashMap<String, List<String>> expandableListDetail = new LinkedHashMap<>();
 
@@ -22,13 +21,12 @@ public class ExpandableListDataPump {
                 if (data.get(i).getProductos() != null){
 
                     List<String> technology = new ArrayList<>();
-                    elements = data.get(i).getProductos().size();
 
-                    for (int a = 0; a < elements; a++) {
+                    for (int a = 0; a < data.get(i).getProductos().size(); a++) {
                         technology.add(a, data.get(i).getProductos().get(a).getDescripcion());
                     }
 
-                    expandableListDetail.put(data.get(i).getDescipcion(), technology);
+                    expandableListDetail.put(data.get(i).getDescipcion()+"||"+data.get(i).getIdmenumovil(), technology);
                 }
             }
         }
