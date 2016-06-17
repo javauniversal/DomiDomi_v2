@@ -3,9 +3,9 @@
 
     <string name="hello_world">Domi Domi</string>
 
-    <!-- <string name="url_base">http://zonaapp.co/domidomi/service/</string> -->
+    <!--<string name="url_base">http://zonaapp.co/domidomi/service/</string>-->
     <!-- <string name="url_base">http://domidomi.zonaapp.co/service/</string> -->
-    <string name="url_base">http://domitesting.zonaapp.co/service/</string>
+     <string name="url_base">http://domitesting.zonaapp.co/service/</string>
 
     <string name="title_activity_act_ubicacion">Mi Ubicación</string>
     <string name="senales">*</string>
