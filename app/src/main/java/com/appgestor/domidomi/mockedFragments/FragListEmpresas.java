@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,6 +31,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.appgestor.domidomi.Activities.ActMenu;
 import com.appgestor.domidomi.Activities.DetailsActivity;
 import com.appgestor.domidomi.Activities.SmoothCheckBox;
+import com.appgestor.domidomi.Activities.SpacesItemDecoration;
 import com.appgestor.domidomi.Adapters.AdapterRecyclerSedesEmpresa;
 import com.appgestor.domidomi.Adapters.RecyclerItemClickListener;
 import com.appgestor.domidomi.Entities.Categoria;
@@ -108,6 +110,29 @@ public class FragListEmpresas extends BaseVolleyFragment {
 
         recycler = (RecyclerView) myView.findViewById(R.id.recycler_view);
         recycler.setHasFixedSize(true);
+
+        int dips = 0;
+        DisplayMetrics metrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        switch(metrics.densityDpi) {
+            case DisplayMetrics.DENSITY_XHIGH:
+                break;
+            case DisplayMetrics.DENSITY_XXHIGH:
+                dips = 16;
+                break;
+            case DisplayMetrics.DENSITY_XXXHIGH:
+                break;
+            case DisplayMetrics.DENSITY_HIGH: //HDPI
+                dips = 3;
+                break;
+            case DisplayMetrics.DENSITY_MEDIUM: //MDPI
+                break;
+            case DisplayMetrics.DENSITY_LOW:  //LDPI
+                break;
+        }
+
+        recycler.addItemDecoration(new SpacesItemDecoration(dips));
 
         RecyclerView.LayoutManager lManager = new LinearLayoutManager(getActivity());
         recycler.setLayoutManager(lManager);
@@ -524,6 +549,7 @@ public class FragListEmpresas extends BaseVolleyFragment {
                 adapter = new AdapterRecyclerSedesEmpresa(getActivity(), filterList);
                 recycler.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
+
             }
 
         }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {

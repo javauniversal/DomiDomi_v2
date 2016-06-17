@@ -23,16 +23,6 @@ public class ProductoEditAdd implements Serializable {
     @SerializedName("quantity")
     private int cantidad;
 
-    private String foto;
-
-    private int estado;
-
-    private int idmenumovil;
-
-    private List<Adiciones> adicionesList;
-
-    private Double valor_unitario;
-
     @SerializedName("valueoverall")
     private Double valor_total;
 
@@ -45,6 +35,9 @@ public class ProductoEditAdd implements Serializable {
     @SerializedName("idsede")
     private int id_sede;
 
+    @SerializedName("adicionesListselet")
+    private List<Adiciones> adicionesListselet;
+
     private String nombre_sede;
 
     private String hora_inicial;
@@ -55,8 +48,15 @@ public class ProductoEditAdd implements Serializable {
 
     private double valor_minimo;
 
-    @SerializedName("adicionesListselet")
-    private List<Adiciones> adicionesListselet;
+    private String foto;
+
+    private int estado;
+
+    private int idmenumovil;
+
+    private List<Adiciones> adicionesList;
+
+    private Double valor_unitario;
 
     public int getAuto_incremental() {
         return auto_incremental;

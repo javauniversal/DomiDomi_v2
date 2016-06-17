@@ -5,7 +5,8 @@
 
     <!--<string name="url_base">http://zonaapp.co/domidomi/service/</string>-->
     <!-- <string name="url_base">http://domidomi.zonaapp.co/service/</string> -->
-     <string name="url_base">http://domitesting.zonaapp.co/service/</string>
+     <!-- <string name="url_base">http://domitesting.zonaapp.co/service/</string> -->
+     <string name="url_base">http://domidomi.movilbox.net:8080/domidomi/service/</string>
 
     <string name="title_activity_act_ubicacion">Mi Ubicación</string>
     <string name="senales">*</string>
@@ -172,5 +173,6 @@
     <string name="title_activity_act_create_perfil">Crear Perfil</string>
     <string name="title_activity_act_detalle_compra">Detalle del pedido</string>
     <string name="title_activity_act_add_carrito_edit">Editar Carrito</string>
+    <string name="domicilios_delivery">Domicilios</string>
 
 </resources>

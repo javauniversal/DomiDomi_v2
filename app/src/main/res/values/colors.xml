@@ -18,4 +18,7 @@
     <color name="colorAccent">#03A9F4</color>
 
     <color name="black_alpha_40">#66000000</color>
+
+    <color name="color_descripcion">#0bf40404</color>
+
 </resources>

@@ -22,7 +22,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="7dp"
         android:visibility="gone"
         android:id="@+id/relativeLayout_sedes"
         android:background="@color/color_gris"

@@ -2,93 +2,91 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:padding="2dp"
     android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardCornerRadius="4dp"
+        card_view:cardCornerRadius="5dp"
+        android:padding="0dp"
         android:layout_centerHorizontal="true">
 
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:padding="8dp"
-            android:background="#FFF"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="0dp"
+            android:orientation="vertical">
 
             <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:contentDescription="@string/app_name"
                 android:id="@+id/imgSede"
-                android:scaleType="centerCrop"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:contentDescription="@string/app_name" />
+                android:scaleType="centerCrop"/>
 
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="8dp"
-                android:layout_toRightOf="@+id/imgSede"
-                android:id="@+id/linearLayout3">
+                android:background="@color/color_descripcion"
+                android:layout_gravity="center_horizontal"
+                android:baselineAligned="false">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Domicilios Delivery"
-                    android:textColor="@color/color_negro"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/dimen_letra_app"
-                    android:id="@+id/txtNombre" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="3dp"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="@dimen/dimen_letra_app"
-                    android:textColor="@color/color_negro"
-                    android:id="@+id/txtPedidoMunimo" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/domicilios_delivery"
+                        android:textColor="@color/color_negro"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:id="@+id/txtNombre" />
 
-                <!-- <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/direccion"
-                    android:textSize="@dimen/dimen_letra_app"
-                    android:textColor="@color/color_negro"
-                    android:id="@+id/txtDireccion" /> -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:textColor="@color/color_negro"
+                        android:id="@+id/txtPedidoMunimo" />
 
-                <RatingBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:id="@+id/ratingBar3" />
+                    <RatingBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:id="@+id/ratingBar3" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="4"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|center_horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/horario"
+                        android:id="@+id/txtHora"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:textColor="@color/color_negro"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/horario"
-                android:id="@+id/txtHora"
-                android:textStyle="bold"
-                android:textSize="@dimen/dimen_letra_app"
-                android:textColor="@color/color_negro"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-
-
-
-        </RelativeLayout>
+        </LinearLayout>
 
     </android.support.v7.widget.CardView>
-
-
 
 </RelativeLayout>
