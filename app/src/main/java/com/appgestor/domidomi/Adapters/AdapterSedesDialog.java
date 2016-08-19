@@ -8,9 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.appgestor.domidomi.Activities.ActCar;
 import com.appgestor.domidomi.Activities.ActCarritoMenu;
-import com.appgestor.domidomi.Entities.AddProductCar;
 import com.appgestor.domidomi.Entities.ProductoEditAdd;
 import com.appgestor.domidomi.R;
 

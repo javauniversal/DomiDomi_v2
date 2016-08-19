@@ -12,9 +12,7 @@ import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
-import android.text.Editable;
 import android.text.InputType;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +42,6 @@ import com.appgestor.domidomi.Entities.Ciudades;
 import com.appgestor.domidomi.Entities.Cliente;
 import com.appgestor.domidomi.Entities.MedioPago;
 import com.appgestor.domidomi.Entities.PedidoWebCabeza;
-import com.appgestor.domidomi.Mascara.MaskEditTextChangedListener;
 import com.appgestor.domidomi.Mascara.PesoEditTextChangedListener;
 import com.appgestor.domidomi.R;
 import com.google.gson.Gson;
@@ -83,7 +80,6 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
     private Spinner spinner_zona;
     private String[] dir1_parant;
     private String[] ofic_parant;
-    private String[] dir1Zona_parant;
     private String Calle_Carrera;
     private String oficina_spinn;
     private String selecte_ciudad;
@@ -105,7 +101,6 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
     private LinearLayout input_layout_Efectivo_liner;
     private List<Cliente> mAppList = new ArrayList<>();
     private AlertDialog alertDialog;
-    ArrayAdapter<Ciudades> ciudadesArrayAdapter;
     LinearLayout ll;
     private TextView total_pedido;
     private DecimalFormat format;
@@ -796,7 +791,7 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
     }
 
     private void loadLlenarZona() {
-        dir1Zona_parant = new String[]{"Bello", "Caldas", "Envigado",  "Itaguí", "La Estrella", "Medellín", "Sabaneta"};
+        String[] dir1Zona_parant = new String[]{"Bello", "Caldas", "Envigado", "Itaguí", "La Estrella", "Medellín", "Sabaneta"};
         ArrayAdapter<String> prec1 = new ArrayAdapter<>(this, R.layout.textview_spinner, dir1Zona_parant);
         spinner_zona.setAdapter(prec1);
         List<String> strListZona = new ArrayList<>(Arrays.asList(dir1Zona_parant));

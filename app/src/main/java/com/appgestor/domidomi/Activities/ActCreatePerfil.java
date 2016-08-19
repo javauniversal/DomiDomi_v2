@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -38,21 +37,18 @@ public class ActCreatePerfil extends AppCompatActivity {
     private EditText editDirReferencia;
 
     private EditText edit_ofi;
-    private String fecha;
     private Spinner spinner_dir;
     private Spinner spinner_oficina;
     private Spinner spinner_ciudades;
     private Spinner spinner_zona;
     private String[] dir1_parant;
     private String[] ofic_parant;
-    private String[] dir1Zona_parant;
     private String Calle_Carrera;
     private String oficina_spinn;
     private String selecte_ciudad;
     private List<Ciudades> ciudades;
     private RelativeLayout zonaLayout;
     private String zona_dir;
-    private FloatingActionButton fabGuardar;
     private DBHelper mydb;
     private LinearLayout numeroLayout;
     private Cliente thumbs = new Cliente();
@@ -90,7 +86,7 @@ public class ActCreatePerfil extends AppCompatActivity {
         editBarrioCliente = (EditText) findViewById(R.id.editBarrioCliente);
         editDirReferencia = (EditText) findViewById(R.id.editDirReferencia);
 
-        fabGuardar = (FloatingActionButton) findViewById(R.id.fab_guardar);
+        FloatingActionButton fabGuardar = (FloatingActionButton) findViewById(R.id.fab_guardar);
 
         loadAdress();
 
@@ -222,10 +218,7 @@ public class ActCreatePerfil extends AppCompatActivity {
 
     private boolean isValidNumberOficina(String trim) {
 
-        if (numeroLayout.getVisibility() == View.VISIBLE){
-            return isValidNumber(trim);
-        }
-        return false;
+        return numeroLayout.getVisibility() == View.VISIBLE && isValidNumber(trim);
 
     }
 
@@ -282,7 +275,7 @@ public class ActCreatePerfil extends AppCompatActivity {
 
     private void loadLlenarZona() {
 
-        dir1Zona_parant = new String[]{"Bello", "Caldas", "Envigado",  "Itaguí", "La Estrella", "Medellín", "Sabaneta"};
+        String[] dir1Zona_parant = new String[]{"Bello", "Caldas", "Envigado", "Itaguí", "La Estrella", "Medellín", "Sabaneta"};
         ArrayAdapter<String> prec1 = new ArrayAdapter<>(this, R.layout.textview_spinner, dir1Zona_parant);
         spinner_zona.setAdapter(prec1);
         List<String> strListZona = new ArrayList<>(Arrays.asList(dir1Zona_parant));

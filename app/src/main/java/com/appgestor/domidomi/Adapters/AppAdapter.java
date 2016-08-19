@@ -28,7 +28,6 @@ public class AppAdapter extends BaseAdapter {
     List<ProductoEditAdd> data;
     private ImageLoader imageLoader1;
     private DisplayImageOptions options1;
-    private DBHelper mydb;
     private DecimalFormat format;
 
     public AppAdapter(Activity actx, List<ProductoEditAdd> data){
@@ -40,7 +39,7 @@ public class AppAdapter extends BaseAdapter {
 
         options1 = new DisplayImageOptions.Builder().cacheInMemory().cacheOnDisc().build();
 
-        mydb = new DBHelper(actx);
+        DBHelper mydb = new DBHelper(actx);
 
         format = new DecimalFormat("#,###.##");
 

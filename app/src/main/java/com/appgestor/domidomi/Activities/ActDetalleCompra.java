@@ -3,15 +3,12 @@ package com.appgestor.domidomi.Activities;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,12 +22,9 @@ import java.util.List;
 
 public class ActDetalleCompra extends AppCompatActivity {
 
-    private Bundle bundle;
-    private EstadoPedido item = new EstadoPedido();
     private TextView txt_valor_adicion;
     private TextView txt_valor_prodocto;
     private TextView txt_valor_total_prodocto;
-    private TextView totales_pedido;
     private TextView txt_valor_domicilio;
     private DecimalFormat format;
     private double total_adiciones = 0.0;
@@ -52,7 +46,7 @@ public class ActDetalleCompra extends AppCompatActivity {
         txt_valor_adicion = (TextView) findViewById(R.id.txt_valor_adicion);
         txt_valor_prodocto = (TextView) findViewById(R.id.txt_valor_prodocto);
         txt_valor_total_prodocto = (TextView) findViewById(R.id.txt_valor_total_prodocto);
-        totales_pedido = (TextView) findViewById(R.id.totales_pedido);
+        TextView totales_pedido = (TextView) findViewById(R.id.totales_pedido);
         txt_valor_domicilio = (TextView) findViewById(R.id.txt_valor_domicilio);
         card_view_adiciones = (CardView) findViewById(R.id.card_view_adiciones);
         ralative_adiciones = (RelativeLayout) findViewById(R.id.ralative_adiciones);
@@ -61,9 +55,9 @@ public class ActDetalleCompra extends AppCompatActivity {
         lm2 = (LinearLayout) findViewById(R.id.liner_adiciones_dinamic);
 
         Intent intent = this.getIntent();
-        bundle = intent.getExtras();
+        Bundle bundle = intent.getExtras();
         if (bundle != null) {
-            item = (EstadoPedido)bundle.getSerializable("value");
+            EstadoPedido item = (EstadoPedido) bundle.getSerializable("value");
             cargarDatosPedido(item);
         }
 

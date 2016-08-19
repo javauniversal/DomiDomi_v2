@@ -3,6 +3,7 @@ package com.appgestor.domidomi.Activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
@@ -39,6 +40,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.appgestor.domidomi.Entities.Sede.getSedeStaticNew;
+
 public class ActAddCarritoEdit extends AppCompatActivity {
 
     private ProductoEditAdd productoEditAdd = new ProductoEditAdd();
@@ -57,6 +60,7 @@ public class ActAddCarritoEdit extends AppCompatActivity {
     private DBHelper mydb;
     private String indicador_accion;
     private String pagina;
+    private LayerDrawable icon;
 
 
     @Override
@@ -164,7 +168,17 @@ public class ActAddCarritoEdit extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_product_add, menu);
+        getMenuInflater().inflate(R.menu.menu_menu, menu);
+
+
+        MenuItem item = menu.findItem(R.id.action_shop);
+
+        // Obtener drawable del item
+        icon = (LayerDrawable) item.getIcon();
+
+        // Actualizar el contador
+        Utils.setBadgeCount(this, icon, mydb.getCantidadProducto(getSedeStaticNew().getIdempresa(), getSedeStaticNew().getIdsedes()));
+
         return true;
     }
 
@@ -172,9 +186,7 @@ public class ActAddCarritoEdit extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        } else if(id == R.id.action_cart) {
+        if(id == R.id.action_shop) {
             Bundle bundle = new Bundle();
             bundle.putInt("sede", productoEditAdd.getId_sede());
             bundle.putInt("empresa", productoEditAdd.getId_empresa());
@@ -511,5 +523,12 @@ public class ActAddCarritoEdit extends AppCompatActivity {
 
         imageLoader1.displayImage(foto, imagen_producto, options1, listener);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        Utils.setBadgeCount(this, icon, mydb.getCantidadProducto(getSedeStaticNew().getIdempresa(), getSedeStaticNew().getIdsedes()));
+    }
+
 
 }

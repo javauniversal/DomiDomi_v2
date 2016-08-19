@@ -41,7 +41,6 @@ public class ActDireccionEscrita extends AppCompatActivity implements View.OnCli
     private String Calle_Carrera;
     private String zona_dir;
     private LinearLayout zonaLayout;
-    private Button button_buscar_establesimiento;
     private EditText txt_dir_1;
     private EditText txt_dir_2;
     private EditText txt_dir_3;
@@ -63,7 +62,7 @@ public class ActDireccionEscrita extends AppCompatActivity implements View.OnCli
         dir_1 = (Spinner) findViewById(R.id.spinner_dir);
         spinner_zona = (Spinner) findViewById(R.id.spinner_zona);
 
-        button_buscar_establesimiento = (Button) findViewById(R.id.button_buscar_establesimiento);
+        Button button_buscar_establesimiento = (Button) findViewById(R.id.button_buscar_establesimiento);
         button_buscar_establesimiento.setOnClickListener(this);
 
         zonaLayout = (LinearLayout) findViewById(R.id.zonaLayout);
@@ -110,7 +109,7 @@ public class ActDireccionEscrita extends AppCompatActivity implements View.OnCli
             @Override
             protected void onPostExecute(Long result){
 
-                ArrayAdapter<Ciudades> prec3 = new ArrayAdapter<Ciudades>(ActDireccionEscrita.this, android.R.layout.simple_spinner_dropdown_item, ciudades);
+                ArrayAdapter<Ciudades> prec3 = new ArrayAdapter<>(ActDireccionEscrita.this, android.R.layout.simple_spinner_dropdown_item, ciudades);
                 dir_3.setAdapter(prec3);
                 dir_3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
@@ -154,7 +153,7 @@ public class ActDireccionEscrita extends AppCompatActivity implements View.OnCli
 
             @Override
             protected void onPostExecute(Long result){
-                ArrayAdapter<String> prec1 = new ArrayAdapter<String>(ActDireccionEscrita.this, R.layout.textview_spinner, dir1Zona_parant);
+                ArrayAdapter<String> prec1 = new ArrayAdapter<>(ActDireccionEscrita.this, R.layout.textview_spinner, dir1Zona_parant);
                 spinner_zona.setAdapter(prec1);
                 spinner_zona.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
@@ -187,7 +186,7 @@ public class ActDireccionEscrita extends AppCompatActivity implements View.OnCli
 
             @Override
             protected void onPostExecute(Long result){
-                ArrayAdapter<String> prec1 = new ArrayAdapter<String>(ActDireccionEscrita.this, R.layout.textview_spinner, dir1_parant);
+                ArrayAdapter<String> prec1 = new ArrayAdapter<>(ActDireccionEscrita.this, R.layout.textview_spinner, dir1_parant);
                 dir_1.setAdapter(prec1);
                 dir_1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override

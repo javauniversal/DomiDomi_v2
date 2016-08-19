@@ -83,8 +83,6 @@ public class ActMyPerfil extends AppCompatActivity implements View.OnClickListen
 
     private void setDataBase() {
 
-        //cliente = mydb.getUsuarioAll();
-        boolean indiswi = false;
         if(cliente != null){
             editNombreCliente.setText(cliente.getNombre());
             editCelular.setText(cliente.getCelular());
@@ -98,10 +96,7 @@ public class ActMyPerfil extends AppCompatActivity implements View.OnClickListen
 
             selectValue(ciudades, cliente.getCiudad(), spinner_ciudades);
 
-            //if(cliente.getIncluir() == 1)
-            //    indiswi = true;
-
-            switch1.setChecked(indiswi);
+            switch1.setChecked(false);
 
         }
     }
@@ -234,12 +229,6 @@ public class ActMyPerfil extends AppCompatActivity implements View.OnClickListen
     private void guardarPerfil(){
         Cliente cl = new Cliente();
 
-        int swit;
-        if(switch1.isChecked())
-            swit = 1;
-        else
-            swit = 0;
-
         cl.setNombre(editNombreCliente.getText().toString());
         cl.setCelular(editCelular.getText().toString());
         cl.setTelefono(telefono.getText().toString());
@@ -249,7 +238,6 @@ public class ActMyPerfil extends AppCompatActivity implements View.OnClickListen
         cl.setDir_3(txt_dir_3.getText().toString());
         cl.setCiudad(selecte_ciudad);
         cl.setZona(zona_dir);
-        //cl.setIncluir(swit);
 
         mydb.deleteUsuario();
 

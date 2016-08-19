@@ -2,19 +2,15 @@ package com.appgestor.domidomi.mockedFragments;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -22,13 +18,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.appgestor.domidomi.Activities.ActAddCarritoEdit;
-import com.appgestor.domidomi.Activities.ActProductAdd;
 import com.appgestor.domidomi.Activities.DetailsActivity;
 import com.appgestor.domidomi.Adapters.AdapterComentario;
 import com.appgestor.domidomi.Adapters.ExpandableListAdapter;
 import com.appgestor.domidomi.Adapters.ExpandableListDataPump;
 import com.appgestor.domidomi.Entities.Adiciones;
-import com.appgestor.domidomi.Entities.Comentario;
 import com.appgestor.domidomi.Entities.InformacioCompania;
 import com.appgestor.domidomi.Entities.ListComentarios;
 import com.appgestor.domidomi.Entities.ProductoEditAdd;
@@ -74,11 +68,8 @@ public class FragMenu extends BaseVolleyFragmentSoport {
     private ImageView imgEmpresa;
     protected DecimalFormat format;
 
-    private TableLayout tabla;
     private SwipeMenuListView listView;
     private InformacioCompania comData;
-    private ListComentarios comentarios;
-    private AdapterComentario adapter;
     private LinearLayout lm;
 
     public static FragMenu newInstance(Bundle param1) {
@@ -125,7 +116,7 @@ public class FragMenu extends BaseVolleyFragmentSoport {
                 //direccion = (TextView) rootView.findViewById(R.id.textDireccion);
                 telefono = (TextView) rootView.findViewById(R.id.txtTelefono);
                 celular = (TextView) rootView.findViewById(R.id.txtCelulat);
-               // tabla = (TableLayout) rootView.findViewById(R.id.myTable);
+                // tabla = (TableLayout) rootView.findViewById(R.id.myTable);
                 lm = (LinearLayout) rootView.findViewById(R.id.liner_sedes_dimacas);
 
                 break;
@@ -150,7 +141,7 @@ public class FragMenu extends BaseVolleyFragmentSoport {
                 txtTiempo.setText(String.format("Tiempo de Entrega: %s aprox", getSedeStaticNew().getTiempoEnvio()));
                 txtCosto.setText(String.format("Costo de Envío: $ %s", format.format(getSedeStaticNew().getCosenvio())));
 
-                String mediosPagos = "";
+                //String mediosPagos = "";
 
                 /*if (getSedeStaticNew() != null){
                     if (getSedeStaticNew().getMedioPagoList() != null){
@@ -183,7 +174,7 @@ public class FragMenu extends BaseVolleyFragmentSoport {
         //Setup options for ImageLoader so it will handle caching for us.
         DisplayImageOptions options1 = new DisplayImageOptions.Builder().cacheInMemory().cacheOnDisc().build();
 
-        ImageLoadingListener listener = new ImageLoadingListener(){
+        ImageLoadingListener listener = new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String arg0, View arg1) {
                 // TODO Auto-generated method stub
@@ -197,6 +188,7 @@ public class FragMenu extends BaseVolleyFragmentSoport {
             @Override
             public void onLoadingComplete(String arg0, View arg1, Bitmap arg2) {
             }
+
             @Override
             public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
             }
@@ -208,13 +200,13 @@ public class FragMenu extends BaseVolleyFragmentSoport {
     private void getComentarios() {
         String url = String.format("%1$s%2$s", getString(R.string.url_base), "getComentarios");
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>(){
+                new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         parseJSONGet(response);
                     }
                 },
-                new Response.ErrorListener(){
+                new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
@@ -224,8 +216,8 @@ public class FragMenu extends BaseVolleyFragmentSoport {
                 }
         ) {
             @Override
-            protected Map<String, String> getParams(){
-                Map<String, String>  params = new HashMap<>();
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
                 params.put("sede", String.valueOf(getSedeStaticNew().getIdsedes()));
 
                 return params;
@@ -234,28 +226,31 @@ public class FragMenu extends BaseVolleyFragmentSoport {
         addToQueue(jsonRequest);
     }
 
-    private void cargaInformacionE(){
-        String url = String.format("%1$s%2$s", getString(R.string.url_base),"getInformation");
+    private void cargaInformacionE() {
+        String url = String.format("%1$s%2$s", getString(R.string.url_base), "getInformation");
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>(){
+                new Response.Listener<String>() {
                     @Override
                     public void onResponse(final String response) {
                         // response
-                        new AsyncTask<String[], Long, Long>(){
+                        new AsyncTask<String[], Long, Long>() {
                             @Override
                             protected Long doInBackground(String[]... params) {
                                 parseJSON2(response);
                                 return null;
                             }
+
                             protected void onPreExecute() {
                                 //multiColumnList.setVisibility(View.GONE);
                             }
+
                             @Override
                             public void onProgressUpdate(Long... value) {
 
                             }
+
                             @Override
-                            protected void onPostExecute(Long result){
+                            protected void onPostExecute(Long result) {
 
                                 nombreEmpresa.setText(comData.getDescripcion());
                                 nit.setText(comData.getNit());
@@ -263,7 +258,7 @@ public class FragMenu extends BaseVolleyFragmentSoport {
                                 telefono.setText(String.format("%1$s", comData.getTelefono()));
                                 celular.setText(String.format("%1$s", comData.getCelular()));
 
-                                if(comData.getSedes() != null || comData.getSedes().size() > 1){
+                                if (comData.getSedes() != null || comData.getSedes().size() > 1) {
                                     setAdapterSedes(comData.getSedes());
                                     //adapterSedes = new AdapterSedes(getActivity(), infor.getHijos());
                                     //sedes.setAdapter(adapterSedes);
@@ -272,7 +267,7 @@ public class FragMenu extends BaseVolleyFragmentSoport {
                         }.execute();
                     }
                 },
-                new Response.ErrorListener(){
+                new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
@@ -283,8 +278,8 @@ public class FragMenu extends BaseVolleyFragmentSoport {
                 }
         ) {
             @Override
-            protected Map<String, String> getParams(){
-                Map<String, String>  params = new HashMap<>();
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
                 params.put("codigo", String.valueOf(getSedeStaticNew().getIdempresa()));
                 return params;
             }
@@ -292,10 +287,10 @@ public class FragMenu extends BaseVolleyFragmentSoport {
         addToQueue(jsonRequest);
     }
 
-    public void setAdapterSedes(ArrayList<Sede> hijos){
+    public void setAdapterSedes(ArrayList<Sede> hijos) {
 
 
-        for (int i = 0; i < hijos.size(); i++){
+        for (int i = 0; i < hijos.size(); i++) {
 
             LinearLayout ll1 = new LinearLayout(getActivity());
             ll1.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -314,33 +309,36 @@ public class FragMenu extends BaseVolleyFragmentSoport {
 
     private void setExpandableListView() {
         // response
-        new AsyncTask<String[], Long, Long>(){
+        new AsyncTask<String[], Long, Long>() {
             @Override
             protected Long doInBackground(String[]... params) {
                 expandableListDetail = ExpandableListDataPump.getData(getMenuListStatic());
                 expandableListTitle = new ArrayList<>(expandableListDetail.keySet());
                 return null;
             }
+
             protected void onPreExecute() {
                 //multiColumnList.setVisibility(View.GONE);
             }
+
             @Override
             public void onProgressUpdate(Long... value) {
 
             }
+
             @Override
-            protected void onPostExecute(Long result){
+            protected void onPostExecute(Long result) {
                 expandableListAdapter = new ExpandableListAdapter(getActivity(), expandableListTitle, expandableListDetail);
                 expandableListView.setAdapter(expandableListAdapter);
                 if (expandableListTitle.size() > 0)
                     //expandableListView.expandGroup(0);
 
-                expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-                    @Override
-                    public void onGroupExpand(int groupPosition) {
-                        //Toast.makeText(getActivity(),expandableListTitle.get(groupPosition) + " List Expanded.", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+                        @Override
+                        public void onGroupExpand(int groupPosition) {
+                            //Toast.makeText(getActivity(),expandableListTitle.get(groupPosition) + " List Expanded.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 //Cerrar lista desplegable.
                 expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
                     @Override
@@ -378,7 +376,7 @@ public class FragMenu extends BaseVolleyFragmentSoport {
 
                             List<Adiciones> adicionesList = new ArrayList<>();
                             Adiciones adiciones;
-                            for (int i = 0; i < getMenuListStatic().get(groupPosition).getProductos().get(childPosition).getAdicionesList().size(); i++){
+                            for (int i = 0; i < getMenuListStatic().get(groupPosition).getProductos().get(childPosition).getAdicionesList().size(); i++) {
                                 adiciones = new Adiciones();
                                 adiciones.setIdadicionales(getMenuListStatic().get(groupPosition).getProductos().get(childPosition).getAdicionesList().get(i).getIdadicionales());
                                 adiciones.setDescripcion(getMenuListStatic().get(groupPosition).getProductos().get(childPosition).getAdicionesList().get(i).getDescripcion());
@@ -398,9 +396,8 @@ public class FragMenu extends BaseVolleyFragmentSoport {
                         bundle.putSerializable("value", productoEditAdd);
                         bundle.putString("indicador", "nuevo");
                         bundle.putString("pagina", "editar");
-
                         intent.putExtras(bundle);
-                        startActivity(intent);
+                        startActivityForResult(intent, 1);
                         return false;
                     }
                 });
@@ -416,10 +413,10 @@ public class FragMenu extends BaseVolleyFragmentSoport {
                 Gson gson = new Gson();
                 comData = gson.fromJson(json, InformacioCompania.class);
 
-            }catch (IllegalStateException ex) {
+            } catch (IllegalStateException ex) {
                 ex.printStackTrace();
             }
-        }else{
+        } else {
             startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "EMPTY"));
             getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
@@ -431,16 +428,16 @@ public class FragMenu extends BaseVolleyFragmentSoport {
         if (json != null && json.length() > 0) {
             try {
                 Gson gson = new Gson();
-                comentarios = gson.fromJson(json, ListComentarios.class);
+                ListComentarios comentarios = gson.fromJson(json, ListComentarios.class);
 
-                adapter = new AdapterComentario(getActivity(), comentarios);
+                AdapterComentario adapter = new AdapterComentario(getActivity(), comentarios);
                 listView.setAdapter(adapter);
 
                 return true;
-            }catch (IllegalStateException ex) {
+            } catch (IllegalStateException ex) {
                 ex.printStackTrace();
             }
-        }else{
+        } else {
             startActivity(new Intent(getActivity(), DetailsActivity.class).putExtra("STATE", "EMPTY"));
             getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }

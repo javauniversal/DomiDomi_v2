@@ -38,7 +38,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.appgestor.domidomi.DataBase.DBHelper;
-import com.appgestor.domidomi.Entities.AddProductCar;
 import com.appgestor.domidomi.Entities.Ciudades;
 import com.appgestor.domidomi.Entities.Cliente;
 import com.appgestor.domidomi.Entities.MedioPago;
@@ -78,7 +77,6 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
     private Spinner spinner_zona;
     private String[] dir1_parant;
     private String[] ofic_parant;
-    private String[] dir1Zona_parant;
     private String Calle_Carrera;
     private String oficina_spinn;
     private String selecte_ciudad;
@@ -100,7 +98,6 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
     private LinearLayout input_layout_Efectivo_liner;
     private List<Cliente> mAppList = new ArrayList<>();
     private AlertDialog alertDialog;
-    ArrayAdapter<Ciudades> ciudadesArrayAdapter;
     LinearLayout ll;
     private TextView total_pedido;
     private DecimalFormat format;
@@ -753,7 +750,7 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
 
     private void loadLlenarZona() {
 
-        dir1Zona_parant = new String[]{"Bello", "Caldas", "Envigado",  "Itaguí", "La Estrella", "Medellín", "Sabaneta"};
+        String[] dir1Zona_parant = new String[]{"Bello", "Caldas", "Envigado", "Itaguí", "La Estrella", "Medellín", "Sabaneta"};
         ArrayAdapter<String> prec1 = new ArrayAdapter<>(this, R.layout.textview_spinner, dir1Zona_parant);
         spinner_zona.setAdapter(prec1);
         List<String> strListZona = new ArrayList<>(Arrays.asList(dir1Zona_parant));

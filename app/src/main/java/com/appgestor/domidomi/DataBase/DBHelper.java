@@ -17,7 +17,6 @@ import com.appgestor.domidomi.Entities.ProductoEditAdd;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class DBHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "MyDBName.db";
@@ -433,7 +432,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public int ultimoRegistro(String table){
+    public int ultimoRegistro(String table) {
         int _id = 0;
         String sql = "SELECT id FROM "+ table +" ORDER BY id DESC LIMIT 1";
         SQLiteDatabase db = this.getWritableDatabase();
@@ -446,7 +445,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return _id;
     }
 
-    public boolean insertUsuario  (Cliente data){
+    public boolean insertUsuario(Cliente data) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -760,6 +759,22 @@ public class DBHelper extends SQLiteOpenHelper {
 
         db.close();
         return a > 0;
+    }
+
+    public int getCantidadProducto(int empresa, int sede){
+
+        int cantidad = 0;
+        String sql = "SELECT COUNT(*) FROM carrito_producto WHERE id_sede = ? AND id_empresa = ?";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(sql, new String[] {String.valueOf(sede), String.valueOf(empresa)});
+
+        if (cursor.moveToFirst()) {
+            cantidad = cursor.getInt(0);
+        }
+
+        return cantidad;
+
     }
 
 }

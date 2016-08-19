@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.appgestor.domidomi.Entities.ListComentarios;
 import com.appgestor.domidomi.R;
 
-
 public class AdapterComentario extends BaseAdapter {
 
     private Activity actx;

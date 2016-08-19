@@ -3,9 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.appgestor.domiciliosya.Adtivities.ActMenu">
 
-    <item android:id="@+id/action_cart"
-        android:icon="@mipmap/ic_action_cartw"
-        app:showAsAction="always"
-        android:title="" />
+    <item
+        android:id="@+id/action_shop"
+        android:icon="@drawable/notification_drawable"
+        android:orderInCategory="1"
+        android:title="@string/celular"
+        app:showAsAction="ifRoom" />
 
 </menu>

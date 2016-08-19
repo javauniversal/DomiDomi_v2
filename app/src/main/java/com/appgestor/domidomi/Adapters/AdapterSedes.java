@@ -12,7 +12,6 @@ import com.appgestor.domidomi.R;
 
 import java.util.ArrayList;
 
-
 public class AdapterSedes extends BaseAdapter {
 
     private Activity actx;
