@@ -23,7 +23,7 @@
                 android:layout_height="200dp"
                 android:contentDescription="@string/app_name"
                 android:id="@+id/imgSede"
-                android:scaleType="centerCrop"/>
+                android:scaleType="fitCenter"/>
 
             <LinearLayout
                 android:orientation="horizontal"

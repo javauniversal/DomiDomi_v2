@@ -46,6 +46,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
     public List<ProductoEditAdd> mAppList;
     private Button pedirService;
     private String indicadorcar;
+    private Bundle reicieveParamslr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,7 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
 
         setSupportActionBar(toolbar);
 
-        Bundle reicieveParams = getIntent().getExtras();
+        reicieveParamslr = getIntent().getExtras();
 
         //indicadorcar = reicieveParams.getString("paginacion");
 
@@ -81,8 +82,8 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
         getSupportActionBar().setHomeButtonEnabled(true);
 
 
-        if (reicieveParams != null){
-            llenarData(reicieveParams);
+        if (reicieveParamslr != null){
+            llenarData(reicieveParamslr);
         }
 
         // step 1. create a MenuCreator
@@ -218,27 +219,39 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
 
     private void sumarValoresFinales(List<ProductoEditAdd> data){
 
-        if(data.size() > 0){
+        // Nota validacion cambio de precios
+        // Validar el precio de los productos, adiciones, domicilio, valor minimo etc...
+        if(data.size() > 0) {
             double dValor = 0;
 
             for (int i = 0; i < data.size(); i++) {
                 dValor = dValor + data.get(i).getValor_total();
             }
 
-            dValor = dValor + data.get(0).getCosto_envio();
-
-            valor_domicilio.setText(String.format("$ %s", format.format(data.get(0).getCosto_envio())));
+            if (dValor > data.get(0).getValor_gratis()) {
+                //Gratis
+                if (data.get(0).getValor_gratis() == 0) {
+                    dValor = dValor + data.get(0).getCosto_envio();
+                    valor_domicilio.setText(String.format("$ %s", format.format(data.get(0).getCosto_envio())));
+                } else {
+                    valor_domicilio.setText(String.format("$ %s", 0));
+                }
+            } else {
+                //Cobro
+                dValor = dValor + data.get(0).getCosto_envio();
+                valor_domicilio.setText(String.format("$ %s", format.format(data.get(0).getCosto_envio())));
+            }
 
             if (dValor > data.get(0).getValor_minimo()) {
                 pedirService.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 pedirService.setVisibility(View.GONE);
                 Toast.makeText(this, "El pedido no supera el valor mínimo.", Toast.LENGTH_LONG).show();
             }
 
             total_pago.setText(String.format("$ %s", format.format(dValor)));
 
-        }else{
+        } else {
             //pedirService.setVisibility(View.GONE);
             total_pago.setText(String.format("$ %s", 0));
         }
@@ -289,17 +302,20 @@ public class ActCar extends AppCompatActivity implements View.OnClickListener {
                 Date date = new Date();
                 DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss");
 
-                if (isHourInInterval(hourdateFormat.format(date).toString(), mAppList.get(0).getHora_inicial(), mAppList.get(0).getHora_final())){
-                    //Abierto
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("sede", mAppList.get(0).getId_sede());
-                    bundle.putInt("empresa", mAppList.get(0).getId_empresa());
-                    startActivity(new Intent(ActCar.this, ActFinalizarPedido.class).putExtras(bundle));
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-
+                mAppList = mydb.selectProductoCarrito(reicieveParamslr.getInt("empresa"), reicieveParamslr.getInt("sede"));
+                if (mAppList.size() > 0) {
+                    if (isHourInInterval(hourdateFormat.format(date).toString(), mAppList.get(0).getHora_inicial(), mAppList.get(0).getHora_final())) {
+                        //Abierto
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("sede", mAppList.get(0).getId_sede());
+                        bundle.putInt("empresa", mAppList.get(0).getId_empresa());
+                        startActivity(new Intent(ActCar.this, ActFinalizarPedido.class).putExtras(bundle));
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "El establecimiento se encuentra Cerrado", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    //Cerrado
-                    Toast.makeText(getApplicationContext(), "El establecimiento se encuentra Cerrado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "No tiene productos en el carrito", Toast.LENGTH_SHORT).show();
                 }
 
                 break;

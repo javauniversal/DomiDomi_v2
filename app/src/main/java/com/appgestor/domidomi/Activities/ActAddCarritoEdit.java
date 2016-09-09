@@ -294,6 +294,8 @@ public class ActAddCarritoEdit extends AppCompatActivity {
         addProductCar.setHora_final(productoEditAdd.getHora_final());
         addProductCar.setCosto_envio(productoEditAdd.getCosto_envio());
         addProductCar.setValor_minimo(productoEditAdd.getValor_minimo());
+        addProductCar.setValor_gratis(productoEditAdd.getValor_gratis());
+
 
         if(productoEditAdd.getAdicionesList() != null && productoEditAdd.getAdicionesList().size() > 0){
             List<Adiciones> adicionesList = new ArrayList<>();

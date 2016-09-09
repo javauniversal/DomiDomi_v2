@@ -52,11 +52,28 @@ public class PedidoWebCabeza {
     @SerializedName("mediosPagosList")
     private List<MedioPago> mediosPagosList;
 
+    @SerializedName("costo_envio_inicial")
+    private double costo_envio_inicial;
 
+    @SerializedName("costo_envio_final")
+    private double costo_envio_final;
 
+    public double getCosto_envio_inicial() {
+        return costo_envio_inicial;
+    }
 
+    public void setCosto_envio_inicial(double costo_envio_inicial) {
+        this.costo_envio_inicial = costo_envio_inicial;
+    }
 
-    //Metodo GET SET
+    public double getCosto_envio_final() {
+        return costo_envio_final;
+    }
+
+    public void setCosto_envio_final(double costo_envio_final) {
+        this.costo_envio_final = costo_envio_final;
+    }
+//Metodo GET SET
 
     public int getMedioPago() {
         return medioPago;

@@ -85,11 +85,40 @@ public class ActDetalleCompra extends AppCompatActivity {
     }
 
     private void cargarDomicilio(EstadoPedido item) {
-        txt_valor_domicilio.setText(String.format("$ %1s", format.format(item.getCosenvio())));
+
+        double costoEnvio;
+
+        if (total_producto+total_adiciones > item.getCosto_envio_gratis()) {
+            if (item.getCosto_envio_gratis() == 0) {
+                costoEnvio = item.getCosenvio();
+            } else {
+                costoEnvio = 0;
+            }
+        } else {
+            costoEnvio = item.getCosenvio();
+        }
+
+        txt_valor_domicilio.setText(String.format("$ %1s", format.format(costoEnvio)));
+
     }
 
     private void cargarSumaTotal(EstadoPedido item) {
-        txt_valor_total_prodocto.setText(String.format("$ %1s", format.format(total_producto+total_adiciones+item.getCosenvio())));
+
+        double totalPedido;
+
+        if (total_producto+total_adiciones > item.getCosto_envio_gratis()) {
+            if (item.getCosto_envio_gratis() == 0) {
+                totalPedido = total_producto+total_adiciones+item.getCosenvio();
+            } else {
+                totalPedido = total_producto+total_adiciones;
+            }
+        } else {
+            totalPedido = total_producto+total_adiciones+item.getCosenvio();
+        }
+
+        txt_valor_total_prodocto.setText(String.format("$ %1s", format.format(totalPedido)));
+
+
     }
 
     private void cargarProducto(EstadoPedido item) {

@@ -76,8 +76,8 @@ public class GCMIntentService extends GCMBaseIntentService {
     }
 
     private void registrarUsuario(final String username, final String regId){
-        //String url = "http://zonaapp.co/domidomi/service/notificaciones/";
-        String url = String.format("%1$s%2$s", getString(R.string.url_base), "notificaciones/");
+        String url = "http://192.168.2.24:96/service/notificaciones/";
+        //String url = String.format("%1$s%2$s", getString(R.string.url_base), "notificaciones/");
 
         RequestQueue rq = Volley.newRequestQueue(this);
         StringRequest jsonRequest = new StringRequest(Request.Method.POST, url,
@@ -110,7 +110,7 @@ public class GCMIntentService extends GCMBaseIntentService {
         String msg_limpio = msg;
         PendingIntent pi = null;
         boolean indicador = true;
-        for (int x=0; x < msg.length(); x++){
+        for (int x=0; x < msg.length(); x++) {
             if(msg.charAt(x) == '%') {
                 String sede = msg.substring(x + 1);
                 setSedeIdeStatic(Integer.parseInt(sede));
@@ -180,7 +180,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 
         }
 
-        if (indicador){
+        if (indicador) {
 
             Intent notIntent = new Intent(context, ActEstadoPedido.class);
             PendingIntent contIntent = PendingIntent.getActivity(context, 0, notIntent, 0);

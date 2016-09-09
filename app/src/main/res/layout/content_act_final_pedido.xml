@@ -347,7 +347,9 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_marginStart="8dp"
-                        android:layout_toEndOf="@+id/image_ofi">
+                        android:layout_toEndOf="@+id/image_ofi"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toRightOf="@+id/image_ofi">
 
                         <Spinner
                             android:layout_width="match_parent"
@@ -409,7 +411,9 @@
                         android:id="@+id/spinner_ciudad"
                         android:layout_marginStart="8dp"
                         android:layout_toEndOf="@+id/image_ciudad"
-                        android:textSize="@dimen/dimen_letra_app"/>
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:layout_toRightOf="@+id/image_ciudad"
+                        android:layout_marginLeft="8dp" />
 
                 </RelativeLayout>
 
@@ -439,7 +443,9 @@
                         android:id="@+id/spinner_zona"
                         android:layout_marginStart="8dp"
                         android:layout_toEndOf="@+id/image_zona"
-                        android:textSize="@dimen/dimen_letra_app"/>
+                        android:textSize="@dimen/dimen_letra_app"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toRightOf="@+id/image_zona" />
 
                 </RelativeLayout>
 
@@ -498,7 +504,9 @@
                         android:layout_toEndOf="@+id/image_barrio"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="8dp"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/image_barrio"
+                        android:layout_marginLeft="8dp">
 
                         <EditText
                             android:layout_width="match_parent"
@@ -537,7 +545,9 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="8dp"
                         android:layout_toEndOf="@+id/image_referencia"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toRightOf="@+id/image_referencia">
 
                         <EditText
                             android:layout_width="match_parent"
@@ -610,7 +620,9 @@
                         android:layout_marginStart="8dp"
                         android:layout_toEndOf="@+id/image_total"
                         android:textSize="@dimen/dimen_letra_app"
-                        android:id="@+id/total_pedido"/>
+                        android:id="@+id/total_pedido"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toRightOf="@+id/image_total" />
 
                 </RelativeLayout>
 

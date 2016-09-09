@@ -420,7 +420,6 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                             alertDialog.dismiss();
                             Toast.makeText(ActFinalizarPedido.this, "Problemas con el pedido.", Toast.LENGTH_LONG).show();
                         }
-
                     }
                 },
                 new Response.ErrorListener() {
@@ -456,8 +455,6 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
 
                 objeto.setDireccionReferen("Barrio: "+editBarrioCliente.getText().toString()+" "+editDirReferencia.getText().toString());
 
-                //objeto.setMedioPago(masterItem.getIdmediopago());
-
                 objeto.setValorPago(Double.valueOf(limpiarMascara(editEfectivo)));
                 objeto.setLatitud(latitud);
                 objeto.setLongitud(longitud);
@@ -465,10 +462,8 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
                 objeto.setIdSedeP(reicieveParams.getInt("sede"));
 
                 List<ProductoEditAdd> mAppList = mydb.selectProductoCarrito(reicieveParams.getInt("empresa"), reicieveParams.getInt("sede"));
-
-                /*for (int i = 0; i < mAppList.size(); i++) {
-                    mAppList.get(i).setAdicionesList(mydb.getAdiciones(mAppList.get(i).getIdProduct(), mAppList.get(i).getIdcompany(), mAppList.get(i).getIdsede()));
-                }*/
+                objeto.setCosto_envio_inicial(mAppList.get(0).getCosto_envio());
+                objeto.setCosto_envio_final(mAppList.get(0).getValor_gratis());
 
                 ArrayList<MedioPago> medioPagoList = new ArrayList<>();
 
@@ -646,18 +641,24 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
 
     private void sumarValoresFinales(List<ProductoEditAdd> data){
 
-        if(data.size() > 0){
+        if(data.size() > 0) {
             double dValor = 0;
 
             for (int i = 0; i < data.size(); i++) {
                 dValor = dValor + data.get(i).getValor_total();
             }
 
-            dValor = dValor + data.get(0).getCosto_envio();
+            if (dValor > data.get(0).getValor_gratis()) {
+                if (data.get(0).getValor_gratis() == 0) {
+                    dValor = dValor + data.get(0).getCosto_envio();
+                }
+            } else {
+                dValor = dValor + data.get(0).getCosto_envio();
+            }
 
             total_pedido.setText(String.format("Total a Pagar: $ %s", format.format(dValor)));
 
-        }else{
+        } else {
             total_pedido.setText(String.format("Total a Pagar: $ %s", 0));
         }
     }
@@ -830,46 +831,50 @@ public class ActFinalizarPedido extends AppCompatActivity implements View.OnClic
 
                     ll = (LinearLayout) findViewById(R.id.llMediosPagos);
 
-                    int mediosPAgos = sedeID.getMedioPagoList().size();
-                    for (int i = 0; i < mediosPAgos; i++) {
-                        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                        layoutParams.setMargins(0, 70, 0, 0);
-                        CheckBox cb = new CheckBox(ActFinalizarPedido.this);
-                        cb.setText(sedeID.getMedioPagoList().get(i).getDescripcion());
-                        cb.setId(sedeID.getMedioPagoList().get(i).getIdmediopago());
-                        if (ll != null)
-                            ll.addView(cb);
+                    if (sedeID.getMedioPagoList() != null) {
+                        int mediosPAgos = sedeID.getMedioPagoList().size();
+                        for (int i = 0; i < mediosPAgos; i++) {
+                            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            layoutParams.setMargins(0, 70, 0, 0);
+                            CheckBox cb = new CheckBox(ActFinalizarPedido.this);
+                            cb.setText(sedeID.getMedioPagoList().get(i).getDescripcion());
+                            cb.setId(sedeID.getMedioPagoList().get(i).getIdmediopago());
+                            if (ll != null)
+                                ll.addView(cb);
 
-                        cb.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
+                            cb.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
 
-                                for (int i = 0; i < root.getChildCount(); i++) {
-                                    View child = root.getChildAt(i);
-                                    if (child instanceof CheckBox) {
-                                        CheckBox cb = (CheckBox) child;
-                                        cb.setError(null);
+                                    for (int i = 0; i < root.getChildCount(); i++) {
+                                        View child = root.getChildAt(i);
+                                        if (child instanceof CheckBox) {
+                                            CheckBox cb = (CheckBox) child;
+                                            cb.setError(null);
+                                        }
+                                    }
+
+                                    if (((CheckBox) v).isChecked()) {
+
+                                        if (((CheckBox) v).getText().equals("Efectivo") || ((CheckBox) v).getText().equals("efectivo")) {
+                                            input_layout_Efectivo_liner.setVisibility(View.VISIBLE);
+                                        }
+
+                                    } else {
+
+                                        if (((CheckBox) v).getText().equals("Efectivo") || ((CheckBox) v).getText().equals("efectivo")) {
+                                            input_layout_Efectivo_liner.setVisibility(View.GONE);
+                                            editEfectivo.setText("0");
+                                        }
+
                                     }
                                 }
-
-                                if (((CheckBox) v).isChecked()) {
-
-                                    if (((CheckBox) v).getText().equals("Efectivo") || ((CheckBox) v).getText().equals("efectivo")) {
-                                        input_layout_Efectivo_liner.setVisibility(View.VISIBLE);
-                                    }
-
-                                } else {
-
-                                    if (((CheckBox) v).getText().equals("Efectivo") || ((CheckBox) v).getText().equals("efectivo")) {
-                                        input_layout_Efectivo_liner.setVisibility(View.GONE);
-                                        editEfectivo.setText("0");
-                                    }
-
-                                }
-                            }
-                        });
+                            });
+                        }
+                    } else {
+                        Toast.makeText(this, "El restaurante no tiene medios de pagos configurados", Toast.LENGTH_LONG).show();
+                        finish();
                     }
-
                 }
 
             }catch (IllegalStateException ex) {

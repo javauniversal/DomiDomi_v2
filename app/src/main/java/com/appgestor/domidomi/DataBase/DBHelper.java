@@ -22,7 +22,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "MyDBName.db";
 
     public DBHelper(Context context){
-        super(context, DATABASE_NAME, null, 1);
+        super(context, DATABASE_NAME, null, 2);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String sqlProductoCarrito = "CREATE TABLE carrito_producto (id integer primary key AUTOINCREMENT, id_producto INT, descripcion TEXT, " +
                                     " precio REAL, cantidad int, foto TEXT, estado INT, id_menu_movil INT, total_compra REAL, comentario TEXT, id_sede INT, " +
-                                    " id_empresa INT, nombre_sede TEXT, hora_inicial TEXT, hora_final TEXT, valor_minimo REAL, valor_domicilio REAL, ingrediente TEXT)";
+                                    " id_empresa INT, nombre_sede TEXT, hora_inicial TEXT, hora_final TEXT, valor_minimo REAL, valor_domicilio REAL, ingrediente TEXT, valor_gratis REAL)";
 
 
 
@@ -109,6 +109,7 @@ public class DBHelper extends SQLiteOpenHelper {
             values.put("valor_minimo", data.getValor_minimo());
             values.put("valor_domicilio", data.getCosto_envio());
             values.put("ingrediente", data.getIngredientes());
+            values.put("valor_gratis", data.getValor_gratis());
 
             db.insert("carrito_producto", null, values);
             idCarritoCompra = ultimoRegistro("carrito_producto");
@@ -260,7 +261,7 @@ public class DBHelper extends SQLiteOpenHelper {
         List<ProductoEditAdd> productoEditAddList = new ArrayList<>();
         int id_carrito = 0;
         String sql = "SELECT id, id_producto, descripcion, precio, cantidad, foto, estado, id_menu_movil, total_compra, id_empresa," +
-                "       comentario, id_sede, nombre_sede, hora_inicial, hora_final, valor_minimo, valor_domicilio, ingrediente" +
+                "       comentario, id_sede, nombre_sede, hora_inicial, hora_final, valor_minimo, valor_domicilio, ingrediente, valor_gratis" +
                 "       FROM carrito_producto WHERE id_sede = "+sede+" AND id_empresa = "+empresa;
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -290,6 +291,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 productoEditAdd.setValor_minimo(Double.parseDouble(cursor.getString(15)));
                 productoEditAdd.setCosto_envio(Double.parseDouble(cursor.getString(16)));
                 productoEditAdd.setIngredientes(cursor.getString(17));
+                productoEditAdd.setValor_gratis(cursor.getDouble(18));
 
                 String sql2 = "SELECT id, idAdicion, descripcion, tipo, valor, estado, idproductos, idSede, idEmpresa, idCarrito, cantidadAdicion " +
                         "        FROM adiciones WHERE idCarrito = "+id_carrito+" AND idSede = "+sede+" AND idEmpresa = "+empresa;

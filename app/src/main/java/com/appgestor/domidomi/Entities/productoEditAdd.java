@@ -38,6 +38,8 @@ public class ProductoEditAdd implements Serializable {
     @SerializedName("adicionesListselet")
     private List<Adiciones> adicionesListselet;
 
+    private double valor_gratis;
+
     private String nombre_sede;
 
     private String hora_inicial;
@@ -224,6 +226,14 @@ public class ProductoEditAdd implements Serializable {
 
     public void setAdicionesList(List<Adiciones> adicionesList) {
         this.adicionesList = adicionesList;
+    }
+
+    public double getValor_gratis() {
+        return valor_gratis;
+    }
+
+    public void setValor_gratis(double valor_gratis) {
+        this.valor_gratis = valor_gratis;
     }
 
 }

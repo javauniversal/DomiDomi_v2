@@ -642,7 +642,7 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
 
     private void CargarMedioPago() {
 
-        if (getMedioPagoListstatic() != null){
+        if (getMedioPagoListstatic() != null) {
 
             ll = (LinearLayout) findViewById(R.id.llMediosPagos);
 
@@ -683,6 +683,8 @@ public class ActFinalizarPedidoMenu extends AppCompatActivity implements View.On
                 });
             }
 
+        } else {
+            Toast.makeText(this, "El restaurante no tiene medios de pagos configurados", Toast.LENGTH_LONG).show();
         }
     }
 

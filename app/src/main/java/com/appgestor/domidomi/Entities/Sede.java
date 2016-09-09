@@ -67,6 +67,17 @@ public class Sede {
     @SerializedName("calificacion")
     private double calificacion;
 
+    @SerializedName("cosenviofinal")
+    private double cosenviofinal;
+
+    public double getCosenviofinal() {
+        return cosenviofinal;
+    }
+
+    public void setCosenviofinal(double cosenviofinal) {
+        this.cosenviofinal = cosenviofinal;
+    }
+
     public double getCalificacion() {
         return calificacion;
     }

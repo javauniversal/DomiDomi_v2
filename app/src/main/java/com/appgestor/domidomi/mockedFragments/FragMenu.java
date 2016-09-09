@@ -233,38 +233,7 @@ public class FragMenu extends BaseVolleyFragmentSoport {
                     @Override
                     public void onResponse(final String response) {
                         // response
-                        new AsyncTask<String[], Long, Long>() {
-                            @Override
-                            protected Long doInBackground(String[]... params) {
-                                parseJSON2(response);
-                                return null;
-                            }
-
-                            protected void onPreExecute() {
-                                //multiColumnList.setVisibility(View.GONE);
-                            }
-
-                            @Override
-                            public void onProgressUpdate(Long... value) {
-
-                            }
-
-                            @Override
-                            protected void onPostExecute(Long result) {
-
-                                nombreEmpresa.setText(comData.getDescripcion());
-                                nit.setText(comData.getNit());
-                                //direccion.setText(String.format("Dir: %1$s", comData.getDireccion()));
-                                telefono.setText(String.format("%1$s", comData.getTelefono()));
-                                celular.setText(String.format("%1$s", comData.getCelular()));
-
-                                if (comData.getSedes() != null || comData.getSedes().size() > 1) {
-                                    setAdapterSedes(comData.getSedes());
-                                    //adapterSedes = new AdapterSedes(getActivity(), infor.getHijos());
-                                    //sedes.setAdapter(adapterSedes);
-                                }
-                            }
-                        }.execute();
+                       parseJSON2(response);
                     }
                 },
                 new Response.ErrorListener() {
@@ -370,6 +339,7 @@ public class FragMenu extends BaseVolleyFragmentSoport {
                         productoEditAdd.setHora_inicial(getSedeStaticNew().getHorainicio());
                         productoEditAdd.setHora_final(getSedeStaticNew().getHorafinal());
                         productoEditAdd.setValor_minimo(getSedeStaticNew().getPedidomeinimo());
+                        productoEditAdd.setValor_gratis(getSedeStaticNew().getCosenviofinal());
 
                         if (getMenuListStatic().get(groupPosition).getProductos().get(childPosition).getAdicionesList() != null &&
                                 getMenuListStatic().get(groupPosition).getProductos().get(childPosition).getAdicionesList().size() > 0) {
@@ -408,10 +378,21 @@ public class FragMenu extends BaseVolleyFragmentSoport {
 
     private void parseJSON2(String json) {
 
-        if (json != null || json.length() > 0 && !json.equals("[null]")) {
+        if (!json.equals("null")) {
             try {
                 Gson gson = new Gson();
                 comData = gson.fromJson(json, InformacioCompania.class);
+
+                nombreEmpresa.setText(comData.getDescripcion());
+                nit.setText(comData.getNit());
+                telefono.setText(String.format("%1$s", comData.getTelefono()));
+                celular.setText(String.format("%1$s", comData.getCelular()));
+
+                if (comData.getSedes() != null || comData.getSedes().size() > 1) {
+                    setAdapterSedes(comData.getSedes());
+                    //adapterSedes = new AdapterSedes(getActivity(), infor.getHijos());
+                    //sedes.setAdapter(adapterSedes);
+                }
 
             } catch (IllegalStateException ex) {
                 ex.printStackTrace();

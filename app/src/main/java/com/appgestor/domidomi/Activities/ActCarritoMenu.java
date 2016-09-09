@@ -230,27 +230,37 @@ public class ActCarritoMenu extends AppCompatActivity implements View.OnClickLis
 
     private void sumarValoresFinales(List<ProductoEditAdd> data){
 
-        if(data.size() > 0){
+        if(data.size() > 0) {
             double dValor = 0;
 
             for (int i = 0; i < data.size(); i++) {
                 dValor = dValor + data.get(i).getValor_total();
             }
 
-            dValor = dValor + data.get(0).getCosto_envio();
-
-            valor_domicilio.setText(String.format("$ %s", format.format(data.get(0).getCosto_envio())));
+            if (dValor > data.get(0).getValor_gratis()) {
+                //Gratis
+                if (data.get(0).getValor_gratis() == 0) {
+                    dValor = dValor + data.get(0).getCosto_envio();
+                    valor_domicilio.setText(String.format("$ %s", format.format(data.get(0).getCosto_envio())));
+                } else {
+                    valor_domicilio.setText(String.format("$ %s", 0));
+                }
+            } else {
+                //Cobro
+                dValor = dValor + data.get(0).getCosto_envio();
+                valor_domicilio.setText(String.format("$ %s", format.format(data.get(0).getCosto_envio())));
+            }
 
             if (dValor > data.get(0).getValor_minimo()) {
                 pedirService.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 pedirService.setVisibility(View.GONE);
                 Toast.makeText(this, "El pedido no supera el valor mínimo.", Toast.LENGTH_LONG).show();
             }
 
             total_pago.setText(String.format("$ %s", format.format(dValor)));
 
-        }else{
+        } else {
             //pedirService.setVisibility(View.GONE);
             total_pago.setText(String.format("$ %s", 0));
         }

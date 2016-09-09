@@ -59,6 +59,17 @@ public class EstadoPedido implements Serializable {
     @SerializedName("detalle")
     private List<DetallePedido> detallePedidoList;
 
+    @SerializedName("costo_envio_gratis")
+    private double costo_envio_gratis;
+
+    public double getCosto_envio_gratis() {
+        return costo_envio_gratis;
+    }
+
+    public void setCosto_envio_gratis(double costo_envio_gratis) {
+        this.costo_envio_gratis = costo_envio_gratis;
+    }
+
     public List<DetallePedido> getDetallePedidoList() {
         return detallePedidoList;
     }
